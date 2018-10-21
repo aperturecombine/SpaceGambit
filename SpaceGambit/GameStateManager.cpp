@@ -2,15 +2,40 @@
 
 
 GameStateManager::GameStateManager() {
-	this->currentState = MENUSTATE;
-	this->states.push(new MenuState(*this));
+	pushState(new MenuState(*this));
 
 	running = true;
 }
 
 void GameStateManager::start() {
+	sf::RenderWindow window(sf::VideoMode(800, 600), "Space Gambit");
+
+	sf::Clock clock;
+
 	while (running) {
-		this->states.top()->update();
+		sf::Event event;
+		while (window.pollEvent(event)) {
+			if (event.type == sf::Event::Closed)
+				running = false;
+		}
+
+		this->states.top()->handleInput();
+
+		float deltams = clock.getElapsedTime().asMicroseconds();
+
+		this->states.top()->update(deltams);
 		this->states.top()->draw();
+		
+		window.display();
+
+		clock.restart();
 	}
+}
+
+void GameStateManager::pushState(GameState * state) {
+	this->states.push(state);
+}
+
+void GameStateManager::popState() {
+	this->states.pop();
 }

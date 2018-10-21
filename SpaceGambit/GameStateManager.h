@@ -1,16 +1,16 @@
 #pragma once
 #include <stack>
 #include "MenuState.h"
+#include <SFML\Graphics.hpp>
 
 class GameStateManager {
 public:
-	static const int MENUSTATE = 0;
-	static const int FIRSTLEVELSTATE = 1;
-
 	GameStateManager();
 	~GameStateManager() {}
 
 	void start();
+	void pushState(GameState* state);
+	void popState();
 
 private:
 	std::stack<class GameState*> states;
