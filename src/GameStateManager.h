@@ -17,3 +17,4 @@ private:
 	int currentState;
 
 	bool running;
+};
