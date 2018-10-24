@@ -1,7 +1,6 @@
 #pragma once
 #include <stack>
 #include "MenuState.h"
-#include <SFML/Graphics.hpp>
 
 class GameStateManager {
 public:
@@ -17,4 +16,4 @@ private:
 	int currentState;
 
 	bool running;
-};
+};};
