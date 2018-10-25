@@ -12,6 +12,8 @@ public:
 	void pushState(GameState* state);
 	void popState();
 
+	sf::RenderWindow window;
+
 private:
 	std::stack<class GameState*> states;
 	int currentState;
