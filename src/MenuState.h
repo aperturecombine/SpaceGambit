@@ -1,15 +1,37 @@
 #pragma once
-#include <SFML/Graphics.hpp>
 #include "GameState.h"
+#include "GameStateManager.h"
+#include <string.h>
+#include <SFML\Graphics.hpp>
+
 class MenuState : public GameState {
 public:
-	MenuState(class GameStateManager& gsm);
-	virtual void update();
+	MenuState(class GameStateManager *gsm);
+	virtual void update(float deltams);
 	virtual void draw();
-    virtual void handleInput();
-    
+	virtual void handleInput(sf::Event event);
 
 private:
-    void Init(class GameStateManager& gsm);
-    bool MenuState::isClicked(sf::Sprite object, sf::Mouse::Button button, sf::RenderWindow &window);
+	GameStateManager *gsm;
+
+	sf::Font font;
+	sf::Text text;
+
+	int currentChoice;
+	std::string options[3] = { "Play", "Options", "Quit" };
+
+	void moveUp() {
+		currentChoice--;
+		if (currentChoice < 0)
+			currentChoice = 2;
+	}
+	void moveDown() {
+		currentChoice++;
+		if (currentChoice > 2)
+			currentChoice = 0;
+	}
+
+	void centerText(sf::Text *text, int y);
+
+	void select();
 };
