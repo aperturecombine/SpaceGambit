@@ -5,6 +5,7 @@ GameStateManager::GameStateManager() {
 	pushState(new MenuState(*this));
 
 	running = true;
+    
 }
 
 void GameStateManager::start() {
