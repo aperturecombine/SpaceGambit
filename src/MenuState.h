@@ -1,6 +1,6 @@
 #pragma once
 #include "GameState.h"
-#include "<SFML/Graphics.hpp"
+#include <SFML/Graphics.hpp>
 class MenuState : public GameState {
 public:
 	MenuState(class GameStateManager& gsm);
