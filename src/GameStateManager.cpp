@@ -1,9 +1,8 @@
 #include "GameStateManager.h"
 
-
 GameStateManager::GameStateManager() {
-	pushState(new MenuState(*this));
-
+    pushState(new MenuState(*this));
+//    pushState(new PlayState(*this));
 	running = true;
     
 }
@@ -25,7 +24,7 @@ void GameStateManager::start() {
 		float deltams = clock.getElapsedTime().asMicroseconds();
 
 		this->states.top()->update(deltams);
-		this->states.top()->draw();
+		this->states.top()->draw(&window);
 		
 		window.display();
 
