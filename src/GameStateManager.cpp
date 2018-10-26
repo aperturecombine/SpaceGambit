@@ -2,7 +2,7 @@
 
 GameStateManager::GameStateManager() {
     pushState(new MenuState(*this));
-//    pushState(new PlayState(*this));
+    pushState(new PlayState(*this));
 	running = true;
     
 }
@@ -23,6 +23,8 @@ void GameStateManager::start() {
 
 		float deltams = clock.getElapsedTime().asMicroseconds();
 
+        window.setVerticalSyncEnabled(true);
+        
 		this->states.top()->update(deltams);
 		this->states.top()->draw(&window);
 		
