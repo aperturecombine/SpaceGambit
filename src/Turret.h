@@ -149,7 +149,7 @@ public:
             }
         else
         {
-            movable = true;
+            moveable = true;
         }
     }
     
