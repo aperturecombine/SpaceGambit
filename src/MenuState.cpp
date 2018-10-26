@@ -5,7 +5,7 @@
 MenuState::MenuState(class GameStateManager *g) {
 	gsm = g;
 	currentChoice = 0;
-
+	
 	if (!font.loadFromFile("arial.ttf"))
 		printf("font load error");
 
