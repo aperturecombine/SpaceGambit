@@ -1,6 +1,8 @@
 #pragma once
 #include <stack>
 #include "MenuState.h"
+#include "PlayState.h"
+#include "rocketShip.h"
 #include <SFML/Graphics.hpp>
 
 class GameStateManager {
