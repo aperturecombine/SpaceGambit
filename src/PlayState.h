@@ -6,10 +6,15 @@
 
 class PlayState : public GameState {
 public:
-    PlayState(class GameStateManager& gsm);
-    void update(float deltams);
-    void draw(sf::RenderWindow *window);
-    void handleInput();
+    PlayState(class GameStateManager *gsm);
+    virtual void update(float deltams);
+    virtual void draw(sf::RenderWindow *window);
+    virtual void handleInput(sf::Event event);
     rocketShip ship1;
     rocketShip ship2;
+    
+private:
+    GameStateManager *gsm;
+    
 };
+

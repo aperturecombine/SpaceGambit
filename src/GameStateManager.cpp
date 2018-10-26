@@ -3,7 +3,8 @@
 
 GameStateManager::GameStateManager() {
 	pushState(new MenuState(this));
-
+    pushState(new PlayState(this));
+    
 	running = true;
 	window.create(sf::VideoMode(800, 600), "Space Gambit");
 }

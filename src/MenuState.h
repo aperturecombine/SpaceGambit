@@ -2,7 +2,7 @@
 #include "GameState.h"
 #include "GameStateManager.h"
 #include <string.h>
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
 
 class MenuState : public GameState {
 public:

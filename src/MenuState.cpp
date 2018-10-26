@@ -26,7 +26,7 @@ void MenuState::draw(sf::RenderWindow *window) {
 	gsm->window.draw(text);
 
 	text.setCharacterSize(24);
-	for (int i = 0; i < std::size(options); i++) {
+	for (int i = 0; i < 3; i++) {
 		if (i == currentChoice)
 			text.setString("> " + options[i] + " <");
 		else
