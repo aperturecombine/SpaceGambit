@@ -8,7 +8,7 @@ class MenuState : public GameState {
 public:
 	MenuState(class GameStateManager *gsm);
 	virtual void update(float deltams);
-	virtual void draw();
+	virtual void draw(sf::RenderWindow *window);
 	virtual void handleInput(sf::Event event);
 
 private:

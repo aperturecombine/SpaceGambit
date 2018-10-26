@@ -17,7 +17,7 @@ void MenuState::update(float deltams) {
 
 }
 
-void MenuState::draw() {
+void MenuState::draw(sf::RenderWindow *window) {
 	gsm->window.clear(sf::Color(0,0,0));
 	
 	text.setCharacterSize(70);

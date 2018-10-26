@@ -16,7 +16,7 @@ void GameStateManager::start() {
 		float deltams = clock.getElapsedTime().asMicroseconds();
 
 		this->states.top()->update(deltams);
-		this->states.top()->draw();
+		this->states.top()->draw(&window);
 
 		window.display();
 
