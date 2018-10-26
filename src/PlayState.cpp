@@ -2,13 +2,18 @@
 #include <stdio.h>
 #include <SFML/Graphics.hpp>
 #include "rocketShip.h"
+#include "Turret.h"
 #include "PlayState.h"
 #include "GameState.h"
 #include "GameStateManager.h"
 
 
-PlayState::PlayState(class GameStateManager& gsm) {
+PlayState::PlayState(class GameStateManager &g) {
     std::cout << "PlayState declared" << std::endl;
+    GameStateManager gsm = g;
+    
+//    int width = gsm.window.GetWidth ();
+//    int height = gsm.window -> Get
 }
 
 void PlayState::update(float deltams) {
