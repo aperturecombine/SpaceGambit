@@ -7,7 +7,7 @@ public:
     sf::CircleShape shell;
     sf::Vector2f direction;
     
-    int speed = 0;
+    float speed = 0;
     int radius = 10;
     int width = 800;
     int height = 600;
@@ -17,10 +17,10 @@ public:
         //create the basic object of the bullet
         shell.setRadius(radius);
         shell.setPointCount(20);
-        shell.setOrigin(-100, -100);
+        shell.setPosition(turretLocation.x, turretLocation.y);
     
         
-        speed = 2;
+        speed = .001;
         
         //compare the distances between the turret and the ships
         //give the bullet the direction of the nearest ship
@@ -28,33 +28,35 @@ public:
         if( pow(pow(direction1.x - turretLocation.x,2)+pow(direction1.y - turretLocation.y,2),.5) < pow(pow(direction2.x - turretLocation.x,2)+pow(direction2.y - turretLocation.y,2),.5)){
             
             direction.x = speed*(turretLocation.x - direction1.x)*-1;
-            direction.y = speed*(turretLocation.y - direction1.y);
+            direction.y = speed*(turretLocation.y - direction1.y)*-1;
             
         }
         else if(pow(pow(direction1.x - turretLocation.x,2)+pow(direction1.y - turretLocation.y,2),.5) > pow(pow(direction2.x - turretLocation.x,2)+pow(direction2.y - turretLocation.y,2),.5)){
             direction.x = speed*(turretLocation.x - direction2.x)*-1;
-            direction.y = speed*(turretLocation.y - direction2.y);
+            direction.y = speed*(turretLocation.y - direction2.y)*-1;
         }
         
         else if(direction1.x > direction2.x){
             direction.x = speed*(turretLocation.x - direction1.x)*-1;
-            direction.y = speed*(turretLocation.y - direction1.y);
+            direction.y = speed*(turretLocation.y - direction1.y)*-1;
         }
         
         else {
             direction.x = speed*(turretLocation.x - direction2.x)*-1;
-            direction.y = speed*(turretLocation.y - direction2.y);
+            direction.y = speed*(turretLocation.y - direction2.y)*-1;
         }
         
     }
     
     void disposeObject()
     {
-        delete this;
+//        delete this;
     }
     
     void move(){
         shell.move(direction.x, direction.y);
+        std::cout << shell.getPosition().x << std::endl;
+        std::cout << shell.getPosition().y << std::endl;
         if(!withinBounds()){
             disposeObject();
         }
