@@ -30,14 +30,14 @@ public:
     
     
     //Default Constructor
-    turret(int x, int y)
+    turret(int x, int y, sf::Vector2f ship1, sf::Vector2f ship2)
     {
         direction.x = 0;
         direction.y = 0;
         position.x = x;
         position.y = y;
         
-        b1 = machineGunBullet(sf::Vector2f(10,10),sf::Vector2f(10,10),sf::Vector2f(x,y));
+        b1 = machineGunBullet(ship1,ship2,sf::Vector2f(x,y));
         
         createTurret();
         
