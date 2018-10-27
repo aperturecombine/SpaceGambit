@@ -21,8 +21,10 @@ public:
         //create the basic object of the bullet
         shell.setRadius(radius);
         shell.setPointCount(20);
+        
         shell.setPosition(turretLocation.x, turretLocation.y);
     
+        
         
         speed = .001;
         
