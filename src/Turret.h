@@ -27,12 +27,12 @@ public:
     
     
     //Default Constructor
-    turret()
+    turret(int x, int y)
     {
         direction.x = 0;
         direction.y = 0;
-//        position.x = play_ball.getPosition().x;
-//        position.y = play_ball.getPosition().y;
+        position.x = x;
+        position.y = y;
         
         sf::RectangleShape turretObject(sf::Vector2f(120.f, 50.f));
         turretObject.setSize(sf::Vector2f(300.f, 300.f));
@@ -50,7 +50,7 @@ public:
     void move(int angle)
     {
         setDirection(angle);
-        if (moveable)
+        if (false)
         {
             turretObject.move(direction.x,direction.y);
         }
@@ -128,8 +128,7 @@ public:
     {
         turretObject.setSize(sf::Vector2f(20, 20));
         turretObject.setOrigin(10,10);
-        turretObject.setPosition(100, 100);
-
+        turretObject.setPosition(position.x, position.y);
     }
     
     
@@ -138,7 +137,7 @@ public:
         moveable = !moveable;
         
         confirmLocation();
-        
+
     }
     
     void confirmLocation()
