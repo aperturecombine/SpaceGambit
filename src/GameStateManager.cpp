@@ -25,10 +25,12 @@ void GameStateManager::start() {
 		while (window.pollEvent(event)) {
 			if (event.type == sf::Event::Closed)
 				running = false;
-			if (event.type == sf::Event::KeyPressed || event.type == sf::Event::KeyReleased)
-				this->states.top()->handleInput(event);
+//            if (event.type == sf::Event::KeyPressed || event.type == sf::Event::KeyReleased)
+            this->states.top()->handleInput(event);
+            
+            
 		}
-
+        this->states.top()->handleInput();
 		clock.restart();
 	}
 }
