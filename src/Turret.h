@@ -26,7 +26,7 @@ public:
     bool moveable;
     bool finalLocation;
     
-    machineGunBullet b1 = machineGunBullet(sf::Vector2f(10,10),sf::Vector2f(10,10),sf::Vector2f(600,500));
+    machineGunBullet b1;
     
     
     //Default Constructor
@@ -36,6 +36,8 @@ public:
         direction.y = 0;
         position.x = x;
         position.y = y;
+        
+        b1 = machineGunBullet(sf::Vector2f(10,10),sf::Vector2f(10,10),sf::Vector2f(x,y));
         
         createTurret();
         
