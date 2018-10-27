@@ -49,6 +49,10 @@ void MenuState::handleInput(sf::Event event) {
 	}
 }
 
+void MenuState::handleInput() {
+}
+
+
 void MenuState::centerText(sf::Text *text, int y) {
 	sf::FloatRect textRect = text->getLocalBounds();
 	text->setOrigin(textRect.left + textRect.width / 2.0f,
