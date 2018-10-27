@@ -1,5 +1,6 @@
 #pragma once
 #include "GameState.h"
+#include "PlayState.h"
 #include "GameStateManager.h"
 #include <string.h>
 #include <SFML/Graphics.hpp>

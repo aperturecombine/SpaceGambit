@@ -59,4 +59,6 @@ void MenuState::centerText(sf::Text *text, int y) {
 void MenuState::select() {
 	if (currentChoice == 2)
 		gsm->popState();
+	if (currentChoice == 0)
+		gsm->pushState(new PlayState(gsm));
 }
