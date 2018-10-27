@@ -30,7 +30,7 @@ void PlayState::draw(sf::RenderWindow *window) {
     window->draw(t1.turretObject);
     window->draw(t1.b1.shell);
     window->draw(t2.turretObject);
-//    window->draw(t2.b1.shell);
+    window->draw(t2.b1.shell);
     
     for(int i = 0; i <t1.bulletsVector.size(); ++i)
     {
