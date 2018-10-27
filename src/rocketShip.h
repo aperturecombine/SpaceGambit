@@ -12,7 +12,7 @@ class rocketShip
 {
 public:
     // create an empty shape
-    sf::CircleShape play_ball;
+    sf::CircleShape rocketShipObject;
     
     int defense = 5;
     int attack = 2;
@@ -28,10 +28,10 @@ public:
     //Default Constructor
     rocketShip()
     {
-        // sf::CircleShape play_ball;
-        play_ball.setRadius(20);
-        play_ball.setPointCount(20);
-        play_ball.setOrigin(-100, -100);
+        // sf::CircleShape rocketShipObject;
+        rocketShipObject.setRadius(20);
+        rocketShipObject.setPointCount(20);
+        rocketShipObject.setOrigin(-100, -100);
         direction.x = 0;
         direction.y = 0;
         speed = 2;
@@ -43,8 +43,8 @@ public:
     {
         setDirection(angle);
         // if (withinBonds())
-        play_ball.move(speed*direction.x, speed*direction.y);
-        std::cout << "Rocket Position: " << play_ball.getPosition().x << ", " << play_ball.getPosition().y << std::endl;
+        rocketShipObject.move(speed*direction.x, speed*direction.y);
+        std::cout << "Rocket Position: " << rocketShipObject.getPosition().x << ", " << rocketShipObject.getPosition().y << std::endl;
     }
     
     
@@ -110,10 +110,10 @@ public:
     {
         
         
-        if(play_ball.getPosition().x + 20 < width &&
-           play_ball.getPosition().x - 20 > 0 &&
-           play_ball.getPosition().y + 20 < height &&
-           play_ball.getPosition().y - 20 > 0)
+        if(rocketShipObject.getPosition().x + 20 < width &&
+           rocketShipObject.getPosition().x - 20 > 0 &&
+           rocketShipObject.getPosition().y + 20 < height &&
+           rocketShipObject.getPosition().y - 20 > 0)
         {
             return true;
         }
