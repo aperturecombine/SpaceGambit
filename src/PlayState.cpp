@@ -35,8 +35,8 @@ void PlayState::handleInput(sf::Event event) {
 }
 
 
-
-//void PlayState::handleInput() {
+//
+//void PlayState::handleInput(sf::Event event) {
 //
 //    if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) && sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 //    {
