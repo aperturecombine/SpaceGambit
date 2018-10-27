@@ -46,7 +46,7 @@ public:
         // if (withinBonds())
         rocketShipObject.move(speed*direction.x, speed*direction.y);
 //        std::cout << "Rocket Position: " << rocketShipObject.getPosition().x << ", " << rocketShipObject.getPosition().y<< std::endl;
-        std::cout << "\tRocket Speed: " << speed*direction.x << " - " << speed*direction.y << std::endl;
+//        std::cout << "\tRocket Speed: " << speed*direction.x << " - " << speed*direction.y << std::endl;
     }
     
     

@@ -52,18 +52,18 @@ public:
         
     }
     
-    void disposeObject()
-    {
-//        delete this;
-    }
+//    void disposeObject()
+//    {
+////        delete this;
+//    }
     
     void move(){
         shell.move(direction.x, direction.y);
-        std::cout << shell.getPosition().x << std::endl;
-        std::cout << shell.getPosition().y << std::endl;
-        if(!withinBounds()){
-            disposeObject();
-        }
+//        std::cout << shell.getPosition().x << std::endl;
+//        std::cout << shell.getPosition().y << std::endl;
+//        if(!withinBounds()){
+//            disposeObject();
+//        }
     }
     
     
@@ -74,10 +74,12 @@ public:
            shell.getPosition().y + 20 < height &&
            shell.getPosition().y - 20 > 0)
         {
+            std::cout << "Within:" <<shell.getPosition().x<< ", " << shell.getPosition().y << std::endl;
             return true;
         }
         else
         {
+            std::cout << "Outside:" <<shell.getPosition().x<< ", " << shell.getPosition().y << std::endl;
             return false;
         }
     }
