@@ -23,10 +23,8 @@ public:
         shell.setPointCount(20);
         
         shell.setPosition(turretLocation.x, turretLocation.y);
-    
         
-        
-        speed = .001;
+        speed = .01;
         
         //compare the distances between the turret and the ships
         //give the bullet the direction of the nearest ship

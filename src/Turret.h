@@ -6,6 +6,7 @@
 #include <math.h>
 #include "machineGunBullet.h"
 #include <iostream>
+#include <thread>
 using namespace std;
 
 
@@ -19,13 +20,14 @@ public:
     int attack = 2;
     sf::Vector2f direction;
     sf::Vector2f position;
-
+    
     //Direction Change Factor
     int windowWidth = 800;
     int windowHeight = 600;
     bool moveable;
     bool finalLocation;
-    
+//    std::thread creation;
+    std::vector<machineGunBullet> bulletsVector;
     machineGunBullet b1;
     
     
@@ -39,15 +41,37 @@ public:
         
         b1 = machineGunBullet(ship1,ship2,sf::Vector2f(x,y));
         
-        createTurret();
+        std::cout << "Before thread " << std::endl;
+        std::thread creation(&turret::bulletCreation,this,ship1, ship2);
+        std::cout << "After thread " << std::endl;
+        
+//        std::thread creation(bulletCreation, ship1, ship2);
         
         moveable = true;
         finalLocation = false;
+        creation.join();
     }
     
-    void fire(){
+    void fire()
+    {
         b1.move();
+        for(int i = 0; i <bulletsVector.size(); ++i)
+        {
+            bulletsVector[i].move();
+        }
     }
+    
+    void bulletCreation(sf::Vector2f ship1, sf::Vector2f ship2)
+    {
+        for(int i = 0; i < 3; ++i) {
+            machineGunBullet bullet;
+            bullet = machineGunBullet(ship1,ship2,sf::Vector2f(position.x,position.y));
+            bulletsVector.push_back(bullet);
+            sf::sleep(sf::seconds(1));
+        }
+        
+    }
+    
     
     
     void move(int angle)
@@ -57,7 +81,6 @@ public:
         {
             turretObject.move(direction.x,direction.y);
         }
-        moveItMoveIt();
 //        setPosition(play_ball);
         std::cout << "Turret Position: " << position.x << ", " << position.y << std::endl;
     }
@@ -121,12 +144,7 @@ public:
     {
         return position.y;
     }
-    
-    void moveItMoveIt()
-    {
 
-    }
-    
     void createTurret()
     {
         turretObject.setSize(sf::Vector2f(100.f, 100.f));
@@ -154,23 +172,8 @@ public:
             moveable = true;
         }
     }
+
     
-    
-    
-//    bool withinBonds()
-//    {
-//        if(play_ball.getPosition().x + 20 < windowWidth &&
-//           play_ball.getPosition().x - 20 > 0 &&
-//           play_ball.getPosition().y + 20 < windowHeight &&
-//           play_ball.getPosition().y - 20 > 0)
-//        {
-//            return true;
-//        }
-//        else
-//        {
-//            return false;
-//        }
-//    }
     
     
     
