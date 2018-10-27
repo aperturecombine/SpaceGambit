@@ -12,6 +12,10 @@ public:
     int width = 800;
     int height = 600;
     
+    machineGunBullet(){
+        
+    }
+    
     machineGunBullet(sf::Vector2f direction1, sf::Vector2f direction2, sf::Vector2f turretLocation){
         
         //create the basic object of the bullet
