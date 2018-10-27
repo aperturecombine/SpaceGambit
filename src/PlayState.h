@@ -11,6 +11,7 @@ public:
     virtual void update(float deltams);
     virtual void draw(sf::RenderWindow *window);
     virtual void handleInput(sf::Event event);
+    virtual void handleInput();
     rocketShip ship1;
     rocketShip ship2;
     turret t1 = turret(600, 20);
