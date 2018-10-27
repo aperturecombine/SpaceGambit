@@ -6,6 +6,7 @@
 #include <math.h>
 #include "machineGunBullet.h"
 #include <iostream>
+#include <list>
 #include <thread>
 using namespace std;
 
@@ -27,49 +28,52 @@ public:
     bool moveable;
     bool finalLocation;
 //    std::thread creation;
-    std::vector<machineGunBullet> bulletsVector;
-    machineGunBullet b1;
+    std::list<machineGunBullet> listOfBullets;
+    std::list<machineGunBullet>::iterator bulletIt;
     
     
     //Default Constructor
-    turret(int x, int y, sf::Vector2f ship1, sf::Vector2f ship2)
+    turret(int x, int y, sf::Vector2f ship1Coordinates, sf::Vector2f ship2Coordinates)
     {
         direction.x = 0;
         direction.y = 0;
         position.x = x;
         position.y = y;
         
-        b1 = machineGunBullet(ship1,ship2,sf::Vector2f(x,y));
-        
         std::cout << "Before thread " << std::endl;
-        std::thread creation(&turret::bulletCreation,this,ship1, ship2);
+        
+        
+        std::thread creation(&turret::bulletCreation,this,ship1Coordinates, ship2Coordinates);
         std::cout << "After thread " << std::endl;
         
 //        std::thread creation(bulletCreation, ship1, ship2);
         
         moveable = true;
         finalLocation = false;
-        creation.join();
+        creation.detach();
     }
     
     void fire()
     {
-        b1.move();
-        for(int i = 0; i <bulletsVector.size(); ++i)
-        {
-            bulletsVector[i].move();
+        for (bulletIt = listOfBullets.begin(); bulletIt != listOfBullets.end(); ++bulletIt){
+            bulletIt ->move();
+
+            if(!(bulletIt -> withinBounds()))
+            {
+                bulletIt = listOfBullets.erase(bulletIt);
+            }
         }
     }
     
-    void bulletCreation(sf::Vector2f ship1, sf::Vector2f ship2)
+
+    void bulletCreation(sf::Vector2f ship1Coordinates, sf::Vector2f ship2Coordinates)
     {
-        for(int i = 0; i < 3; ++i) {
-            machineGunBullet bullet;
-            bullet = machineGunBullet(ship1,ship2,sf::Vector2f(position.x,position.y));
-            bulletsVector.push_back(bullet);
-            sf::sleep(sf::seconds(1));
+        for(int i = 0; i < 10; ++i) {
+            machineGunBullet bullet = machineGunBullet(ship1Coordinates,ship2Coordinates,sf::Vector2f(position.x,position.y));
+            listOfBullets.push_back(bullet);
+            std::this_thread::sleep_for(std::chrono::milliseconds(500));
+//            sf::sleep(sf::seconds(4));
         }
-        
     }
     
     
