@@ -20,6 +20,7 @@ void PlayState::update(float deltams) {
 //    std::cout << "PlayState update" << std::endl
 //    sf::sleep(sf::milliseconds(600));
     t1.fire();
+    t2.fire();
 }
 
 void PlayState::draw(sf::RenderWindow *window) {
