@@ -6,6 +6,7 @@ GameStateManager::GameStateManager() {
     
 	running = true;
 	window.create(sf::VideoMode(800, 600), "Space Gambit");
+    window.setVerticalSyncEnabled(true);
 }
 
 void GameStateManager::start() {

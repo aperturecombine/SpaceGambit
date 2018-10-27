@@ -4,6 +4,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <math.h>
+#include "machineGunBullet.h"
 #include <iostream>
 using namespace std;
 
@@ -25,6 +26,8 @@ public:
     bool moveable;
     bool finalLocation;
     
+    machineGunBullet b1 = machineGunBullet(sf::Vector2f(10,10),sf::Vector2f(10,10),sf::Vector2f(600,500));
+    
     
     //Default Constructor
     turret(int x, int y)
@@ -38,6 +41,10 @@ public:
         
         moveable = true;
         finalLocation = false;
+    }
+    
+    void fire(){
+        b1.move();
     }
     
     
