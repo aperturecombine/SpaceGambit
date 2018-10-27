@@ -25,6 +25,8 @@ void PlayState::draw(sf::RenderWindow *window) {
     window->clear(sf::Color::Black);
     window->draw(ship1.play_ball);
     window->draw(ship2.play_ball);
+    window->draw(t1.turretObject);
+    window->draw(t2.turretObject);
 //    std::cout << "PlayState update" << std::endl;
 }
 
