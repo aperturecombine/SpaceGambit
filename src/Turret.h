@@ -35,7 +35,7 @@ public:
         position.y = y;
         
         sf::RectangleShape turretObject(sf::Vector2f(120.f, 50.f));
-        turretObject.setSize(sf::Vector2f(300.f, 300.f));
+//        turretObject.setSize(sf::Vector2f(300.f, 300.f));
         
         
         createTurret();
