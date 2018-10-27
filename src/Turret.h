@@ -34,16 +34,10 @@ public:
         position.x = x;
         position.y = y;
         
-        sf::RectangleShape turretObject(sf::Vector2f(120.f, 50.f));
-//        turretObject.setSize(sf::Vector2f(300.f, 300.f));
-        
-        
         createTurret();
         
         moveable = true;
         finalLocation = false;
-        
-        
     }
     
     
@@ -126,7 +120,7 @@ public:
     
     void createTurret()
     {
-        turretObject.setSize(sf::Vector2f(20, 20));
+        turretObject.setSize(sf::Vector2f(100.f, 100.f));
         turretObject.setOrigin(10,10);
         turretObject.setPosition(position.x, position.y);
     }
