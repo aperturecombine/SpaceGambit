@@ -20,7 +20,7 @@ void PlayState::update(float deltams) {
 //    std::cout << "PlayState update" << std::endl
 //    sf::sleep(sf::milliseconds(600));
     t1.fire();
-    t2.fire();
+//    t2.fire();
 }
 
 void PlayState::draw(sf::RenderWindow *window) {
@@ -29,8 +29,23 @@ void PlayState::draw(sf::RenderWindow *window) {
     window->draw(ship2.rocketShipObject);
     window->draw(t1.turretObject);
     window->draw(t1.b1.shell);
-    window->draw(t2.turretObject);
-    window->draw(t2.b1.shell);
+//    window->draw(t2.turretObject);
+//    window->draw(t2.b1.shell);
+    
+    for(int i = 0; i <t1.bulletsVector.size(); ++i)
+    {
+        window->draw(t1.bulletsVector[i].shell);
+    }
+
+//    for(int i = 0; i <t2.bulletsVector.size(); ++i)
+//    {
+//        window->draw(t2.bulletsVector[i].shell);
+//    }
+    
+    
+    
+    
+    
 //    std::cout << "PlayState update" << std::endl;
 }
 
