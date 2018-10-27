@@ -12,6 +12,8 @@ public:
     virtual void handleInput(sf::Event event);
     rocketShip ship1;
     rocketShip ship2;
+    turret t1(600, 20);
+    turret t2(600,400);
     
 private:
     GameStateManager *gsm;

@@ -17,7 +17,8 @@ PlayState::PlayState(class GameStateManager *g) {
 }
 
 void PlayState::update(float deltams) {
-//    std::cout << "PlayState update" << std::endl;
+//    std::cout << "PlayState update" << std::endl
+    
 }
 
 void PlayState::draw(sf::RenderWindow *window) {
