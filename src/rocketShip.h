@@ -31,7 +31,7 @@ public:
         // sf::CircleShape rocketShipObject;
         rocketShipObject.setRadius(20);
         rocketShipObject.setPointCount(20);
-        rocketShipObject.setOrigin(-100, -100);
+//        rocketShipObject.setOrigin(-100, -100);
         rocketShipObject.setPosition(rand() % 500 + 1,10 +rand() % 500 + 1);
         direction.x = 0;
         direction.y = 0;
@@ -123,15 +123,15 @@ public:
         }
     }
     
-    int getRocketPositionX()
+    sf::Vector2f getRocketPosition()
     {
-        return rocketShipObject.getPosition().x;
+        return rocketShipObject.getPosition();
     }
     
-    int getRocketPositionY()
-    {
-        return rocketShipObject.getPosition().y;
-    }
+//    int getRocketPositionY()
+//    {
+//        return rocketShipObject.getPosition().y;
+//    }
     
     
     

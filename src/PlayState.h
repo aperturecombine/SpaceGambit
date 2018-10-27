@@ -14,8 +14,8 @@ public:
     virtual void handleInput();
     rocketShip ship1;
     rocketShip ship2;
-    turret t1 = turret(600, 20, ship1.getPosition(), ship2.getPosition());
-    turret t2 = turret(600,500, ship1.getPosition(), ship2.getPosition());
+    turret t1 = turret(600, 20, ship1.getRocketPosition(), ship2.getRocketPosition());
+    turret t2 = turret(600,500, ship1.getRocketPosition(), ship2.getRocketPosition());
     
 private:
     GameStateManager *gsm;
