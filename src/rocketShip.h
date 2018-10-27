@@ -32,6 +32,7 @@ public:
         rocketShipObject.setRadius(20);
         rocketShipObject.setPointCount(20);
         rocketShipObject.setOrigin(-100, -100);
+        rocketShipObject.setPosition(rand() % 500 + 1,10 +rand() % 500 + 1);
         direction.x = 0;
         direction.y = 0;
         speed = 1;
@@ -109,8 +110,6 @@ public:
     
     bool withinBounds()
     {
-        
-        
         if(rocketShipObject.getPosition().x + 20 < width &&
            rocketShipObject.getPosition().x - 20 > 0 &&
            rocketShipObject.getPosition().y + 20 < height &&
@@ -120,12 +119,20 @@ public:
         }
         else
         {
-            
-            
-            
             return false;
         }
     }
+    
+    int getRocketPositionX()
+    {
+        return rocketShipObject.getPosition().x;
+    }
+    
+    int getRocketPositionY()
+    {
+        return rocketShipObject.getPosition().y;
+    }
+    
     
     
 };
