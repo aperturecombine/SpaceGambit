@@ -32,8 +32,8 @@ public:
             
         }
         else if(pow(pow(direction1.x - turretLocation.x,2)+pow(direction1.y - turretLocation.y,2),.5) > pow(pow(direction2.x - turretLocation.x,2)+pow(direction2.y - turretLocation.y,2),.5)){
-            direction.x = speed*(turretLocation.x - direction1.x)*-1;
-            direction.y = speed*(turretLocation.y - direction1.y);
+            direction.x = speed*(turretLocation.x - direction2.x)*-1;
+            direction.y = speed*(turretLocation.y - direction2.y);
         }
         
         else if(direction1.x > direction2.x){
@@ -42,8 +42,8 @@ public:
         }
         
         else {
-            direction.x = speed*(turretLocation.x - direction1.x)*-1;
-            direction.y = speed*(turretLocation.y - direction1.y);
+            direction.x = speed*(turretLocation.x - direction2.x)*-1;
+            direction.y = speed*(turretLocation.y - direction2.y);
         }
         
     }
