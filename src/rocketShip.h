@@ -17,9 +17,9 @@ public:
     int defense = 5;
     int attack = 2;
     sf::Vector2f direction;
-    int speed = 0;
-    int maxSpeed = 6;
-    float directionChangeFactor = 2; //Direction Change Factor
+    float speed = 1;
+    float maxSpeed = 10;
+    float directionChangeFactor = 1; //Direction Change Factor
     int width = 800;
     int height = 600;
     
@@ -34,7 +34,7 @@ public:
         rocketShipObject.setOrigin(-100, -100);
         direction.x = 0;
         direction.y = 0;
-        speed = 2;
+        speed = 1;
         
     }
     
@@ -44,7 +44,8 @@ public:
         setDirection(angle);
         // if (withinBonds())
         rocketShipObject.move(speed*direction.x, speed*direction.y);
-        std::cout << "Rocket Position: " << rocketShipObject.getPosition().x << ", " << rocketShipObject.getPosition().y << std::endl;
+//        std::cout << "Rocket Position: " << rocketShipObject.getPosition().x << ", " << rocketShipObject.getPosition().y<< std::endl;
+        std::cout << "\tRocket Speed: " << speed*direction.x << " - " << speed*direction.y << std::endl;
     }
     
     
@@ -97,10 +98,10 @@ public:
                 break;
                 
             default: // There should be no direction
-                if (direction.x > 0) {direction.x = direction.x - 0.5*directionChangeFactor;} //resets x to zero if y > 0
-                if (direction.x < 0) {direction.x = direction.x + 0.5*directionChangeFactor;} //resets x to zero if y < 0
-                if (direction.y > 0) {direction.y = direction.y - 0.5*directionChangeFactor;} //resets y to zero if y > 0
-                if (direction.y < 0) {direction.y = direction.y + 0.5*directionChangeFactor;} //resets y to zero if y < 0
+                if (direction.x > 0) {direction.x = direction.x - directionChangeFactor;} //resets x to zero if y > 0
+                if (direction.x < 0) {direction.x = direction.x + directionChangeFactor;} //resets x to zero if y < 0
+                if (direction.y > 0) {direction.y = direction.y - directionChangeFactor;} //resets y to zero if y > 0
+                if (direction.y < 0) {direction.y = direction.y + directionChangeFactor;} //resets y to zero if y < 0
                 break;
         }
     }
