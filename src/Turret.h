@@ -27,34 +27,34 @@ public:
     int windowHeight = 600;
     bool moveable;
     bool finalLocation;
-//    std::thread creation;
+    std::thread bulletRepeater;
     std::list<machineGunBullet> listOfBullets;
     std::list<machineGunBullet>::iterator bulletIt;
+    sf::Vector2f ship1Coord;
+    sf::Vector2f ship2Coord;
     
     
     //Default Constructor
-    turret(int x, int y, sf::Vector2f ship1Coordinates, sf::Vector2f ship2Coordinates)
+    turret(int x, int y)
     {
         direction.x = 0;
         direction.y = 0;
         position.x = x;
         position.y = y;
-        
-        std::cout << "Before thread " << std::endl;
-        
-        
-        std::thread creation(&turret::bulletCreation,this,ship1Coordinates, ship2Coordinates);
-        std::cout << "After thread " << std::endl;
-        
-//        std::thread creation(bulletCreation, ship1, ship2);
+        createTurret();
+        std::thread bulletRepeater (&turret::continuousBulletGeneration,this);
+        bulletRepeater.detach();
         
         moveable = true;
         finalLocation = false;
-        creation.detach();
+        
     }
     
-    void fire()
+    void fire(sf::Vector2f ship1Coordinates, sf::Vector2f ship2Coordinates)
     {
+        ship1Coord = ship1Coordinates;
+        ship2Coord = ship2Coordinates;
+        
         for (bulletIt = listOfBullets.begin(); bulletIt != listOfBullets.end(); ++bulletIt){
             bulletIt ->move();
 
@@ -63,17 +63,24 @@ public:
                 bulletIt = listOfBullets.erase(bulletIt);
             }
         }
+        
     }
     
-
-    void bulletCreation(sf::Vector2f ship1Coordinates, sf::Vector2f ship2Coordinates)
+    void continuousBulletGeneration() //Continuously Creates Bullets via threads
     {
-        for(int i = 0; i < 10; ++i) {
-            machineGunBullet bullet = machineGunBullet(ship1Coordinates,ship2Coordinates,sf::Vector2f(position.x,position.y));
-            listOfBullets.push_back(bullet);
-            std::this_thread::sleep_for(std::chrono::milliseconds(500));
-//            sf::sleep(sf::seconds(4));
+        while (true)
+        {
+            std::thread creation(&turret::bulletCreation,this);
+            creation.join();
         }
+    }
+    
+    
+    void bulletCreation() // Creates Bullets
+    {
+            machineGunBullet bullet = machineGunBullet(ship1Coord,ship2Coord,sf::Vector2f(position.x,position.y));
+            listOfBullets.push_back(bullet);
+            std::this_thread::sleep_for(std::chrono::milliseconds(bullet.bulletRate)); //set to 500 for machine gun bullet
     }
     
     
