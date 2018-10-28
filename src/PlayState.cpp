@@ -1,4 +1,3 @@
-#pragma once
 #include <stdio.h>
 #include <SFML/Graphics.hpp>
 #include "rocketShip.h"
@@ -19,8 +18,9 @@ PlayState::PlayState(class GameStateManager *g) {
 void PlayState::update(float deltams) {
 //    std::cout << "PlayState update" << std::endl
 //    sf::sleep(sf::milliseconds(600));
-    t1.fire();
-    t2.fire();
+    
+    t1.fire(ship1.getRocketPosition(), ship2.getRocketPosition());
+    t2.fire(ship1.getRocketPosition(), ship2.getRocketPosition());
 }
 
 void PlayState::draw(sf::RenderWindow *window) {
