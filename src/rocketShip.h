@@ -17,11 +17,12 @@ public:
     int defense = 5;
     int attack = 2;
     sf::Vector2f direction;
-    float speed = 1;
+    float startSpeed = 1;
     float maxSpeed = 10;
     float directionChangeFactor = 1; //Direction Change Factor
     int width = 800;
     int height = 600;
+    int radius = 20;
     
     
     
@@ -29,24 +30,22 @@ public:
     rocketShip()
     {
         // sf::CircleShape rocketShipObject;
-        rocketShipObject.setRadius(20);
+        rocketShipObject.setRadius(radius);
         rocketShipObject.setPointCount(20);
-//        rocketShipObject.setOrigin(-100, -100);
-        rocketShipObject.setPosition(rand() % 500 + 1,10 +rand() % 500 + 1);
+        rocketShipObject.setOrigin(radius, radius);
+        rocketShipObject.setPosition(rand() % 500 + 1,10 +rand() % 500 + 1); // random rocket start placement
         direction.x = 0;
         direction.y = 0;
-        speed = 1;
-        
     }
     
     
     void move(int angle)
     {
         setDirection(angle);
-        // if (withinBonds())
-        rocketShipObject.move(speed*direction.x, speed*direction.y);
-//        std::cout << "Rocket Position: " << rocketShipObject.getPosition().x << ", " << rocketShipObject.getPosition().y<< std::endl;
-//        std::cout << "\tRocket Speed: " << speed*direction.x << " - " << speed*direction.y << std::endl;
+        movement();
+        
+        //        std::cout << "Rocket Position: " << rocketShipObject.getPosition().x << ", " << rocketShipObject.getPosition().y<< std::endl;
+        //        std::cout << "\tRocket startSpeed: " << startSpeed*direction.x << " - " << startSpeed*direction.y << std::endl;
     }
     
     
@@ -105,16 +104,18 @@ public:
                 if (direction.y < 0) {direction.y = direction.y + directionChangeFactor;} //resets y to zero if y < 0
                 break;
         }
+        direction.x = (startSpeed*direction.x);
+        direction.y = (startSpeed*direction.y);
     }
     
     
-    bool withinBounds()
-    {
-        if(rocketShipObject.getPosition().x + 20 < width &&
-           rocketShipObject.getPosition().x - 20 > 0 &&
-           rocketShipObject.getPosition().y + 20 < height &&
-           rocketShipObject.getPosition().y - 20 > 0)
+    bool withinBounds(){
+        if(rocketShipObject.getPosition().x + radius <= width &&
+           rocketShipObject.getPosition().x - radius >= 0 &&
+           rocketShipObject.getPosition().y + radius <= height &&
+           rocketShipObject.getPosition().y - radius >= 0)
         {
+
             return true;
         }
         else
@@ -123,15 +124,53 @@ public:
         }
     }
     
+    void movement()
+    {
+        /*
+         Calculates where the rocket will move next
+         Adjusts movement if the rocket would move off the screen
+         */
+        int newShipPositionX = rocketShipObject.getPosition().x + direction.x;
+        int newShipPositionY = rocketShipObject.getPosition().y + direction.y;
+        bool notMoved = true;
+        
+        if(newShipPositionX + radius> width)
+        {
+            rocketShipObject.setPosition(width - radius, rocketShipObject.getPosition().y + direction.y);
+            notMoved = false;
+        }
+        if(newShipPositionX - radius < 0)
+        {
+            rocketShipObject.setPosition(radius, rocketShipObject.getPosition().y + direction.y);
+            notMoved = false;
+        }
+        
+        if(newShipPositionY + radius > height)
+        {
+            rocketShipObject.setPosition(rocketShipObject.getPosition().x + direction.x, height - radius);
+            notMoved = false;
+        }
+        if(newShipPositionY - radius < 0)
+        {
+            rocketShipObject.setPosition(rocketShipObject.getPosition().x + direction.x, radius);
+            notMoved = false;
+        }
+        
+        
+        if (notMoved) // If none of the previous condition occur, then move
+        {
+            rocketShipObject.move(direction.x, direction.y);
+        }
+    }
+    
+    
+    
+    
+    
     sf::Vector2f getRocketPosition()
     {
         return rocketShipObject.getPosition();
     }
-    
-//    int getRocketPositionY()
-//    {
-//        return rocketShipObject.getPosition().y;
-//    }
     
     
     
