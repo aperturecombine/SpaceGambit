@@ -5,13 +5,16 @@
 #include "rocketShip.h"
 #include <SFML/Graphics.hpp>
 
+#define MENUSTATE 0
+#define PLAYSTATE 1
+
 class GameStateManager {
 public:
 	GameStateManager();
 	~GameStateManager() {}
 
 	void start();
-	void pushState(GameState* state);
+	void pushState(int newState);
 	void popState();
 
 	sf::RenderWindow window;
