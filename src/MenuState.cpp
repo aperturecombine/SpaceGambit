@@ -13,9 +13,7 @@ MenuState::MenuState(class GameStateManager *g) {
 	text.setFillColor(sf::Color::White);
 }
 
-void MenuState::update(float deltams) {
-
-}
+void MenuState::update(float deltams) {}
 
 void MenuState::draw(sf::RenderWindow *window) {
 	gsm->window.clear(sf::Color(0,0,0));
@@ -49,8 +47,7 @@ void MenuState::handleInput(sf::Event event) {
 	}
 }
 
-void MenuState::handleInput() {
-}
+void MenuState::handleInput() {}
 
 
 void MenuState::centerText(sf::Text *text, int y) {
@@ -64,5 +61,5 @@ void MenuState::select() {
 	if (currentChoice == 2)
 		gsm->popState();
 	if (currentChoice == 0)
-		gsm->pushState(new PlayState(gsm));
+		gsm->pushState(PLAYSTATE);
 }
