@@ -27,8 +27,6 @@ void GameStateManager::start() {
 				running = false;
             if (event.type == sf::Event::KeyPressed || event.type == sf::Event::KeyReleased)
             this->states.top()->handleInput(event);
-            
-            
 		}
         this->states.top()->handleInput();
 		clock.restart();
@@ -38,10 +36,16 @@ void GameStateManager::start() {
 void GameStateManager::pushState(int newState) {
 	switch (newState) {
 		case MENUSTATE:
-			this->states.push(new MenuState(this));
+			printf("new menu\n");
+			states.push(new MenuState(this));
 			break;
 		case PLAYSTATE:
-			this->states.push(new PlayState(this));
+			printf("new play\n");
+			states.push(new PlayState(this));
+			break;
+		case FINISHSTATE:
+			printf("new finish\n");
+			states.push(new MenuState(this));
 			break;
 	}
 }

@@ -9,6 +9,7 @@
 
 PlayState::PlayState(class GameStateManager *g) {
     std::cout << "PlayState declared" << std::endl;
+	gsm = g;
 //    GameStateManager gsm = g;
     
 //    int width = gsm.window.GetWidth ();
@@ -71,6 +72,10 @@ void PlayState::handleInput() {
     {
         ship1.move(135);
     }
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Backspace))
+	{
+		gsm->pushState(MENUSTATE);
+	}
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && sf::Keyboard::isKeyPressed(sf::Keyboard::S))
     {
         ship1.move(225);
@@ -138,6 +143,12 @@ void PlayState::handleInput() {
     {
         ship2.move(360);
     }
+
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Backspace))
+	{
+		gsm->pushState(FINISHSTATE);
+	}
+
     else
     {
         ship2.move(0);
