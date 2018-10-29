@@ -7,6 +7,7 @@
 
 #define MENUSTATE 0
 #define PLAYSTATE 1
+#define FINISHSTATE 2
 
 class GameStateManager {
 public:
