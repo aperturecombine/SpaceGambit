@@ -1,34 +1,60 @@
 #include "MenuState.h"
 #include "GameStateManager.h"
-#include <iostream>
 
+#include <iostream>
+#include <stdlib.h>
 MenuState::MenuState(class GameStateManager *g) {
 	gsm = g;
 	currentChoice = 0;
 	
-	if (!font.loadFromFile("arial.ttf"))
-		printf("font load error");
-
+ if (!font.loadFromFile("/Users/liuwukun/Documents/GitHub_workspace/SpaceGambit/src/aerial.ttf"))
+    {
+       std::cout << "Could not load font." << std::endl;
+  
+    
+        
+   }
+    
+    
+    if(!texture.loadFromFile("/Users/liuwukun/Documents/GitHub_workspace/SpaceGambit/src/background.png"))
+        return -1;
+    //texture.loadFromImage(image);
+    background.setTexture(texture);
+    
+    background.setPosition(0, 0);
+    auto size = background.getTexture()->getSize();
+    background.setScale(10, 10);
+    std::cout << "Could not load font." << std::endl;
+    
+  
 	text.setFont(font);
-	text.setFillColor(sf::Color::White);
+    text.setFillColor(sf::Color::Black);
 }
 
-void MenuState::update(float deltams) {}
+void MenuState::update(float deltams) {
+  
+}
 
 void MenuState::draw(sf::RenderWindow *window) {
-	gsm->window.clear(sf::Color(0,0,0));
-	
+    
+    gsm->window.clear(sf::Color(255,255,255));
+    gsm->window.draw(background);
 	text.setCharacterSize(70);
 	text.setString("Space Gambit");
 	centerText(&text, 150);
 	gsm->window.draw(text);
-
+    
 	text.setCharacterSize(24);
+    
 	for (int i = 0; i < 3; i++) {
 		if (i == currentChoice)
+        {
 			text.setString("> " + options[i] + " <");
-		else
+        }
+        else{
 			text.setString(options[i]);
+            
+        }
 		centerText(&text, 300 + i * 40);
 		gsm->window.draw(text);
 	}
@@ -44,10 +70,12 @@ void MenuState::handleInput(sf::Event event) {
 			moveDown();
 		if (event.key.code == sf::Keyboard::Space)
 			select();
+    
 	}
 }
 
-void MenuState::handleInput() {}
+void MenuState::handleInput() {
+}
 
 
 void MenuState::centerText(sf::Text *text, int y) {
@@ -58,8 +86,14 @@ void MenuState::centerText(sf::Text *text, int y) {
 }
 
 void MenuState::select() {
-	if (currentChoice == 2)
+	if (currentChoice == 1)
 		gsm->popState();
 	if (currentChoice == 0)
-		gsm->pushState(PLAYSTATE);
+		gsm-> pushState(new PlayState(gsm));
+    
+
+    //if (currentChoice == 4)
+    //    gsm -> pushState (new FinishState(gsm));
 }
+
+
