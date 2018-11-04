@@ -62,17 +62,19 @@ void PickState::draw(sf::RenderWindow *window) {
             defense[i].setSize(sf::Vector2f(80,20));
             
         }
-        
-        
-        sf::FloatRect textRect = strength[i]->getLocalBounds();
-        text->setOrigin(textRect.left + textRect.width / 2.0f,
-                        textRect.top + textRect.height / 2.0f);
-        text->setPosition(sf::Vector2f(800 / 2.0f, y));
-    
-        gsm->window.draw(text);
+
+        rocket[i].setTexture(texture[i]);
+        rocket[i].setPosition(i*400 +50, 300);
+        gsm->window.draw(rocket[i]);
+        strength[i].setPosition(i*400 + 50, 550);
+        gsm->window.draw(strength[i]);
+        strength[i].setPosition(i*400 +50, 650);
+        gsm->window.draw(speed[i]);
+        strength[i].setPosition(i*400 + 50, 750 );
+        gsm->window.draw(defense[i]);
+
     }
-//
-//}
+
     
 }
 
@@ -116,11 +118,11 @@ void PickState::select(int player) {
 
 void moveUpPick(int player) {
     currentChoicePlayer[player]--;
-    currentChoicePlayer[player] = currentChoice[player] % 2;
+    currentChoicePlayer[player] = currentChoicePlayer[player] % 2;
 }
 void moveDownPick(int player) {
     currentChoicePlayer[player] ++;
-    currentChoicePlayer[player] = currentChoice[player] % 2;
+    currentChoicePlayer[player] = currentChoicePlayer[player] % 2;
 }
 
 void loadFonts(){
