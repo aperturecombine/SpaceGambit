@@ -39,7 +39,7 @@ public:
     //Default Constructor
     turret(int x, int y)
     {
-        turretImage.loadFromFile("tarret.png");
+        turretImage.loadFromFile("../resources/turret.png");
         turretTexture.loadFromImage(turretImage);
         turretTexture.setSmooth(true);
         

@@ -5,16 +5,15 @@
 //
 
 #include <stdio.h>
-#include "FinishState.h"
-#include "GameStateManager.h"
 #include <iostream>
 #include <stdlib.h>
+#include "FinishState.h"
 
 FinishState::FinishState(class GameStateManager *g) {
     gsm = g;
     currentChoice = 0;
     
-    if (!font.loadFromFile("/Users/liuwukun/Documents/GitHub_workspace/SpaceGambit/src/aerial.ttf"))
+    if (!font.loadFromFile("../resources/aerial.ttf"))
     {
         std::cout << "Could not load font." << std::endl;
         
@@ -22,7 +21,7 @@ FinishState::FinishState(class GameStateManager *g) {
         
     }
     
-    if(!texture.loadFromFile("/Users/liuwukun/Documents/GitHub_workspace/SpaceGambit/src/space_finish.jpg"))
+    if(!texture.loadFromFile("../resources/pace_finish.jpg"))
         return -1;
     //texture.loadFromImage(image);
     background.setTexture(texture);

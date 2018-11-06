@@ -31,7 +31,7 @@ public:
     rocketShip()
     {
         // sf::CircleShape rocketShipObject;
-        rocketShipImage.loadFromFile("spaceship.png");
+        rocketShipImage.loadFromFile("../resources/spaceship.png");
         rocketShipTexture.loadFromImage(rocketShipImage);
         rocketShipTexture.setSmooth(true);
         rocketShipObject.setTexture(rocketShipTexture);
