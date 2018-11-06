@@ -1,16 +1,12 @@
 #include <stdio.h>
 #include <SFML/Graphics.hpp>
-#include "rocketShip.h"
-#include "Turret.h"
 #include "PlayState.h"
-#include "GameState.h"
-#include "GameStateManager.h"
-#include "FinishState.h"
+
 
 PlayState::PlayState(class GameStateManager *g) {
     std::cout << "PlayState declared" << std::endl;
 
-    if(!image.loadFromFile("/Users/liuwukun/Documents/GitHub_workspace/SpaceGambit/src/space_background.png"))
+    if(!image.loadFromFile("space_background.png"))
         return -1;
     texture.loadFromImage(image);
     background.setTexture(texture);
