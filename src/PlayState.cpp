@@ -85,7 +85,7 @@ void PlayState::handleInput() {
     }
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace))
 	{
-		gsm->pushState(MENUSTATE);
+//        gsm->pushState(MENUSTATE);
 	}
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && sf::Keyboard::isKeyPressed(sf::Keyboard::S))
     {
@@ -157,7 +157,7 @@ void PlayState::handleInput() {
 
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
 	{
-		gsm->pushState(new FinishState(this));
+//        gsm->pushState(new FinishState(this));
 	}
 
     else
