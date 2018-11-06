@@ -1,33 +1,26 @@
+#include <iostream>
+#include <stdlib.h>
 #include "MenuState.h"
 #include "GameStateManager.h"
 
-#include <iostream>
-#include <stdlib.h>
 MenuState::MenuState(class GameStateManager *g) {
 	gsm = g;
 	currentChoice = 0;
 	
- if (!font.loadFromFile("/Users/liuwukun/Documents/GitHub_workspace/SpaceGambit/src/aerial.ttf"))
+ if (!font.loadFromFile("./resources/aerial.ttf"))
     {
        std::cout << "Could not load font." << std::endl;
-  
-    
-        
    }
     
     
-    if(!texture.loadFromFile("/Users/liuwukun/Documents/GitHub_workspace/SpaceGambit/src/background.png"))
+    if(!texture.loadFromFile("background.png"))
         return -1;
-    //texture.loadFromImage(image);
     background.setTexture(texture);
     
     background.setPosition(0, 0);
     auto size = background.getTexture()->getSize();
     background.setScale(10, 10);
-    std::cout << "Could not load font." << std::endl;
-    
-  
-	text.setFont(font);
+    text.setFont(font);
     text.setFillColor(sf::Color::Black);
 }
 
@@ -90,10 +83,8 @@ void MenuState::select() {
 		gsm->popState();
 	if (currentChoice == 0)
 		gsm-> pushState(new PlayState(gsm));
-    
-
-    //if (currentChoice == 4)
-    //    gsm -> pushState (new FinishState(gsm));
+//    if (currentChoice == 4)
+//        gsm -> pushState (new FinishState(gsm));
 }
 
 
