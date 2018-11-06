@@ -22,12 +22,13 @@ FinishState::FinishState(class GameStateManager *g) {
     }
     
     if(!texture.loadFromFile("../resources/pace_finish.jpg"))
-        return -1;
+        {
+        }
     //texture.loadFromImage(image);
     background.setTexture(texture);
     
     background.setPosition(0, 0);
-    auto size = background.getTexture()->getSize();
+//    auto size = background.getTexture()->getSize();
     background.setScale(10, 10);
     std::cout << "Could not load font." << std::endl;
     
@@ -92,7 +93,7 @@ void FinishState::select() {
     if (currentChoice == 1)
         gsm->popState();
     exit(0);
-    if (currentChoice == 0)
-        gsm->pushState(new PlayState(gsm));
+//    if (currentChoice == 0)
+//        gsm->pushState(new PlayState(gsm));
     
 }

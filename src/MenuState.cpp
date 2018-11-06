@@ -13,11 +13,13 @@ MenuState::MenuState(class GameStateManager *g) {
     
     
     if(!texture.loadFromFile("../resources/background.png"))
-        return -1;
+    {
+    
+    }
     background.setTexture(texture);
     
     background.setPosition(0, 0);
-    auto size = background.getTexture()->getSize();
+//    auto size = background.getTexture()->getSize();
     background.setScale(10, 10);
     text.setFont(font);
     text.setFillColor(sf::Color::Black);

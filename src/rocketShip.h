@@ -18,9 +18,9 @@ public:
     int defense = 5;
     int attack = 2;
     sf::Vector2f direction;
-    float startSpeed = 1;
-    float maxSpeed = 2;
-    float directionChangeFactor = 1; //Direction Change Factor
+    float startSpeed = 0.5;
+    float maxSpeed = 1;
+    float directionChangeFactor = 0.5; //Direction Change Factor
     int width = 800;
     int height = 600;
     int radius = 20;

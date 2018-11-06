@@ -7,7 +7,7 @@ public:
     sf::CircleShape shell;
     sf::Vector2f direction;
     
-    float speed = 3;
+    float speed = 0.15;
     int bulletRate = 500; //used in turret to determine how fast to shoot
     int radius = 10;
     int width = 800;
