@@ -19,7 +19,7 @@ public:
     int attack = 2;
     sf::Vector2f direction;
     float startSpeed = 1;
-    float maxSpeed = 10;
+    float maxSpeed = 2;
     float directionChangeFactor = 1; //Direction Change Factor
     int width = 800;
     int height = 600;
@@ -31,7 +31,7 @@ public:
     rocketShip()
     {
         // sf::CircleShape rocketShipObject;
-        rocketShipImage.loadFromFile("/Users/liuwukun/Documents/GitHub_workspace/SpaceGambit/src/spaceship.png");
+        rocketShipImage.loadFromFile("spaceship.png");
         rocketShipTexture.loadFromImage(rocketShipImage);
         rocketShipTexture.setSmooth(true);
         rocketShipObject.setTexture(rocketShipTexture);
