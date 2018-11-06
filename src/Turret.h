@@ -39,7 +39,7 @@ public:
     //Default Constructor
     turret(int x, int y)
     {
-        turretImage.loadFromFile("/Users/liuwukun/Documents/GitHub_workspace/SpaceGambit/src/tarret.png");
+        turretImage.loadFromFile("tarret.png");
         turretTexture.loadFromImage(turretImage);
         turretTexture.setSmooth(true);
         
