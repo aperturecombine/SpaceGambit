@@ -6,7 +6,7 @@
 PlayState::PlayState(class GameStateManager *g) {
     std::cout << "PlayState declared" << std::endl;
 
-    if(!image.loadFromFile("space_background.png"))
+    if(!image.loadFromFile("../resources/space_background.png"))
         return -1;
     texture.loadFromImage(image);
     background.setTexture(texture);

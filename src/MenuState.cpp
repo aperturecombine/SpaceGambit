@@ -1,19 +1,18 @@
 #include <iostream>
 #include <stdlib.h>
 #include "MenuState.h"
-#include "GameStateManager.h"
 
 MenuState::MenuState(class GameStateManager *g) {
 	gsm = g;
 	currentChoice = 0;
 	
- if (!font.loadFromFile("./resources/aerial.ttf"))
+ if (!font.loadFromFile("../resources/aerial.ttf"))
     {
        std::cout << "Could not load font." << std::endl;
    }
     
     
-    if(!texture.loadFromFile("background.png"))
+    if(!texture.loadFromFile("../resources/background.png"))
         return -1;
     background.setTexture(texture);
     

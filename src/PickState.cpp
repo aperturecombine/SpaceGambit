@@ -1,9 +1,6 @@
-#include "PickState.h"
-#include "GameStateManager.h"
-#include "PlayState.h"
-#include "PickState.h"
 #include <iostream>
 #include <stdlib.h>
+#include "PickState.h"
 
 PickState::PickState(class GameStateManager *g) {
     gsm = g;
@@ -127,19 +124,19 @@ void moveDownPick(int player) {
 
 void loadFonts(){
     
-    if (!font.loadFromFile("/Users/liuwukun/Documents/GitHub_workspace/SpaceGambit/src/aerial.ttf"))
+    if (!font.loadFromFile("../resources/aerial.ttf"))
         std::cout << "Could not load font." << std::endl;
     
-    if(!backgroundTexture.loadFromFile("/Users/liuwukun/Documents/GitHub_workspace/SpaceGambit/src/background.png"))
+    if(!backgroundTexture.loadFromFile("../resources/background.png"))
         return -1;
     background.setTexture(texture);
     
-    if(!imagePower[0].loadFromFile("/Users/liuwukun/Documents/GitHub_workspace/SpaceGambit/src/rocketship_1.png"))
+    if(!imagePower[0].loadFromFile("../resources/rocketship_1.png"))
         return -1;
     
-    if(!imagePower[1].loadFromFile("/Users/liuwukun/Documents/GitHub_workspace/SpaceGambit/src/rocketship_2.png"))
+    if(!imagePower[1].loadFromFile("../resources/rocketship_2.png"))
         return -1;
-    if(!imagePower[2].loadFromFile("/Users/liuwukun/Documents/GitHub_workspace/SpaceGambit/src/rocketship_3.png"))
+    if(!imagePower[2].loadFromFile("../resources/rocketship_3.png"))
         return -1;
     
     
