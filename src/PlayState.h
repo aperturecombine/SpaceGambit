@@ -1,6 +1,8 @@
 #pragma once
 #include "rocketShip.h"
 #include "Turret.h"
+#include "MenuState.h"
+#include "FinishState.h"
 #include "GameState.h"
 #include "GameStateManager.h"
 
