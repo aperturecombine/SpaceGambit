@@ -1,5 +1,5 @@
 #pragma once
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
 #include "Turret.h"
 #include "MachineGunBullet.h"
 #include "PlayState.h"

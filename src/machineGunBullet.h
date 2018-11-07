@@ -1,5 +1,5 @@
 #pragma once
-#include "bullet.h"
+#include "Bullet.h"
 
 class MachineGunBullet : public Bullet {
 public:

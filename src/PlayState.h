@@ -3,6 +3,7 @@
 #include "RocketShip.h"
 #include <iostream>
 #include <vector>
+#include <math.h>
 
 class PlayState : public GameState {
 public:

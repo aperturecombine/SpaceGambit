@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "machineGunBullet.h"
+#include "MachineGunBullet.h"
 #include <list>
 
 

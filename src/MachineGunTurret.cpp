@@ -1,4 +1,5 @@
 #include "MachineGunTurret.h"
+#include <math.h>
 
 MachineGunTurret::MachineGunTurret(sf::Vector2f p) {
 	pos = p;
