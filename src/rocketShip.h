@@ -21,8 +21,8 @@ public:
     float startSpeed = 0.5;
     float maxSpeed = 1;
     float directionChangeFactor = 0.5; //Direction Change Factor
-    int width = 800;
-    int height = 600;
+    int width = 1600;
+    int height = 1200;
     int radius = 20;
     
     

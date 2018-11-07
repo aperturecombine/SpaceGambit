@@ -13,6 +13,7 @@ PlayState::PlayState(class GameStateManager *g) {
     background.setTexture(texture);
     
     background.setPosition(0, 0);
+    background.setScale(2.f, 2.5);
 
 	gsm = g;
 //    GameStateManager gsm = g;
@@ -27,6 +28,109 @@ void PlayState::update(float deltams) {
     
     t1.fire(ship1.getRocketPosition(), ship2.getRocketPosition());
     t2.fire(ship1.getRocketPosition(), ship2.getRocketPosition());
+    
+    
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) && sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+    {
+        ship1.move(135);
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace))
+    {
+        //        gsm->pushState(MENUSTATE);
+    }
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+    {
+        ship1.move(225);
+    }
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+    {
+        ship1.move(315);
+    }
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) && sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+    {
+        ship1.move(45);
+    }
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+    {
+        ship1.move(90);
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+    {
+        ship1.move(180);
+    }
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+    {
+        ship1.move(270);
+    }
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+    {
+        ship1.move(360);
+    }
+    else
+    {
+        ship1.move(0);
+    }
+    
+    
+    
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+    {
+        ship2.move(135);
+    }
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+    {
+        ship2.move(225);
+    }
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+    {
+        ship2.move(315);
+    }
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+    {
+        ship2.move(45);
+    }
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+    {
+        ship2.move(90);
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+    {
+        ship2.move(180);
+    }
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+    {
+        ship2.move(270);
+    }
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+    {
+        ship2.move(360);
+    }
+    
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+    {
+        //        gsm->pushState(new FinishState(this));
+    }
+    
+    else
+    {
+        ship2.move(0);
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
 
 void PlayState::draw(sf::RenderWindow *window) {
@@ -76,91 +180,7 @@ void PlayState::handleInput(sf::Event event) {
 
 void PlayState::handleInput() {
  
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) && sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-    {
-        ship1.move(135);
-    }
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace))
-	{
-//        gsm->pushState(MENUSTATE);
-	}
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-    {
-        ship1.move(225);
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-    {
-        ship1.move(315);
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) && sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-    {
-        ship1.move(45);
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-    {
-        ship1.move(90);
-    }
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-    {
-        ship1.move(180);
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-    {
-        ship1.move(270);
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-    {
-        ship1.move(360);
-    }
-    else
-    {
-        ship1.move(0);
-    }
 
-
-
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-    {
-        ship2.move(135);
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-    {
-        ship2.move(225);
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-    {
-        ship2.move(315);
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-    {
-        ship2.move(45);
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-    {
-        ship2.move(90);
-    }
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-    {
-        ship2.move(180);
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-    {
-        ship2.move(270);
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-    {
-        ship2.move(360);
-    }
-
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-	{
-//        gsm->pushState(new FinishState(this));
-	}
-
-    else
-    {
-        ship2.move(0);
-    }
 
 //    std::cout << "PlayState handleInput" << std::endl;
 }

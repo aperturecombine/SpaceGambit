@@ -20,7 +20,7 @@ MenuState::MenuState(class GameStateManager *g) {
     
     background.setPosition(0, 0);
 //    auto size = background.getTexture()->getSize();
-    background.setScale(10, 10);
+    background.setScale(20.f, 20.f);
     text.setFont(font);
     text.setFillColor(sf::Color::Black);
 }

@@ -24,8 +24,8 @@ public:
     sf::Vector2f position;
     
     //Direction Change Factor
-    int windowWidth = 800;
-    int windowHeight = 600;
+    int windowWidth = 1600;
+    int windowHeight = 1200;
     bool moveable;
     bool finalLocation;
     std::thread bulletRepeater;
@@ -164,10 +164,9 @@ public:
 
     void createTurret()
     {
-        
         turretObject.setTexture(turretTexture);
         turretObject.setScale(.3,.3);
-        turretObject.setOrigin(10,10);
+        turretObject.setOrigin((turretObject.getTexture()->getSize().x)/2,(turretObject.getTexture()->getSize().y )/2);
         turretObject.setPosition(position.x, position.y);
     }
     

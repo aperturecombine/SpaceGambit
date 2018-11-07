@@ -8,10 +8,10 @@ public:
     sf::Vector2f direction;
     
     float speed = 0.15;
-    int bulletRate = 500; //used in turret to determine how fast to shoot
+    int bulletRate = 1000; //used in turret to determine how fast to shoot
     int radius = 10;
-    int width = 800;
-    int height = 600;
+    int width = 1600;
+    int height = 1200;
     
     machineGunBullet(){
         

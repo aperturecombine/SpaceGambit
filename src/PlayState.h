@@ -16,8 +16,8 @@ public:
     virtual void handleInput();
     rocketShip ship1;
     rocketShip ship2;
-    turret t1 = turret(600, 20);
-    turret t2 = turret(600,500);
+    turret t1 = turret(600, 200);
+    turret t2 = turret(600,600);
     
 private:
     GameStateManager *gsm;
