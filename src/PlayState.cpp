@@ -16,21 +16,26 @@ PlayState::PlayState(class GameStateManager *g) {
     background.setScale(2.f, 2.5);
 
 	ship1 = RocketShip(sf::Vector2f(100,100));
+    ship2 = RocketShip(sf::Vector2f(100,300));
 	MachineGunTurret *t1 = new MachineGunTurret(sf::Vector2f(300, 100));
 	t1->setReference(this);
 	MachineGunTurret *t2 = new MachineGunTurret(sf::Vector2f(300, 400));
 	t2->setReference(this);
+    MachineGunTurret *t3 = new MachineGunTurret(sf::Vector2f(300, 700));
+    t3->setReference(this);
 
 	turrets.push_back(t1);
 	turrets.push_back(t2);
+    turrets.push_back(t3);
 }
 
 void PlayState::update(float deltams) {
 	ship1.update(deltams);
+    ship2.update(deltams);
 	for (int t = 0; t < turrets.size(); t++)
 		turrets[t]->update(deltams);
 
-	//checkCollisions();
+//    checkCollisions();
 }
 
 
@@ -39,6 +44,7 @@ void PlayState::draw(sf::RenderWindow *window) {
 	window->draw(background);
 
     window->draw(ship1.rocketShipObject);
+    window->draw(ship2.rocketShipObject);
 
 	for (int t = 0; t < turrets.size(); t++) {
 		turrets[t]->turretObject.setPosition(turrets[t]->pos);
@@ -83,6 +89,11 @@ void PlayState::handleInput() {
 	ship1.moveLeft = sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
 	ship1.moveUp = sf::Keyboard::isKeyPressed(sf::Keyboard::Up);
 	ship1.moveDown = sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
+    
+    ship2.moveRight = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
+    ship2.moveLeft = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
+    ship2.moveUp = sf::Keyboard::isKeyPressed(sf::Keyboard::W);
+    ship2.moveDown = sf::Keyboard::isKeyPressed(sf::Keyboard::S);
 }
 
 void PlayState::checkCollisions() {
