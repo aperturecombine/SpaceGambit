@@ -31,9 +31,9 @@ void MachineGunTurret::update(float dt) {
 		counter = 0;
 	}
 
-//    for (int i = 0; i < bullets.size(); i++) {
-//        bullets.at(i)->update(dt);
-//    }
+    for (int i = 0; i < bullets.size(); i++) {
+        bullets.at(i)->update(dt);
+    }
 }
 
 sf::Vector2f MachineGunTurret::getInitBulletVel() {
