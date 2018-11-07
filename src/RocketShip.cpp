@@ -22,6 +22,7 @@ RocketShip::RocketShip(sf::Vector2f p) {
 	rocketShipTexture.setSmooth(true);
 	rocketShipObject.setTexture(rocketShipTexture);
 	rocketShipObject.setScale(.5, .5);
+    rocketShipObject.setOrigin(rocketShipObject.getGlobalBounds().width/2, rocketShipObject.getGlobalBounds().height/2);
 }
 
 void RocketShip::update(float deltams) {
