@@ -1,186 +1,116 @@
-#include <stdio.h>
-#include <SFML/Graphics.hpp>
 #include "PlayState.h"
-
+#include "GameStateManager.h"
+#include "MachineGunTurret.h"
+#include "Bullet.h"
 
 PlayState::PlayState(class GameStateManager *g) {
-    std::cout << "PlayState declared" << std::endl;
+	gsm = g;
 
-    if(!image.loadFromFile("../resources/space_background.png"))
-       {
-       }
+    if(!image.loadFromFile("resources/space_background.png")) {
+		printf("playstate space_background load error\n");
+	}
     texture.loadFromImage(image);
     background.setTexture(texture);
     
     background.setPosition(0, 0);
     background.setScale(2.f, 2.5);
 
-	gsm = g;
-//    GameStateManager gsm = g;
-    
-//    int width = gsm.window.GetWidth ();
-//    int height = gsm.window -> Get
+	ship1 = RocketShip(sf::Vector2f(100,100));
+	MachineGunTurret *t1 = new MachineGunTurret(sf::Vector2f(300, 100));
+	t1->setReference(this);
+	MachineGunTurret *t2 = new MachineGunTurret(sf::Vector2f(300, 400));
+	t2->setReference(this);
+
+	turrets.push_back(t1);
+	turrets.push_back(t2);
 }
 
 void PlayState::update(float deltams) {
-//    std::cout << "PlayState update" << std::endl
-//    sf::sleep(sf::milliseconds(600));
-    
-    t1.fire(ship1.getRocketPosition(), ship2.getRocketPosition());
-    t2.fire(ship1.getRocketPosition(), ship2.getRocketPosition());
-    
-    
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) && sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-    {
-        ship1.move(135);
-    }
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace))
-    {
-        //        gsm->pushState(MENUSTATE);
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-    {
-        ship1.move(225);
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-    {
-        ship1.move(315);
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) && sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-    {
-        ship1.move(45);
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-    {
-        ship1.move(90);
-    }
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-    {
-        ship1.move(180);
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-    {
-        ship1.move(270);
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-    {
-        ship1.move(360);
-    }
-    else
-    {
-        ship1.move(0);
-    }
-    
-    
-    
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-    {
-        ship2.move(135);
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-    {
-        ship2.move(225);
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-    {
-        ship2.move(315);
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-    {
-        ship2.move(45);
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-    {
-        ship2.move(90);
-    }
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-    {
-        ship2.move(180);
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-    {
-        ship2.move(270);
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-    {
-        ship2.move(360);
-    }
-    
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-    {
-        //        gsm->pushState(new FinishState(this));
-    }
-    
-    else
-    {
-        ship2.move(0);
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+	ship1.update(deltams);
+	for (int t = 0; t < turrets.size(); t++)
+		turrets[t]->update(deltams);
+
+	//checkCollisions();
 }
+
 
 void PlayState::draw(sf::RenderWindow *window) {
-    
-    window->clear(sf::Color::Black);
-    window->draw(background);
+    //window->clear(sf::Color::Black);
+	window->draw(background);
+
     window->draw(ship1.rocketShipObject);
-    window->draw(ship2.rocketShipObject);
-    window->draw(t1.turretObject);
-    window->draw(t2.turretObject);
-    
-    
-    for (t1.bulletIt = t1.listOfBullets.begin(); t1.bulletIt != t1.listOfBullets.end(); ++t1.bulletIt){
-        window -> draw(t1.bulletIt->shell);
-    }
-    
-    for (t2.bulletIt = t2.listOfBullets.begin(); t2.bulletIt != t2.listOfBullets.end(); ++t2.bulletIt){
-        window -> draw(t2.bulletIt->shell);
-    }
-    
-    
-    
-    
-    
-//    std::cout << "PlayState update" << std::endl;
-}
 
-void PlayState::handleInput(sf::Event event) {
-    
-//    gsm->window.setKeyRepeatEnabled(false);
+	for (int t = 0; t < turrets.size(); t++) {
+		turrets[t]->turretObject.setPosition(turrets[t]->pos);
+		window->draw(turrets[t]->turretObject);
+	}
 
-//    if (event.type == sf::Event::KeyPressed) {
-//        if(event.key.code == sf::Keyboard::Up) {ship1.move(90);}
-//        else if(event.key.code == sf::Keyboard::Left) {ship1.move(180);}
-//        else if(event.key.code == sf::Keyboard::Down) {ship1.move(270);}
-//        else if(event.key.code == sf::Keyboard::Right) {ship1.move(360);}
-//
-//        if(event.key.code == sf::Keyboard::W) {ship2.move(90);}
-//        else if(event.key.code == sf::Keyboard::A) {ship2.move(180);}
-//        else if(event.key.code == sf::Keyboard::S) {ship2.move(270);}
-//        else if(event.key.code == sf::Keyboard::D) {ship2.move(360);}
+	//draw bullets
+	sf::CircleShape bulletCircle;
+	bulletCircle.setFillColor(sf::Color::Red);
 
-        std::cout << "Key Pressed:" << event.type << std::endl;
-//    }
+	for (int t = 0; t < turrets.size(); t++) {
+		for (int b = 0; b < turrets[t]->bullets.size(); b++) {
+			float bRadius = turrets[t]->bullets[b]->radius;
+			bulletCircle.setRadius(bRadius);
+			bulletCircle.setPosition(
+				turrets[t]->bullets[b]->pos - sf::Vector2f(bRadius, bRadius));
+			gsm->window.draw(bulletCircle);
+		}
+	}
 
+	/*
+	//draw ship
+	sf::CircleShape shipCircle;
+	shipCircle.setFillColor(ship1.color);
+	shipCircle.setRadius(ship1.radius);
+	shipCircle.setPosition(ship1.getPosition() -
+		sf::Vector2f(ship1.radius, ship1.radius));
+	gsm->window.draw(shipCircle);
+
+	//draw turret
+	sf::RectangleShape turretRect;
+	turretRect.setSize(sf::Vector2f(100, 100));
+	turretRect.setFillColor(sf::Color::Yellow);
+	for (int t = 0; t < turrets.size(); t++) {
+		turretRect.setPosition(turrets[t]->pos - sf::Vector2f(50, 50));
+		gsm->window.draw(turretRect);
+	}*/
 }
 
 void PlayState::handleInput() {
- 
+	ship1.moveRight = sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
+	ship1.moveLeft = sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
+	ship1.moveUp = sf::Keyboard::isKeyPressed(sf::Keyboard::Up);
+	ship1.moveDown = sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
+}
+
+void PlayState::checkCollisions() {
+	//ship collisions
+	for (int t = 0; t < turrets.size(); t++) {
+		for (int b = 0; b < turrets[t]->bullets.size(); b++) {
+			sf::Vector2f bPos = turrets[t]->bullets[b]->pos;
+
+			float xDist = abs(bPos.x - ship1.pos.x);
+			float yDist = abs(bPos.y - ship1.pos.y);
+
+			if (sqrt((xDist * xDist) + (yDist * yDist)) < 15) {
+				//ship1.color = sf::Color::Green;
+			}
+		}
+	}
 
 
-//    std::cout << "PlayState handleInput" << std::endl;
+	//bullet bounds checking
+	for (int t = 0; t < turrets.size(); t++) {
+		for (int b = 0; b < turrets[t]->bullets.size(); b++) {
+			sf::Vector2f bPos = turrets[t]->bullets[b]->pos;
+			if (bPos.x < 0 || bPos.x > 800 ||
+				bPos.y < 0 || bPos.y > 600) {
+				delete turrets[t]->bullets[b];
+				turrets[t]->bullets.erase(turrets[t]->bullets.begin() + b);
+			}
+
+		}
+	}
 }

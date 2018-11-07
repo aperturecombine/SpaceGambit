@@ -2,11 +2,11 @@
 #include "Globals.h"
 
 GameStateManager::GameStateManager() {
-	pushState(new MenuState(this));
-    
-	running = true;
 	window.create(sf::VideoMode(SCREENWIDTH, SCREENHEIGHT), "Space Gambit");
     window.setVerticalSyncEnabled(true);
+	
+	pushState(MENUSTATE);
+	running = true;
 }
 
 void GameStateManager::start() {
@@ -14,29 +14,36 @@ void GameStateManager::start() {
 	sf::Clock clock;
 
 	while (running) {
-		float deltams = clock.getElapsedTime().asMicroseconds();
+		float deltams = clock.restart().asSeconds();
 
-		this->states.top()->update(deltams);
-		this->states.top()->draw(&window);
+		states.top()->update(deltams);
 
+		window.clear();
+		states.top()->draw(&window);
 		window.display();
 
 		sf::Event event;
 		while (window.pollEvent(event)) {
 			if (event.type == sf::Event::Closed)
 				running = false;
-            if (event.type == sf::Event::KeyPressed || event.type == sf::Event::KeyReleased)
-            this->states.top()->handleInput(event);
-            
-            
 		}
-        this->states.top()->handleInput();
-		clock.restart();
+        states.top()->handleInput();
 	}
 }
 
-void GameStateManager::pushState(GameState * state) {
-	this->states.push(state);
+void GameStateManager::pushState(int newState) {
+	currentState = newState;
+	switch (newState) {
+	case MENUSTATE:
+		states.push(new MenuState(this));
+		break;
+	case PLAYSTATE:
+		states.push(new PlayState(this));
+		break;
+	case FINISHSTATE:
+		states.push(new MenuState(this));
+		break;
+	}
 }
 
 void GameStateManager::popState() {

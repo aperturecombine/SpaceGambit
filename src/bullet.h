@@ -1,13 +1,15 @@
-
 #pragma once
-
 #include <SFML/Graphics.hpp>
 
-class bullet {
+class Bullet {
 public:
-    bullet() {}
-    ~bullet() {}
+    Bullet() {}
+    ~Bullet() {}
     
-    virtual void move() = 0;
-    virtual bool withinBounds() = 0;
+    virtual void update(float deltams) = 0;
+
+	sf::Vector2f pos;
+	sf::Vector2f vel;
+
+	int radius;
 };

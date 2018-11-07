@@ -10,7 +10,6 @@ public:
 	MenuState(class GameStateManager *gsm);
 	virtual void update(float deltams);
 	virtual void draw(sf::RenderWindow *window);
-	virtual void handleInput(sf::Event event);
     virtual void handleInput();
 
 private:
