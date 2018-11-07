@@ -5,8 +5,8 @@ RocketShip::RocketShip(sf::Vector2f p) {
 	pos = p;// sf::Vector2f(100, 100);
 
 	ACCEL = 50;
-	DECEL = 0.9;
-	maxSpeed = 400;
+	DECEL = .92;
+	maxSpeed = 500;
 
 	moveUp = false;
 	moveDown = false;
