@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "PlayState.h"
+#include "../../States/PlayState.h"
 
 class Bullet {
 public:

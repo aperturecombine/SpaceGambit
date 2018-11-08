@@ -1,6 +1,6 @@
 #pragma once
 #include "GameState.h"
-#include "RocketShip.h"
+#include "../Entities/Ships/RocketShip.h"
 #include <iostream>
 #include <vector>
 #include <math.h>

@@ -2,7 +2,7 @@
 #include <stack>
 #include "MenuState.h"
 #include "PlayState.h"
-#include "RocketShip.h"
+#include "../Entities/Ships/RocketShip.h"
 #include <SFML/Graphics.hpp>
 
 #define MENUSTATE 0
