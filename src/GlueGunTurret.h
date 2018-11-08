@@ -1,15 +1,16 @@
 
+
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Turret.h"
-#include "../Bullets/BoomerangBullet.h"
-#include "../../States/PlayState.h"
+//#include "BoomerangBullet.h"
+#include "PlayState.h"
 #include <iostream>
 #include <vector>
 
-class BoomerangTurret : public Turret {
+class GlueGunTurret : public Turret {
 public:
-    BoomerangTurret(sf::Vector2f p);
+    GlueGunTurret(sf::Vector2f p);
     
     virtual void fire();
     virtual void update(float deltams);

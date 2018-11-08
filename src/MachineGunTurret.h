@@ -1,8 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Turret.h"
-#include "../Bullets/MachineGunBullet.h"
-#include "../../States/PlayState.h"
+#include "MachineGunBullet.h"
+#include "PlayState.h"
 #include <iostream>
 #include <vector>
 

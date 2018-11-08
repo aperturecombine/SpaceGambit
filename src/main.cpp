@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include "./States/GameStateManager.h"
+#include "GameStateManager.h"
 #include "Box2D/Box2D.h"
 
 int main() {

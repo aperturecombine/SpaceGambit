@@ -1,8 +1,8 @@
 #include "PlayState.h"
 #include "GameStateManager.h"
-#include "../Entities/Turrets/MachineGunTurret.h"
-#include "../Entities/Turrets/GuidedTurret.h"
-#include "../Entities/Bullets/Bullet.h"
+#include "MachineGunTurret.h"
+#include "GuidedTurret.h"
+#include "Bullet.h"
 
 PlayState::PlayState(class GameStateManager *g) {
 	gsm = g;
