@@ -4,7 +4,7 @@
 
 GuidedTurret::GuidedTurret(sf::Vector2f p) {
     pos = p;
-    fireRate = .45;
+    fireRate = 10;
     counter = 0;
     
     if (!turretImage.loadFromFile("resources/turret.png")) {
@@ -21,13 +21,18 @@ GuidedTurret::GuidedTurret(sf::Vector2f p) {
 }
 
 void GuidedTurret::fire() {
-    GuidedBullet *newBullet = new GuidedBullet(pos, getInitBulletVel());
+    GuidedBullet *newBullet = new GuidedBullet(pos, getInitBulletVel(), ref);
     bullets.push_back(newBullet);
+}
+
+void GuidedTurret::explode(){
+    bullets.pop_back();
 }
 
 void GuidedTurret::update(float dt) {
     counter += dt;
     if (counter >= fireRate) {
+        if(!bullets.empty()) explode();
         fire();
         counter = 0;
     }
@@ -38,9 +43,15 @@ void GuidedTurret::update(float dt) {
 }
 
 sf::Vector2f GuidedTurret::getInitBulletVel() {
-    sf::Vector2f init = (ref->ship1.pos - pos);
+    sf::Vector2f ship1_init = (ref->ship1.pos - pos);
+    sf::Vector2f ship2_init = (ref->ship2.pos - pos);
+    float ship1_dist = pow((ship1_init.x*ship1_init.x + ship1_init.y*ship1_init.y),0.5);
+    float ship2_dist = pow((ship2_init.x*ship2_init.x + ship2_init.y*ship2_init.y),0.5);
     
-    return normalize(init);
+    if (ship1_dist < ship2_dist)
+        return normalize(ship1_init);
+    else
+        return normalize(ship2_init);
 }
 
 sf::Vector2f GuidedTurret::normalize(sf::Vector2f & v) {

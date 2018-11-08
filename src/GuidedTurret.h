@@ -19,6 +19,8 @@ public:
     
     sf::Vector2f normalize(sf::Vector2f & v);
     
+    virtual void explode();
+    
     void setReference(PlayState *r) { ref = r; }
     PlayState *ref;
 };

@@ -1,6 +1,7 @@
 #include "PlayState.h"
 #include "GameStateManager.h"
 #include "MachineGunTurret.h"
+#include "GuidedTurret.h"
 #include "Bullet.h"
 
 PlayState::PlayState(class GameStateManager *g) {
@@ -21,7 +22,7 @@ PlayState::PlayState(class GameStateManager *g) {
 	t1->setReference(this);
 	MachineGunTurret *t2 = new MachineGunTurret(sf::Vector2f(300, 400));
 	t2->setReference(this);
-    MachineGunTurret *t3 = new MachineGunTurret(sf::Vector2f(300, 700));
+    GuidedTurret *t3 = new GuidedTurret(sf::Vector2f(300, 700));
     t3->setReference(this);
 
 	turrets.push_back(t1);
