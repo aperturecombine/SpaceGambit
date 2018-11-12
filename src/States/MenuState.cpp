@@ -57,7 +57,7 @@ void MenuState::centerText(sf::Text *text, int y) {
 	sf::FloatRect textRect = text->getLocalBounds();
 	text->setOrigin(textRect.left + textRect.width / 2.0f,
 		textRect.top + textRect.height / 2.0f);
-	text->setPosition(sf::Vector2f(SCREENWIDTH / 2.0f, y));
+	text->setPosition(sf::Vector2f(800 / 2.0f, y));
 }
 
 void MenuState::select() {

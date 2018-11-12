@@ -117,8 +117,8 @@ void PlayState::checkCollisions() {
 	for (int t = 0; t < turrets.size(); t++) {
 		for (int b = 0; b < turrets[t]->bullets.size(); b++) {
 			sf::Vector2f bPos = turrets[t]->bullets[b]->pos;
-			if (bPos.x < 0 || bPos.x > SCREENWIDTH ||
-				bPos.y < 0 || bPos.y > SCREENHEIGHT) {
+			if (bPos.x < 0 || bPos.x > 800 ||
+				bPos.y < 0 || bPos.y > 600) {
 				delete turrets[t]->bullets[b];
 				turrets[t]->bullets.erase(turrets[t]->bullets.begin() + b);
 			}
