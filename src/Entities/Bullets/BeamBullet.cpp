@@ -1,14 +1,15 @@
-
 #include "BeamBullet.h"
 
-BeamBullet::BeamBullet(sf::Vector2f p, sf::Vector2f v) {
+BeamBullet::BeamBullet(sf::Vector2f p, sf::Vector2f v, PlayState *refe) {
     pos = p;
     vel = v;
-    speed = 300;
+    speed = 800;
     isAlive = true;
-    radius = 5;
+    radius = 20;
+    ref = refe;
 }
 
 void BeamBullet::update(float dt) {
+  
     pos += vel * speed * dt;
 }
