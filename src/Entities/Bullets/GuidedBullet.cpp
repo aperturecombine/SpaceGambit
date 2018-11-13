@@ -1,5 +1,3 @@
-
-
 #include "GuidedBullet.h"
 
 GuidedBullet::GuidedBullet(sf::Vector2f p, sf::Vector2f v, PlayState *refe) {

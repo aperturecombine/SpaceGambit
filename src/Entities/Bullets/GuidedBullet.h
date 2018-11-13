@@ -9,8 +9,6 @@ public:
     
     virtual void update(float dt);
     
-    bool isAlive;
-    
 private:
     float speed;
 };
