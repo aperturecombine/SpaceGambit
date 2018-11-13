@@ -6,7 +6,7 @@ MachineGunTurret::MachineGunTurret(sf::Vector2f p) {
 	fireRate = .45;
 	counter = 0;
 
-	if (!turretImage.loadFromFile("resources/turret.png")) {
+	if (!turretImage.loadFromFile("resources/machineGunTurret.png")) {
 		printf("Could not load turret");
 	}
 
@@ -33,6 +33,10 @@ void MachineGunTurret::update(float dt) {
 
     for (int i = 0; i < bullets.size(); i++) {
         bullets.at(i)->update(dt);
+        if (!(bullets.at(i)->isAlive))
+        {
+            bullets.erase(bullets.begin() + i);
+        }
     }
 }
 
@@ -56,31 +60,3 @@ sf::Vector2f MachineGunTurret::normalize(sf::Vector2f & v) {
 		return v;
 }
 
-/*void setDirection(int angle) {
-	switch (angle) {
-	case 90: // Moving straight up
-		direction.x = 0;
-		direction.y = -windowHeight / 20;
-		break;
-
-	case 180: // Moving straight left
-		direction.x = -windowWidth / 20;
-		direction.y = 0;
-		break;
-
-	case 270: // Moving straight down
-		direction.x = 0;
-		direction.y = windowHeight / 20;
-		break;
-
-	case 360: // Moving straight right
-		direction.x = windowWidth / 20;
-		direction.y = 0;
-		break;
-
-	default: // There should be no direction
-		direction.x = 0;
-		direction.y = 0;
-		break;
-	}
-}*/
