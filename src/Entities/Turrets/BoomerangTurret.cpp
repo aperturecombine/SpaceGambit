@@ -7,7 +7,7 @@ BoomerangTurret::BoomerangTurret(sf::Vector2f p) {
     fireRate = .45;
     counter = 0;
     
-    if (!turretImage.loadFromFile("resources/turret.png")) {
+    if (!turretImage.loadFromFile("resources/boomerangTurret.png")) {
         printf("Could not load turret");
     }
     
