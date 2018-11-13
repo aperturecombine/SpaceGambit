@@ -4,6 +4,7 @@
 #include "../Entities/Turrets/GuidedTurret.h"
 #include "../Entities/Turrets/RailGunTurret.h"
 #include "../Entities/Turrets/RicochetTurret.h"
+#include "../Entities/Turrets/BoomerangTurret.h"
 #include "../Entities/Bullets/Bullet.h"
 
 PlayState::PlayState(class GameStateManager *g) {
@@ -22,7 +23,7 @@ PlayState::PlayState(class GameStateManager *g) {
     ship2 = RocketShip(sf::Vector2f(100,300));
 	MachineGunTurret *t1 = new MachineGunTurret(sf::Vector2f(300, 100));
 	t1->setReference(this);
-	MachineGunTurret *t2 = new MachineGunTurret(sf::Vector2f(300, 400));
+	BoomerangTurret *t2 = new BoomerangTurret(sf::Vector2f(300, 400));
 	t2->setReference(this);
     GuidedTurret *t3 = new GuidedTurret(sf::Vector2f(300, 700));
     t3->setReference(this);
