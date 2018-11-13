@@ -4,10 +4,10 @@
 
 RailGunTurret::RailGunTurret(sf::Vector2f p) {
     pos = p;
-    fireRate = .45;
+    fireRate = 5;
     counter = 0;
     
-    if (!turretImage.loadFromFile("resources/turret.png")) {
+    if (!turretImage.loadFromFile("resources/railGunTurret.png")) {
         printf("Could not load turret");
     }
     
@@ -21,7 +21,7 @@ RailGunTurret::RailGunTurret(sf::Vector2f p) {
 }
 
 void RailGunTurret::fire() {
-    BeamBullet *newBullet = new BeamBullet(pos, getInitBulletVel());
+    BeamBullet *newBullet = new BeamBullet(pos, getInitBulletVel(), ref);
     bullets.push_back(newBullet);
 }
 
@@ -38,9 +38,15 @@ void RailGunTurret::update(float dt) {
 }
 
 sf::Vector2f RailGunTurret::getInitBulletVel() {
-    sf::Vector2f init = (ref->ship1.pos - pos);
+    sf::Vector2f ship1_init = (ref->ship1.pos - pos);
+    sf::Vector2f ship2_init = (ref->ship2.pos - pos);
+    float ship1_dist = pow((ship1_init.x*ship1_init.x + ship1_init.y*ship1_init.y),0.5);
+    float ship2_dist = pow((ship2_init.x*ship2_init.x + ship2_init.y*ship2_init.y),0.5);
     
-    return normalize(init);
+    if (ship1_dist < ship2_dist)
+        return normalize(ship1_init);
+    else
+        return normalize(ship2_init);
 }
 
 sf::Vector2f RailGunTurret::normalize(sf::Vector2f & v) {
@@ -50,32 +56,3 @@ sf::Vector2f RailGunTurret::normalize(sf::Vector2f & v) {
     else
         return v;
 }
-
-/*void setDirection(int angle) {
- switch (angle) {
- case 90: // Moving straight up
- direction.x = 0;
- direction.y = -windowHeight / 20;
- break;
- 
- case 180: // Moving straight left
- direction.x = -windowWidth / 20;
- direction.y = 0;
- break;
- 
- case 270: // Moving straight down
- direction.x = 0;
- direction.y = windowHeight / 20;
- break;
- 
- case 360: // Moving straight right
- direction.x = windowWidth / 20;
- direction.y = 0;
- break;
- 
- default: // There should be no direction
- direction.x = 0;
- direction.y = 0;
- break;
- }
- }*/
