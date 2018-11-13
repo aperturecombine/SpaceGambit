@@ -2,6 +2,8 @@
 #include "GameStateManager.h"
 #include "../Entities/Turrets/MachineGunTurret.h"
 #include "../Entities/Turrets/GuidedTurret.h"
+#include "../Entities/Turrets/RailGunTurret.h"
+#include "../Entities/Turrets/RicochetTurret.h"
 #include "../Entities/Bullets/Bullet.h"
 
 PlayState::PlayState(class GameStateManager *g) {
@@ -119,7 +121,6 @@ void PlayState::checkCollisions() {
 			sf::Vector2f bPos = turrets[t]->bullets[b]->pos;
 			if (bPos.x < 0 || bPos.x > 800 ||
 				bPos.y < 0 || bPos.y > 600) {
-				delete turrets[t]->bullets[b];
 				turrets[t]->bullets.erase(turrets[t]->bullets.begin() + b);
 			}
 
