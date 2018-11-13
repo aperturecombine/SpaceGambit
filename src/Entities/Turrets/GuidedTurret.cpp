@@ -7,7 +7,7 @@ GuidedTurret::GuidedTurret(sf::Vector2f p) {
     fireRate = 10;
     counter = 0;
     
-    if (!turretImage.loadFromFile("resources/turret.png")) {
+    if (!turretImage.loadFromFile("resources/guidedTurret.png")) {
         printf("Could not load turret");
     }
     
