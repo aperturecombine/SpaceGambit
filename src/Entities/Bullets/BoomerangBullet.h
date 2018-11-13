@@ -11,4 +11,8 @@ public:
     
 private:
     float speed;
+    float returnCounter;
+    float returnPoint;
+    bool finished;
+    bool travelled;
 };
