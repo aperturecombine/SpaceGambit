@@ -3,7 +3,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Turret.h"
-#include "../Bullets/BeamBullet.h"
+#include "../Bullets/RicochetBullet.h"
 #include "../../States/PlayState.h"
 #include <iostream>
 #include <vector>
