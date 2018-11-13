@@ -9,8 +9,10 @@ public:
     
     virtual void update(float dt);
     
-    bool isAlive;
-    
 private:
     float speed;
+    float returnCounter;
+    float returnPoint;
+    bool finished;
+    bool travelled;
 };

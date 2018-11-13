@@ -33,14 +33,32 @@ void BoomerangTurret::update(float dt) {
     }
     
     for (int i = 0; i < bullets.size(); i++) {
+        
         bullets.at(i)->update(dt);
+        std::cout << bullets.at(i)->isAlive << std::endl;
+//        if (!(bullets.at(i)->isAlive)){
+//            bullets.erase(bullets.begin() + i);
+//        }
+        if(!bullets.at(i)->isAlive)
+        {
+            bullets.erase(bullets.begin() + i);
+        }
+//        else {
+//
+//        }
     }
 }
 
 sf::Vector2f BoomerangTurret::getInitBulletVel() {
-    sf::Vector2f init = (ref->ship1.pos - pos);
+    sf::Vector2f ship1_init = (ref->ship1.pos - pos);
+    sf::Vector2f ship2_init = (ref->ship2.pos - pos);
+    float ship1_dist = pow((ship1_init.x*ship1_init.x + ship1_init.y*ship1_init.y),0.5);
+    float ship2_dist = pow((ship2_init.x*ship2_init.x + ship2_init.y*ship2_init.y),0.5);
     
-    return normalize(init);
+    if (ship1_dist < ship2_dist)
+        return normalize(ship1_init);
+    else
+        return normalize(ship2_init);
 }
 
 sf::Vector2f BoomerangTurret::normalize(sf::Vector2f & v) {
