@@ -1,5 +1,7 @@
 #pragma once
 #include "Bullet.h"
+#include "../../Globals.h"
+
 
 class MachineGunBullet : public Bullet {
 public:
@@ -8,8 +10,7 @@ public:
 
 	virtual void update(float dt);
 
-	bool isAlive;
-
 private:
 	float speed;
+    virtual void checkBounds(float dt);
 };
