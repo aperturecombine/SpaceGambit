@@ -23,10 +23,12 @@ BoomerangTurret::BoomerangTurret(sf::Vector2f p) {
 }
 
 void BoomerangTurret::fire() {
+    sf::Vector2f v = getInitBulletVel();
     if (withinfiringRange)
     {
-    BoomerangBullet *newBullet = new BoomerangBullet(pos, getInitBulletVel());
+    BoomerangBullet *newBullet = new BoomerangBullet(pos, v);
     bullets.push_back(newBullet);
+    counter = 0;
     }
 }
 
@@ -34,7 +36,6 @@ void BoomerangTurret::update(float dt) {
     counter += dt;
     if (counter >= fireRate) {
         fire();
-        counter = 0;
     }
     
     for (int i = 0; i < bullets.size(); i++) {
@@ -55,9 +56,17 @@ sf::Vector2f BoomerangTurret::getInitBulletVel() {
     float ship2_dist = pow((ship2_init.x*ship2_init.x + ship2_init.y*ship2_init.y),0.5);
     
     if (ship1_dist < ship2_dist)
+    {
+        if (ship1_dist < firingRange) {withinfiringRange=true;}
+        else {withinfiringRange=false;}
         return normalize(ship1_init);
+    }
     else
+    {
+        if (ship1_dist < firingRange) {withinfiringRange=true;}
+        else {withinfiringRange=false;}
         return normalize(ship2_init);
+    }
 }
 
 sf::Vector2f BoomerangTurret::normalize(sf::Vector2f & v) {

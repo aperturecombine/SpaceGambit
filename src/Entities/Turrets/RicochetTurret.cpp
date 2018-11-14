@@ -23,9 +23,10 @@ RicochetTurret::RicochetTurret(sf::Vector2f p) {
 }
 
 void RicochetTurret::fire() {
+    sf::Vector2f v = getInitBulletVel();
     if (withinfiringRange)
     {
-        RicochetBullet *newBullet = new RicochetBullet(pos, getInitBulletVel(), ref);
+        RicochetBullet *newBullet = new RicochetBullet(pos, v, ref);
         bullets.push_back(newBullet);
         counter = 0;
     }
@@ -52,9 +53,17 @@ sf::Vector2f RicochetTurret::getInitBulletVel() {
     float ship2_dist = pow((ship2_init.x*ship2_init.x + ship2_init.y*ship2_init.y),0.5);
     
     if (ship1_dist < ship2_dist)
+    {
+        if (ship1_dist < firingRange) {withinfiringRange=true;}
+        else {withinfiringRange=false;}
         return normalize(ship1_init);
+    }
     else
+    {
+        if (ship1_dist < firingRange) {withinfiringRange=true;}
+        else {withinfiringRange=false;}
         return normalize(ship2_init);
+    }
 }
 
 sf::Vector2f RicochetTurret::normalize(sf::Vector2f & v) {
