@@ -1,12 +1,12 @@
 #include "PlayState.h"
 #include "GameStateManager.h"
+#include "../Globals.h"
 #include "../Entities/Turrets/MachineGunTurret.h"
 #include "../Entities/Turrets/GuidedTurret.h"
 #include "../Entities/Turrets/BoomerangTurret.h"
 #include "../Entities/Turrets/RailGunTurret.h"
 #include "../Entities/Turrets/RicochetTurret.h"
 #include "../Entities/Turrets/GlueGunTurret.h"
-
 #include "../Entities/Bullets/Bullet.h"
 
 PlayState::PlayState(class GameStateManager *g) {
@@ -106,15 +106,15 @@ void PlayState::draw(sf::RenderWindow *window) {
 }
 
 void PlayState::handleInput() {
-	ship1.moveRight = sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
-	ship1.moveLeft = sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
-	ship1.moveUp = sf::Keyboard::isKeyPressed(sf::Keyboard::Up);
-	ship1.moveDown = sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
+	ship1.moveRight = sf::Keyboard::isKeyPressed(PlayerOne_Right);
+	ship1.moveLeft = sf::Keyboard::isKeyPressed(PlayerOne_Left);
+	ship1.moveUp = sf::Keyboard::isKeyPressed(PlayerOne_Up);
+	ship1.moveDown = sf::Keyboard::isKeyPressed(PlayerOne_Down);
     
-    ship2.moveRight = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
-    ship2.moveLeft = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
-    ship2.moveUp = sf::Keyboard::isKeyPressed(sf::Keyboard::W);
-    ship2.moveDown = sf::Keyboard::isKeyPressed(sf::Keyboard::S);
+    ship2.moveRight = sf::Keyboard::isKeyPressed(PlayerTwo_Right);
+    ship2.moveLeft = sf::Keyboard::isKeyPressed(PlayerTwo_Left);
+    ship2.moveUp = sf::Keyboard::isKeyPressed(PlayerTwo_Up);
+    ship2.moveDown = sf::Keyboard::isKeyPressed(PlayerTwo_Down);
 }
 
 void PlayState::checkCollisions() {
