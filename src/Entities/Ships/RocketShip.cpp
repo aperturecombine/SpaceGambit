@@ -3,7 +3,7 @@
 
 RocketShip::RocketShip(sf::Vector2f p) {
 	vel = sf::Vector2f(0, 0);
-	pos = p;// sf::Vector2f(100, 100);
+    pos = p;
 
 	ACCEL = 50;
 	DECEL = .92;
