@@ -47,13 +47,13 @@ void GlueGunTurret::update(float dt) {
         counter2 = 0;
         ref->ship2.maxSpeed = MAXSPEED*.5;
         
-        std::cout << "fire2" << std::endl;
+//        std::cout << "fire2" << std::endl;
         
     }
     if (ship1_dist < firingRange) {
         counter = 0;
         ref->ship1.maxSpeed = MAXSPEED*.5;
-        std::cout << "fire2" << std::endl;
+//        std::cout << "fire2" << std::endl;
         
     }
     
