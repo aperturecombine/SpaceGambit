@@ -1,3 +1,5 @@
+#include "./States/GameStateManager.h"
+#include "./Globals.h"
 
 GameStateManager::GameStateManager() {
 	window.create(sf::VideoMode(SCREENWIDTH, SCREENHEIGHT), "Space Gambit");
@@ -30,6 +32,7 @@ void GameStateManager::start() {
 }
 
 void GameStateManager::pushState(int newState) {
+<<<<<<< HEAD:GameStateManager.cpp
 	currentState = newState;
 	switch (newState) {
 	case MENUSTATE:
