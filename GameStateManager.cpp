@@ -1,10 +1,8 @@
-#include "GameStateManager.h"
-#include "../Globals.h"
 
 GameStateManager::GameStateManager() {
 	window.create(sf::VideoMode(SCREENWIDTH, SCREENHEIGHT), "Space Gambit");
     window.setVerticalSyncEnabled(true);
-	
+    
 	pushState(MENUSTATE);
 	running = true;
 }
@@ -48,7 +46,24 @@ void GameStateManager::pushState(int newState) {
         break;
 	}
 }
+=======
+>>>>>>> box2d_include:GameStateManager.cpp
 
+    currentState = newState;
+  
+    switch (newState) {
+        case MENUSTATE:
+            states.push(new MenuState(this));
+            break;
+        case PLAYSTATE:
+            states.push(new PlayState(this));
+            break;
+        case FINISHSTATE:
+            states.push(new FinishState(this));
+    
+}
+  
+}
 void GameStateManager::popState() {
 	this->states.pop();
 	if (this->states.empty()) {
