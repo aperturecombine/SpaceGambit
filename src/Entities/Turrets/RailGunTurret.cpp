@@ -5,7 +5,9 @@
 RailGunTurret::RailGunTurret(sf::Vector2f p) {
     pos = p;
     fireRate = 5;
-    counter = 0;
+    counter = fireRate;
+    firingRange = 500;
+    withinfiringRange = false;
     
     if (!turretImage.loadFromFile("resources/railGunTurret.png")) {
         printf("Could not load turret");
@@ -21,15 +23,18 @@ RailGunTurret::RailGunTurret(sf::Vector2f p) {
 }
 
 void RailGunTurret::fire() {
+    if (withinfiringRange)
+    {
     BeamBullet *newBullet = new BeamBullet(pos, getInitBulletVel(), ref);
     bullets.push_back(newBullet);
+    counter = 0;
+    }
 }
 
 void RailGunTurret::update(float dt) {
     counter += dt;
     if (counter >= fireRate) {
         fire();
-        counter = 0;
     }
     
     for (int i = 0; i < bullets.size(); i++) {

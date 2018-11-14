@@ -2,9 +2,10 @@
 #include "GameStateManager.h"
 #include "../Entities/Turrets/MachineGunTurret.h"
 #include "../Entities/Turrets/GuidedTurret.h"
+#include "../Entities/Turrets/BoomerangTurret.h"
 #include "../Entities/Turrets/RailGunTurret.h"
 #include "../Entities/Turrets/RicochetTurret.h"
-#include "../Entities/Turrets/BoomerangTurret.h"
+
 #include "../Entities/Bullets/Bullet.h"
 
 PlayState::PlayState(class GameStateManager *g) {
@@ -19,18 +20,29 @@ PlayState::PlayState(class GameStateManager *g) {
     background.setPosition(0, 0);
     background.setScale(2.f, 2.5);
 
-	ship1 = RocketShip(sf::Vector2f(100,100));
-    ship2 = RocketShip(sf::Vector2f(100,300));
-	MachineGunTurret *t1 = new MachineGunTurret(sf::Vector2f(300, 100));
+	ship1 = RocketShip(sf::Vector2f(250,500));
+    ship2 = RocketShip(sf::Vector2f(250,900));
+	MachineGunTurret *t1 = new MachineGunTurret(sf::Vector2f(250, 100));
 	t1->setReference(this);
-	BoomerangTurret *t2 = new BoomerangTurret(sf::Vector2f(300, 400));
-	t2->setReference(this);
-    GuidedTurret *t3 = new GuidedTurret(sf::Vector2f(300, 700));
-    t3->setReference(this);
-
-	turrets.push_back(t1);
-	turrets.push_back(t2);
+    turrets.push_back(t1);
+    
+    GuidedTurret *t2 = new GuidedTurret(sf::Vector2f(500, 100));
+    t2->setReference(this);
+    turrets.push_back(t2);
+    
+	BoomerangTurret *t3 = new BoomerangTurret(sf::Vector2f(800, 100));
+	t3->setReference(this);
     turrets.push_back(t3);
+    
+    RailGunTurret *t4 = new RailGunTurret(sf::Vector2f(1100, 100));
+    t4->setReference(this);
+    turrets.push_back(t4);
+	
+    RicochetTurret *t5 = new RicochetTurret(sf::Vector2f(1350, 100));
+    t5->setReference(this);
+    turrets.push_back(t5);
+	
+    
 }
 
 void PlayState::update(float deltams) {

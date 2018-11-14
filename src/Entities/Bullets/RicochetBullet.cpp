@@ -7,7 +7,7 @@ RicochetBullet::RicochetBullet(sf::Vector2f p, sf::Vector2f v, PlayState *refe) 
     isAlive = true;
     radius = 10;
     bounceCount = 0;
-    bounceMax = 3;
+    bounceMax = 1;
     
     ref = refe;
 }

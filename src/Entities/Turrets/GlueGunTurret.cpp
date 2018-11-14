@@ -5,7 +5,9 @@
 GlueGunTurret::GlueGunTurret(sf::Vector2f p) {
     pos = p;
     fireRate = .45;
-    counter = 0;
+    counter = fireRate;
+    firingRange = 100;
+    withinfiringRange = false;
     
     if (!turretImage.loadFromFile("resources/glueGunTurret.png")) {
         printf("Could not load turret");
@@ -21,8 +23,11 @@ GlueGunTurret::GlueGunTurret(sf::Vector2f p) {
 }
 
 void GlueGunTurret::fire() {
+    if (withinfiringRange)
+    {
 //    GlueGunBullet *newBullet = new GlueGunBullet(pos, getInitBulletVel());
 //    bullets.push_back(newBullet);
+    }
 }
 
 void GlueGunTurret::update(float dt) {

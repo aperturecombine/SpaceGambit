@@ -12,7 +12,7 @@ public:
 	sf::Vector2f pos;
 	sf::Vector2f vel;
 
-	int radius;
+	float radius;
     bool isAlive;
     void setReference(PlayState *r) { ref = r; }
     PlayState *ref;

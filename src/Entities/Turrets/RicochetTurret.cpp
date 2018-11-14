@@ -5,7 +5,9 @@
 RicochetTurret::RicochetTurret(sf::Vector2f p) {
     pos = p;
     fireRate = 1;
-    counter = 0;
+    counter = fireRate;
+    firingRange = 400;
+    withinfiringRange = false;
     
     if (!turretImage.loadFromFile("resources/ricochetTurret.png")) {
         printf("Could not load turret");
@@ -21,15 +23,18 @@ RicochetTurret::RicochetTurret(sf::Vector2f p) {
 }
 
 void RicochetTurret::fire() {
-    RicochetBullet *newBullet = new RicochetBullet(pos, getInitBulletVel(), ref);
-    bullets.push_back(newBullet);
+    if (withinfiringRange)
+    {
+        RicochetBullet *newBullet = new RicochetBullet(pos, getInitBulletVel(), ref);
+        bullets.push_back(newBullet);
+        counter = 0;
+    }
 }
 
 void RicochetTurret::update(float dt) {
     counter += dt;
     if (counter >= fireRate) {
         fire();
-        counter = 0;
     }
     for (int i = 0; i < bullets.size(); i++) {
         bullets.at(i)->update(dt);

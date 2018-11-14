@@ -27,25 +27,7 @@ private:
 protected:
 	float fireRate;
 	float counter;
-
-    /*//Default Constructor
-    Turret(int x, int y)
-    {
-        turretImage.loadFromFile("../resources/turret.png");
-        turretTexture.loadFromImage(turretImage);
-        turretTexture.setSmooth(true);
-        
-        moveable = true;
-    }
-    
-    void move(int angle) {
-        setDirection(angle);
-        if (false)
-        {
-            turretObject.move(direction.x,direction.y);
-        }
-        std::cout << "Turret Position: " << position.x << ", " << position.y << std::endl;
-    }*/
-    
+    float firingRange;
+    bool withinfiringRange;
 
 };

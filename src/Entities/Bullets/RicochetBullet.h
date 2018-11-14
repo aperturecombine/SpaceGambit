@@ -12,8 +12,8 @@ public:
     
 private:
     float speed;
-    int bounceCount;
-    int bounceMax;
+    float bounceCount;
+    float bounceMax;
     
     virtual bool checkBounds(float dt);
     virtual void lifeCheck();

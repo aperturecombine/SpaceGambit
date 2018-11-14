@@ -5,7 +5,9 @@
 BoomerangTurret::BoomerangTurret(sf::Vector2f p) {
     pos = p;
     fireRate = .45;
-    counter = 0;
+    counter = fireRate;
+    firingRange = 300;
+    withinfiringRange = false;
     
     if (!turretImage.loadFromFile("resources/boomerangTurret.png")) {
         printf("Could not load turret");
@@ -21,8 +23,11 @@ BoomerangTurret::BoomerangTurret(sf::Vector2f p) {
 }
 
 void BoomerangTurret::fire() {
+    if (withinfiringRange)
+    {
     BoomerangBullet *newBullet = new BoomerangBullet(pos, getInitBulletVel());
     bullets.push_back(newBullet);
+    }
 }
 
 void BoomerangTurret::update(float dt) {
@@ -36,16 +41,10 @@ void BoomerangTurret::update(float dt) {
         
         bullets.at(i)->update(dt);
         std::cout << bullets.at(i)->isAlive << std::endl;
-//        if (!(bullets.at(i)->isAlive)){
-//            bullets.erase(bullets.begin() + i);
-//        }
         if(!bullets.at(i)->isAlive)
         {
             bullets.erase(bullets.begin() + i);
         }
-//        else {
-//
-//        }
     }
 }
 
@@ -68,32 +67,3 @@ sf::Vector2f BoomerangTurret::normalize(sf::Vector2f & v) {
     else
         return v;
 }
-
-/*void setDirection(int angle) {
- switch (angle) {
- case 90: // Moving straight up
- direction.x = 0;
- direction.y = -windowHeight / 20;
- break;
- 
- case 180: // Moving straight left
- direction.x = -windowWidth / 20;
- direction.y = 0;
- break;
- 
- case 270: // Moving straight down
- direction.x = 0;
- direction.y = windowHeight / 20;
- break;
- 
- case 360: // Moving straight right
- direction.x = windowWidth / 20;
- direction.y = 0;
- break;
- 
- default: // There should be no direction
- direction.x = 0;
- direction.y = 0;
- break;
- }
- }*/
