@@ -52,7 +52,7 @@ void GameStateManager::pushState(int newState) {
 void GameStateManager::popState() {
 	this->states.pop();
 	if (this->states.empty()) {
-		printf("SHUTDOWN");
+		printf("SHUTDOWN\n");
 		running = false;
 	}
 }
