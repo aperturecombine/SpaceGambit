@@ -23,9 +23,11 @@ RailGunTurret::RailGunTurret(sf::Vector2f p) {
 }
 
 void RailGunTurret::fire() {
+    sf::Vector2f v = getInitBulletVel();
     if (withinfiringRange)
     {
-    BeamBullet *newBullet = new BeamBullet(pos, getInitBulletVel(), ref);
+    BeamBullet *newBullet = new BeamBullet(pos, v, ref);
+        //////////////
     bullets.push_back(newBullet);
     counter = 0;
     }
@@ -49,9 +51,17 @@ sf::Vector2f RailGunTurret::getInitBulletVel() {
     float ship2_dist = pow((ship2_init.x*ship2_init.x + ship2_init.y*ship2_init.y),0.5);
     
     if (ship1_dist < ship2_dist)
+    {
+        if (ship1_dist < firingRange) {withinfiringRange=true;}
+        else {withinfiringRange=false;}
         return normalize(ship1_init);
+    }
     else
+    {
+        if (ship1_dist < firingRange) {withinfiringRange=true;}
+        else {withinfiringRange=false;}
         return normalize(ship2_init);
+    }
 }
 
 sf::Vector2f RailGunTurret::normalize(sf::Vector2f & v) {

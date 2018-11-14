@@ -7,6 +7,7 @@ public:
     ~BeamBullet();
     
     virtual void update(float dt);
+    float timePassed;
     
 private:
     float speed;
