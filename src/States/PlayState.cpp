@@ -5,6 +5,7 @@
 #include "../Entities/Turrets/BoomerangTurret.h"
 #include "../Entities/Turrets/RailGunTurret.h"
 #include "../Entities/Turrets/RicochetTurret.h"
+#include "../Entities/Turrets/GlueGunTurret.h"
 
 #include "../Entities/Bullets/Bullet.h"
 
@@ -41,6 +42,10 @@ PlayState::PlayState(class GameStateManager *g) {
     RicochetTurret *t5 = new RicochetTurret(sf::Vector2f(1350, 100));
     t5->setReference(this);
     turrets.push_back(t5);
+    
+    GlueGunTurret *t6 = new GlueGunTurret(sf::Vector2f(1500, 100));
+    t6->setReference(this);
+    turrets.push_back(t6);
 	
     
 }
