@@ -4,8 +4,9 @@
 
 GlueGunTurret::GlueGunTurret(sf::Vector2f p) {
     pos = p;
-    fireRate = .45;
-    counter = 0;
+    fireRate = .2;
+    counter = fireRate;
+    counter1 = 0;
     counter2 = 0;
     firingRange = 100;
     withinfiringRange = false;
@@ -35,6 +36,7 @@ void GlueGunTurret::fire() {
 
 void GlueGunTurret::update(float dt) {
     counter += dt;
+    counter1 += dt;
     counter2 += dt;
     
     sf::Vector2f ship1_init = (ref->ship1.pos - pos);
@@ -47,12 +49,17 @@ void GlueGunTurret::update(float dt) {
         counter2 = 0;
         ref->ship2.maxSpeed = MAXSPEED*.5;
         
+        GlueBullet *newBullet = new GlueBullet(pos, normalize(ship2_init));
+        bullets.push_back(newBullet);
 //        std::cout << "fire2" << std::endl;
         
     }
     if (ship1_dist < firingRange) {
-        counter = 0;
+        counter1 = 0;
         ref->ship1.maxSpeed = MAXSPEED*.5;
+        
+        GlueBullet *newBullet = new GlueBullet(pos, normalize(ship1_init));
+        bullets.push_back(newBullet);
 //        std::cout << "fire2" << std::endl;
         
     }
@@ -64,14 +71,20 @@ void GlueGunTurret::update(float dt) {
         ref->ship2.maxSpeed = MAXSPEED;
     }
     
-//    if (counter >= fireRate) {
-//        fire();
-//        counter = 0;
-//    }
+    if (counter >= fireRate) {
+        fire();
+        counter = 0;
+    }
     
-//    for (int i = 0; i < bullets.size(); i++) {
-//        bullets.at(i)->update(dt);
-//    }
+    for (int i = 0; i < bullets.size(); i++) {
+        bullets.at(i)->update(dt);
+        sf::Vector2f position = bullets.at(i)->pos;
+        sf::Vector2f bullet_init = (position - pos);
+        float bullet_dist = pow((bullet_init.x*bullet_init.x + bullet_init.y*bullet_init.y),0.5);
+        if (bullet_dist > firingRange){
+            bullets.erase(bullets.begin() + i);
+        }
+    }
 }
 
 sf::Vector2f GlueGunTurret::getInitBulletVel() {
@@ -96,11 +109,11 @@ sf::Vector2f GlueGunTurret::getInitBulletVel() {
 }
 
 sf::Vector2f GlueGunTurret::normalize(sf::Vector2f & v) {
-//    float length = sqrt((v.x * v.x) + (v.y * v.y));
-//    if (length != 0)
-//        return sf::Vector2f(v.x / length, v.y / length);
-//    else
-//        return v;
+    float length = sqrt((v.x * v.x) + (v.y * v.y));
+    if (length != 0)
+        return sf::Vector2f(v.x / length, v.y / length);
+    else
+        return v;
 }
 
 /*void setDirection(int angle) {

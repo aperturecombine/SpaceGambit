@@ -3,7 +3,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Turret.h"
-//#include "BoomerangBullet.h"
+#include "../Bullets/GlueBullet.h"
 #include "../../States/PlayState.h"
 #include <iostream>
 #include <vector>
@@ -19,6 +19,7 @@ public:
     
     sf::Vector2f normalize(sf::Vector2f & v);
     
+    float counter1;
     float counter2;
     float linger;
     
