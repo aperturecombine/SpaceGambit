@@ -41,8 +41,11 @@ void GameStateManager::pushState(int newState) {
 		states.push(new PlayState(this));
 		break;
 	case FINISHSTATE:
-		states.push(new MenuState(this));
+            states.push(new FinishState(this));
 		break;
+    case OPTIONSTATE:
+            states.push(new OptionState(this));
+        break;
 	}
 }
 
