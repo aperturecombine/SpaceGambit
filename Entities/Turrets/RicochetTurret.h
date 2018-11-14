@@ -8,9 +8,9 @@
 #include <iostream>
 #include <vector>
 
-class RailGunTurret : public Turret {
+class RicochetTurret : public Turret {
 public:
-    RailGunTurret(sf::Vector2f p);
+    RicochetTurret(sf::Vector2f p);
     
     virtual void fire();
     virtual void update(float deltams);

@@ -1,5 +1,4 @@
 #pragma once
-<<<<<<< HEAD
 #define SCREENWIDTH 1800
 #define SCREENHEIGHT 1200
 
@@ -14,7 +13,3 @@
 #define PlayerTwo_Down sf::Keyboard::S
 #define PlayerTwo_Left sf::Keyboard::A
 #define PlayerTwo_Right sf::Keyboard::D
-=======
-#define SCREENWIDTH 1600
-#define SCREENHEIGHT 1200
->>>>>>> box2d_include

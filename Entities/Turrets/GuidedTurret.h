@@ -3,14 +3,14 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Turret.h"
-#include "../Bullets/BeamBullet.h"
+#include "../Bullets/GuidedBullet.h"
 #include "../../States/PlayState.h"
 #include <iostream>
 #include <vector>
 
-class RailGunTurret : public Turret {
+class GuidedTurret : public Turret {
 public:
-    RailGunTurret(sf::Vector2f p);
+    GuidedTurret(sf::Vector2f p);
     
     virtual void fire();
     virtual void update(float deltams);
@@ -18,6 +18,8 @@ public:
     sf::Vector2f getInitBulletVel();
     
     sf::Vector2f normalize(sf::Vector2f & v);
+    
+    virtual void explode();
     
     void setReference(PlayState *r) { ref = r; }
     PlayState *ref;

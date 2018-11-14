@@ -1,25 +1,25 @@
 #include <iostream>
 #include <stdlib.h>
-#include "./States/MenuState.h"
+#include "MenuState.h"
 
 MenuState::MenuState(class GameStateManager *g) {
 	gsm = g;
 	currentChoice = 0;
 	
-	if (!font.loadFromFile("resources/Planetoid X.ttf")) {
+	if (!font.loadFromFile("resources/aerial.ttf")) {
 		 printf("Could not load font");
 	}
 
-    if(!texture.loadFromFile("resources/space_real.jpg")) {
+    if(!texture.loadFromFile("resources/background.png")) {
 		printf("Could not load background");
     }
 
     background.setTexture(texture);
 
     background.setPosition(0, 0);
-    background.setScale(1.0f, 1.0f);
+    background.setScale(20.f, 20.f);
     text.setFont(font);
-    text.setFillColor(sf::Color(51, 204, 255));
+    text.setFillColor(sf::Color::Black);
 }
 
 void MenuState::update(float deltams) {}
