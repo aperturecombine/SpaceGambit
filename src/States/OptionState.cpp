@@ -22,7 +22,6 @@ OptionState::OptionState(class GameStateManager *g) {
 }
 
 void OptionState::update(float deltams) {
-    std::cout <<"Counter Value: "<< counter<< std::endl;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
     {
         moveUp();
@@ -98,7 +97,7 @@ void OptionState::select() {
     if (currentChoice == 4)
     {
         std::cout <<"Return to MenuState"<< std::endl;
-        gsm->pushState(MENUSTATE);
+        gsm->popState();
     }
 }
 
