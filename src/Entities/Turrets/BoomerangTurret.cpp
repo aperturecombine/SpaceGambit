@@ -41,7 +41,6 @@ void BoomerangTurret::update(float dt) {
     for (int i = 0; i < bullets.size(); i++) {
         
         bullets.at(i)->update(dt);
-        std::cout << bullets.at(i)->isAlive << std::endl;
         if(!bullets.at(i)->isAlive)
         {
             bullets.erase(bullets.begin() + i);
