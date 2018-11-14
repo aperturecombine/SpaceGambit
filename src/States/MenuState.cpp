@@ -29,7 +29,7 @@ void MenuState::draw(sf::RenderWindow *window) {
     gsm->window.draw(background);
 	text.setCharacterSize(70);
 	text.setString("Space Gambit");
-	centerText(&text, 150);
+    centerText(&text, SCREENHEIGHT*0.1);
 	gsm->window.draw(text);
     
 	text.setCharacterSize(24);
@@ -57,12 +57,14 @@ void MenuState::centerText(sf::Text *text, int y) {
 	sf::FloatRect textRect = text->getLocalBounds();
 	text->setOrigin(textRect.left + textRect.width / 2.0f,
 		textRect.top + textRect.height / 2.0f);
-	text->setPosition(sf::Vector2f(800 / 2.0f, y));
+	text->setPosition(sf::Vector2f(SCREENWIDTH / 2.0f, y));
 }
 
 void MenuState::select() {
 	if (currentChoice == 0)
 		gsm->pushState(PLAYSTATE);
+    if (currentChoice == 1)
+        gsm->pushState(OPTIONSTATE);
 	if (currentChoice == 2)
 		gsm->popState();
 }
