@@ -1,4 +1,5 @@
 #include "RocketShip.h"
+#include "Globals.h"
 
 RocketShip::RocketShip(sf::Vector2f p) {
 	vel = sf::Vector2f(0, 0);
@@ -6,7 +7,7 @@ RocketShip::RocketShip(sf::Vector2f p) {
 
 	ACCEL = 50;
 	DECEL = .92;
-	maxSpeed = 500;
+	maxSpeed = MAXSPEED;
 
 	moveUp = false;
 	moveDown = false;

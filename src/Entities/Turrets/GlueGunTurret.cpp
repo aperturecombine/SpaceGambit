@@ -5,9 +5,11 @@
 GlueGunTurret::GlueGunTurret(sf::Vector2f p) {
     pos = p;
     fireRate = .45;
-    counter = fireRate;
+    counter = 0;
+    counter2 = 0;
     firingRange = 100;
     withinfiringRange = false;
+    linger = 2;
     
     if (!turretImage.loadFromFile("resources/glueGunTurret.png")) {
         printf("Could not load turret");
@@ -23,6 +25,7 @@ GlueGunTurret::GlueGunTurret(sf::Vector2f p) {
 }
 
 void GlueGunTurret::fire() {
+    sf::Vector2f v = getInitBulletVel();
     if (withinfiringRange)
     {
 //    GlueGunBullet *newBullet = new GlueGunBullet(pos, getInitBulletVel());
@@ -32,28 +35,72 @@ void GlueGunTurret::fire() {
 
 void GlueGunTurret::update(float dt) {
     counter += dt;
-    if (counter >= fireRate) {
-        fire();
+    counter2 += dt;
+    
+    sf::Vector2f ship1_init = (ref->ship1.pos - pos);
+    sf::Vector2f ship2_init = (ref->ship2.pos - pos);
+    float ship1_dist = pow((ship1_init.x*ship1_init.x + ship1_init.y*ship1_init.y),0.5);
+    float ship2_dist = pow((ship2_init.x*ship2_init.x + ship2_init.y*ship2_init.y),0.5);
+    
+    
+    if (ship2_dist < firingRange){
+        counter2 = 0;
+        ref->ship2.maxSpeed = MAXSPEED*.5;
+        
+//        std::cout << "fire2" << std::endl;
+        
+    }
+    if (ship1_dist < firingRange) {
         counter = 0;
+        ref->ship1.maxSpeed = MAXSPEED*.5;
+//        std::cout << "fire2" << std::endl;
+        
     }
     
-    for (int i = 0; i < bullets.size(); i++) {
-        bullets.at(i)->update(dt);
+    if (counter > linger){
+        ref->ship1.maxSpeed = MAXSPEED;
     }
+    if (counter2 > linger){
+        ref->ship2.maxSpeed = MAXSPEED;
+    }
+    
+//    if (counter >= fireRate) {
+//        fire();
+//        counter = 0;
+//    }
+    
+//    for (int i = 0; i < bullets.size(); i++) {
+//        bullets.at(i)->update(dt);
+//    }
 }
 
 sf::Vector2f GlueGunTurret::getInitBulletVel() {
-    sf::Vector2f init = (ref->ship1.pos - pos);
-    
-    return normalize(init);
+//    sf::Vector2f ship1_init = (ref->ship1.pos - pos);
+//    sf::Vector2f ship2_init = (ref->ship2.pos - pos);
+//    float ship1_dist = pow((ship1_init.x*ship1_init.x + ship1_init.y*ship1_init.y),0.5);
+//    float ship2_dist = pow((ship2_init.x*ship2_init.x + ship2_init.y*ship2_init.y),0.5);
+//
+//
+//    if (ship1_dist < ship2_dist)
+//    {
+//        if (ship1_dist < firingRange) {withinfiringRange=true;}
+//        else {withinfiringRange=false;}
+//        return normalize(ship1_init);
+//    }
+//    else
+//    {
+//        if (ship1_dist < firingRange) {withinfiringRange=true;}
+//        else {withinfiringRange=false;}
+//        return normalize(ship2_init);
+//    }
 }
 
 sf::Vector2f GlueGunTurret::normalize(sf::Vector2f & v) {
-    float length = sqrt((v.x * v.x) + (v.y * v.y));
-    if (length != 0)
-        return sf::Vector2f(v.x / length, v.y / length);
-    else
-        return v;
+//    float length = sqrt((v.x * v.x) + (v.y * v.y));
+//    if (length != 0)
+//        return sf::Vector2f(v.x / length, v.y / length);
+//    else
+//        return v;
 }
 
 /*void setDirection(int angle) {

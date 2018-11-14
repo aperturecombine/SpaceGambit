@@ -1,3 +1,5 @@
 #pragma once
-#define SCREENWIDTH 1600
+#define SCREENWIDTH 1800
 #define SCREENHEIGHT 1200
+
+#define MAXSPEED 500

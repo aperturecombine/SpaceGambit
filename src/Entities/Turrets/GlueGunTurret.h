@@ -19,6 +19,9 @@ public:
     
     sf::Vector2f normalize(sf::Vector2f & v);
     
+    float counter2;
+    float linger;
+    
     void setReference(PlayState *r) { ref = r; }
     PlayState *ref;
 };

@@ -18,14 +18,15 @@ public:
 
 	void update(float deltams);
 	int radius = 20;
-
+    float maxSpeed;
+    
 	sf::Vector2f pos;
 	sf::Vector2f vel;
 
 private:
 	float ACCEL;
 	float DECEL;
-	float maxSpeed;
+
 
 	float health;
 
