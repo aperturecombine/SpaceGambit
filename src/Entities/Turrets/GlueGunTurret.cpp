@@ -8,7 +8,7 @@ GlueGunTurret::GlueGunTurret(sf::Vector2f p) {
     counter = fireRate;
     counter1 = 0;
     counter2 = 0;
-    firingRange = 100;
+    firingRange = 300;
     withinfiringRange = false;
     linger = 2;
     
