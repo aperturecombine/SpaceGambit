@@ -7,13 +7,14 @@
 #include <stdio.h>
 #include <iostream>
 #include <stdlib.h>
-#include "FinishState.h"
+#include "./States/FinishState.h"
+#include "./States/PlayState.h"
 
 FinishState::FinishState(class GameStateManager *g) {
     gsm = g;
     currentChoice = 0;
     
-    if (!font.loadFromFile("../resources/aerial.ttf"))
+    if (!font.loadFromFile("resources/Star_Jedi_Rounded.ttf"))
     {
         std::cout << "Could not load font." << std::endl;
         
@@ -21,7 +22,7 @@ FinishState::FinishState(class GameStateManager *g) {
         
     }
     
-    if(!texture.loadFromFile("../resources/pace_finish.jpg"))
+    if(!texture.loadFromFile("resources/good_game.jpg"))
         {
         }
     //texture.loadFromImage(image);
@@ -29,11 +30,11 @@ FinishState::FinishState(class GameStateManager *g) {
     
     background.setPosition(0, 0);
 //    auto size = background.getTexture()->getSize();
-    background.setScale(10, 10);
+    background.setScale(0.5f, 0.5f);
     std::cout << "Could not load font." << std::endl;
     
     text.setFont(font);
-    text.setFillColor(sf::Color::White);
+    text.setFillColor(sf::Color::Red);
 }
 
 void FinishState::update(float deltams) {
@@ -45,7 +46,7 @@ void FinishState::draw(sf::RenderWindow *window) {
     gsm->window.clear(sf::Color(255,255,255));
     gsm->window.draw(background);
     text.setCharacterSize(70);
-    text.setString("You are Finished!");
+    text.setString("No!  You Died!");
     centerText(&text, 150);
     gsm->window.draw(text);
     
@@ -86,14 +87,16 @@ void FinishState::centerText(sf::Text *text, int y) {
     sf::FloatRect textRect = text->getLocalBounds();
     text->setOrigin(textRect.left + textRect.width / 2.0f,
                     textRect.top + textRect.height / 2.0f);
-    text->setPosition(sf::Vector2f(800 / 2.0f, y));
+    text->setPosition(sf::Vector2f(800, y));
 }
 
 void FinishState::select() {
     if (currentChoice == 1)
+    {
         gsm->popState();
-    exit(0);
-//    if (currentChoice == 0)
-//        gsm->pushState(new PlayState(gsm));
+        exit(0);
+    }
+    if (currentChoice == 0)
+        gsm->pushState(PLAYSTATE);
     
 }

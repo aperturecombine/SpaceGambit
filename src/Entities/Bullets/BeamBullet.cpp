@@ -1,18 +1,18 @@
-#include "BeamBullet.h"
 
-BeamBullet::BeamBullet(sf::Vector2f p, sf::Vector2f v, PlayState *refe) {
+#include "./Entities/Bullets/BeamBullet.h"
+
+BeamBullet::BeamBullet(sf::Vector2f p, sf::Vector2f v) {
+
     pos = p;
     vel = v;
-    speed = 1000;
+    speed = 300;
     isAlive = true;
-    radius = 20;
-    ref = refe;
-    timePassed = 0;
+    radius = 5;
+    attachShape();
+    
 }
 
 void BeamBullet::update(float dt) {
-    timePassed +=dt;
-    if (timePassed>0.25)
-        pos += vel * speed * dt;
-    
+    pos += vel * speed * dt;
+   
 }

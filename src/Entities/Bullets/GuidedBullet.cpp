@@ -1,4 +1,6 @@
-#include "GuidedBullet.h"
+
+
+#include "./Entities/Bullets/GuidedBullet.h"
 
 GuidedBullet::GuidedBullet(sf::Vector2f p, sf::Vector2f v, PlayState *refe) {
     pos = p;
@@ -8,6 +10,7 @@ GuidedBullet::GuidedBullet(sf::Vector2f p, sf::Vector2f v, PlayState *refe) {
     radius = 5;
     
     ref = refe;
+    attachShape();
 }
 
 void GuidedBullet::update(float dt) {
@@ -25,5 +28,6 @@ void GuidedBullet::update(float dt) {
         else vel = ship2_init;
     
     pos += vel * speed * dt;
+    
     
 }

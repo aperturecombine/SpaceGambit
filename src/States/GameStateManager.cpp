@@ -1,10 +1,10 @@
-#include "GameStateManager.h"
-#include "../Globals.h"
+#include "./States/GameStateManager.h"
+#include "./Globals.h"
 
 GameStateManager::GameStateManager() {
 	window.create(sf::VideoMode(SCREENWIDTH, SCREENHEIGHT), "Space Gambit");
     window.setVerticalSyncEnabled(true);
-	
+    
 	pushState(MENUSTATE);
 	running = true;
 }
@@ -32,20 +32,22 @@ void GameStateManager::start() {
 }
 
 void GameStateManager::pushState(int newState) {
-	currentState = newState;
-	switch (newState) {
-	case MENUSTATE:
-		states.push(new MenuState(this));
-		break;
-	case PLAYSTATE:
-		states.push(new PlayState(this));
-		break;
-	case FINISHSTATE:
-		states.push(new MenuState(this));
-		break;
-	}
-}
 
+    currentState = newState;
+  
+    switch (newState) {
+        case MENUSTATE:
+            states.push(new MenuState(this));
+            break;
+        case PLAYSTATE:
+            states.push(new PlayState(this));
+            break;
+        case FINISHSTATE:
+            states.push(new FinishState(this));
+    
+}
+  
+}
 void GameStateManager::popState() {
 	this->states.pop();
 	if (this->states.empty()) {

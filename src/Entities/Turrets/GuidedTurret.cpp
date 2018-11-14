@@ -1,15 +1,15 @@
 
-#include "GuidedTurret.h"
+#include "./Entities/Turrets/GuidedTurret.h"
 #include <math.h>
 
 GuidedTurret::GuidedTurret(sf::Vector2f p) {
+    
+    attachShape();
     pos = p;
     fireRate = 10;
-    counter = fireRate;
-    firingRange = 200;
-    withinfiringRange = false;
+    counter = 0;
     
-    if (!turretImage.loadFromFile("resources/guidedTurret.png")) {
+    if (!turretImage.loadFromFile("resources/turret.png")) {
         printf("Could not load turret");
     }
     
@@ -23,13 +23,8 @@ GuidedTurret::GuidedTurret(sf::Vector2f p) {
 }
 
 void GuidedTurret::fire() {
-    sf::Vector2f v = getInitBulletVel();
-    if (withinfiringRange)
-    {
-    GuidedBullet *newBullet = new GuidedBullet(pos, v, ref);
+    GuidedBullet *newBullet = new GuidedBullet(pos, getInitBulletVel(), ref);
     bullets.push_back(newBullet);
-    counter = 0;
-    }
 }
 
 void GuidedTurret::explode(){
@@ -41,6 +36,7 @@ void GuidedTurret::update(float dt) {
     if (counter >= fireRate) {
         if(!bullets.empty()) explode();
         fire();
+        counter = 0;
     }
     
     for (int i = 0; i < bullets.size(); i++) {
@@ -55,17 +51,9 @@ sf::Vector2f GuidedTurret::getInitBulletVel() {
     float ship2_dist = pow((ship2_init.x*ship2_init.x + ship2_init.y*ship2_init.y),0.5);
     
     if (ship1_dist < ship2_dist)
-    {
-        if (ship1_dist < firingRange) {withinfiringRange=true;}
-        else {withinfiringRange=false;}
         return normalize(ship1_init);
-    }
     else
-    {
-        if (ship1_dist < firingRange) {withinfiringRange=true;}
-        else {withinfiringRange=false;}
         return normalize(ship2_init);
-    }
 }
 
 sf::Vector2f GuidedTurret::normalize(sf::Vector2f & v) {
@@ -75,3 +63,32 @@ sf::Vector2f GuidedTurret::normalize(sf::Vector2f & v) {
     else
         return v;
 }
+
+/*void setDirection(int angle) {
+ switch (angle) {
+ case 90: // Moving straight up
+ direction.x = 0;
+ direction.y = -windowHeight / 20;
+ break;
+ 
+ case 180: // Moving straight left
+ direction.x = -windowWidth / 20;
+ direction.y = 0;
+ break;
+ 
+ case 270: // Moving straight down
+ direction.x = 0;
+ direction.y = windowHeight / 20;
+ break;
+ 
+ case 360: // Moving straight right
+ direction.x = windowWidth / 20;
+ direction.y = 0;
+ break;
+ 
+ default: // There should be no direction
+ direction.x = 0;
+ direction.y = 0;
+ break;
+ }
+ }*/

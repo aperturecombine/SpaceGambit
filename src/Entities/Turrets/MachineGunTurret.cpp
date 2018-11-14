@@ -1,14 +1,16 @@
-#include "MachineGunTurret.h"
+#include "./Entities/Turrets/MachineGunTurret.h"
 #include <math.h>
 
 MachineGunTurret::MachineGunTurret(sf::Vector2f p) {
-	pos = p;
-	fireRate = .45;
-	counter = fireRate;
-    firingRange = 300;
-    withinfiringRange = false;
 
-	if (!turretImage.loadFromFile("resources/machineGunTurret.png")) {
+
+    turretObject.setPosition(p);
+   
+
+	fireRate = .45;
+	counter = 0;
+  
+	if (!turretImage.loadFromFile("resources/turret.png")) {
 		printf("Could not load turret");
 	}
 
@@ -16,33 +18,30 @@ MachineGunTurret::MachineGunTurret(sf::Vector2f p) {
 	turretTexture.setSmooth(true);
 	turretObject.setTexture(turretTexture);
 	turretObject.setScale(.3, .3);
-	turretObject.setOrigin((turretObject.getTexture()->getSize().x) / 2,
-		(turretObject.getTexture()->getSize().y) / 2);
-	turretObject.setPosition(p);
+    turretObject.setPosition(p.x,p.y);
+	//turretObject.setOrigin((turretObject.getTexture()->getSize().x) / 2,
+	//	(turretObject.getTexture()->getSize().y) / 2);
+    
+    attachShape();
+    
+    pos = p;
+
 }
 
 void MachineGunTurret::fire() {
-    sf::Vector2f v = getInitBulletVel();
-    if (withinfiringRange)
-    {
-	MachineGunBullet *newBullet = new MachineGunBullet(pos, v);
+	MachineGunBullet *newBullet = new MachineGunBullet(pos, getInitBulletVel());
 	bullets.push_back(newBullet);
-    counter = 0;
-    }
 }
 
 void MachineGunTurret::update(float dt) {
 	counter += dt;
 	if (counter >= fireRate) {
 		fire();
+		counter = 0;
 	}
 
     for (int i = 0; i < bullets.size(); i++) {
         bullets.at(i)->update(dt);
-        if (!(bullets.at(i)->isAlive))
-        {
-            bullets.erase(bullets.begin() + i);
-        }
     }
 }
 
@@ -53,17 +52,9 @@ sf::Vector2f MachineGunTurret::getInitBulletVel() {
     float ship2_dist = pow((ship2_init.x*ship2_init.x + ship2_init.y*ship2_init.y),0.5);
     
     if (ship1_dist < ship2_dist)
-    {
-        if (ship1_dist < firingRange) {withinfiringRange=true;}
-        else {withinfiringRange=false;}
         return normalize(ship1_init);
-    }
     else
-    {
-        if (ship1_dist < firingRange) {withinfiringRange=true;}
-        else {withinfiringRange=false;}
         return normalize(ship2_init);
-    }
 }
 
 sf::Vector2f MachineGunTurret::normalize(sf::Vector2f & v) {
@@ -74,3 +65,31 @@ sf::Vector2f MachineGunTurret::normalize(sf::Vector2f & v) {
 		return v;
 }
 
+/*void setDirection(int angle) {
+	switch (angle) {
+	case 90: // Moving straight up
+		direction.x = 0;
+		direction.y = -windowHeight / 20;
+		break;
+
+	case 180: // Moving straight left
+		direction.x = -windowWidth / 20;
+		direction.y = 0;
+		break;
+
+	case 270: // Moving straight down
+		direction.x = 0;
+		direction.y = windowHeight / 20;
+		break;
+
+	case 360: // Moving straight right
+		direction.x = windowWidth / 20;
+		direction.y = 0;
+		break;
+
+	default: // There should be no direction
+		direction.x = 0;
+		direction.y = 0;
+		break;
+	}
+}*/
