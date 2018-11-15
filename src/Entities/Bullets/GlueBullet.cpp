@@ -1,5 +1,5 @@
 
-#include "GlueBullet.h"
+#include "./Entities/Bullets/GlueBullet.h"
 
 GlueBullet::GlueBullet(sf::Vector2f p, sf::Vector2f v) {
     pos = p;

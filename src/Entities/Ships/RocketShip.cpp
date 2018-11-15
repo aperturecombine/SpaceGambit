@@ -1,5 +1,5 @@
-#include "RocketShip.h"
-#include "Globals.h"
+#include "./Entities/Ships/RocketShip.h"
+#include "./Globals.h"
 
 RocketShip::RocketShip(sf::Vector2f p) {
 	vel = sf::Vector2f(0, 0);
@@ -14,16 +14,16 @@ RocketShip::RocketShip(sf::Vector2f p) {
 	moveLeft = false;
 	moveRight = false;
 
-	radius = 10;
+	radius = 40;
 	attachShape();
 
-	if (!rocketShipImage.loadFromFile("resources/spaceship.png")) {
+	if (!rocketShipTexture.loadFromFile("resources/SHIP_SPEED.png")) {
 		printf("Could not load spaceship");
 	}
-	rocketShipTexture.loadFromImage(rocketShipImage);
-	rocketShipTexture.setSmooth(true);
-	rocketShipObject.setTexture(rocketShipTexture);
-	rocketShipObject.setScale(.5, .5);
+	//rocketShipTexture.loadFromImage(rocketShipImage);
+	//rocketShipTexture.setSmooth(true);
+	rocketShipObject.setTexture(rocketShipTexture,true);
+	rocketShipObject.setScale(0.1f, 0.1f);
     rocketShipObject.setOrigin(rocketShipObject.getGlobalBounds().width/2, rocketShipObject.getGlobalBounds().height/2);
 }
 
@@ -59,8 +59,8 @@ void RocketShip::update(float deltams) {
 void RocketShip::attachShape(){
     
     shipShape= new b2CircleShape();
-    shipShape -> m_p.Set(120.0f, 130.0f);
-    shipShape -> m_radius = radius;
+    shipShape -> m_p.Set(0.0f, 0.0f);
+    shipShape -> m_radius = 200.0f;
       
     // create new triangle Body
     b2Vec2 vertices1[3];//PolygonA

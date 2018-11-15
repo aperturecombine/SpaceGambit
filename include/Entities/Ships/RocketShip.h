@@ -4,10 +4,12 @@
 
 class RocketShip {
 public:
-    sf::Sprite rocketShipObject;
+    
     sf::Texture rocketShipTexture;
     sf::Image rocketShipImage;
-
+    sf::Sprite rocketShipObject;
+    
+    
 	RocketShip() {}
 	RocketShip(sf::Vector2f p);
 	~RocketShip() {}

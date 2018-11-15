@@ -1,4 +1,4 @@
-#include "BeamBullet.h"
+#include "./Entities/Bullets/BeamBullet.h"
 
 BeamBullet::BeamBullet(sf::Vector2f p, sf::Vector2f v, PlayState *refe) {
     pos = p;

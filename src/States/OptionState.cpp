@@ -1,22 +1,22 @@
 #include <iostream>
 #include <stdlib.h>
-#include "OptionState.h"
+#include "./States/OptionState.h"
 
 OptionState::OptionState(class GameStateManager *g) {
     gsm = g;
     currentChoice = 0;
     counter = 5;
-    if (!font.loadFromFile("resources/aerial.ttf")) {
+    if (!font.loadFromFile("resources/Planetoid X.ttf")) {
         printf("Could not load font");
     }
     
-    if(!texture.loadFromFile("resources/background.png")) {
+    if(!texture.loadFromFile("resources/space_real.png")) {
         printf("Could not load background");
     }
     
     background.setTexture(texture);
     background.setPosition(0, 0);
-    background.setScale(20.f, 20.f);
+    background.setScale(1.5f, 1.5f);
     text.setFont(font);
     text.setFillColor(sf::Color::Black);
 }
