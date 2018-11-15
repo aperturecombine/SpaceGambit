@@ -23,8 +23,8 @@ public:
     PlayState *ref;
     void attachShape(){
         bulletShape= new b2CircleShape();
-        bulletShape -> m_p.Set(200.0f, 300.0f);
-        bulletShape -> m_radius = 100.0f;
+        bulletShape -> m_p.Set(0.0f, 0.0f);
+        bulletShape -> m_radius = 50.0f;
         
 
     }

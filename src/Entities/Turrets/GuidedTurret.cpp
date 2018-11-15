@@ -1,5 +1,5 @@
 
-#include "GuidedTurret.h"
+#include "./Entities/Turrets/GuidedTurret.h"
 #include <math.h>
 
 GuidedTurret::GuidedTurret(sf::Vector2f p) {

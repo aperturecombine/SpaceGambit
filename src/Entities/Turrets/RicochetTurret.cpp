@@ -1,5 +1,5 @@
 
-#include "RicochetTurret.h"
+#include "./Entities/Turrets/RicochetTurret.h"
 #include <math.h>
 
 RicochetTurret::RicochetTurret(sf::Vector2f p) {

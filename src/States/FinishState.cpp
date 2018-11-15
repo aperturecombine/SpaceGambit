@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <stdlib.h>
-#include "FinishState.h"
+#include "./States/FinishState.h"
 
 FinishState::FinishState(class GameStateManager *g) {
     gsm = g;

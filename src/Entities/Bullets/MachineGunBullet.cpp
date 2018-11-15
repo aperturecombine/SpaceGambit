@@ -1,4 +1,4 @@
-#include "MachineGunBullet.h"
+#include "./Entities/Bullets/MachineGunBullet.h"
 
 MachineGunBullet::MachineGunBullet(sf::Vector2f p, sf::Vector2f v) {
 	pos = p;
