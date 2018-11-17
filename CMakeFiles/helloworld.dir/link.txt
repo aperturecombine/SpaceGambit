@@ -1,0 +1,1 @@
+/usr/bin/c++    -std=c++11 -g   CMakeFiles/helloworld.dir/bin/helloworld.cpp.o  -o helloworld -rdynamic Box2D/Box2D/libBox2D.a -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lsfml-network 
