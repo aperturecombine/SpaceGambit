@@ -1,1 +1,0 @@
-/usr/bin/c++    -std=c++11 -g   CMakeFiles/pong.dir/bin/pong.cpp.o  -o pong -rdynamic Box2D/Box2D/libBox2D.a -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lsfml-network 
