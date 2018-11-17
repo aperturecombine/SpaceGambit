@@ -4,6 +4,7 @@
 #include "MenuState.h"
 #include "PlayState.h"
 #include "FinishState.h"
+#include "PickState.h"
 #include "OptionState.h"
 #include "../Entities/Ships/RocketShip.h"
 #include <SFML/Graphics.hpp>
@@ -12,6 +13,7 @@
 #define PLAYSTATE 1
 #define FINISHSTATE 2
 #define OPTIONSTATE 3
+#define PICKSTATE 4
 
 class GameStateManager {
 public:

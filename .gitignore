@@ -1,0 +1,10 @@
+
+src/.DS_Store
+.DS_Store
+debug
+debug/Box2D/*
+*.o
+*.o
+*.o
+debug/Box2D/Box2D/cmake_install.cmake
+*.o

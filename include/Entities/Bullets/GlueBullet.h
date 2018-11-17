@@ -7,7 +7,7 @@ class GlueBullet : public Bullet {
 public:
     GlueBullet(sf::Vector2f p, sf::Vector2f v);
     ~GlueBullet();
-    
+
     virtual void update(float dt);
     
 private:

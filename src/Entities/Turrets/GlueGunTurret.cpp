@@ -64,7 +64,7 @@ void GlueGunTurret::update(float dt) {
         
     }
     
-    if (counter > linger){
+    if (counter1 > linger){
         ref->ship1.maxSpeed = MAXSPEED;
     }
     if (counter2 > linger){
