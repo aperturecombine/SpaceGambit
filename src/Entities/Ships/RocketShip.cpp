@@ -22,17 +22,13 @@ RocketShip::RocketShip(sf::Vector2f p) {
 	}
 	//rocketShipTexture.loadFromImage(rocketShipImage);
 	//rocketShipTexture.setSmooth(true);
-	rocketShipObject.setTexture(rocketShipTexture);
+	rocketShipObject.setTexture(rocketShipTexture,true);
 	rocketShipObject.setScale(0.1f, 0.1f);
     rocketShipObject.setOrigin(rocketShipObject.getGlobalBounds().width/2, rocketShipObject.getGlobalBounds().height/2);
-    
 }
 
 void RocketShip::update(float deltams) {
-	
-    //shipShape -> m_p.Set(pos.x,pos.y);
-    
-    if (moveUp || moveDown) {
+	if (moveUp || moveDown) {
 		if (moveUp)
 			vel.y -= ACCEL;
 		if (moveDown)
@@ -60,12 +56,11 @@ void RocketShip::update(float deltams) {
 	rocketShipObject.setPosition(pos);
 }
 
-
 void RocketShip::attachShape(){
     
     shipShape= new b2CircleShape();
     shipShape -> m_p.Set(0.0f, 0.0f);
-    shipShape -> m_radius = 50.0f;
+    shipShape -> m_radius = 200.0f;
       
     // create new triangle Body
     b2Vec2 vertices1[3];//PolygonA

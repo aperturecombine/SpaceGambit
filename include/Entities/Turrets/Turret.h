@@ -28,8 +28,8 @@ public:
   
     void attachShape(){
         turretShape= new b2CircleShape();
-        turretShape -> m_p.Set(0.0f, 0.0f);
-        turretShape -> m_radius = 20.0f;
+        turretShape -> m_p.Set(2.0f, 3.0f);
+        turretShape -> m_radius = 0.5f;
         
     }
     
