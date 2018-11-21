@@ -10,7 +10,7 @@ public:
     OptionState(class GameStateManager *gsm);
     virtual void update(float deltams);
     virtual void draw(sf::RenderWindow *window);
-    virtual void handleInput();
+    virtual void handleInput(sf::Event event);
     sf::Event event;
     
 private:

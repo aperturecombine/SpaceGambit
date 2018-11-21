@@ -114,7 +114,7 @@ void PlayState::draw(sf::RenderWindow *window) {
 	}*/
 }
 
-void PlayState::handleInput() {
+void PlayState::handleInput(sf::Event event) {
 	ship1.moveRight = sf::Keyboard::isKeyPressed(PlayerOne_Right);
 	ship1.moveLeft = sf::Keyboard::isKeyPressed(PlayerOne_Left);
 	ship1.moveUp = sf::Keyboard::isKeyPressed(PlayerOne_Up);
