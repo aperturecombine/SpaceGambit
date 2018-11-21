@@ -1,4 +1,4 @@
-#include "./Entities/Bullets/RicochetBullet.h"
+#include "../../../include/Entities/Bullets/RicochetBullet.h"
 
 RicochetBullet::RicochetBullet(sf::Vector2f p, sf::Vector2f v, PlayState *refe) {
     pos = p;

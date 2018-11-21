@@ -1,5 +1,5 @@
 
-#include "./States/PickState.h"
+#include "../../include/States/PickState.h"
 
 
 PickState::PickState(class GameStateManager *g) {

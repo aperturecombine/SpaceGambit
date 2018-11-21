@@ -1,6 +1,4 @@
-
-
-#include "./Entities/Bullets/BoomerangBullet.h"
+#include "../../../include/Entities/Bullets/BoomerangBullet.h"
 
 BoomerangBullet::BoomerangBullet(sf::Vector2f p, sf::Vector2f v) {
     pos = p;

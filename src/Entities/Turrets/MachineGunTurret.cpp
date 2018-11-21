@@ -1,4 +1,4 @@
-#include "./Entities/Turrets/MachineGunTurret.h"
+#include "../../../include/Entities/Turrets/MachineGunTurret.h"
 #include <math.h>
 
 MachineGunTurret::MachineGunTurret(sf::Vector2f p) {

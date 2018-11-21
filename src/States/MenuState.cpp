@@ -1,6 +1,6 @@
 #include <iostream>
 #include <stdlib.h>
-#include "./States/MenuState.h"
+#include "../../include/States/MenuState.h"
 
 MenuState::MenuState(class GameStateManager *g) {
 	gsm = g;

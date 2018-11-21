@@ -1,5 +1,4 @@
-
-#include "./Entities/Turrets/BoomerangTurret.h"
+#include "../../../include/Entities/Turrets/BoomerangTurret.h"
 #include <math.h>
 
 BoomerangTurret::BoomerangTurret(sf::Vector2f p) {

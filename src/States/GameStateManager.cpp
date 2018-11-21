@@ -1,5 +1,5 @@
-#include "./States/GameStateManager.h"
-#include "./Globals.h"
+#include "../../include/States/GameStateManager.h"
+#include "../../include/Globals.h"
 
 GameStateManager::GameStateManager() {
 	window.create(sf::VideoMode(SCREENWIDTH, SCREENHEIGHT), "Space Gambit");

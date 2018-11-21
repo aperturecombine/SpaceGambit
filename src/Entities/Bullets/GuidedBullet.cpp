@@ -1,4 +1,4 @@
-#include "./Entities/Bullets/GuidedBullet.h"
+#include "../../../include/Entities/Bullets/GuidedBullet.h"
 
 GuidedBullet::GuidedBullet(sf::Vector2f p, sf::Vector2f v, PlayState *refe) {
     pos = p;

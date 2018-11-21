@@ -1,5 +1,5 @@
 
-#include "./Entities/Turrets/GlueGunTurret.h"
+#include "../../../include/Entities/Turrets/GlueGunTurret.h"
 #include <math.h>
 
 GlueGunTurret::GlueGunTurret(sf::Vector2f p) {

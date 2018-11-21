@@ -1,13 +1,13 @@
-#include "./States/PlayState.h"
-#include "./States/GameStateManager.h"
-#include "./Globals.h"
-#include "./Entities/Turrets/MachineGunTurret.h"
-#include "./Entities/Turrets/GuidedTurret.h"
-#include "./Entities/Turrets/BoomerangTurret.h"
-#include "./Entities/Turrets/RailGunTurret.h"
-#include "./Entities/Turrets/RicochetTurret.h"
-#include "./Entities/Turrets/GlueGunTurret.h"
-#include "./Entities/Bullets/Bullet.h"
+#include "../../include/States/PlayState.h"
+#include "../../include/States/GameStateManager.h"
+#include "../../include/Globals.h"
+#include "../../include/Entities/Turrets/MachineGunTurret.h"
+#include "../../include/Entities/Turrets/GuidedTurret.h"
+#include "../../include/Entities/Turrets/BoomerangTurret.h"
+#include "../../include/Entities/Turrets/RailGunTurret.h"
+#include "../../include/Entities/Turrets/RicochetTurret.h"
+#include "../../include/Entities/Turrets/GlueGunTurret.h"
+#include "../../include/Entities/Bullets/Bullet.h"
 #include <math.h>
 
 PlayState::PlayState(class GameStateManager *g) {

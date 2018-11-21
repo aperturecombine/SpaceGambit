@@ -1,6 +1,6 @@
 #include <iostream>
 #include <stdlib.h>
-#include "./States/OptionState.h"
+#include "../../include/States/OptionState.h"
 
 OptionState::OptionState(class GameStateManager *g) {
     gsm = g;

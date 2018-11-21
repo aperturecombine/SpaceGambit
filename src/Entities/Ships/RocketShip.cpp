@@ -1,5 +1,5 @@
-#include "./Entities/Ships/RocketShip.h"
-#include "./Globals.h"
+#include "../../../include/Entities/Ships/RocketShip.h"
+#include "../../../include/Globals.h"
 
 RocketShip::RocketShip(sf::Vector2f p) {
 	vel = sf::Vector2f(0, 0);
