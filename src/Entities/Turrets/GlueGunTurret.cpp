@@ -102,7 +102,7 @@ sf::Vector2f GlueGunTurret::getInitBulletVel() {
     }
     else
     {
-        if (ship1_dist < firingRange) {withinfiringRange=true;}
+        if (ship2_dist < firingRange) {withinfiringRange=true;}
         else {withinfiringRange=false;}
         return normalize(ship2_init);
     }

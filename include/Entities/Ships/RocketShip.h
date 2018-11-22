@@ -38,7 +38,7 @@ public:
     bool isBounced;
     float bounceAccumulator;
     float bounceFactor;
-    void bounce(sf::Vector2f collision_point, float bounce_factor)
+    void bounce(sf::Vector2f collision_point, float bounce_factor);
 
 
 private:

@@ -99,7 +99,7 @@ void RocketShip::attachShape(){
     
 }
 
-void bounce(sf::Vector2f collision_point, float bounce_factor){
+void RocketShip::bounce(sf::Vector2f collision_point, float bounce_factor){
 
 	isBounced = true;
 
@@ -108,36 +108,6 @@ void bounce(sf::Vector2f collision_point, float bounce_factor){
 
 	vel.x = bounce_factor / x_check;
 	vel.y = bounce_factor / y_check;
-
-	// //if the collision happened to the right
-	// if(x_check < 0){
-
-	// 	//if the ship is travelling to the left
-	// 	if (vel.x < 0){
-
-	// 	}
-	// 	else {
-
-	// 	}
-	// }
-	// else {
-
-	// }
-
-	// // if the collision happened below the ship
-	// if(y_check < 0){
-
-	// 	//if the ship is travelling up
-	// 	if (vel.y < 0){
-
-	// 	}
-	// 	else {
-
-	// 	}
-	// }
-	// else {
-
-	// }
 
 }
 
