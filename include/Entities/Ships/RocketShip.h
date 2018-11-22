@@ -33,7 +33,10 @@ public:
  
     b2CircleShape* getShape();
  
-    float health;
+    float maxHealth;
+    float currentHealth;
+
+    int points;
 
     bool isBounced;
     float bounceAccumulator;

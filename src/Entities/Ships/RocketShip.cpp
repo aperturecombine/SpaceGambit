@@ -18,6 +18,11 @@ RocketShip::RocketShip(sf::Vector2f p) {
 	bounceAccumulator = 5;
 	bounceFactor = 0;
 
+	maxHealth = 5;
+	currentHealth = maxHealth;
+
+	points = 0;
+
 	radius = 40;
 	attachShape();
 

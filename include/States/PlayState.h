@@ -23,6 +23,8 @@ public:
     
     b2World* world;
     std::vector<class Turret *> turrets;
+
+    float stageTimer;
     
 private:
     b2Vec2 gravity{0,0};

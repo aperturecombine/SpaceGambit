@@ -49,9 +49,10 @@ PlayState::PlayState(class GameStateManager *g) {
      turrets.push_back(t6);
 	
 
-    shipHealth1.setPosition(sf::Vector2f(300,10));
-    shipHealth1.setSize(sf::Vector2f (ship1.health, 10));
-    shipHealth1.setFillColor(sf::Color::Green);
+     stageTimer = 20;
+    // shipHealth1.setPosition(sf::Vector2f(300,10));
+    // shipHealth1.setSize(sf::Vector2f (ship1.health, 10));
+    // shipHealth1.setFillColor(sf::Color::Green);
     
 }
 
@@ -63,6 +64,10 @@ void PlayState::update(float deltams) {
 
 	ship1.update(deltams);
     ship2.update(deltams);
+
+    if (stageTimer > 0) stageTimer -= deltams;
+    else stageTimer = 0;
+
 	for (int t = 0; t < turrets.size(); t++)
 		turrets[t]->update(deltams);
 
@@ -94,6 +99,107 @@ void PlayState::draw(sf::RenderWindow *window) {
 			gsm->window.draw(bulletCircle);
 		}
 	}
+
+
+
+
+
+
+
+    //HUD; later to be refactored into render class
+
+    //Player 1 HUD
+    sf::RectangleShape bar;
+    bar.setFillColor(sf::Color::White);
+    bar.setSize(sf::Vector2f(100, 50));
+    bar.setPosition(10, 20);
+
+    sf::RectangleShape health;
+    bar.setFillColor(sf::Color::Red);
+    health.setSize(sf::Vector2f(100*(ship1.currentHealth / ship1.maxHealth), 50));
+    health.setPosition(10, 20);
+
+
+
+    sf::Font font;
+    sf::Text text;
+
+    if (!font.loadFromFile("resources/space_3.ttf")) {
+         printf("Could not load font");
+    }
+
+    text.setFont(font);
+    text.setFillColor(sf::Color::White);
+    text.setPosition(10, 90);
+    text.setCharacterSize(40);
+    text.setString("Score: "+ std::to_string(ship1.points));
+
+    window->draw(bar);
+    window->draw(health);
+    window->draw(text);
+
+
+
+
+
+    //player 2 HUD
+    sf::RectangleShape bar2;
+    bar2.setFillColor(sf::Color::White);
+    bar2.setSize(sf::Vector2f(100, 50));
+    bar2.setPosition(SCREENWIDTH - 250, 20);
+
+    sf::RectangleShape health2;
+    bar2.setFillColor(sf::Color::Red);
+    health2.setSize(sf::Vector2f(100*(ship2.currentHealth / ship2.maxHealth), 50));
+    health2.setPosition(SCREENWIDTH - 250, 20);
+
+
+    sf::Text text2;
+
+    text2.setFont(font);
+    text2.setFillColor(sf::Color::White);
+    text2.setPosition(SCREENWIDTH - 250, 90);
+    text2.setCharacterSize(40);
+    text2.setString("Score: "+ std::to_string(ship1.points));
+
+    window->draw(bar2);
+    window->draw(health2);
+    window->draw(text2);
+
+
+
+
+    //stage counter
+    sf::Text stage;
+
+    stage.setFont(font);
+    stage.setFillColor(sf::Color::White);
+    stage.setPosition(10, SCREENHEIGHT - 150);
+    stage.setCharacterSize(80);
+    stage.setString("Stage: ");
+
+    window->draw(stage);
+
+
+
+
+
+
+    sf::Text timer;
+
+    timer.setFont(font);
+    timer.setFillColor(sf::Color::White);
+    timer.setPosition(SCREENWIDTH - 200, SCREENHEIGHT - 150);
+    timer.setCharacterSize(80);
+    timer.setString(std::to_string(static_cast<int>(stageTimer)));
+
+    window->draw(timer);
+
+
+
+
+
+
 
 	/*
 	//draw ship
@@ -183,8 +289,9 @@ void PlayState::checkCollisions() {
              
             if (part1_collision){
                 printf("Ship1 got shot\n");
-                ship1.health -= 50;
-                printf("%f\n",ship1.health);
+
+                if (ship1.currentHealth != 0) ship1.currentHealth -= 1;
+                // printf("%f\n",ship1.health);
 //            delete turrets[t]->bullets[b];
             turrets[t]->bullets.erase(turrets[t]->bullets.begin() + b);
             
@@ -197,7 +304,7 @@ void PlayState::checkCollisions() {
                 //printf("%5f by\n",turrets[t]->bullets[b]->pos.y);
             }
             if (part2_collision){
-                ship2.health -= 50;
+                if (ship2.currentHealth != 0) ship2.currentHealth -= 1;
                 printf("Ship2 got shot\n");
                 //world->DestroyBody(turrets[t]->bullets[b]->body);
 //                delete turrets[t]->bullets[b];
