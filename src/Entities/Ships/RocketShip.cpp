@@ -14,6 +14,10 @@ RocketShip::RocketShip(sf::Vector2f p) {
 	moveLeft = false;
 	moveRight = false;
 
+	isBounced = false;
+	bounceAccumulator = 5;
+	bounceFactor = 0;
+
 	radius = 40;
 	attachShape();
 
@@ -31,29 +35,39 @@ RocketShip::RocketShip(sf::Vector2f p) {
 void RocketShip::update(float deltams) {
 	
     //shipShape -> m_p.Set(pos.x,pos.y);
-    
-    if (moveUp || moveDown) {
-		if (moveUp)
-			vel.y -= ACCEL;
-		if (moveDown)
-			vel.y += ACCEL;
-	}
-	else
-		vel.y *= DECEL;
+    bounceAccumulator += deltams;
 
-	if (moveLeft || moveRight) {
-		if (moveLeft)
-			vel.x -= ACCEL;
-		if (moveRight)
-			vel.x += ACCEL;
-	}
-	else
-		vel.x *= DECEL;
+    if (bounceAccumulator < 500 ) {
+    	isBounced = false;
+    }
 
-	if (vel.x <= -maxSpeed)	vel.x = -maxSpeed;
-	if (vel.x >= maxSpeed)	vel.x = maxSpeed;
-	if (vel.y <= -maxSpeed)	vel.y = -maxSpeed;
-	if (vel.y >= maxSpeed)	vel.y = maxSpeed;
+    if(!isBounced){
+
+    	bounceAccumulator = 0;
+
+	    if (moveUp || moveDown) {
+			if (moveUp)
+				vel.y -= ACCEL;
+			if (moveDown)
+				vel.y += ACCEL;
+		}
+		else
+			vel.y *= DECEL;
+
+		if (moveLeft || moveRight) {
+			if (moveLeft)
+				vel.x -= ACCEL;
+			if (moveRight)
+				vel.x += ACCEL;
+		}
+		else
+			vel.x *= DECEL;
+
+		if (vel.x <= -maxSpeed)	vel.x = -maxSpeed;
+		if (vel.x >= maxSpeed)	vel.x = maxSpeed;
+		if (vel.y <= -maxSpeed)	vel.y = -maxSpeed;
+		if (vel.y >= maxSpeed)	vel.y = maxSpeed;
+	}
 
 	pos += vel * deltams;
 
@@ -83,6 +97,48 @@ void RocketShip::attachShape(){
     
     
     
+}
+
+void bounce(sf::Vector2f collision_point, float bounce_factor){
+
+	isBounced = true;
+
+	float x_check = pos.x - collision_point.x;
+	float y_check = pos.y - collision_point.y;
+
+	vel.x = bounce_factor / x_check;
+	vel.y = bounce_factor / y_check;
+
+	// //if the collision happened to the right
+	// if(x_check < 0){
+
+	// 	//if the ship is travelling to the left
+	// 	if (vel.x < 0){
+
+	// 	}
+	// 	else {
+
+	// 	}
+	// }
+	// else {
+
+	// }
+
+	// // if the collision happened below the ship
+	// if(y_check < 0){
+
+	// 	//if the ship is travelling up
+	// 	if (vel.y < 0){
+
+	// 	}
+	// 	else {
+
+	// 	}
+	// }
+	// else {
+
+	// }
+
 }
 
 
