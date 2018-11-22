@@ -21,18 +21,7 @@ OptionState::OptionState(class GameStateManager *g) {
     text.setFillColor(sf::Color::Black);
 }
 
-void OptionState::update(float deltams) {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-    {
-        moveUp();
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-    {
-        moveDown();
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
-        select();
-}
+void OptionState::update(float deltams) {}
 
 void OptionState::draw(sf::RenderWindow *window) {
     gsm->window.clear(sf::Color(255,255,255));
@@ -54,20 +43,20 @@ void OptionState::draw(sf::RenderWindow *window) {
     }
 }
 
-void OptionState::handleInput() {
-//    if (gsm->window.waitEvent(event))
-//    {
-//        gsm->window.setKeyRepeatEnabled(false);
-//        if (event.type == sf::Event::KeyPressed)
-//        {
-//            if (event.key.code == sf::Keyboard::Up)
-//                moveUp();
-//            if (event.key.code == sf::Keyboard::Down)
-//                moveDown();
-//            if (event.key.code == sf::Keyboard::Space)
-//                select();
-//        }
-//    }
+void OptionState::handleInput(sf::Event event) {
+	if (event.type == sf::Event::KeyPressed) {
+		switch (event.key.code) {
+		case sf::Keyboard::Up:
+			moveUp();
+			break;
+		case sf::Keyboard::Down:
+			moveDown();
+			break;
+		case sf::Keyboard::Space:
+			select();
+			break;
+		}
+	}
 }
 
 

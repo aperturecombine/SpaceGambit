@@ -9,6 +9,6 @@ public:
 
 	virtual void update(float deltams) = 0;
 	virtual void draw(sf::RenderWindow *window) = 0;
-    virtual void handleInput() = 0;
+    virtual void handleInput(sf::Event event) = 0;
 
 };

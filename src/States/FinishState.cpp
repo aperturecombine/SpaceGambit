@@ -71,14 +71,8 @@ void FinishState::handleInput(sf::Event event) {
             moveDown();
         if (event.key.code == sf::Keyboard::Space)
             select();
-        
     }
 }
-
-void FinishState::handleInput() {
-    
-}
-
 
 void FinishState::centerText(sf::Text *text, int y) {
     sf::FloatRect textRect = text->getLocalBounds();

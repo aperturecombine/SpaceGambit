@@ -20,6 +20,8 @@ MenuState::MenuState(class GameStateManager *g) {
     background.setScale(1.5f, 1.5f);
     text.setFont(font);
     text.setFillColor(sf::Color::Black);
+
+	gsm->window.setKeyRepeatEnabled(false);
 }
 
 void MenuState::update(float deltams) {}
@@ -44,13 +46,20 @@ void MenuState::draw(sf::RenderWindow *window) {
 	}
 }
 
-void MenuState::handleInput() {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		moveUp();
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-		moveDown();
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-		select();
+void MenuState::handleInput(sf::Event event) {
+	if (event.type == sf::Event::KeyPressed) {
+		switch (event.key.code) {
+			case sf::Keyboard::Up:
+					moveUp();
+					break;
+			case sf::Keyboard::Down:
+					moveDown();
+					break;
+			case sf::Keyboard::Space:
+					select();
+					break;
+		}
+	}
 }
 
 void MenuState::centerText(sf::Text *text, int y) {

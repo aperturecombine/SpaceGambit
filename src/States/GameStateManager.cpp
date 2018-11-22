@@ -26,8 +26,8 @@ void GameStateManager::start() {
 		while (window.pollEvent(event)) {
 			if (event.type == sf::Event::Closed)
 				running = false;
+			states.top()->handleInput(event);
 		}
-        states.top()->handleInput();
 	}
 }
 
