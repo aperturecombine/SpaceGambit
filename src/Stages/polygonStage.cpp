@@ -1,6 +1,6 @@
-#include "./Stages/squareStage.h"
+#include "./Stages/polygonStage.h"
 
-squareStage::squareStage(sf::Vector2f p){
+polygonStage::polygonStage(sf::Vector2f p){
     pos = p;
     loadFont();
     attachBoundary();
@@ -8,7 +8,7 @@ squareStage::squareStage(sf::Vector2f p){
 
 }
 
-void squareStage::loadFont(){
+void polgonStage::loadFont(){
     //load Textures
     backgroundTexture.loadFromFile("resources/background.png");
     background.setTexture(backgroundTexture);
@@ -20,19 +20,21 @@ void squareStage::loadFont(){
     boundary.setPosition(p);
 }
 
-void squareStage::attachBoundary(){
+void polygonStage::attachBoundary(){
     b2Vec2 vs[4];
-    vs[0].Set(0,0);
-    vs[1].Set(0,800);
-    vs[2].Set(800,800);
-    vs[3].Set(800,0);
+    vs[0].Set(0,300);
+    vs[1].Set(0,1500);
+    vs[2].Set(400,1800);
+    vs[3].Set(800,1500);
+    vs[4].Set(800,300);
+    vs[5].Set(800,300);
 
-    chain.CreateLoop(vs,4);
+    //chain.CreateChain(vs,6);
+    chain.CreateLoop(vs, 6);
 
 }
 
-
-void squareStage::draw( window){
+void polygonStage::draw( window){
 
     //draw arena structure
     window->draw(backgroundTexture);
@@ -40,10 +42,10 @@ void squareStage::draw( window){
 
 }
 
-b2PolygonShape* squareStage::getBoundaryShape(){
+b2PolygonShape* polygonStage::getBoundaryShape(){
     return backgroundShape;
 }
 
-void squareStage::attachRandomJunctions(){
+void polygonStage::attachRandomJunctions(){
 
 }
