@@ -4,12 +4,12 @@
 
 class RocketShip {
 public:
-    
+
     sf::Texture rocketShipTexture;
     sf::Image rocketShipImage;
     sf::Sprite rocketShipObject;
-    
-    
+
+
 	RocketShip() {}
 	RocketShip(sf::Vector2f p);
 	~RocketShip() {}
@@ -22,17 +22,17 @@ public:
 	void update(float deltams);
 	int radius = 20;
     float maxSpeed;
-    
+
 	sf::Vector2f pos;
 	sf::Vector2f vel;
 
-    b2CircleShape* shipShape;
+    b2PolygonShape* shipShape;
     b2BodyDef rocketBody;
     b2FixtureDef shipFixture;
     void attachShape();
- 
-    b2CircleShape* getShape();
- 
+
+    b2PolygonShape* getShape();
+
     float maxHealth;
     float currentHealth;
 
@@ -49,7 +49,7 @@ private:
 	float DECEL;
 
 
-	
+
 
 	int damageStat;
 	int defenseStat;

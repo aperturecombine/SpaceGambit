@@ -18,7 +18,7 @@ PlayState::PlayState(class GameStateManager *g) {
 	}
 	texture.loadFromImage(image);
     background.setTexture(texture);
-    
+
     background.setPosition(0, 0);
     background.setScale(0.7f, 0.5f);
 
@@ -27,33 +27,33 @@ PlayState::PlayState(class GameStateManager *g) {
 	MachineGunTurret *t1 = new MachineGunTurret(sf::Vector2f(250, 100));
 	t1->setReference(this);
     turrets.push_back(t1);
-    
+
      GuidedTurret *t2 = new GuidedTurret(sf::Vector2f(500, 100));
      t2->setReference(this);
      turrets.push_back(t2);
-    
+
      BoomerangTurret *t3 = new BoomerangTurret(sf::Vector2f(800, 100));
      t3->setReference(this);
      turrets.push_back(t3);
-    
+
      RailGunTurret *t4 = new RailGunTurret(sf::Vector2f(1100, 100));
      t4->setReference(this);
      turrets.push_back(t4);
-    
+
      RicochetTurret *t5 = new RicochetTurret(sf::Vector2f(1350, 100));
      t5->setReference(this);
      turrets.push_back(t5);
-    
+
      GlueGunTurret *t6 = new GlueGunTurret(sf::Vector2f(1500, 100));
      t6->setReference(this);
      turrets.push_back(t6);
-	
+
 
      stageTimer = 20;
     // shipHealth1.setPosition(sf::Vector2f(300,10));
     // shipHealth1.setSize(sf::Vector2f (ship1.health, 10));
     // shipHealth1.setFillColor(sf::Color::Green);
-    
+
 }
 
 void PlayState::update(float deltams) {
@@ -225,7 +225,7 @@ void PlayState::handleInput(sf::Event event) {
 	ship1.moveLeft = sf::Keyboard::isKeyPressed(PlayerOne_Left);
 	ship1.moveUp = sf::Keyboard::isKeyPressed(PlayerOne_Up);
 	ship1.moveDown = sf::Keyboard::isKeyPressed(PlayerOne_Down);
-    
+
     ship2.moveRight = sf::Keyboard::isKeyPressed(PlayerTwo_Right);
     ship2.moveLeft = sf::Keyboard::isKeyPressed(PlayerTwo_Left);
     ship2.moveUp = sf::Keyboard::isKeyPressed(PlayerTwo_Up);
@@ -234,26 +234,26 @@ void PlayState::handleInput(sf::Event event) {
 
 void PlayState::checkCollisions() {
     //Turret collisions
-    
+
     /**
     for (int t = 0; t < turrets.size(); t++) {
 
- 
+
         float tx = turrets[t]->pos.x;
         float ty = turrets[t]->pos.y;
-        
-        
+
+
         float sx = ship1.pos.x;
         float sy = ship1.pos.y;
 
         b2CircleShape* shape1 = ship1.getShape();
         b2CircleShape* shape2 = ship2.getShape();
         b2CircleShape* shape = turrets[t]->getShape();
-        
-        
+
+
         bool part1_collision = b2TestOverlap(shape1,0, shape, 0, b2Transform(b2Vec2(sx,sy), b2Rot(0.0f)),b2Transform(b2Vec2(tx,ty), b2Rot(0.0f)));
-        
-        
+
+
         if (part1_collision){
             printf("ship1 collide with turret\n");
             ship1.health -= 10;
@@ -262,7 +262,7 @@ void PlayState::checkCollisions() {
         float s2x = ship2.pos.x;
         float s2y = ship2.pos.y;
 
-        
+
         bool part2_collision = b2TestOverlap(shape2,0, shape, 0, b2Transform(b2Vec2(s2x,s2y), b2Rot(0.0f)),b2Transform(b2Vec2(tx,ty), b2Rot(0.0f)));
         if (part2_collision){
             printf("ship2 collide with turret\n");
@@ -271,22 +271,36 @@ void PlayState::checkCollisions() {
         }
 
     }
-    
+
     **/
-    
-    
+
+		//ship-ship collision
+		bool shipCollide = b2b2TestOverlap(ship1.getShape(),0, ship2.getShape(),0,b2Transform(b2Vec2(ship1.pos.x, ship1.pos.y), b2Rot(0.0f)),b2Transform(b2Vec2(ship2.pos.x, ship2.pos.y), b2Rot(0.0f)))
+
+		/**
+		if (shipCollide){
+			b2WorldManifold worldManifold;
+			b2Manifold manifold;
+			worldManifold.Initialize(&manifold, b2Transform(b2Vec2(ship1.pos.x, ship1.pos.y), ship1.m_radius,b2Transform(b2Vec2(ship2.pos.x, ship2.pos.y), ship2.m_radius);
+				for (int32 i = 0; i < manifold.pointCount; ++i)
+				{
+						b2Vec2 point = worldManifold.points[i];
+						resolveCollision(point, ship1,ship2);
+				}
+		}
+		**/
     //ship collisions
     for (int t = 0; t < turrets.size(); t++) {
-  
+
 
         for (int b = 0; b < turrets[t]->bullets.size(); b++) {
-             
+
              printf("bullet size%f\n", turrets[t]->bullets[b]->getShape()->m_radius);
              printf("ship size%f\n", ship1.getShape()->m_radius);
              bool part1_collision = b2TestOverlap(ship1.getShape(),0, turrets[t]->bullets[b]->getShape(), 0, b2Transform(b2Vec2(ship1.pos.x, ship1.pos.y), b2Rot(0.0f)),b2Transform(b2Vec2(turrets[t]->bullets[b]->pos.x, turrets[t]->bullets[b]->pos.y), b2Rot(0.0f)));
              bool part2_collision = b2TestOverlap(ship2.getShape(),0, turrets[t]->bullets[b]->getShape(), 0, b2Transform(b2Vec2(ship2.pos.x, ship2.pos.y), b2Rot(0.0f)),b2Transform(b2Vec2(turrets[t]->bullets[b]->pos.x, turrets[t]->bullets[b]->pos.y), b2Rot(0.0f)));
-    
-             
+
+
             if (part1_collision){
                 printf("Ship1 got shot\n");
 
@@ -294,12 +308,12 @@ void PlayState::checkCollisions() {
                 // printf("%f\n",ship1.health);
 //            delete turrets[t]->bullets[b];
             turrets[t]->bullets.erase(turrets[t]->bullets.begin() + b);
-            
+
             }
             else{
-                
+
                 printf("Miss : %5f \n",(ship1.pos.x - turrets[t]->bullets[b]->pos.x) + (ship1.pos.y - turrets[t]->bullets[b]->pos.y));
-        
+
                 //printf("%5f bx",turrets[t]->bullets[b]->pos.x);
                 //printf("%5f by\n",turrets[t]->bullets[b]->pos.y);
             }
@@ -309,13 +323,13 @@ void PlayState::checkCollisions() {
                 //world->DestroyBody(turrets[t]->bullets[b]->body);
 //                delete turrets[t]->bullets[b];
                 turrets[t]->bullets.erase(turrets[t]->bullets.begin() + b);
-                
+
             }
-            
+
 			}
 		}
-    
-    
+
+
 	//bullet bounds checking
 	for (int t = 0; t < turrets.size(); t++) {
 		for (int b = 0; b < turrets[t]->bullets.size(); b++) {
@@ -328,5 +342,5 @@ void PlayState::checkCollisions() {
 
 		}
 	}
-	
+
 }

@@ -34,11 +34,11 @@ RocketShip::RocketShip(sf::Vector2f p) {
 	rocketShipObject.setTexture(rocketShipTexture);
 	rocketShipObject.setScale(0.1f, 0.1f);
     rocketShipObject.setOrigin(rocketShipObject.getGlobalBounds().width/2, rocketShipObject.getGlobalBounds().height/2);
-    
+
 }
 
 void RocketShip::update(float deltams) {
-	
+
     //shipShape -> m_p.Set(pos.x,pos.y);
     bounceAccumulator += deltams;
 
@@ -81,27 +81,27 @@ void RocketShip::update(float deltams) {
 
 
 void RocketShip::attachShape(){
-    
-    shipShape= new b2CircleShape();
-    shipShape -> m_p.Set(0.0f, 0.0f);
-    shipShape -> m_radius = 50.0f;
-      
+
+    //shipShape= new b2CircleShape();
+    //shipShape -> m_p.Set(0.0f, 0.0f);
+    //shipShape -> m_radius = 50.0f;
+
     // create new triangle Body
     b2Vec2 vertices1[3];//PolygonA
-    vertices1[0].Set(300,250);
-    vertices1[1].Set(350,350);
-    vertices1[2].Set(250,350);
+    vertices1[0].Set(0,0);
+    vertices1[1].Set(20,40);
+    vertices1[2].Set(0,20);
     int count1= 3;
-    //shipShape= new b2PolygonShape();
-    //shipShape -> Set(vertices1, count1);
-    //shipShape -> m_radius = 50;
+    shipShape= new b2PolygonShape();
+    shipShape -> Set(vertices1, count1);
+    shipShape -> m_radius = 50.0f;
     //shipShape->Set(vertices1,count1);
-    //shipShape->m_radius = 2; 
+    //shipShape->m_radius = 2;
     //shipFixture.shape = shipShape;
-    
-    
-    
-    
+
+
+
+
 }
 
 void RocketShip::bounce(sf::Vector2f collision_point, float bounce_factor){
@@ -117,11 +117,8 @@ void RocketShip::bounce(sf::Vector2f collision_point, float bounce_factor){
 }
 
 
-b2CircleShape* RocketShip::getShape(){
-    
+b2PolygonShape* RocketShip::getShape(){
+
     return shipShape;
-    
+
 }
-
-
-
