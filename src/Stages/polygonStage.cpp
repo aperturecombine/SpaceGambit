@@ -8,13 +8,13 @@ polygonStage::polygonStage(sf::Vector2f p){
 
 }
 
-void polgonStage::loadFont(){
+void polygonStage::loadFont(){
     //load Textures
     backgroundTexture.loadFromFile("resources/background.png");
     background.setTexture(backgroundTexture);
     background.setScale(1.0f,1.0f);
     background.setPosition(p);
-    boundaryTexture.loadFromFile("resources/boundaryTexture.png")
+    boundaryTexture.loadFromFile("resources/boundaryTexture.png");
     boundary.setTexture(boundaryTexture);
     boundary.setScale(1.0f,1.0f);
     boundary.setPosition(p);
@@ -30,19 +30,19 @@ void polygonStage::attachBoundary(){
     vs[5].Set(800,300);
 
     //chain.CreateChain(vs,6);
-    chain.CreateLoop(vs, 6);
+    backgroundShape->CreateLoop(vs, 6);
 
 }
 
-void polygonStage::draw( window){
+void polygonStage::draw( sf::RenderWindow *window){
 
     //draw arena structure
-    window->draw(backgroundTexture);
+    //window->draw(backgroundTexture);
     window->draw(boundary);
 
 }
 
-b2PolygonShape* polygonStage::getBoundaryShape(){
+b2ChainShape* polygonStage::getBoundaryShape(){
     return backgroundShape;
 }
 

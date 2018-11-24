@@ -1,5 +1,5 @@
 #include "./Utilities/Button.h"
-
+/**
 Button::Button(sf::Image* normal,sf::Image* clicked,std::string words,sf::Vector2f location) {
     this->normal.SetImage(*normal);
     this->clicked.SetImage(*clicked);
@@ -12,8 +12,8 @@ Button::Button(sf::Image* normal,sf::Image* clicked,std::string words,sf::Vector
     String.SetSize(14);
 }
 void Button::checkClick (sf::Vector2f mousePos) {
-    if (mousePos.x>currentSpr->GetPosition().x && mousePos.x<(currentSpr->GetPosition().x + currentSpr->GetSize().x)) {
-        if(mousePos.y>currentSpr->GetPosition().y && mousePos.y<(currentSpr->GetPosition().y + currentSpr->GetSize().y)) {
+    if (mousePos.x>currentSpr->GetPosition().x && mousePos.x<(currentSpr->getPosition().x + currentSpr->GetSize().x)) {
+        if(mousePos.y>currentSpr->GetPosition().y && mousePos.y<(currentSpr->getPosition().y + currentSpr->GetSize().y)) {
             setState(!current);
         }
     }
@@ -39,3 +39,5 @@ sf::Sprite* Button::getSprite() {
 sf::String * Button::getText() {
     return &String;
 }
+
+**/

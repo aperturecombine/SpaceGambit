@@ -1,3 +1,4 @@
+/**
 #pragma once
 
 #include <stdio.h>
@@ -20,3 +21,4 @@ private:
     bool current;
 };
 
+**/

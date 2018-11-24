@@ -14,7 +14,7 @@ void squareStage::loadFont(){
     background.setTexture(backgroundTexture);
     background.setScale(1.0f,1.0f);
     background.setPosition(p);
-    boundaryTexture.loadFromFile("resources/boundaryTexture.png")
+    boundaryTexture.loadFromFile("resources/boundaryTexture.png");
     boundary.setTexture(boundaryTexture);
     boundary.setScale(1.0f,1.0f);
     boundary.setPosition(p);
@@ -27,20 +27,20 @@ void squareStage::attachBoundary(){
     vs[2].Set(800,800);
     vs[3].Set(800,0);
 
-    chain.CreateLoop(vs,4);
+    backgroundShape->CreateLoop(vs,4);
 
 }
 
 
-void squareStage::draw( window){
+void squareStage::draw( sf::RenderWindow *window){
 
     //draw arena structure
-    window->draw(backgroundTexture);
+
     window->draw(boundary);
 
 }
 
-b2PolygonShape* squareStage::getBoundaryShape(){
+b2ChainShape* squareStage::getBoundaryShape(){
     return backgroundShape;
 }
 

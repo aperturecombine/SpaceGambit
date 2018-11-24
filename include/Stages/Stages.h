@@ -6,18 +6,17 @@
 class Stages {
 
 public:
-    sf::Sprite background;
-    sf::Texture backgroundTexture;
-    
+    sf::Sprite boundary;
+    sf::Texture boundaryTexture;
+    sf::Vector2f pos;
     void attachBoundary();
     b2ChainShape* getBoundaryShape();
-
+    b2ChainShape* backgroundShape;
     //std::vector<class Turret *> turrets;
-    
+
     virtual void draw (sf::RenderWindow *window);
-    
+
     void loadFont();
 
-    
-}
 
+};
