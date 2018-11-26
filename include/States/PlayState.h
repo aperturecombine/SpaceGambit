@@ -31,6 +31,8 @@ private:
     
     b2Body* bShip1;
     b2Body* bShip2;
+    virtual void generateTurrets();
+    virtual void turretSelect(int i, sf::Vector2f p);
 
     GameStateManager *gsm;
     sf::Texture texture;
