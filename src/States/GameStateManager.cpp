@@ -27,6 +27,8 @@ void GameStateManager::start() {
 			if (event.type == sf::Event::Closed)
 				running = false;
 			states.top()->handleInput(event);
+            if(running == false)
+                break;
 		}
 	}
 }
