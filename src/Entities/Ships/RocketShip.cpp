@@ -33,7 +33,10 @@ RocketShip::RocketShip(sf::Vector2f p) {
 	//rocketShipTexture.setSmooth(true);
 	rocketShipObject.setTexture(rocketShipTexture);
 	rocketShipObject.setScale(0.1f, 0.1f);
-    rocketShipObject.setOrigin(rocketShipObject.getGlobalBounds().width/2, rocketShipObject.getGlobalBounds().height/2);
+    rocketShipObject.setOrigin(
+                               (rocketShipObject.getTexture()->getSize().x)/2,
+                               (rocketShipObject.getTexture()->getSize().y)/2);
+    rocketShipObject.setPosition(p);
 
 }
 
