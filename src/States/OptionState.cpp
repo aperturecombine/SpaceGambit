@@ -6,7 +6,7 @@ OptionState::OptionState(class GameStateManager *g) {
     gsm = g;
     currentChoice = 0;
     counter = 5;
-    if (!font.loadFromFile("resources/Planetoid X.ttf")) {
+    if (!font.loadFromFile("resources/spaceranger.ttf")) {
         printf("Could not load font");
     }
     
@@ -18,7 +18,7 @@ OptionState::OptionState(class GameStateManager *g) {
     background.setPosition(0, 0);
     background.setScale(1.5f, 1.5f);
     text.setFont(font);
-    text.setFillColor(sf::Color::Black);
+    text.setFillColor(sf::Color::White);
 }
 
 void OptionState::update(float deltams) {}
@@ -26,21 +26,26 @@ void OptionState::update(float deltams) {}
 void OptionState::draw(sf::RenderWindow *window) {
     gsm->window.clear(sf::Color(255,255,255));
     gsm->window.draw(background);
-    text.setCharacterSize(70);
-    text.setString("Welcome to the Options Menu");
+    text.setCharacterSize(150);
+    text.setString("Welcome to the");
     centerText(&text, SCREENHEIGHT*0.1);
     gsm->window.draw(text);
-    text.setCharacterSize(24);
+    text.setString("Options Menu");
+    centerText(&text, SCREENHEIGHT*0.2);
+    gsm->window.draw(text);
     
+    text.setCharacterSize(70);
     
     for (int i = 0; i < 5; i++) {
         if (i == currentChoice)
             text.setString("> " + options[i] + " <");
         else
             text.setString(options[i]);
-        centerText(&text, 300 + i * 40);
+        centerText(&text, SCREENHEIGHT*0.3 + i * 100);
         gsm->window.draw(text);
     }
+    
+    
 }
 
 void OptionState::handleInput(sf::Event event) {

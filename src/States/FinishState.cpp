@@ -13,7 +13,7 @@ FinishState::FinishState(class GameStateManager *g) {
     gsm = g;
     currentChoice = 0;
     
-    if (!font.loadFromFile("resources/Star_Jedi_Rounded.ttf"))
+    if (!font.loadFromFile("resources/spaceranger.ttf"))
     {
         std::cout << "Could not load font." << std::endl;
 
