@@ -137,7 +137,7 @@ void PickState::moveDownPick(int player) {
 
 void PickState::loadFonts(){
     
-    if (!font.loadFromFile("resources/jedi.ttf"))
+    if (!font.loadFromFile("resources/spaceranger.ttf"))
         std::cout << "Could not load font." << std::endl;
     
     if(!backgroundTexture.loadFromFile("resources/space_real.jpg"))
