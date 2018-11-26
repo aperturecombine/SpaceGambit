@@ -25,13 +25,15 @@ PlayState::PlayState(class GameStateManager *g) {
 	ship1 = RocketShip(sf::Vector2f(SCREENWIDTH/2 + 100,SCREENHEIGHT/2));
     ship2 = RocketShip(sf::Vector2f(SCREENWIDTH/2 - 100,SCREENHEIGHT/2));
     
-
-    generateTurrets();
-     stageTimer = 20;
+    turretCount = 6;
+    stageTimer = 20;
+    level = 1;
+   
+    
     // shipHealth1.setPosition(sf::Vector2f(300,10));
     // shipHealth1.setSize(sf::Vector2f (ship1.health, 10));
     // shipHealth1.setFillColor(sf::Color::Green);
-
+     generateTurrets();
 }
 
 void PlayState::update(float deltams) {
@@ -40,12 +42,25 @@ void PlayState::update(float deltams) {
         //if (ship1.health <= 0)
         //gsm->pushState(FINISHSTATE);
 
-	ship1.update(deltams);
+    if (stageTimer > 0)
+        stageTimer -= deltams;
+    else if (level == 5)
+    {
+        level = 1;
+        resetTurrets();
+        generateTurrets();
+        stageTimer = 20;
+        
+    }
+    else
+    {
+        level++;
+        generateTurrets();
+        stageTimer = 20;
+    }
+    
+    ship1.update(deltams);
     ship2.update(deltams);
-
-    if (stageTimer > 0) stageTimer -= deltams;
-    else stageTimer = 0;
-
 	for (int t = 0; t < turrets.size(); t++)
 		turrets[t]->update(deltams);
 
@@ -102,7 +117,7 @@ void PlayState::draw(sf::RenderWindow *window) {
     sf::Font font;
     sf::Text text;
 
-    if (!font.loadFromFile("resources/space_3.ttf")) {
+    if (!font.loadFromFile("resources/spaceranger.ttf")) {
          printf("Could not load font");
     }
 
@@ -160,22 +175,38 @@ void PlayState::draw(sf::RenderWindow *window) {
 
 
 
-
-
-
     sf::Text timer;
 
     timer.setFont(font);
     timer.setFillColor(sf::Color::White);
-    timer.setPosition(SCREENWIDTH - 200, SCREENHEIGHT - 150);
+    timer.setPosition(stage.getLocalBounds().width + 10, SCREENHEIGHT - 150);
     timer.setCharacterSize(80);
     timer.setString(std::to_string(static_cast<int>(stageTimer)));
 
     window->draw(timer);
 
+    
+    //level counter
+    sf::Text levelCount;
+    
+    levelCount.setFont(font);
+    levelCount.setFillColor(sf::Color::White);
+    levelCount.setCharacterSize(80);
+    levelCount.setString(std::to_string(level));
+    levelCount.setPosition(SCREENWIDTH - levelCount.getLocalBounds().width -  50, SCREENHEIGHT - 150);
+    
 
+    
+    window->draw(levelCount);
 
-
+    //level counter
+    sf::Text levelNumber;
+    levelNumber.setFont(font);
+    levelNumber.setFillColor(sf::Color::White);
+    levelNumber.setCharacterSize(80);
+    levelNumber.setString("  Level: ");
+    levelNumber.setPosition(SCREENWIDTH - levelCount.getLocalBounds().width -  60 - levelNumber.getLocalBounds().width, SCREENHEIGHT - 150);
+    window->draw(levelNumber);
 
 
 
@@ -273,14 +304,14 @@ void PlayState::checkCollisions() {
 
         for (int b = 0; b < turrets[t]->bullets.size(); b++) {
 
-             printf("bullet size%f\n", turrets[t]->bullets[b]->getShape()->m_radius);
-             printf("ship size%f\n", ship1.getShape()->m_radius);
+//             printf("bullet size%f\n", turrets[t]->bullets[b]->getShape()->m_radius);
+//             printf("ship size%f\n", ship1.getShape()->m_radius);
              bool part1_collision = b2TestOverlap(ship1.getShape(),0, turrets[t]->bullets[b]->getShape(), 0, b2Transform(b2Vec2(ship1.pos.x, ship1.pos.y), b2Rot(0.0f)),b2Transform(b2Vec2(turrets[t]->bullets[b]->pos.x, turrets[t]->bullets[b]->pos.y), b2Rot(0.0f)));
              bool part2_collision = b2TestOverlap(ship2.getShape(),0, turrets[t]->bullets[b]->getShape(), 0, b2Transform(b2Vec2(ship2.pos.x, ship2.pos.y), b2Rot(0.0f)),b2Transform(b2Vec2(turrets[t]->bullets[b]->pos.x, turrets[t]->bullets[b]->pos.y), b2Rot(0.0f)));
 
 
             if (part1_collision){
-                printf("Ship1 got shot\n");
+//                printf("Ship1 got shot\n");
 
                 if (ship1.currentHealth != 0) ship1.currentHealth -= 1;
                 // printf("%f\n",ship1.health);
@@ -290,14 +321,14 @@ void PlayState::checkCollisions() {
             }
             else{
 
-                printf("Miss : %5f \n",(ship1.pos.x - turrets[t]->bullets[b]->pos.x) + (ship1.pos.y - turrets[t]->bullets[b]->pos.y));
+//                printf("Miss : %5f \n",(ship1.pos.x - turrets[t]->bullets[b]->pos.x) + (ship1.pos.y - turrets[t]->bullets[b]->pos.y));
 
                 //printf("%5f bx",turrets[t]->bullets[b]->pos.x);
                 //printf("%5f by\n",turrets[t]->bullets[b]->pos.y);
             }
             if (part2_collision){
                 if (ship2.currentHealth != 0) ship2.currentHealth -= 1;
-                printf("Ship2 got shot\n");
+//                printf("Ship2 got shot\n");
                 //world->DestroyBody(turrets[t]->bullets[b]->body);
 //                delete turrets[t]->bullets[b];
                 turrets[t]->bullets.erase(turrets[t]->bullets.begin() + b);
@@ -325,67 +356,182 @@ void PlayState::checkCollisions() {
 
 void PlayState::generateTurrets() {
 
-    
-    turretSelect(1, sf::Vector2f(250, 100));
-    turretSelect(2, sf::Vector2f(500, 100));
-    turretSelect(3, sf::Vector2f(800, 100));
-    turretSelect(4, sf::Vector2f(1400, 600));
-    turretSelect(5, sf::Vector2f(1350, 100));
-    turretSelect(6, sf::Vector2f(1500, 100));
-    
-    
-    
-    
-    
-    //    MachineGunTurret *t1 = new MachineGunTurret(sf::Vector2f(250, 100));
+//     1 = Machine Gun Turret
+//     2 = Guided Missle Turret
+//     3 = Rail Gun Turret
+//     4 = Ricochet Turret
+//     5 = Boomerang Turret
+//     6 = Glue Gun Turret
+    int turretID;
+    float x = 0;
+    float y = 0;
+    switch(level)
+    {
+        case 1 : // inner most
+        {
+            turretID = randomButNotRandomSelector();
+            for (int a = 1; a < 3; a++)
+            {
+                for (int b = 1; b < 3; b++)
+                {
+                    x = ((SCREENWIDTH/2) + ((SCREENWIDTH/7) * (pow(-1,a))));
+                    y = ((SCREENHEIGHT/2) + ((SCREENHEIGHT/7) * (pow(-1,b))));
+                    turretSelect(turretID, sf::Vector2f(x, y));
+                }
+            }
+            std::cout << "Case 1 COMPLETED: "<< level << std::endl;
+            break;
+        }
+            
+        case 2 : // Horizontal
+        {
+            turretID = randomButNotRandomSelector();
+            for (int a = 1; a < 3; a++)
+            {
+                for (int b = 1; b < 3; b++)
+                {
+                    x = ((SCREENWIDTH/2) + ((SCREENWIDTH/3) * (pow(-1,a))));
+                    y = ((SCREENHEIGHT/2) + ((SCREENHEIGHT/15) * (pow(-1,b))));
+                    turretSelect(turretID, sf::Vector2f(x, y));
+                }
+            }
 
-    //     GuidedTurret *t2 = new GuidedTurret(sf::Vector2f(500, 100));
+            turretID = randomButNotRandomSelector(); // Vertical
+            for (int a = 1; a < 3; a++)
+            {
+                for (int b = 1; b < 3; b++)
+                {
+                    x = ((SCREENWIDTH/2) + ((SCREENWIDTH/5) * (pow(-1,a))));
+                    y = ((SCREENHEIGHT/2) + ((SCREENHEIGHT/3) * (pow(-1,b))));
+                    turretSelect(turretID, sf::Vector2f(x, y));
+                }
+            }
+            std::cout << "Case 2 COMPLETED: "<< level << std::endl;
+            break;
+        }
+            
+        case 3 : // outer most
+        {
+            turretID = randomButNotRandomSelector();
+            for (int a = 1; a < 3; a++)
+            {
+                for (int b = 1; b < 3; b++)
+                {
+                    x = ((SCREENWIDTH/2) + ((SCREENWIDTH/3) * (pow(-1,a))));
+                    y = ((SCREENHEIGHT/2) + ((SCREENHEIGHT/3) * (pow(-1,b))));
+                    turretSelect(turretID, sf::Vector2f(x, y));
+                }
+            }
+            std::cout << "Case 3 COMPLETED: "<< level << std::endl;
+            break;
+        }
 
-    //     BoomerangTurret *t3 = new BoomerangTurret(sf::Vector2f(800, 100));
+        default:
+        {
+//            std::cout << "Default Case: "<< level << std::endl;
+//            resetTurrets();
+//            for (int a = 1; a < 3; a++)
+//            {
+//                for (int b = 1; b < 3; b++)
+//                {
+//                    turretID = rand() % 6 + 1;
+//                    turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/7) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/6) * (pow(-1,b)))));
+//                    turretID = rand() % 6 + 1;
+//                    turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/4) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/6) * (pow(-1,b)))));
+//                    turretID = rand() % 6 + 1;
+//                    turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/7) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/3) * (pow(-1,b)))));
+//                    turretID = rand() % 6 + 1;
+//                    turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/2.2) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/3) * (pow(-1,b)))));
+//                }
+//            }
+            break;
+        }
 
-    //     RailGunTurret *t4 = new RailGunTurret(sf::Vector2f(1100, 100));
-
-    //     RicochetTurret *t5 = new RicochetTurret(sf::Vector2f(1350, 100));
-
-    //     GlueGunTurret *t6 = new GlueGunTurret(sf::Vector2f(1500, 100));
-
-
-    
-    
+    }
     
     
 }
 
 
+void PlayState::resetTurrets() {
+//    for (int t = 0; t < sizeof(turretCounter); t++) {
+//            turretCounter[t] = (t + 1);
+//    }
+    
+    
+    for (int t = 0; t < turrets.size(); t++) {
+        for (int b = 0; b < turrets[t]->bullets.size(); b++) {
+            turrets[t]->bullets.erase(turrets[t]->bullets.begin() + b);
+        }
+    }
+    
+    while (turrets.size()>0) {
+        for (int t = 0; t < turrets.size(); t++) {
+            turrets.erase(turrets.begin() + t);
+        }
+    }
+    
+}
+
+int PlayState::randomButNotRandomSelector() {
+//    int max = -1;
+//    int range = sizeof(turretCounter);
+    int turretID;
+//    for (int t = 0; t < sizeof(turretCounter); t++) {
+//        if(turretCounter[t] != 0)
+//        {
+//            max = t;
+//            break;
+//        }
+//    }
+//    range = sizeof(turretCounter) - max;
+//    turretID = turretCounter[max + (rand() % range)];
+//
+//    for (int t = 0; t < sizeof(turretCounter); t++) {
+//        if(turretCounter[t] == turretID)
+//        {
+//            turretCounter[t] = 0;
+//        }
+//    }
+    
+    turretID = (rand() % 6 + 1);
+    
+    return turretID;
+}
+
+
+
 void PlayState::turretSelect(int turretID, sf::Vector2f p) {
+    std::cout << "Value of P: " << p.x << "," << p.y << std::endl;
+    
     switch(turretID)
     {
-        case 1 :  // Boomerang Turret
+        case 1 : // Machine Gun Turret
         {
-            BoomerangTurret *t1 = new BoomerangTurret(p);
-            t1->setReference(this);
-            turrets.push_back(t1);
+            MachineGunTurret *t4 = new MachineGunTurret(p);
+            t4->setReference(this);
+            turrets.push_back(t4);
             break;
         }
-        case 2 :  // Glue Gun Turret
-        {
-            GlueGunTurret *t2 = new GlueGunTurret(p);
-            t2->setReference(this);
-            turrets.push_back(t2);
-            break;
-        }
-        case 3 : // Guided Turret
+        case 2 : // Guided Turret
         {
             GuidedTurret *t3 = new GuidedTurret(p);
             t3->setReference(this);
             turrets.push_back(t3);
             break;
         }
-        case 4 : // Machine Gun Turret
+        case 3 :  // Boomerang Turret
         {
-            MachineGunTurret *t4 = new MachineGunTurret(p);
-            t4->setReference(this);
-            turrets.push_back(t4);
+            BoomerangTurret *t1 = new BoomerangTurret(p);
+            t1->setReference(this);
+            turrets.push_back(t1);
+            break;
+        }
+        case 4 : // Ricochet Turret
+        {
+            RicochetTurret *t6 = new RicochetTurret(p);
+            t6->setReference(this);
+            turrets.push_back(t6);
             break;
         }
         case 5 : // Rail Gun Turret
@@ -395,16 +541,16 @@ void PlayState::turretSelect(int turretID, sf::Vector2f p) {
             turrets.push_back(t5);
             break;
         }
-        case 6 : // Ricochet Turret
+        case 6 :  // Glue Gun Turret
         {
-            RicochetTurret *t6 = new RicochetTurret(p);
-            t6->setReference(this);
-            turrets.push_back(t6);
+            GlueGunTurret *t2 = new GlueGunTurret(p);
+            t2->setReference(this);
+            turrets.push_back(t2);
             break;
         }
         default:
         {
-            std::cout << "Turret Select Error" << std::endl;
+            std::cout << "Turret Select Error: "<< turretID << std::endl;
             break;
         }
     }
