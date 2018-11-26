@@ -45,17 +45,23 @@ void OptionState::draw(sf::RenderWindow *window) {
 
 void OptionState::handleInput(sf::Event event) {
 	if (event.type == sf::Event::KeyPressed) {
-		switch (event.key.code) {
-		case sf::Keyboard::Up:
-			moveUp();
-			break;
-		case sf::Keyboard::Down:
-			moveDown();
-			break;
-		case sf::Keyboard::Space:
-			select();
-			break;
-		}
+        if (event.key.code == sf::Keyboard::Up)
+            moveUp();
+        else if (event.key.code == sf::Keyboard::Down)
+            moveDown();
+        else if (event.key.code == sf::Keyboard::Space)
+            select();
+//        switch (event.key.code) {
+//        case sf::Keyboard::Up:
+//            moveUp();
+//            break;
+//        case sf::Keyboard::Down:
+//            moveDown();
+//            break;
+//        case sf::Keyboard::Space:
+//            select();
+//            break;
+//        }
 	}
 }
 
