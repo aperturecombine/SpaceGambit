@@ -22,33 +22,11 @@ PlayState::PlayState(class GameStateManager *g) {
     background.setPosition(0, 0);
     background.setScale(0.7f, 0.5f);
 
-	ship1 = RocketShip(sf::Vector2f(250,500));
-    ship2 = RocketShip(sf::Vector2f(250,900));
-	MachineGunTurret *t1 = new MachineGunTurret(sf::Vector2f(250, 100));
-	t1->setReference(this);
-    turrets.push_back(t1);
+	ship1 = RocketShip(sf::Vector2f(SCREENWIDTH/2 + 100,SCREENHEIGHT/2));
+    ship2 = RocketShip(sf::Vector2f(SCREENWIDTH/2 - 100,SCREENHEIGHT/2));
+    
 
-     GuidedTurret *t2 = new GuidedTurret(sf::Vector2f(500, 100));
-     t2->setReference(this);
-     turrets.push_back(t2);
-
-     BoomerangTurret *t3 = new BoomerangTurret(sf::Vector2f(800, 100));
-     t3->setReference(this);
-     turrets.push_back(t3);
-
-     RailGunTurret *t4 = new RailGunTurret(sf::Vector2f(1100, 100));
-     t4->setReference(this);
-     turrets.push_back(t4);
-
-     RicochetTurret *t5 = new RicochetTurret(sf::Vector2f(1350, 100));
-     t5->setReference(this);
-     turrets.push_back(t5);
-
-     GlueGunTurret *t6 = new GlueGunTurret(sf::Vector2f(1500, 100));
-     t6->setReference(this);
-     turrets.push_back(t6);
-
-
+    generateTurrets();
      stageTimer = 20;
     // shipHealth1.setPosition(sf::Vector2f(300,10));
     // shipHealth1.setSize(sf::Vector2f (ship1.health, 10));
@@ -132,7 +110,7 @@ void PlayState::draw(sf::RenderWindow *window) {
     text.setFillColor(sf::Color::White);
     text.setPosition(10, 90);
     text.setCharacterSize(40);
-    text.setString("Score: "+ std::to_string(ship1.points));
+    text.setString("  Score: "+ std::to_string(ship1.points));
 
     window->draw(bar);
     window->draw(health);
@@ -160,7 +138,7 @@ void PlayState::draw(sf::RenderWindow *window) {
     text2.setFillColor(sf::Color::White);
     text2.setPosition(SCREENWIDTH - 250, 90);
     text2.setCharacterSize(40);
-    text2.setString("Score: "+ std::to_string(ship1.points));
+    text2.setString("  Score: "+ std::to_string(ship1.points));
 
     window->draw(bar2);
     window->draw(health2);
@@ -176,7 +154,7 @@ void PlayState::draw(sf::RenderWindow *window) {
     stage.setFillColor(sf::Color::White);
     stage.setPosition(10, SCREENHEIGHT - 150);
     stage.setCharacterSize(80);
-    stage.setString("Stage: ");
+    stage.setString("  Stage: ");
 
     window->draw(stage);
 
@@ -343,4 +321,91 @@ void PlayState::checkCollisions() {
 		}
 	}
 
+}
+
+void PlayState::generateTurrets() {
+
+    
+    turretSelect(1, sf::Vector2f(250, 100));
+    turretSelect(2, sf::Vector2f(500, 100));
+    turretSelect(3, sf::Vector2f(800, 100));
+    turretSelect(4, sf::Vector2f(1400, 600));
+    turretSelect(5, sf::Vector2f(1350, 100));
+    turretSelect(6, sf::Vector2f(1500, 100));
+    
+    
+    
+    
+    
+    //    MachineGunTurret *t1 = new MachineGunTurret(sf::Vector2f(250, 100));
+
+    //     GuidedTurret *t2 = new GuidedTurret(sf::Vector2f(500, 100));
+
+    //     BoomerangTurret *t3 = new BoomerangTurret(sf::Vector2f(800, 100));
+
+    //     RailGunTurret *t4 = new RailGunTurret(sf::Vector2f(1100, 100));
+
+    //     RicochetTurret *t5 = new RicochetTurret(sf::Vector2f(1350, 100));
+
+    //     GlueGunTurret *t6 = new GlueGunTurret(sf::Vector2f(1500, 100));
+
+
+    
+    
+    
+    
+}
+
+
+void PlayState::turretSelect(int turretID, sf::Vector2f p) {
+    switch(turretID)
+    {
+        case 1 :  // Boomerang Turret
+        {
+            BoomerangTurret *t1 = new BoomerangTurret(p);
+            t1->setReference(this);
+            turrets.push_back(t1);
+            break;
+        }
+        case 2 :  // Glue Gun Turret
+        {
+            GlueGunTurret *t2 = new GlueGunTurret(p);
+            t2->setReference(this);
+            turrets.push_back(t2);
+            break;
+        }
+        case 3 : // Guided Turret
+        {
+            GuidedTurret *t3 = new GuidedTurret(p);
+            t3->setReference(this);
+            turrets.push_back(t3);
+            break;
+        }
+        case 4 : // Machine Gun Turret
+        {
+            MachineGunTurret *t4 = new MachineGunTurret(p);
+            t4->setReference(this);
+            turrets.push_back(t4);
+            break;
+        }
+        case 5 : // Rail Gun Turret
+        {
+            RailGunTurret *t5 = new RailGunTurret(p);
+            t5->setReference(this);
+            turrets.push_back(t5);
+            break;
+        }
+        case 6 : // Ricochet Turret
+        {
+            RicochetTurret *t6 = new RicochetTurret(p);
+            t6->setReference(this);
+            turrets.push_back(t6);
+            break;
+        }
+        default:
+        {
+            std::cout << "Turret Select Error" << std::endl;
+            break;
+        }
+    }
 }
