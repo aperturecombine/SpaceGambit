@@ -10,7 +10,7 @@ OptionState::OptionState(class GameStateManager *g) {
         printf("Could not load font");
     }
     
-    if(!texture.loadFromFile("resources/space_real.png")) {
+    if(!texture.loadFromFile("resources/space_real.jpg")) {
         printf("Could not load background");
     }
     
