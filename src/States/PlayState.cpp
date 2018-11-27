@@ -12,7 +12,7 @@
 #include <cstdlib>
 
 PlayState::PlayState(class GameStateManager *g) {
-<<<<<<< Updated upstream
+
     gsm = g;
     turretCount = 6;
     stageTimer = StageTime;
@@ -40,15 +40,15 @@ PlayState::PlayState(class GameStateManager *g) {
 }
 
 void PlayState::update(float deltams) {
-
+    /*
 		if (sf::Keyboard::isKeyPressed(P)){
 			pause();
 		}
 		else{
-
+    */
 		checkCollisions();
     //shipHealth1.setSize(sf::Vector2f( 300 - abs(ship1.health),50));
-        
+
     //if (ship1.health <= 0)
     //gsm->pushState(FINISHSTATE);
 
@@ -75,16 +75,39 @@ void PlayState::update(float deltams) {
         turrets[t]->update(deltams);
 
 
-        }
+        //if (ship1.health <= 0)
+        //gsm->pushState(FINISHSTATE);
+
+	  ship1.update(deltams);
+    ship2.update(deltams);
+
+    if (stageTimer > 0) stageTimer -= deltams;
+    else stageTimer = 0;
+
+	for (int t = 0; t < turrets.size(); t++)
+		turrets[t]->update(deltams);
+	//}
+}
+/*
+void PlayState::pause(){
+	// draw a subrectangle with pause
+
+	//gsm->pushState(PAUSESTATE);
+
+
 }
 
-
+*/
 void PlayState::draw(sf::RenderWindow *window) {
     //window->clear(sf::Color::Black);
     window->draw(background);
     //window->draw(shipHealth1);
     window->draw(ship1.rocketShipObject);
     window->draw(ship2.rocketShipObject);
+
+
+
+    //HUD; later to be refactored into render class
 
 
 	for (int t = 0; t < turrets.size(); t++) {
@@ -126,6 +149,7 @@ void PlayState::draw(sf::RenderWindow *window) {
 		hud.setScale(0.7f, 0.5f);
 		window->draw(hud);
 
+
     //Player 1 HUD
     sf::RectangleShape bar;
     bar.setFillColor(sf::Color::White);
@@ -145,6 +169,7 @@ void PlayState::draw(sf::RenderWindow *window) {
 
     if (!font.loadFromFile("resources/spaceranger.ttf")) {
         printf("Could not load font");
+
 
 
 
@@ -201,6 +226,13 @@ void PlayState::draw(sf::RenderWindow *window) {
     stage.setString("Stage: ");
 
     window->draw(stage);
+
+
+
+
+
+
+
 
     sf::Text timer;
 
@@ -389,7 +421,6 @@ void PlayState::checkCollisions() {
 
         for (int b = 0; b < turrets[t]->bullets.size(); b++) {
 
-
              //printf("bullet size%f\n", turrets[t]->bullets[b]->getShape()->m_radius);
              //printf("ship size%f\n", ship1.getShape()->m_radius);
 						 bool part1_collision = (ship1.rocketShipObject.getGlobalBounds().intersects(turrets[t]->bullets[b]->shape.getGlobalBounds()));
@@ -411,7 +442,7 @@ void PlayState::checkCollisions() {
             else{
 
 
-                //printf("Miss : %5f \n",(ship1.pos.x - turrets[t]->bullets[b]->pos.x) + (ship1.pos.y - turrets[t]->bullets[b]->pos.y));
+                //                printf("Miss : %5f \n",(ship1.pos.x - turrets[t]->bullets[b]->pos.x) + (ship1.pos.y - turrets[t]->bullets[b]->pos.y));
 
 
                 //printf("%5f bx",turrets[t]->bullets[b]->pos.x);
@@ -601,7 +632,7 @@ int PlayState::randomButNotRandomSelector() {
 
 
 
-}
+
 
 
 void PlayState::turretSelect(int turretID, sf::Vector2f p) {

@@ -1,8 +1,8 @@
 #include "./Utilities/Button.h"
 
-Button::Button(sf::Texture normal,sf::Texture clicked,std::string words,sf::Vector2f location) {
-    this->normal.setTexture(normal);
-    this->clicked.setTexture(clicked);
+Button::Button(sf::Texture* normal,sf::Texture* clicked,std::string words,sf::Vector2f location) {
+    this->normal.setTexture(*normal);
+    this->clicked.setTexture(*clicked);
     this->currentSpr=&this->normal;
     current =false;
     this->normal.setPosition(location);

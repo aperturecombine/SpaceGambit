@@ -1,5 +1,7 @@
-
+/*
 #include "../../../include/Powerups/health.h"
+*/
+/*
 
 health::health(sf::Vector2f p) {
 	pos = p;
@@ -8,3 +10,4 @@ health::health(sf::Vector2f p) {
 	isAlive = true;
 	radik
 }
+*/
