@@ -10,7 +10,7 @@ class PlayState : public GameState {
 public:
 	PlayState() {}
     PlayState(class GameStateManager *gsm);
-    
+
 	virtual void update(float deltams);
     virtual void draw(sf::RenderWindow *window);
     virtual void handleInput(sf::Event event);
@@ -20,17 +20,18 @@ public:
 
     RocketShip ship1;
     RocketShip ship2;
-    
+
     b2World* world;
     std::vector<class Turret *> turrets;
 
     float stageTimer;
     int level;
 
-    
+
 private:
+		sf::Texture hudTexture;
     b2Vec2 gravity{0,0};
-    
+
     b2Body* bShip1;
     b2Body* bShip2;
     virtual void generateTurrets();
@@ -47,13 +48,28 @@ private:
     sf::RectangleShape shipHealth1;
     sf::RectangleShape shipHealth2;
 
+
+
+		// powerups
+		sf::Texture textureP1;
+		sf::Sprite sP1;
+
+		sf::Texture textureP2;
+		sf::Sprite sP2;
+
+		sf::Texture textureP3;
+		sf::Sprite sP3;
+
+		sf::Texture textureP4;
+		sf::Sprite sP4;
+
     std::vector<class b2Body *> bTurret;
-    
+
 //    sf::Vector2f(SCREENWIDTH*(2/8),SCREENHEIGHT*(6/8))
-    
+
     sf::Vector2f turretLayout[3][4];
-    
-    
-    
-    
+
+
+
+
 };
