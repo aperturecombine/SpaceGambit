@@ -10,7 +10,7 @@ MachineGunTurret::MachineGunTurret(sf::Vector2f p) {
     attachShape();
 
 	if (!turretImage.loadFromFile("resources/machineGunTurret.png")) {
-		printf("Could not load turret");
+		printf("Could not load turret\n");
 	}
 
 	turretTexture.loadFromImage(turretImage);
@@ -52,7 +52,7 @@ sf::Vector2f MachineGunTurret::getInitBulletVel() {
     sf::Vector2f ship2_init = (ref->ship2.pos - pos);
     float ship1_dist = pow((ship1_init.x*ship1_init.x + ship1_init.y*ship1_init.y),0.5);
     float ship2_dist = pow((ship2_init.x*ship2_init.x + ship2_init.y*ship2_init.y),0.5);
-    
+
     if (ship1_dist < ship2_dist)
     {
         if (ship1_dist < firingRange) {withinfiringRange=true;}
@@ -74,4 +74,3 @@ sf::Vector2f MachineGunTurret::normalize(sf::Vector2f & v) {
 	else
 		return v;
 }
-

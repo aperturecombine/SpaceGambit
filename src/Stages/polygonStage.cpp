@@ -46,6 +46,7 @@ b2ChainShape* polygonStage::getBoundaryShape(){
     return backgroundShape;
 }
 
-void polygonStage::attachRandomJunctions(){
 
+void polygonStage::attachRandomJunctions(){
+  
 }

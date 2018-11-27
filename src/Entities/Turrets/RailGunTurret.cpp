@@ -8,11 +8,11 @@ RailGunTurret::RailGunTurret(sf::Vector2f p) {
     firingRange = 500;
     withinfiringRange = false;
     attachShape();
-    
+
     if (!turretImage.loadFromFile("resources/railGunTurret.png")) {
-        printf("Could not load turret");
+        printf("Could not load turret\n");
     }
-    
+
     turretTexture.loadFromImage(turretImage);
     turretTexture.setSmooth(true);
     turretObject.setTexture(turretTexture);
@@ -38,7 +38,7 @@ void RailGunTurret::update(float dt) {
     if (counter >= fireRate) {
         fire();
     }
-    
+
     for (int i = 0; i < bullets.size(); i++) {
         bullets.at(i)->update(dt);
     }
@@ -49,7 +49,7 @@ sf::Vector2f RailGunTurret::getInitBulletVel() {
     sf::Vector2f ship2_init = (ref->ship2.pos - pos);
     float ship1_dist = pow((ship1_init.x*ship1_init.x + ship1_init.y*ship1_init.y),0.5);
     float ship2_dist = pow((ship2_init.x*ship2_init.x + ship2_init.y*ship2_init.y),0.5);
-    
+
     if (ship1_dist < ship2_dist)
     {
         if (ship1_dist < firingRange) {withinfiringRange=true;}
