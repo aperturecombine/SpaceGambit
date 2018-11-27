@@ -18,16 +18,17 @@ PlayState::PlayState(class GameStateManager *g) {
     stageTimer = StageTime;
     level = 1;
 
-    if(!image.loadFromFile("resources/space_background.jpg")) {
+    loadPauseFonts();
+    if(!texture.loadFromFile("resources/space_background.jpg")) {
         printf("playstate space_background load error\n");
     }
-    texture.loadFromImage(image);
+    //texture.loadFromImage(image);
 
     background.setTexture(texture);
 
     background.setPosition(0, 0);
 
-    background.setScale(0.7f, 0.5f);
+    background.setScale(1.0f, 1.0f);
 
     ship1 = RocketShip(sf::Vector2f(SCREENWIDTH/2 + 100,SCREENHEIGHT/2));
     ship2 = RocketShip(sf::Vector2f(SCREENWIDTH/2 - 100,SCREENHEIGHT/2));
@@ -40,12 +41,11 @@ PlayState::PlayState(class GameStateManager *g) {
 }
 
 void PlayState::update(float deltams) {
-    /*
-		if (sf::Keyboard::isKeyPressed(P)){
-			pause();
-		}
-		else{
-    */
+
+		if (!pause){
+
+
+
 		checkCollisions();
     //shipHealth1.setSize(sf::Vector2f( 300 - abs(ship1.health),50));
 
@@ -86,7 +86,7 @@ void PlayState::update(float deltams) {
 
 	for (int t = 0; t < turrets.size(); t++)
 		turrets[t]->update(deltams);
-	//}
+	}
 }
 /*
 void PlayState::pause(){
@@ -99,7 +99,9 @@ void PlayState::pause(){
 
 */
 void PlayState::draw(sf::RenderWindow *window) {
-    //window->clear(sf::Color::Black);
+
+
+    //window->clear(sf::Color::);
     window->draw(background);
     //window->draw(shipHealth1);
     window->draw(ship1.rocketShipObject);
@@ -141,8 +143,12 @@ void PlayState::draw(sf::RenderWindow *window) {
 		// position HUD frame
 
 		sf::Image hudImage;
-		hudImage.loadFromFile("resources/HP_P2VT.jpg");
-		hudTexture.loadFromImage(hudImage);
+
+		if (!hudTexture.loadFromFile("⁨resources/HP_PVP_P1VT.png⁩")){
+
+
+    }
+		//hudTexture.loadFromImage(hudImage);
 		sf::Sprite hud;
 		hud.setTexture(hudTexture);
 		hud.setPosition(0,0);
@@ -287,10 +293,21 @@ void PlayState::draw(sf::RenderWindow *window) {
      turretRect.setPosition(turrets[t]->pos - sf::Vector2f(50, 50));
      gsm->window.draw(turretRect);
      }*/
-
+     if (pause){
+       window->draw(pauseState);
+       window->draw(pauseSprite);
+     }
 }
 
 void PlayState::handleInput(sf::Event event) {
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)){
+      pause = true;
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::T)){
+      pause = false;
+    }
+    {
     ship1.moveRight = sf::Keyboard::isKeyPressed(PlayerOne_Right);
     ship1.moveLeft = sf::Keyboard::isKeyPressed(PlayerOne_Left);
     ship1.moveUp = sf::Keyboard::isKeyPressed(PlayerOne_Up);
@@ -300,6 +317,7 @@ void PlayState::handleInput(sf::Event event) {
     ship2.moveLeft = sf::Keyboard::isKeyPressed(PlayerTwo_Left);
     ship2.moveUp = sf::Keyboard::isKeyPressed(PlayerTwo_Up);
     ship2.moveDown = sf::Keyboard::isKeyPressed(PlayerTwo_Down);
+  }
 }
 
 /*
@@ -687,4 +705,25 @@ void PlayState::turretSelect(int turretID, sf::Vector2f p) {
             break;
         }
     }
+}
+
+
+void PlayState::loadPauseFonts(){
+
+
+  if(!pauseTexture.loadFromFile("/Users/liuwukun/Documents/GitHub_workspace/SpaceGambit/SpaceGambit_new/resources/pause.png")){
+    printf("File not loading\n");
+  }
+
+  pauseSprite.setTexture(pauseTexture);
+  pauseSprite.setPosition(SCREENWIDTH/2,SCREENHEIGHT/2);
+  pauseSprite.setScale(100.0f, 100.0f);
+
+  sf::Color color(220,220,220);
+  color.a = 90;
+  pauseState.setFillColor(color);
+  pauseState.setPosition(0,0);
+  pauseState.setSize(sf::Vector2f(SCREENWIDTH, SCREENHEIGHT));
+
+
 }

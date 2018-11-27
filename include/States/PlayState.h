@@ -37,6 +37,7 @@ private:
     virtual void generateTurrets();
     virtual void resetTurrets();
     virtual void turretSelect(int i, sf::Vector2f p);
+		virtual void loadPauseFonts();
     float turretCount;
     virtual int randomButNotRandomSelector();
     int turretCounter[6] = {1,2,3,4,5,6};
@@ -49,6 +50,9 @@ private:
     sf::RectangleShape shipHealth2;
 
 
+		sf::RectangleShape pauseState;
+		sf::Texture pauseTexture;
+		sf::Sprite pauseSprite;
 
 		// powerups
 		sf::Texture textureP1;
@@ -70,6 +74,6 @@ private:
     sf::Vector2f turretLayout[3][4];
 
 
-
+		bool pause = false;
 
 };
