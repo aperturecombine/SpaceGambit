@@ -9,10 +9,8 @@ public:
     ~GlueBullet();
 
     virtual void update(float dt);
-  
-    virtual void loadFont();
+    
 private:
     float speed;
     virtual void checkBounds(float dt);
-
 };

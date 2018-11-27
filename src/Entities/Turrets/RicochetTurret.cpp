@@ -8,11 +8,11 @@ RicochetTurret::RicochetTurret(sf::Vector2f p) {
     firingRange = 400;
     withinfiringRange = false;
     attachShape();
-
+    
     if (!turretImage.loadFromFile("resources/ricochetTurret.png")) {
-        printf("Could not load turret\n");
+        printf("Could not load turret");
     }
-
+    
     turretTexture.loadFromImage(turretImage);
     turretTexture.setSmooth(true);
     turretObject.setTexture(turretTexture);

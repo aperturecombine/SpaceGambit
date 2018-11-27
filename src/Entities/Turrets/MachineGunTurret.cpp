@@ -10,7 +10,7 @@ MachineGunTurret::MachineGunTurret(sf::Vector2f p) {
     attachShape();
 
 	if (!turretImage.loadFromFile("resources/machineGunTurret.png")) {
-		printf("Could not load turret\n");
+		printf("Could not load turret");
 	}
 
 	turretTexture.loadFromImage(turretImage);
@@ -82,3 +82,4 @@ sf::Vector2f MachineGunTurret::normalize(sf::Vector2f & v) {
 	else
 		return v;
 }
+
