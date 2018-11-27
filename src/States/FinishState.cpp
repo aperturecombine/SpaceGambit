@@ -16,17 +16,17 @@ FinishState::FinishState(class GameStateManager *g) {
     if (!font.loadFromFile("resources/spaceranger.ttf"))
     {
         std::cout << "Could not load font." << std::endl;
-
+        
     }
     
     if(!texture.loadFromFile("resources/good_game.jpg"))
-        {
-        }
+    {
+    }
     //texture.loadFromImage(image);
     background.setTexture(texture);
     
     background.setPosition(0, 0);
-//    auto size = background.getTexture()->getSize();
+    //    auto size = background.getTexture()->getSize();
     background.setScale(0.5f, 0.5f);
     std::cout << "Could not load font." << std::endl;
     

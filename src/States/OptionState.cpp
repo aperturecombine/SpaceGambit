@@ -49,25 +49,25 @@ void OptionState::draw(sf::RenderWindow *window) {
 }
 
 void OptionState::handleInput(sf::Event event) {
-	if (event.type == sf::Event::KeyPressed) {
+    if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == sf::Keyboard::Up)
             moveUp();
         else if (event.key.code == sf::Keyboard::Down)
             moveDown();
         else if (event.key.code == sf::Keyboard::Space)
             select();
-//        switch (event.key.code) {
-//        case sf::Keyboard::Up:
-//            moveUp();
-//            break;
-//        case sf::Keyboard::Down:
-//            moveDown();
-//            break;
-//        case sf::Keyboard::Space:
-//            select();
-//            break;
-//        }
-	}
+        //        switch (event.key.code) {
+        //        case sf::Keyboard::Up:
+        //            moveUp();
+        //            break;
+        //        case sf::Keyboard::Down:
+        //            moveDown();
+        //            break;
+        //        case sf::Keyboard::Space:
+        //            select();
+        //            break;
+        //        }
+    }
 }
 
 
@@ -82,15 +82,15 @@ void OptionState::select() {
     
     if (currentChoice == 2)
     {
-        #undef PlayerOne_Up
-        #undef PlayerOne_Down
-        #undef PlayerOne_Left
-        #undef PlayerOne_Right
+#undef PlayerOne_Up
+#undef PlayerOne_Down
+#undef PlayerOne_Left
+#undef PlayerOne_Right
         
-        #define PlayerOne_Up sf::Keyboard::T
-        #define PlayerOne_Down sf::Keyboard::G
-        #define PlayerOne_Left sf::Keyboard::F
-        #define PlayerOne_Right sf::Keyboard::H
+#define PlayerOne_Up sf::Keyboard::T
+#define PlayerOne_Down sf::Keyboard::G
+#define PlayerOne_Left sf::Keyboard::F
+#define PlayerOne_Right sf::Keyboard::H
         std::cout <<"Player 1 Controls Changed"<< std::endl;
     }
     
