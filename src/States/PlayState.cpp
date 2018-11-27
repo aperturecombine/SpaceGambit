@@ -10,11 +10,20 @@
 #include "../../include/Entities/Bullets/Bullet.h"
 #include <math.h>
 
-PlayState::PlayState(class GameStateManager *g) {
+PlayState::PlayState(class GameStateManager *g, int numPlayer) {
     gsm = g;
     turretCount = 6;
     stageTimer = StageTime;
     level = 1;
+    
+    if(numPlayer == 2)
+    {
+        twoPlayerMode = true;
+    }
+    else
+    {
+        twoPlayerMode = false;
+    }
     
     if(!image.loadFromFile("resources/space_background.jpg")) {
         printf("playstate space_background load error\n");
@@ -26,7 +35,9 @@ PlayState::PlayState(class GameStateManager *g) {
     background.setScale(0.7f, 0.5f);
     
     ship1 = RocketShip(sf::Vector2f(SCREENWIDTH/2 + 100,SCREENHEIGHT/2));
-    ship2 = RocketShip(sf::Vector2f(SCREENWIDTH/2 - 100,SCREENHEIGHT/2));
+    if (twoPlayerMode) {
+        ship2 = RocketShip(sf::Vector2f(SCREENWIDTH/2 - 100,SCREENHEIGHT/2));
+    }
     
     // shipHealth1.setPosition(sf::Vector2f(300,10));
     // shipHealth1.setSize(sf::Vector2f (ship1.health, 10));
@@ -58,7 +69,11 @@ void PlayState::update(float deltams) {
     }
     
     ship1.update(deltams);
-    ship2.update(deltams);
+    
+    if (twoPlayerMode) {
+        ship2.update(deltams);
+    }
+
     for (int t = 0; t < turrets.size(); t++)
         turrets[t]->update(deltams);
     
@@ -70,8 +85,9 @@ void PlayState::draw(sf::RenderWindow *window) {
     window->draw(background);
     //window->draw(shipHealth1);
     window->draw(ship1.rocketShipObject);
-    window->draw(ship2.rocketShipObject);
-    
+    if (twoPlayerMode) {
+        window->draw(ship2.rocketShipObject);
+    }
     for (int t = 0; t < turrets.size(); t++) {
         turrets[t]->turretObject.setPosition(turrets[t]->pos);
         window->draw(turrets[t]->turretObject);
@@ -132,31 +148,32 @@ void PlayState::draw(sf::RenderWindow *window) {
     
     
     
-    
-    //player 2 HUD
-    sf::RectangleShape bar2;
-    bar2.setFillColor(sf::Color::White);
-    bar2.setSize(sf::Vector2f(100, 50));
-    bar2.setPosition(SCREENWIDTH - 250, 20);
-    
-    sf::RectangleShape health2;
-    bar2.setFillColor(sf::Color::Red);
-    health2.setSize(sf::Vector2f(100*(ship2.currentHealth / ship2.maxHealth), 50));
-    health2.setPosition(SCREENWIDTH - 250, 20);
-    
-    
-    sf::Text text2;
-    
-    text2.setFont(font);
-    text2.setFillColor(sf::Color::White);
-    text2.setPosition(SCREENWIDTH - 250, 90);
-    text2.setCharacterSize(40);
-    text2.setString("  Score: "+ std::to_string(ship1.points));
-    
-    window->draw(bar2);
-    window->draw(health2);
-    window->draw(text2);
-    
+    if (twoPlayerMode) {
+        //player 2 HUD
+        sf::RectangleShape bar2;
+        bar2.setFillColor(sf::Color::White);
+        bar2.setSize(sf::Vector2f(100, 50));
+        bar2.setPosition(SCREENWIDTH - 250, 20);
+        
+        
+        sf::RectangleShape health2;
+        bar2.setFillColor(sf::Color::Red);
+        health2.setSize(sf::Vector2f(100*(ship2.currentHealth / ship2.maxHealth), 50));
+        health2.setPosition(SCREENWIDTH - 250, 20);
+        
+        
+        sf::Text text2;
+        
+        text2.setFont(font);
+        text2.setFillColor(sf::Color::White);
+        text2.setPosition(SCREENWIDTH - 250, 90);
+        text2.setCharacterSize(40);
+        text2.setString("Score: "+ std::to_string(ship1.points));
+        
+        window->draw(bar2);
+        window->draw(health2);
+        window->draw(text2);
+    }
     
     
     
@@ -233,10 +250,12 @@ void PlayState::handleInput(sf::Event event) {
     ship1.moveUp = sf::Keyboard::isKeyPressed(PlayerOne_Up);
     ship1.moveDown = sf::Keyboard::isKeyPressed(PlayerOne_Down);
     
-    ship2.moveRight = sf::Keyboard::isKeyPressed(PlayerTwo_Right);
-    ship2.moveLeft = sf::Keyboard::isKeyPressed(PlayerTwo_Left);
-    ship2.moveUp = sf::Keyboard::isKeyPressed(PlayerTwo_Up);
-    ship2.moveDown = sf::Keyboard::isKeyPressed(PlayerTwo_Down);
+    if (twoPlayerMode) {
+        ship2.moveRight = sf::Keyboard::isKeyPressed(PlayerTwo_Right);
+        ship2.moveLeft = sf::Keyboard::isKeyPressed(PlayerTwo_Left);
+        ship2.moveUp = sf::Keyboard::isKeyPressed(PlayerTwo_Up);
+        ship2.moveDown = sf::Keyboard::isKeyPressed(PlayerTwo_Down);
+    }
 }
 
 void PlayState::checkCollisions() {
@@ -282,8 +301,9 @@ void PlayState::checkCollisions() {
      **/
     
     //ship-ship collision
-    bool shipCollide = b2TestOverlap(ship1.getShape(),0, ship2.getShape(),0,b2Transform(b2Vec2(ship1.pos.x, ship1.pos.y), b2Rot(0.0f)),b2Transform(b2Vec2(ship2.pos.x, ship2.pos.y), b2Rot(0.0f)));
-    
+    if (twoPlayerMode) {
+        bool shipCollide = b2TestOverlap(ship1.getShape(),0, ship2.getShape(),0,b2Transform(b2Vec2(ship1.pos.x, ship1.pos.y), b2Rot(0.0f)),b2Transform(b2Vec2(ship2.pos.x, ship2.pos.y), b2Rot(0.0f)));
+    }
     /**
      if (shipCollide){
      b2WorldManifold worldManifold;
@@ -305,7 +325,10 @@ void PlayState::checkCollisions() {
             //             printf("bullet size%f\n", turrets[t]->bullets[b]->getShape()->m_radius);
             //             printf("ship size%f\n", ship1.getShape()->m_radius);
             bool part1_collision = b2TestOverlap(ship1.getShape(),0, turrets[t]->bullets[b]->getShape(), 0, b2Transform(b2Vec2(ship1.pos.x, ship1.pos.y), b2Rot(0.0f)),b2Transform(b2Vec2(turrets[t]->bullets[b]->pos.x, turrets[t]->bullets[b]->pos.y), b2Rot(0.0f)));
-            bool part2_collision = b2TestOverlap(ship2.getShape(),0, turrets[t]->bullets[b]->getShape(), 0, b2Transform(b2Vec2(ship2.pos.x, ship2.pos.y), b2Rot(0.0f)),b2Transform(b2Vec2(turrets[t]->bullets[b]->pos.x, turrets[t]->bullets[b]->pos.y), b2Rot(0.0f)));
+            bool part2_collision;
+            if (twoPlayerMode) {
+                part2_collision = b2TestOverlap(ship2.getShape(),0, turrets[t]->bullets[b]->getShape(), 0, b2Transform(b2Vec2(ship2.pos.x, ship2.pos.y), b2Rot(0.0f)),b2Transform(b2Vec2(turrets[t]->bullets[b]->pos.x, turrets[t]->bullets[b]->pos.y), b2Rot(0.0f)));
+            }
             
             
             if (part1_collision){
@@ -324,13 +347,15 @@ void PlayState::checkCollisions() {
                 //printf("%5f bx",turrets[t]->bullets[b]->pos.x);
                 //printf("%5f by\n",turrets[t]->bullets[b]->pos.y);
             }
-            if (part2_collision){
-                if (ship2.currentHealth != 0) ship2.currentHealth -= 1;
-                //                printf("Ship2 got shot\n");
-                //world->DestroyBody(turrets[t]->bullets[b]->body);
-                //                delete turrets[t]->bullets[b];
-                turrets[t]->bullets.erase(turrets[t]->bullets.begin() + b);
-                
+            if (twoPlayerMode) {
+                if (part2_collision){
+                    if (ship2.currentHealth != 0) ship2.currentHealth -= 1;
+                    //                printf("Ship2 got shot\n");
+                    //world->DestroyBody(turrets[t]->bullets[b]->body);
+                    //                delete turrets[t]->bullets[b];
+                    turrets[t]->bullets.erase(turrets[t]->bullets.begin() + b);
+                    
+                }
             }
             
         }
@@ -501,7 +526,8 @@ int PlayState::randomButNotRandomSelector() {
     
     turretID = (rand() % 6 + 1);
     
-    return turretID;
+//    return turretID;
+    return 1;
 }
 
 

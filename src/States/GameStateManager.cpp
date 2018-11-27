@@ -43,7 +43,7 @@ void GameStateManager::pushState(int newState) {
             states.push(new PickState(this));
             break;
         case PLAYSTATE:
-            states.push(new PlayState(this));
+            states.push(new PlayState(this, numPlayer));
             break;
         case FINISHSTATE:
             states.push(new FinishState(this));

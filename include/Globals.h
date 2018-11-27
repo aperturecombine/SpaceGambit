@@ -6,6 +6,9 @@
 #define MAXSPEED 500
 #define StageTime 5
 
+#define PlayerOne_Select sf::Keyboard::X
+#define PlayerTwo_Select sf::Keyboard::Space
+
 #define PlayerOne_Up sf::Keyboard::Up
 #define PlayerOne_Down sf::Keyboard::Down
 #define PlayerOne_Left sf::Keyboard::Left

@@ -10,6 +10,7 @@ class PlayState : public GameState {
 public:
 	PlayState() {}
     PlayState(class GameStateManager *gsm);
+    PlayState(class GameStateManager *gsm, int numPlayer);
     
 	virtual void update(float deltams);
     virtual void draw(sf::RenderWindow *window);
@@ -26,6 +27,7 @@ public:
 
     float stageTimer;
     int level;
+    bool twoPlayerMode;
 
     
 private:

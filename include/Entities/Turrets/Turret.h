@@ -4,8 +4,6 @@
 #include "../Bullets/MachineGunBullet.h"
 #include <list>
 #include <Box2D/Box2D.h>
-
-
 class Turret {
 public:
     // create an empty shape
