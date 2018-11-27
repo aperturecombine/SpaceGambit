@@ -2,7 +2,9 @@
 #define SCREENWIDTH 1800
 #define SCREENHEIGHT 1800
 
+
 #define MAXSPEED 500
+#define StageTime 5
 
 #define PlayerOne_Up sf::Keyboard::Up
 #define PlayerOne_Down sf::Keyboard::Down

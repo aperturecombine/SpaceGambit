@@ -12,6 +12,9 @@
 
 PlayState::PlayState(class GameStateManager *g) {
 	gsm = g;
+    turretCount = 6;
+    stageTimer = StageTime;
+    level = 1;
 
     if(!image.loadFromFile("resources/space_background.jpg")) {
 		printf("playstate space_background load error\n");
@@ -24,11 +27,6 @@ PlayState::PlayState(class GameStateManager *g) {
 
 	ship1 = RocketShip(sf::Vector2f(SCREENWIDTH/2 + 100,SCREENHEIGHT/2));
     ship2 = RocketShip(sf::Vector2f(SCREENWIDTH/2 - 100,SCREENHEIGHT/2));
-    
-    turretCount = 6;
-    stageTimer = 20;
-    level = 1;
-   
     
     // shipHealth1.setPosition(sf::Vector2f(300,10));
     // shipHealth1.setSize(sf::Vector2f (ship1.health, 10));
@@ -44,19 +42,19 @@ void PlayState::update(float deltams) {
 
     if (stageTimer > 0)
         stageTimer -= deltams;
-    else if (level == 5)
-    {
-        level = 1;
-        resetTurrets();
-        generateTurrets();
-        stageTimer = 20;
-        
-    }
+//    else if (level == 5)
+//    {
+//        level = 1;
+//        resetTurrets();
+//        generateTurrets();
+//        stageTimer = StageTime;
+//
+//    }
     else
     {
         level++;
         generateTurrets();
-        stageTimer = 20;
+        stageTimer = StageTime;
     }
     
     ship1.update(deltams);
@@ -395,7 +393,12 @@ void PlayState::generateTurrets() {
                     turretSelect(turretID, sf::Vector2f(x, y));
                 }
             }
-
+            break;
+        }
+            
+            
+        case 3 : // vertical
+        {
             turretID = randomButNotRandomSelector(); // Vertical
             for (int a = 1; a < 3; a++)
             {
@@ -410,7 +413,8 @@ void PlayState::generateTurrets() {
             break;
         }
             
-        case 3 : // outer most
+            
+        case 4 : // outer most
         {
             turretID = randomButNotRandomSelector();
             for (int a = 1; a < 3; a++)
@@ -428,22 +432,22 @@ void PlayState::generateTurrets() {
 
         default:
         {
-//            std::cout << "Default Case: "<< level << std::endl;
-//            resetTurrets();
-//            for (int a = 1; a < 3; a++)
-//            {
-//                for (int b = 1; b < 3; b++)
-//                {
-//                    turretID = rand() % 6 + 1;
-//                    turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/7) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/6) * (pow(-1,b)))));
-//                    turretID = rand() % 6 + 1;
-//                    turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/4) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/6) * (pow(-1,b)))));
-//                    turretID = rand() % 6 + 1;
-//                    turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/7) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/3) * (pow(-1,b)))));
-//                    turretID = rand() % 6 + 1;
-//                    turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/2.2) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/3) * (pow(-1,b)))));
-//                }
-//            }
+            std::cout << "Default Case: "<< level << std::endl;
+            resetTurrets();
+            for (int a = 1; a < 3; a++)
+            {
+                for (int b = 1; b < 3; b++)
+                {
+                    turretID = rand() % 6 + 1;
+                    turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/7) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/6) * (pow(-1,b)))));
+                    turretID = rand() % 6 + 1;
+                    turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/4) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/6) * (pow(-1,b)))));
+                    turretID = rand() % 6 + 1;
+                    turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/7) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/3) * (pow(-1,b)))));
+                    turretID = rand() % 6 + 1;
+                    turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/2.2) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/3) * (pow(-1,b)))));
+                }
+            }
             break;
         }
 
@@ -502,7 +506,6 @@ int PlayState::randomButNotRandomSelector() {
 
 
 void PlayState::turretSelect(int turretID, sf::Vector2f p) {
-    std::cout << "Value of P: " << p.x << "," << p.y << std::endl;
     
     switch(turretID)
     {
