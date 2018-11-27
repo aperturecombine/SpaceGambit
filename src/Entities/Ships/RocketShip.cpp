@@ -97,7 +97,7 @@ void RocketShip::attachShape(){
     int count1= 3;
     shipShape= new b2PolygonShape();
     shipShape -> Set(vertices1, count1);
-    shipShape -> m_radius = 50.0f;
+    shipShape -> m_radius = 10.0f;
     //shipShape->Set(vertices1,count1);
     //shipShape->m_radius = 2;
     //shipFixture.shape = shipShape;

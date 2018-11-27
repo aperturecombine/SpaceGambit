@@ -4,6 +4,7 @@
 #include "GameStateManager.h"
 #include <string.h>
 #include <SFML/Graphics.hpp>
+#include "../Utilities/Button.h"
 
 class MenuState : public GameState {
 public:
@@ -13,13 +14,14 @@ public:
     virtual void handleInput(sf::Event event);
 
 private:
+	
 	GameStateManager *gsm;
     sf::Image image;
 	sf::Font font;
 	sf::Text text;
     sf::Texture texture;
     sf::Sprite background;
-    
+
 	int currentChoice;
 	std::string options[3] = { "Play", "Options", "Quit" };
 
