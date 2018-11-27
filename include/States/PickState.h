@@ -36,6 +36,7 @@ public:
     
     int currentChoicePlayer[2];
     int selected[2];
+    int players = 1;
     
     //std::string options[3] = { "Strength", "Speed", "Defense" };
     
