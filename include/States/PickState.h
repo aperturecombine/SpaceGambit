@@ -29,6 +29,7 @@ public:
     // draw power bars
     sf::Sprite rocket[2];
     sf::Texture imagePower[3];
+    
     sf::RectangleShape strength[2];
     sf::RectangleShape speed[2];
     sf::RectangleShape defense[2];
