@@ -20,6 +20,7 @@ PlayState::PlayState(class GameStateManager *g, int numPlayer) {
     turretCount = 6;
     stageTimer = STAGETIME;
     level = 1;
+    pause = false;
     
     if(numPlayer == 2)
         twoPlayerMode = true;
@@ -55,11 +56,10 @@ PlayState::PlayState(class GameStateManager *g, int numPlayer) {
     // shipHealth1.setFillColor(sf::Color::Green);
     generateTurrets();
     
-    
+    gsm->window.setKeyRepeatEnabled(false);
 }
 
 void PlayState::update(float deltams) {
-    
     if (!pause){
         if (ship1.freeze){
             ship1.pos = ship1.freezePosition;
@@ -308,6 +308,15 @@ void PlayState::draw(sf::RenderWindow *window) {
     window->draw(timerCount);
     
     
+    if(pause){
+    sf::Text pauseNotif;
+    pauseNotif.setFont(font);
+    pauseNotif.setFillColor(sf::Color::White);
+    pauseNotif.setString("Game Paused" );
+    pauseNotif.setCharacterSize(80);
+    pauseNotif.setPosition(SCREENWIDTH/2 - pauseNotif.getGlobalBounds().width/2, SCREENHEIGHT - 200);
+    window->draw(pauseNotif);
+    }
     
     
     
@@ -335,14 +344,14 @@ void PlayState::draw(sf::RenderWindow *window) {
 }
 
 void PlayState::handleInput(sf::Event event) {
-    
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)){
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+    {
         pause = true;
     }
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::T)){
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))
+    {
         pause = false;
     }
-    {
         ship1.moveRight = sf::Keyboard::isKeyPressed(PlayerOne_Right);
         ship1.moveLeft = sf::Keyboard::isKeyPressed(PlayerOne_Left);
         ship1.moveUp = sf::Keyboard::isKeyPressed(PlayerOne_Up);
@@ -354,7 +363,7 @@ void PlayState::handleInput(sf::Event event) {
             ship2.moveUp = sf::Keyboard::isKeyPressed(PlayerTwo_Up);
             ship2.moveDown = sf::Keyboard::isKeyPressed(PlayerTwo_Down);
         }
-    }
+
 }
 
 

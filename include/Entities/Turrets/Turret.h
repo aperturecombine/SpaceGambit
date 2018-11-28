@@ -2,8 +2,10 @@
 
 #include <SFML/Graphics.hpp>
 #include "../Bullets/MachineGunBullet.h"
+#include "../../Globals.h"
 #include <list>
 #include <Box2D/Box2D.h>
+
 class Turret {
 public:
     // create an empty shape
