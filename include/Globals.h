@@ -1,11 +1,30 @@
 #pragma once
-#define SCREENWIDTH 2000
-#define SCREENHEIGHT 2000
+extern float SCREENWIDTH;
+extern float SCREENHEIGHT;
 
-#define POSITIVE_INFTY 100000000000000
-#define NEGATIVE_INFTY -100000000000000
-#define MAXSPEED 500
-#define STAGETIME 30
+extern float POSITIVE_INFTY;
+extern float NEGATIVE_INFTY;
+extern float MAXSPEED;
+extern float STAGETIME;
+
+extern sf::Keyboard::Key PlayerOne_Up;
+extern sf::Keyboard::Key PlayerOne_Down;
+extern sf::Keyboard::Key PlayerOne_Left;
+extern sf::Keyboard::Key PlayerOne_Right;
+
+extern sf::Keyboard::Key PlayerTwo_Up;
+extern sf::Keyboard::Key PlayerTwo_Down;
+extern sf::Keyboard::Key PlayerTwo_Left;
+extern sf::Keyboard::Key PlayerTwo_Right;
+
+/*
+ Declare the extern here
+ Define it in main.cpp until we figure out where we will actually move it...maybe lol
+ 
+ 
+ 
+ 
+
 
 #define PlayerOne_Up sf::Keyboard::Up
 #define PlayerOne_Down sf::Keyboard::Down
@@ -16,3 +35,4 @@
 #define PlayerTwo_Down sf::Keyboard::S
 #define PlayerTwo_Left sf::Keyboard::A
 #define PlayerTwo_Right sf::Keyboard::D
+ */
