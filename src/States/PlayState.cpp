@@ -8,6 +8,9 @@
 #include "../../include/Entities/Turrets/RicochetTurret.h"
 #include "../../include/Entities/Turrets/GlueGunTurret.h"
 #include "../../include/Entities/Bullets/Bullet.h"
+#include "../../include/Entities/Powerups/Powerup.h"
+#include "../../include/Entities/Powerups/health.h"
+
 #include <math.h>
 #include <cstdlib>
 
@@ -23,7 +26,7 @@ PlayState::PlayState(class GameStateManager *g) {
         printf("playstate space_background load error\n");
     }
 
-    if (!hudTexture.loadFromFile("⁨resources/HPPVP.jpg⁩")){
+    if (!hudTexture.loadFromFile("⁨resources/HPP1VT.png")){
       printf("Not loading hudTexture\n");
 
     }
@@ -44,6 +47,7 @@ PlayState::PlayState(class GameStateManager *g) {
     // shipHealth1.setSize(sf::Vector2f (ship1.health, 10));
     // shipHealth1.setFillColor(sf::Color::Green);
     generateTurrets();
+
 
 }
 
@@ -81,6 +85,7 @@ void PlayState::update(float deltams) {
     {
         level++;
         generateTurrets();
+        createPowerUps();
         stageTimer = StageTime;
     }
 
@@ -121,6 +126,10 @@ void PlayState::draw(sf::RenderWindow *window) {
     //window->draw(shipHealth1);
     window->draw(ship1.rocketShipObject);
     window->draw(ship2.rocketShipObject);
+
+    for (int p = 0; p < powerups.size(); p++){
+      window->draw(powerups[p]->pSprite);
+    }
 
 
 
@@ -332,7 +341,7 @@ void PlayState::handleInput(sf::Event event) {
   }
 }
 
-/*
+
 void PlayState::createPowerUps(){
 	// randomly place the powerups within the screenboundary
 	// and randomly choose one powerup - health , speed , ultimate
@@ -340,14 +349,17 @@ void PlayState::createPowerUps(){
 	// type of powerups
 	int pOfPup = (rand() % 10) + 1;
 
+
 	int pOfupX = (rand() % 500) + 30;
+
 	int pOfupY = (rand() % 500) + 30;
 
 	if (pOfPup <= 3){
-		sP1.setPosition(pOfupX,pOfupY);
-		window->draw(sP1);
+    health *Health = new health(sf::Vector2f(pOfupX,pOfupY));
+    powerups.push_back(Health);
 	}
-	else if (pOfPup <= 6){
+  /*
+  else if (pOfPup <= 6){
 		sP2.setPosition(pOfupX,pOfupY);
 		window->draw(sP2);
 	}
@@ -359,32 +371,26 @@ void PlayState::createPowerUps(){
 		sP4.setPosition(pOfupX,pOfupY);
 		window->draw(sP4);
 	}
+  */
 }
 
 
-void PlayState::loadPowerUp(){
-	  textureP1.loadFromFile();
-		textureP2.loadFromFile()
-		textureP3.loadFromFile();
-		textureP4.loadFromFile();
 
-		sP1.setTexture(textureP1);
-		sP2.setTexture(textureP2);
-		sP3.setTexture(textureP3);
-		sP4.setTexture(textureP4);
 
-    //bP.setPosition(0, 0);
-    sP1.setScale(0.1f, 0.1f);
-		sP2.setScale(0.1f, 0.1f);
-		sP3.setScale(0.1f, 0.1f);
-		sP4.setScale(0.1f, 0.1f);
-}
 
-void PlayState::checkCollisionOfPowerUps(){
-	 //if (ship1.getGlobalBounds().intersects(sprite_two.getGlobalBounds()))
-}
-*/
 void PlayState::checkCollisions() {
+  // powerups
+  for (int p = 0; p < powerups.size(); p ++) {
+   if (ship1.rocketShipObject.getGlobalBounds().intersects(powerups[p]->pSprite.getGlobalBounds())){
+    ship1.currentHealth = ship1.maxHealth;
+    powerups.erase(powerups.begin() + p);
+  }
+   if (ship2.rocketShipObject.getGlobalBounds().intersects(powerups[p]->pSprite.getGlobalBounds())){
+     ship2.currentHealth = ship2.maxHealth;
+     powerups.erase(powerups.begin() + p);
+   }
+}
+
     //Turret collisions
 
 

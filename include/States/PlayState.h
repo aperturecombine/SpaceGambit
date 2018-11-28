@@ -5,6 +5,8 @@
 #include <vector>
 #include <math.h>
 #include "Box2D/Box2D.h"
+#include "../Entities/Powerups/Powerup.h"
+
 
 class PlayState : public GameState {
 public:
@@ -17,6 +19,7 @@ public:
 
     void pWInit();
 	void checkCollisions();
+	void createPowerUps();
 
     RocketShip ship1;
     RocketShip ship2;
@@ -67,7 +70,7 @@ private:
 		sf::Texture textureP4;
 		sf::Sprite sP4;
 
-    std::vector<class b2Body *> bTurret;
+    std::vector<class Powerups *> powerups;
 
 //    sf::Vector2f(SCREENWIDTH*(2/8),SCREENHEIGHT*(6/8))
 
@@ -75,5 +78,8 @@ private:
 
 
 		bool pause = false;
+
+
+
 
 };
