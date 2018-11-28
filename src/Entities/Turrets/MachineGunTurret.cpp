@@ -16,14 +16,16 @@ MachineGunTurret::MachineGunTurret(sf::Vector2f p) {
     turretTexture.loadFromImage(turretImage);
     turretTexture.setSmooth(true);
     turretObject.setTexture(turretTexture);
-    turretObject.setScale(.2, .2);
     turretObject.setOrigin((turretObject.getTexture()->getSize().x) / 2,
         (turretObject.getTexture()->getSize().y) / 2);
+    turretObject.setScale(.2, .2);
     turretObject.setPosition(p);
 }
 
 void MachineGunTurret::fire() {
     sf::Vector2f v = getInitBulletVel();
+    turretObject.setRotation(atan(v.y/v.x)*180/M_PI);
+    if (v.x > 0) {turretObject.rotate(180.f);}
     if (withinfiringRange)
     {
     MachineGunBullet *newBullet = new MachineGunBullet(pos, v);

@@ -24,6 +24,7 @@ BoomerangTurret::BoomerangTurret(sf::Vector2f p) {
 
 void BoomerangTurret::fire() {
     sf::Vector2f v = getInitBulletVel();
+    turretObject.setRotation(360.f + atan(v.y/v.x)*180/M_PI);
     if (withinfiringRange)
     {
     BoomerangBullet *newBullet = new BoomerangBullet(pos, v);
