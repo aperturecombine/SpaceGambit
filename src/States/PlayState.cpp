@@ -18,7 +18,7 @@
 PlayState::PlayState(class GameStateManager *g, int numPlayer) {
     gsm = g;
     turretCount = 6;
-    stageTimer = StageTime;
+    stageTimer = STAGETIME;
     level = 1;
     
     if(numPlayer == 2)
@@ -34,20 +34,21 @@ PlayState::PlayState(class GameStateManager *g, int numPlayer) {
         printf("Not loading hudTexture\n");
         
     }
-    //texture.loadFromImage(image);
     
     background.setTexture(texture);
-    
     background.setPosition(0, 0);
     
     
     auto size = background.getTexture()->getSize();
     background.setScale(float(SCREENWIDTH)/size.x, float(SCREENHEIGHT)/size.y);
     
-    ship1 = RocketShip(sf::Vector2f(SCREENWIDTH/2 + 100,SCREENHEIGHT/2));
+    
     if (twoPlayerMode) {
+        ship1 = RocketShip(sf::Vector2f(SCREENWIDTH/2 + 100,SCREENHEIGHT/2));
         ship2 = RocketShip(sf::Vector2f(SCREENWIDTH/2 - 100,SCREENHEIGHT/2));
     }
+    else
+        ship1 = RocketShip(sf::Vector2f(SCREENWIDTH/2 ,SCREENHEIGHT/2));
     
     // shipHealth1.setPosition(sf::Vector2f(300,10));
     // shipHealth1.setSize(sf::Vector2f (ship1.health, 10));
@@ -60,8 +61,6 @@ PlayState::PlayState(class GameStateManager *g, int numPlayer) {
 void PlayState::update(float deltams) {
     
     if (!pause){
-        
-        
         if (ship1.freeze){
             ship1.pos = ship1.freezePosition;
             ship1.freeze = false;
@@ -85,9 +84,9 @@ void PlayState::update(float deltams) {
         //        level = 1;
         //        resetTurrets();
         //        generateTurrets();
-        //        stageTimer = StageTime;
+        //        stageTimer = STAGETIME;
         //
-        //    }
+        //
         else
         {
             level++;
@@ -98,7 +97,7 @@ void PlayState::update(float deltams) {
             if (pOfPup  <= 2){
                 createPowerUps();
             }
-            stageTimer = StageTime;
+            stageTimer = STAGETIME;
         }
         
         ship1.update(deltams);
@@ -126,6 +125,7 @@ void PlayState::update(float deltams) {
             turrets[t]->update(deltams);
     }
 }
+
 /*
  void PlayState::pause(){
  // draw a subrectangle with pause
@@ -193,7 +193,7 @@ void PlayState::draw(sf::RenderWindow *window) {
     sf::Sprite hud;
     hud.setTexture(hudTexture);
     hud.setPosition(0,0);
-    hud.setScale(0.7f, 0.5f);
+    hud.setScale(SCREENWIDTH/1800.f, SCREENWIDTH/1800.f);
     window->draw(hud);
     
     
@@ -226,7 +226,7 @@ void PlayState::draw(sf::RenderWindow *window) {
     text.setFillColor(sf::Color::White);
     text.setPosition(10, 90);
     text.setCharacterSize(40);
-    text.setString("  Score: "+ std::to_string(ship1.points));
+    text.setString("Score: " + std::to_string(ship1.points));
     
     window->draw(bar);
     window->draw(health);
@@ -288,7 +288,7 @@ void PlayState::draw(sf::RenderWindow *window) {
     sf::Text levelTimer;
     levelTimer.setFont(font);
     levelTimer.setFillColor(sf::Color::White);
-    levelTimer.setString("Timer: ");
+    levelTimer.setString("Timer: " );
     levelTimer.setCharacterSize(80);
     levelTimer.setPosition(SCREENWIDTH - levelTimer.getGlobalBounds().width - 10, SCREENHEIGHT - 200);
     window->draw(levelTimer);
@@ -296,7 +296,7 @@ void PlayState::draw(sf::RenderWindow *window) {
     sf::Text timerCount;
     timerCount.setFont(font);
     timerCount.setFillColor(sf::Color::White);
-    if (stageTimer > 9)
+    if (stageTimer >= 10)
         timerCount.setString(std::to_string(static_cast<int>(stageTimer)));
     else
     {
@@ -440,11 +440,7 @@ void PlayState::checkCollisions() {
     }
     
     //Turret collisions
-    
-    
     for (int t = 0; t < turrets.size(); t++) {
-        
-        
         float tx = turrets[t]->pos.x;
         float ty = turrets[t]->pos.y;
         
@@ -456,6 +452,7 @@ void PlayState::checkCollisions() {
         vector1.left +=  .1*ship1.vel.x;
         vector1.top += .1*ship1.vel.y;
         bool part1_collision = (vector1.intersects(turrets[t]->turretObject.getGlobalBounds()));
+        
         bool part2_collision;
         if (twoPlayerMode) {
             sf::FloatRect vector2 = ship2.rocketShipObject.getGlobalBounds();
