@@ -82,15 +82,10 @@ void OptionState::select() {
     
     if (currentChoice == 2)
     {
-#undef PlayerOne_Up
-#undef PlayerOne_Down
-#undef PlayerOne_Left
-#undef PlayerOne_Right
-        
-#define PlayerOne_Up sf::Keyboard::T
-#define PlayerOne_Down sf::Keyboard::G
-#define PlayerOne_Left sf::Keyboard::F
-#define PlayerOne_Right sf::Keyboard::H
+        PlayerOne_Up = sf::Keyboard::T;
+        PlayerOne_Down = sf::Keyboard::G;
+        PlayerOne_Left = sf::Keyboard::F;
+        PlayerOne_Right = sf::Keyboard::H;
         std::cout <<"Player 1 Controls Changed"<< std::endl;
     }
     
