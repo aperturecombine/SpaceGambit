@@ -22,6 +22,11 @@ PlayState::PlayState(class GameStateManager *g) {
     if(!texture.loadFromFile("resources/space_background.jpg")) {
         printf("playstate space_background load error\n");
     }
+
+    if (!hudTexture.loadFromFile("⁨resources/HPP1VT.png⁩")){
+      printf("Not loading hudTexture\n");
+
+    }
     //texture.loadFromImage(image);
 
     background.setTexture(texture);
@@ -142,12 +147,9 @@ void PlayState::draw(sf::RenderWindow *window) {
     //HUD; later to be refactored into render class
 		// position HUD frame
 
-		sf::Image hudImage;
-
-		if (!hudTexture.loadFromFile("⁨resources/HP_PVP_P1VT.png⁩")){
 
 
-    }
+
 		//hudTexture.loadFromImage(hudImage);
 		sf::Sprite hud;
 		hud.setTexture(hudTexture);
@@ -711,13 +713,13 @@ void PlayState::turretSelect(int turretID, sf::Vector2f p) {
 void PlayState::loadPauseFonts(){
 
 
-  if(!pauseTexture.loadFromFile("/Users/liuwukun/Documents/GitHub_workspace/SpaceGambit/SpaceGambit_new/resources/pause.png")){
-    printf("File not loading\n");
+  if(!pauseTexture.loadFromFile("resources/pause.png")){
+    printf("PauseTexture  not loading\n");
   }
 
   pauseSprite.setTexture(pauseTexture);
-  pauseSprite.setPosition(SCREENWIDTH/2,SCREENHEIGHT/2);
-  pauseSprite.setScale(100.0f, 100.0f);
+  pauseSprite.setPosition(SCREENWIDTH/8,SCREENHEIGHT/8);
+  pauseSprite.setScale(1.0f, 1.0f);
 
   sf::Color color(220,220,220);
   color.a = 90;
