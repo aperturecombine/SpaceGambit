@@ -8,15 +8,15 @@ BoomerangTurret::BoomerangTurret(sf::Vector2f p) {
     firingRange = 300;
     withinfiringRange = false;
     attachShape();
-    
-    if (!turretImage.loadFromFile("resources/boomerangTurret.png")) {
+
+    if (!turretImage.loadFromFile("resources/bgun_normal.png")) {
         printf("Could not load turret");
     }
-    
+
     turretTexture.loadFromImage(turretImage);
     turretTexture.setSmooth(true);
     turretObject.setTexture(turretTexture);
-    turretObject.setScale(.3, .3);
+    turretObject.setScale(.2, .2);
     turretObject.setOrigin((turretObject.getTexture()->getSize().x) / 2,
                            (turretObject.getTexture()->getSize().y) / 2);
     turretObject.setPosition(p);
@@ -37,9 +37,9 @@ void BoomerangTurret::update(float dt) {
     if (counter >= fireRate) {
         fire();
     }
-    
+
     for (int i = 0; i < bullets.size(); i++) {
-        
+
         bullets.at(i)->update(dt);
         if(!bullets.at(i)->isAlive)
         {

@@ -12,15 +12,15 @@ GlueGunTurret::GlueGunTurret(sf::Vector2f p) {
     withinfiringRange = false;
     linger = 2;
     attachShape();
-    
-    if (!turretImage.loadFromFile("resources/glueGunTurret.png")) {
-        printf("Could not load turret");
+
+    if (!turretImage.loadFromFile("resources/ggun_normal.png")) {
+        printf("Could not load turret\n");
     }
-    
+
     turretTexture.loadFromImage(turretImage);
     turretTexture.setSmooth(true);
     turretObject.setTexture(turretTexture);
-    turretObject.setScale(.3, .3);
+    turretObject.setScale(.2, .2);
     turretObject.setOrigin((turretObject.getTexture()->getSize().x) / 2,
                            (turretObject.getTexture()->getSize().y) / 2);
     turretObject.setPosition(p);
@@ -38,44 +38,44 @@ void GlueGunTurret::update(float dt) {
     counter += dt;
     counter1 += dt;
     counter2 += dt;
-    
+
     sf::Vector2f ship1_init = (ref->ship1.pos - pos);
     sf::Vector2f ship2_init = (ref->ship2.pos - pos);
     float ship1_dist = pow((ship1_init.x*ship1_init.x + ship1_init.y*ship1_init.y),0.5);
     float ship2_dist = pow((ship2_init.x*ship2_init.x + ship2_init.y*ship2_init.y),0.5);
-    
-    
+
+
     if (ship2_dist < firingRange){
         counter2 = 0;
         ref->ship2.maxSpeed = MAXSPEED*.5;
-        
+
         GlueBullet *newBullet = new GlueBullet(pos, normalize(ship2_init));
         bullets.push_back(newBullet);
 //        std::cout << "fire2" << std::endl;
-        
+
     }
     if (ship1_dist < firingRange) {
         counter1 = 0;
         ref->ship1.maxSpeed = MAXSPEED*.5;
-        
+
         GlueBullet *newBullet = new GlueBullet(pos, normalize(ship1_init));
         bullets.push_back(newBullet);
 //        std::cout << "fire2" << std::endl;
-        
+
     }
-    
+
     if (counter1 > linger){
         ref->ship1.maxSpeed = MAXSPEED;
     }
     if (counter2 > linger){
         ref->ship2.maxSpeed = MAXSPEED;
     }
-    
+
     if (counter >= fireRate) {
         fire();
         counter = 0;
     }
-    
+
     for (int i = 0; i < bullets.size(); i++) {
         bullets.at(i)->update(dt);
         sf::Vector2f position = bullets.at(i)->pos;

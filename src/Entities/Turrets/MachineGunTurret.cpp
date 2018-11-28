@@ -2,41 +2,41 @@
 #include <math.h>
 
 MachineGunTurret::MachineGunTurret(sf::Vector2f p) {
-	pos = p;
-	fireRate = .45;
-	counter = fireRate;
+    pos = p;
+    fireRate = .45;
+    counter = fireRate;
     firingRange = 300;
     withinfiringRange = false;
     attachShape();
 
-	if (!turretImage.loadFromFile("resources/machineGunTurret.png")) {
-		printf("Could not load turret");
-	}
+    if (!turretImage.loadFromFile("resources/mgun_normal.png")) {
+        printf("Could not load turret\n");
+    }
 
-	turretTexture.loadFromImage(turretImage);
-	turretTexture.setSmooth(true);
-	turretObject.setTexture(turretTexture);
-	turretObject.setScale(.3, .3);
-	turretObject.setOrigin((turretObject.getTexture()->getSize().x) / 2,
-		(turretObject.getTexture()->getSize().y) / 2);
-	turretObject.setPosition(p);
+    turretTexture.loadFromImage(turretImage);
+    turretTexture.setSmooth(true);
+    turretObject.setTexture(turretTexture);
+    turretObject.setScale(.2, .2);
+    turretObject.setOrigin((turretObject.getTexture()->getSize().x) / 2,
+        (turretObject.getTexture()->getSize().y) / 2);
+    turretObject.setPosition(p);
 }
 
 void MachineGunTurret::fire() {
     sf::Vector2f v = getInitBulletVel();
     if (withinfiringRange)
     {
-	MachineGunBullet *newBullet = new MachineGunBullet(pos, v);
-	bullets.push_back(newBullet);
+    MachineGunBullet *newBullet = new MachineGunBullet(pos, v);
+    bullets.push_back(newBullet);
     counter = 0;
     }
 }
 
 void MachineGunTurret::update(float dt) {
-	counter += dt;
-	if (counter >= fireRate) {
-		fire();
-	}
+    counter += dt;
+    if (counter >= fireRate) {
+        fire();
+    }
 
     for (int i = 0; i < bullets.size(); i++) {
         bullets.at(i)->update(dt);
@@ -76,10 +76,9 @@ sf::Vector2f MachineGunTurret::getInitBulletVel() {
 }
 
 sf::Vector2f MachineGunTurret::normalize(sf::Vector2f & v) {
-	float length = sqrt((v.x * v.x) + (v.y * v.y));
-	if (length != 0)
-		return sf::Vector2f(v.x / length, v.y / length);
-	else
-		return v;
+    float length = sqrt((v.x * v.x) + (v.y * v.y));
+    if (length != 0)
+        return sf::Vector2f(v.x / length, v.y / length);
+    else
+        return v;
 }
-
