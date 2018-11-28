@@ -5,10 +5,7 @@
 #define POSITIVE_INFTY 100000000000000
 #define NEGATIVE_INFTY -100000000000000
 #define MAXSPEED 500
-#define StageTime 5
-
-#define PlayerOne_Select sf::Keyboard::X
-#define PlayerTwo_Select sf::Keyboard::Space
+#define STAGETIME 30
 
 #define PlayerOne_Up sf::Keyboard::Up
 #define PlayerOne_Down sf::Keyboard::Down
