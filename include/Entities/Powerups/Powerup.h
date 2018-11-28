@@ -6,7 +6,7 @@ class Powerups {
 public:
 
 
-
+  int type;
 	sf::Vector2f pos;
 
   sf::Sprite pSprite;

@@ -15,7 +15,7 @@ void GameStateManager::start() {
 
     while (running) {
         float deltams = clock.restart().asSeconds();
-        window.setFramerateLimit(60);
+        
         states.top()->update(deltams);
 
         window.clear();

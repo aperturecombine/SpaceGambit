@@ -7,12 +7,11 @@
 #include <iostream>
 #include <vector>
 
-class health : public Powerups {
+class speed : public Powerups {
 public:
 
-    health(sf::Vector2f p);
-    int type = 1;
-
+    speed(sf::Vector2f p);
+    int type = 2;
 
 
 };

@@ -10,6 +10,7 @@
 #include "../../include/Entities/Bullets/Bullet.h"
 #include "../../include/Entities/Powerups/Powerup.h"
 #include "../../include/Entities/Powerups/health.h"
+#include "../../include/Entities/Powerups/speed.h"
 
 #include <math.h>
 #include <cstdlib>
@@ -85,7 +86,12 @@ void PlayState::update(float deltams) {
     {
         level++;
         generateTurrets();
-        createPowerUps();
+
+        int pOfPup = (rand() % 10) + 1;
+        powerups.clear();
+        if (pOfPup  <= 2){
+          createPowerUps();
+        }
         stageTimer = StageTime;
     }
 
@@ -350,14 +356,22 @@ void PlayState::createPowerUps(){
 	int pOfPup = (rand() % 10) + 1;
 
 
-	int pOfupX = (rand() % 500) + 30;
+	int pOfupX = (rand() % 1500) ;
 
-	int pOfupY = (rand() % 500) + 30;
+	int pOfupY = (rand() % 1500) ;
 
 	if (pOfPup <= 3){
     health *Health = new health(sf::Vector2f(pOfupX,pOfupY));
     powerups.push_back(Health);
 	}
+
+  else if (pOfPup <= 6){
+    speed *Speed = new speed(sf::Vector2f(pOfupX,pOfupY));
+    powerups.push_back(Speed);
+  }
+  else{
+
+  }
   /*
   else if (pOfPup <= 6){
 		sP2.setPosition(pOfupX,pOfupY);
@@ -382,11 +396,33 @@ void PlayState::checkCollisions() {
   // powerups
   for (int p = 0; p < powerups.size(); p ++) {
    if (ship1.rocketShipObject.getGlobalBounds().intersects(powerups[p]->pSprite.getGlobalBounds())){
-    ship1.currentHealth = ship1.maxHealth;
+     switch (powerups[p]->type) {
+       case 1:
+        ship1.currentHealth = ship1.maxHealth;
+        break;
+       case 2:
+        ship1.vel.x += 2*ship1.vel.x;
+        ship1.vel.y += 2*ship1.vel.y;
+        break;
+
+
+     }
+
+
     powerups.erase(powerups.begin() + p);
   }
    if (ship2.rocketShipObject.getGlobalBounds().intersects(powerups[p]->pSprite.getGlobalBounds())){
-     ship2.currentHealth = ship2.maxHealth;
+     switch (powerups[p]->type) {
+       case 1:
+        ship2.currentHealth = ship2.maxHealth;
+        break;
+       case 2:
+        ship2.vel.x += 2*ship2.vel.x;
+        ship2.vel.y += 2*ship2.vel.y;
+        break;
+
+
+     }
      powerups.erase(powerups.begin() + p);
    }
 }
