@@ -19,11 +19,11 @@ PlayState::PlayState(class GameStateManager *g) {
     level = 1;
 
     loadPauseFonts();
-    if(!texture.loadFromFile("resources/space_background.jpg")) {
+    if(!texture.loadFromFile("resources/bg.png")) {
         printf("playstate space_background load error\n");
     }
 
-    if (!hudTexture.loadFromFile("⁨resources/HPP1VT.png⁩")){
+    if (!hudTexture.loadFromFile("⁨resources/HPPVP.jpg⁩")){
       printf("Not loading hudTexture\n");
 
     }
@@ -33,7 +33,9 @@ PlayState::PlayState(class GameStateManager *g) {
 
     background.setPosition(0, 0);
 
-    background.setScale(1.0f, 1.0f);
+
+    auto size = background.getTexture()->getSize();
+    background.setScale(float(SCREENWIDTH)/size.x, float(SCREENHEIGHT)/size.y);
 
     ship1 = RocketShip(sf::Vector2f(SCREENWIDTH/2 + 100,SCREENHEIGHT/2));
     ship2 = RocketShip(sf::Vector2f(SCREENWIDTH/2 - 100,SCREENHEIGHT/2));
@@ -50,7 +52,15 @@ void PlayState::update(float deltams) {
 		if (!pause){
 
 
+    if (ship1.freeze){
+      ship1.pos = ship1.freezePosition;
+      ship1.freeze = false;
+    }
 
+    if (ship2.freeze){
+      ship2.pos = ship2.freezePosition;
+      ship2.freeze = false;
+    }
 		checkCollisions();
     //shipHealth1.setSize(sf::Vector2f( 300 - abs(ship1.health),50));
 
@@ -384,36 +394,47 @@ void PlayState::checkCollisions() {
         float tx = turrets[t]->pos.x;
         float ty = turrets[t]->pos.y;
 
-
         float sx = ship1.pos.x;
         float sy = ship1.pos.y;
 
-        //b2CircleShape* shape1 = ship1.getShape();
-        //b2CircleShape* shape2 = ship2.getShape();
-        //b2CircleShape* shape = turrets[t]->getShape();
+        sf::FloatRect vector1 = ship1.rocketShipObject.getGlobalBounds();
 
-				bool part1_collision = (ship1.rocketShipObject.getGlobalBounds().intersects(turrets[t]->turretObject.getGlobalBounds()));
-				bool part2_collision = (ship2.rocketShipObject.getGlobalBounds().intersects(turrets[t]->turretObject.getGlobalBounds()));
+        vector1.left +=  .1*ship1.vel.x;
+        vector1.top += .1*ship1.vel.y;
 
-       //bool part1_collision = b2TestOverlap(shape1,0, shape, 0, b2Transform(b2Vec2(sx,sy), b2Rot(0.0f)),b2Transform(b2Vec2(tx,ty), b2Rot(0.0f)));
+        sf::FloatRect vector2 = ship2.rocketShipObject.getGlobalBounds();
 
+        vector2.left += .1*ship2.vel.x;
+        vector2.top  += .1*ship2.vel.y;
+
+
+				bool part1_collision = (vector1.intersects(turrets[t]->turretObject.getGlobalBounds()));
+				bool part2_collision = (vector2.intersects(turrets[t]->turretObject.getGlobalBounds()));
 
         if (part1_collision){
             printf("ship1 collide with turret\n");
 						if (ship1.currentHealth != 0) ship1.currentHealth -= 1;
-						ship1.vel = -ship1.vel;
-            //ship1.vel = sf::Vector2f(0,0);
+
+            //if (ship1.vel.x > 0 | ship1.vel.y > 0)
+            ship1.freeze = true;
+            ship1.freezePosition.x = ship1.pos.x;
+            ship1.freezePosition.y = ship1.pos.y;
+            ship1.vel = sf::Vector2f(0,0);
         }
         float s2x = ship2.pos.x;
         float s2y = ship2.pos.y;
 
-
-        //bool part2_collision = b2TestOverlap(shape2,0, shape, 0, b2Transform(b2Vec2(s2x,s2y), b2Rot(0.0f)),b2Transform(b2Vec2(tx,ty), b2Rot(0.0f)));
         if (part2_collision){
             printf("ship2 collide with turret\n");
             if (ship2.currentHealth != 0) ship2.currentHealth -= 1;
-						ship2.vel = -ship2.vel;
-						//ship2.vel = sf::Vector2f(0,0);
+            ship2.freeze = true;
+            ship2.freezePosition.x = ship2.pos.x;
+            ship2.freezePosition.y = ship2.pos.y;
+            ship2.vel = sf::Vector2f(0,0);
+            //if (ship2.vel.x > 0 | ship2.vel.y > 0)
+
+                  //ship2.vel = sf::Vector2f(NEGATIVE_INFTY*ship2.vel.x,NEGATIVE_INFTY*ship2.vel.y);
+
         }
 
     }
@@ -454,25 +475,16 @@ void PlayState::checkCollisions() {
 
 
                 if (ship1.currentHealth != 0) ship1.currentHealth -= 1;
-                // printf("%f\n",ship1.health);
-                //            delete turrets[t]->bullets[b];
+
                 turrets[t]->bullets.erase(turrets[t]->bullets.begin() + b);
 
             }
             else{
 
-
-                //                printf("Miss : %5f \n",(ship1.pos.x - turrets[t]->bullets[b]->pos.x) + (ship1.pos.y - turrets[t]->bullets[b]->pos.y));
-
-
-                //printf("%5f bx",turrets[t]->bullets[b]->pos.x);
-                //printf("%5f by\n",turrets[t]->bullets[b]->pos.y);
             }
             if (part2_collision){
                 if (ship2.currentHealth != 0) ship2.currentHealth -= 1;
-                //printf("Ship2 got shot\n");
-                //world->DestroyBody(turrets[t]->bullets[b]->body);
-                //                delete turrets[t]->bullets[b];
+
                 turrets[t]->bullets.erase(turrets[t]->bullets.begin() + b);
 
             }
@@ -487,7 +499,7 @@ void PlayState::checkCollisions() {
             sf::Vector2f bPos = turrets[t]->bullets[b]->pos;
             if (bPos.x < 0 || bPos.x > SCREENWIDTH ||
                 bPos.y < 0 || bPos.y > SCREENHEIGHT) {
-                //                delete turrets[t]->bullets[b];
+
                 turrets[t]->bullets.erase(turrets[t]->bullets.begin() + b);
             }
 
