@@ -4,9 +4,9 @@
 
 GuidedTurret::GuidedTurret(sf::Vector2f p) {
     pos = p;
-    fireRate = 10;
+    fireRate = 5;
     counter = fireRate;
-    firingRange = 200;
+    firingRange = 500;
     withinfiringRange = false;
     attachShape();
 
@@ -25,6 +25,8 @@ GuidedTurret::GuidedTurret(sf::Vector2f p) {
 
 void GuidedTurret::fire() {
     sf::Vector2f v = getInitBulletVel();
+    turretObject.setRotation(360.f + atan(v.y/v.x)*180/M_PI);
+    if (v.x > 0) {turretObject.rotate(180.f);}
     if (withinfiringRange)
     {
     GuidedBullet *newBullet = new GuidedBullet(pos, v, ref);
@@ -40,7 +42,7 @@ void GuidedTurret::explode(){
 void GuidedTurret::update(float dt) {
     counter += dt;
     if (counter >= fireRate) {
-        if(!bullets.empty()) explode();
+        if(!bullets.empty()) {explode();}
         fire();
     }
 
@@ -51,21 +53,29 @@ void GuidedTurret::update(float dt) {
 
 sf::Vector2f GuidedTurret::getInitBulletVel() {
     sf::Vector2f ship1_init = (ref->ship1.pos - pos);
-    sf::Vector2f ship2_init = (ref->ship2.pos - pos);
     float ship1_dist = pow((ship1_init.x*ship1_init.x + ship1_init.y*ship1_init.y),0.5);
-    float ship2_dist = pow((ship2_init.x*ship2_init.x + ship2_init.y*ship2_init.y),0.5);
-
-    if (ship1_dist < ship2_dist)
+    if(ref->twoPlayerMode){
+        sf::Vector2f ship2_init = (ref->ship2.pos - pos);
+        float ship2_dist = pow((ship2_init.x*ship2_init.x + ship2_init.y*ship2_init.y),0.5);
+        
+        if (ship1_dist < ship2_dist)
+        {
+            if (ship1_dist < firingRange) {withinfiringRange=true;}
+            else {withinfiringRange=false;}
+            return normalize(ship1_init);
+        }
+        else
+        {
+            if (ship2_dist < firingRange) {withinfiringRange=true;}
+            else {withinfiringRange=false;}
+            return normalize(ship2_init);
+        }
+    }
+    else
     {
         if (ship1_dist < firingRange) {withinfiringRange=true;}
         else {withinfiringRange=false;}
         return normalize(ship1_init);
-    }
-    else
-    {
-        if (ship2_dist < firingRange) {withinfiringRange=true;}
-        else {withinfiringRange=false;}
-        return normalize(ship2_init);
     }
 }
 

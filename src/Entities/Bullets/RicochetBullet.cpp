@@ -15,6 +15,8 @@ RicochetBullet::RicochetBullet(sf::Vector2f p, sf::Vector2f v, PlayState *refe) 
 
 void RicochetBullet::update(float dt) {
     checkBounds(dt);
+    bulletObject.setRotation(360.f + atan(vel.y/vel.x)*180/M_PI);
+    if (vel.x > 0) {bulletObject.rotate(180.f);}
     pos += (vel * speed * dt);
 }
 

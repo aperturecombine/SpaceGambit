@@ -23,6 +23,7 @@ public:
 	void start();
 	void pushState(int newState);
 	void popState();
+    int numPlayer = 2;
 
 	sf::RenderWindow window;
 

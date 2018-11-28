@@ -25,6 +25,8 @@ void BoomerangBullet::update(float dt) {
         travelled = true;
     }
 
+    bulletObject.setRotation(360.f + atan(vel.y/vel.x)*180/M_PI);
+    if (vel.x > 0) {bulletObject.rotate(180.f);}
     pos += vel * speed * dt;
     returnCounter += dt;
 }

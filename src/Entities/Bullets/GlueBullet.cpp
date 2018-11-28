@@ -12,6 +12,8 @@ GlueBullet::GlueBullet(sf::Vector2f p, sf::Vector2f v) {
 
 void GlueBullet::update(float dt) {
     pos += vel * speed * dt;
+    bulletObject.setRotation(360.f + atan(vel.y/vel.x)*180/M_PI);
+    if (vel.x > 0) {bulletObject.rotate(180.f);}
 }
 
 void GlueBullet::checkBounds(float dt){

@@ -10,6 +10,8 @@ BeamBullet::BeamBullet(sf::Vector2f p, sf::Vector2f v, PlayState *refe) {
     timePassed = 0;
     attachShape();
     loadFont();
+    bulletObject.setRotation(360.f + atan(vel.y/vel.x)*180/M_PI);
+    if (vel.x > 0) {bulletObject.rotate(180.f);}
 }
 
 void BeamBullet::update(float dt) {

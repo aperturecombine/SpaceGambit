@@ -1,4 +1,3 @@
-
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Turret.h"
