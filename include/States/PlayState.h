@@ -34,7 +34,7 @@ public:
 
 
 private:
-    sf::Texture hudTexture;
+    
     b2Vec2 gravity{0,0};
 
     b2Body* bShip1;
@@ -49,6 +49,7 @@ private:
 
     GameStateManager *gsm;
     sf::Texture texture;
+    sf::Texture hudTexture;
     sf::Sprite background;
     sf::Image image;
     sf::RectangleShape shipHealth1;
@@ -75,10 +76,6 @@ private:
     std::vector<class Powerups *> powerups;
 
 //    sf::Vector2f(SCREENWIDTH*(2/8),SCREENHEIGHT*(6/8))
-
-    sf::Vector2f turretLayout[3][4];
-
-
         bool pause = false;
 
 
