@@ -25,6 +25,7 @@ RailGunTurret::RailGunTurret(sf::Vector2f p) {
 void RailGunTurret::fire() {
     sf::Vector2f v = getInitBulletVel();
     turretObject.setRotation(360.f + atan(v.y/v.x)*180/M_PI);
+    if (v.x > 0) {turretObject.rotate(180.f);}
     if (withinfiringRange)
     {
     BeamBullet *newBullet = new BeamBullet(pos, v, ref);

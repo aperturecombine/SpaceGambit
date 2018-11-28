@@ -26,6 +26,7 @@ GuidedTurret::GuidedTurret(sf::Vector2f p) {
 void GuidedTurret::fire() {
     sf::Vector2f v = getInitBulletVel();
     turretObject.setRotation(360.f + atan(v.y/v.x)*180/M_PI);
+    if (v.x > 0) {turretObject.rotate(180.f);}
     if (withinfiringRange)
     {
     GuidedBullet *newBullet = new GuidedBullet(pos, v, ref);

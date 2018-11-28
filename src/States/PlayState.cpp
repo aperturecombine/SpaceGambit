@@ -716,7 +716,7 @@ int PlayState::randomButNotRandomSelector() {
     
     turretID = (rand() % 6 + 1);
     
-    return 1;
+    return turretID;
 }
 
 

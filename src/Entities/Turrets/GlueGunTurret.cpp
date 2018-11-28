@@ -74,6 +74,7 @@ void GlueGunTurret::update(float dt) {
     if (counter >= fireRate) {
         sf::Vector2f v = getInitBulletVel();
         turretObject.setRotation(360.f + atan(v.y/v.x)*180/M_PI);
+        if (v.x > 0) {turretObject.rotate(180.f);}
         fire();
         counter = 0;
     }
