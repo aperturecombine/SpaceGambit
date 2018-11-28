@@ -8,15 +8,15 @@ BoomerangTurret::BoomerangTurret(sf::Vector2f p) {
     firingRange = 300;
     withinfiringRange = false;
     attachShape();
-    
-    if (!turretImage.loadFromFile("resources/boomerangTurret.png")) {
+
+    if (!turretImage.loadFromFile("resources/bgun_normal.png")) {
         printf("Could not load turret");
     }
-    
+
     turretTexture.loadFromImage(turretImage);
     turretTexture.setSmooth(true);
     turretObject.setTexture(turretTexture);
-    turretObject.setScale(.3, .3);
+    turretObject.setScale(.2, .2);
     turretObject.setOrigin((turretObject.getTexture()->getSize().x) / 2,
                            (turretObject.getTexture()->getSize().y) / 2);
     turretObject.setPosition(p);
@@ -37,9 +37,9 @@ void BoomerangTurret::update(float dt) {
     if (counter >= fireRate) {
         fire();
     }
-    
+
     for (int i = 0; i < bullets.size(); i++) {
-        
+
         bullets.at(i)->update(dt);
         if(!bullets.at(i)->isAlive)
         {
@@ -53,7 +53,7 @@ sf::Vector2f BoomerangTurret::getInitBulletVel() {
     sf::Vector2f ship2_init = (ref->ship2.pos - pos);
     float ship1_dist = pow((ship1_init.x*ship1_init.x + ship1_init.y*ship1_init.y),0.5);
     float ship2_dist = pow((ship2_init.x*ship2_init.x + ship2_init.y*ship2_init.y),0.5);
-    
+
     if (ship1_dist < ship2_dist)
     {
         if (ship1_dist < firingRange) {withinfiringRange=true;}

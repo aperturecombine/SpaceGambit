@@ -9,14 +9,14 @@ MachineGunTurret::MachineGunTurret(sf::Vector2f p) {
     withinfiringRange = false;
     attachShape();
 
-	if (!turretImage.loadFromFile("resources/machineGunTurret.png")) {
+	if (!turretImage.loadFromFile("resources/mgun_normal.png")) {
 		printf("Could not load turret\n");
 	}
 
 	turretTexture.loadFromImage(turretImage);
 	turretTexture.setSmooth(true);
 	turretObject.setTexture(turretTexture);
-	turretObject.setScale(.3, .3);
+	turretObject.setScale(.2, .2);
 	turretObject.setOrigin((turretObject.getTexture()->getSize().x) / 2,
 		(turretObject.getTexture()->getSize().y) / 2);
 	turretObject.setPosition(p);

@@ -13,14 +13,14 @@ GlueGunTurret::GlueGunTurret(sf::Vector2f p) {
     linger = 2;
     attachShape();
 
-    if (!turretImage.loadFromFile("resources/glueGunTurret.png")) {
+    if (!turretImage.loadFromFile("resources/ggun_normal.png")) {
         printf("Could not load turret\n");
     }
 
     turretTexture.loadFromImage(turretImage);
     turretTexture.setSmooth(true);
     turretObject.setTexture(turretTexture);
-    turretObject.setScale(.3, .3);
+    turretObject.setScale(.2, .2);
     turretObject.setOrigin((turretObject.getTexture()->getSize().x) / 2,
                            (turretObject.getTexture()->getSize().y) / 2);
     turretObject.setPosition(p);
