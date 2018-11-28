@@ -27,7 +27,7 @@ void MachineGunBullet::checkBounds(float dt){
 }
 
 void MachineGunBullet::loadFont(){
-  if (!bulletImage.loadFromFile("resources/ggunbullet.png")) {
+  if (!bulletImage.loadFromFile("resources/mgun_bullet.png")) {
       //printf("Could not load\n ");
   }
 	bulletTexture.loadFromImage(bulletImage);

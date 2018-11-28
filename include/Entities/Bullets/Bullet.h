@@ -16,7 +16,7 @@ public:
   sf::Image bulletImage;
 	sf::Vector2f pos;
 	sf::Vector2f vel;
-  sf::CircleShape shape;
+  sf::Sprite shape;
 	int radius;
     bool isAlive;
     b2CircleShape* bulletShape;

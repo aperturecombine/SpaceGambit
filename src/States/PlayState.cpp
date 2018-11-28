@@ -138,13 +138,13 @@ void PlayState::draw(sf::RenderWindow *window) {
 
 	for (int t = 0; t < turrets.size(); t++) {
 		for (int b = 0; b < turrets[t]->bullets.size(); b++) {
-			turrets[t]->bullets[b]->shape =  sf::CircleShape();
-			float bRadius = turrets[t]->bullets[b]->radius;
-			turrets[t]->bullets[b]->shape.setRadius(bRadius);
-			turrets[t]->bullets[b]->shape.setPosition(
-				turrets[t]->bullets[b]->pos - sf::Vector2f(bRadius, bRadius));
 
-			gsm->window.draw(turrets[t]->bullets[b]->shape);
+			float radius = turrets[t]->bullets[b]->radius;
+			turrets[t]->bullets[b]->bulletObject.setScale(.01f*radius,.01f*radius);
+			turrets[t]->bullets[b]->bulletObject.setPosition(
+				turrets[t]->bullets[b]->pos - sf::Vector2f(.01f*radius, .01f*radius));
+
+			gsm->window.draw(turrets[t]->bullets[b]->bulletObject);
 		}
 	}
 

@@ -27,8 +27,8 @@ void GlueBullet::checkBounds(float dt){
 }
 
 void GlueBullet::loadFont(){
-  system("dir");
-  if (!bulletImage.loadFromFile("resources/ggunbullet.png")) {
+
+  if (!bulletImage.loadFromFile("resources/ggun_bullet.png")) {
     //  printf("Could not load\n ");
   }
   bulletTexture.loadFromImage(bulletImage);
