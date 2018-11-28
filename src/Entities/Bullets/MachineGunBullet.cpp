@@ -8,6 +8,8 @@ MachineGunBullet::MachineGunBullet(sf::Vector2f p, sf::Vector2f v) {
 	radius = 5;
     attachShape();
 		loadFont();
+    bulletObject.setRotation(360.f + atan(vel.y/vel.x)*180/M_PI);
+    if (vel.x > 0) {bulletObject.rotate(180.f);}
 }
 
 void MachineGunBullet::update(float dt) {

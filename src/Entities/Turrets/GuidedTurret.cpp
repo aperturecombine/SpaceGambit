@@ -4,9 +4,9 @@
 
 GuidedTurret::GuidedTurret(sf::Vector2f p) {
     pos = p;
-    fireRate = 10;
+    fireRate = 5;
     counter = fireRate;
-    firingRange = 200;
+    firingRange = 500;
     withinfiringRange = false;
     attachShape();
 

@@ -30,6 +30,8 @@ void GuidedBullet::update(float dt) {
     else
         vel = ship1_init;
     
+    bulletObject.setRotation(360.f + atan(vel.y/vel.x)*180/M_PI);
+    if (vel.x > 0) {bulletObject.rotate(180.f);}
     pos += vel * speed * dt;
 
 }
