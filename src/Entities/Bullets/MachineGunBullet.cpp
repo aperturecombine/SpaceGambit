@@ -7,7 +7,6 @@ MachineGunBullet::MachineGunBullet(sf::Vector2f p, sf::Vector2f v) {
 	isAlive = true;
 	radius = 5;
     attachShape();
-		loadFont();
 }
 
 void MachineGunBullet::update(float dt) {
@@ -24,13 +23,4 @@ void MachineGunBullet::checkBounds(float dt){
     {
         isAlive = false;
     }
-}
-
-void MachineGunBullet::loadFont(){
-  if (!bulletImage.loadFromFile("resources/ggunbullet.png")) {
-      //printf("Could not load\n ");
-  }
-	bulletTexture.loadFromImage(bulletImage);
-	bulletTexture.setSmooth(true);
-  bulletObject.setTexture(bulletTexture);
 }
