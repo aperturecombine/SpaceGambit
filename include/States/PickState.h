@@ -35,13 +35,13 @@ public:
     sf::RectangleShape defense[2];
     
     int currentChoicePlayer[2];
-    int selected[2];
+    int playerConfirmation[2];
     int players = 1;
-    
+    bool beginGame = false;
     //std::string options[3] = { "Strength", "Speed", "Defense" };
     
     void loadFonts();
-    void centerText(sf::Text *text, int y);
+    void centerText(sf::Text *text, int x, int y);
     void moveUpPick(int player);
     void moveDownPick(int player);
     void select(int player);  

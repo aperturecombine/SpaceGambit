@@ -38,6 +38,8 @@ void PickState::draw(sf::RenderWindow *window) {
     //set individual health bars
     //TODO: combine setting the bars and drawing
     //TODO: make the bar positions constants and more elegant
+    if(!beginGame)
+    {
     for (int i = 0; i < 2; i++) {
         switch (currentChoicePlayer[i]) {
             case 0:
@@ -66,13 +68,12 @@ void PickState::draw(sf::RenderWindow *window) {
     }
     text.setCharacterSize(150);
     text.setString("Pick your Ship");
-    centerText(&text,100);
+    centerText(&text, SCREENWIDTH/2, 100);
     gsm->window.draw(text);
     
     text.setCharacterSize(80);
     
     text.setString("Strength: ");
-//    centerText(&text,600);
     text.setPosition(20, 600);
     gsm->window.draw(text);
     
@@ -86,34 +87,50 @@ void PickState::draw(sf::RenderWindow *window) {
     
     //draw status bars and ship sprite
     for (int i = 0; i < players; i++) {
-        sp[i].setPosition(((SCREENWIDTH*3/2)/(players + 1)*(i+1))-450, 300);
+        sp[i].setPosition(  (   (SCREENWIDTH*3/2)/(players + 1)*(i+1)   ) - ( (SCREENWIDTH*3/2)/2 - SCREENWIDTH/2 ), 300);
         gsm->window.draw(sp[i]);
         
-        strength[i].setPosition(((SCREENWIDTH*3/2)/(players + 1)*(i+1))-450, 600);
+        strength[i].setPosition( (sp[i].getPosition().x), 600);
         gsm->window.draw(strength[i]);
         
-        speed[i].setPosition(((SCREENWIDTH*3/2)/(players + 1)*(i+1))-450, 700);
+        speed[i].setPosition(sp[i].getPosition().x, 700);
         gsm->window.draw(speed[i]);
         
-        defense[i].setPosition(((SCREENWIDTH*3/2)/(players + 1)*(i+1))-450, 800);
+        defense[i].setPosition(sp[i].getPosition().x, 800);
         gsm->window.draw(defense[i]);
         
-//        std::cout << "x Position" << (SCREENWIDTH/(2 + players)*(i+1) << std::endl;
+        //        std::cout << "x Position" << (SCREENWIDTH/(2 + players)*(i+1) << std::endl;
     }
     
     for (int i = 0; i < players; i++) {
-        if (selected[i] == 1)
-        {
+        if (playerConfirmation[i] == 1)
             text.setString("Selected");
-        }
         else
-        {
             text.setString("Unselected");
-        }
-        centerText(&text,1100);
-        text.setPosition(sf::Vector2f(((SCREENWIDTH*3/2)/(players + 1)*(i+1))-450, 1100));
+        centerText(&text, (sp[i].getPosition().x), 1000);
         gsm->window.draw(text);
     }
+    
+    text.setCharacterSize(60);
+    text.setString("Use the Left/Right Keys to Select Rocket");
+    centerText(&text,SCREENWIDTH/2, SCREENHEIGHT - (text.getGlobalBounds().height*3) - 10);
+    gsm->window.draw(text);
+    text.setString("Use the Down Key to Confirm Selction");
+    centerText(&text,SCREENWIDTH/2, SCREENHEIGHT - (text.getGlobalBounds().height*2) - 10);
+    gsm->window.draw(text);
+    text.setString("Press P Key to Add or Remove Player 2");
+    centerText(&text,SCREENWIDTH/2, SCREENHEIGHT - text.getGlobalBounds().height - 10);
+    gsm->window.draw(text);
+}
+    else
+    {
+        
+        
+        
+        
+        
+    }
+    
     
     
     
@@ -125,10 +142,10 @@ void PickState::handleInput(sf::Event event) {
             moveUpPick(1);
         if (event.key.code == PlayerOne_Right)
             moveDownPick(1);
-        if (event.key.code == PlayerOne_Select)
+        if (event.key.code == PlayerOne_Down)
             select(1);
         
-        if (event.key.code == PlayerTwo_Up)
+        if (event.key.code == sf::Keyboard::P)
         {
             if (players == 2)
                 players = 1;
@@ -139,25 +156,25 @@ void PickState::handleInput(sf::Event event) {
             moveUpPick(0);
         if (event.key.code == PlayerTwo_Right)
             moveDownPick(0);
-        if (event.key.code == PlayerTwo_Select)
+        if (event.key.code == PlayerTwo_Down)
             select(0);
     }
 }
 
 
-void PickState::centerText(sf::Text *text, int y) {
+void PickState::centerText(sf::Text *text, int x, int y) {
     sf::FloatRect textRect = text->getLocalBounds();
     text->setOrigin(textRect.left + (textRect.width / 2.0f),
                     textRect.top + (textRect.height / 2.0f));
-    text->setPosition(sf::Vector2f(SCREENWIDTH / 2.0f, y));
+    text->setPosition(sf::Vector2f(x, y));
 }
 
 
 
 void PickState::select(int player) {
-    if (selected[player] == 0)
+    if (playerConfirmation[player] == 0)
     {
-        selected[player] = 1;
+        playerConfirmation[player] = 1;
         if(players == 1)
         {
             gsm -> numPlayer = 1;
@@ -165,9 +182,9 @@ void PickState::select(int player) {
         }
     }
     else
-        selected[player] = 0;
+        playerConfirmation[player] = 0;
     
-    if (selected[0] == selected[1] && selected[1] == 1)
+    if (playerConfirmation[0] == playerConfirmation[1] && playerConfirmation[1] == 1)
     {
         gsm -> numPlayer = 2;
         gsm -> pushState(PLAYSTATE);
