@@ -9,11 +9,11 @@ GuidedTurret::GuidedTurret(sf::Vector2f p) {
     firingRange = 200;
     withinfiringRange = false;
     attachShape();
-    
+
     if (!turretImage.loadFromFile("resources/guidedTurret.png")) {
-        printf("Could not load turret");
+        printf("Could not load turret\n");
     }
-    
+
     turretTexture.loadFromImage(turretImage);
     turretTexture.setSmooth(true);
     turretObject.setTexture(turretTexture);
@@ -43,7 +43,7 @@ void GuidedTurret::update(float dt) {
         if(!bullets.empty()) {explode();}
         fire();
     }
-    
+
     for (int i = 0; i < bullets.size(); i++) {
         bullets.at(i)->update(dt);
     }

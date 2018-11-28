@@ -8,11 +8,11 @@ RailGunTurret::RailGunTurret(sf::Vector2f p) {
     firingRange = 500;
     withinfiringRange = false;
     attachShape();
-    
+
     if (!turretImage.loadFromFile("resources/railGunTurret.png")) {
-        printf("Could not load turret");
+        printf("Could not load turret\n");
     }
-    
+
     turretTexture.loadFromImage(turretImage);
     turretTexture.setSmooth(true);
     turretObject.setTexture(turretTexture);
@@ -38,7 +38,7 @@ void RailGunTurret::update(float dt) {
     if (counter >= fireRate) {
         fire();
     }
-    
+
     for (int i = 0; i < bullets.size(); i++) {
         bullets.at(i)->update(dt);
     }
