@@ -26,11 +26,11 @@ PlayState::PlayState(class GameStateManager *g, int numPlayer) {
     else
         twoPlayerMode = false;
     
-    if(!image.loadFromFile("resources/space_background.jpg")) {
+    if(!texture.loadFromFile("resources/bg.png")) {
         printf("playstate space_background load error\n");
     }
     
-    if (!hudTexture.loadFromFile("⁨resources/HPP1VT.png")){
+    if (!hudTexture.loadFromFile("⁨resources/HP_PVP.png")){
         printf("Not loading hudTexture\n");
         
     }
@@ -267,55 +267,47 @@ void PlayState::draw(sf::RenderWindow *window) {
     
     //stage counter
     sf::Text stage;
-    
     stage.setFont(font);
     stage.setFillColor(sf::Color::White);
-    stage.setPosition(10, SCREENHEIGHT - 150);
-    stage.setCharacterSize(80);
     stage.setString("Stage: ");
-    
+    stage.setCharacterSize(80);
+    stage.setPosition(10, SCREENHEIGHT - 200);
     window->draw(stage);
     
+    sf::Text stageCount;
+    stageCount.setFont(font);
+    stageCount.setFillColor(sf::Color::White);
+    stageCount.setString(std::to_string(level));
+    stageCount.setCharacterSize(80);
+    stageCount.setPosition(stage.getPosition().x + stage.getGlobalBounds().width/2 - stageCount.getGlobalBounds().width/2, stage.getPosition().y + stageCount.getGlobalBounds().height + 10);
+    window->draw(stageCount);
     
     
+    //level Timer
+    
+    sf::Text levelTimer;
+    levelTimer.setFont(font);
+    levelTimer.setFillColor(sf::Color::White);
+    levelTimer.setString("Timer: ");
+    levelTimer.setCharacterSize(80);
+    levelTimer.setPosition(SCREENWIDTH - levelTimer.getGlobalBounds().width - 10, SCREENHEIGHT - 200);
+    window->draw(levelTimer);
+    
+    sf::Text timerCount;
+    timerCount.setFont(font);
+    timerCount.setFillColor(sf::Color::White);
+    if (stageTimer > 9)
+        timerCount.setString(std::to_string(static_cast<int>(stageTimer)));
+    else
+    {
+        
+        timerCount.setString("0" + std::to_string(static_cast<int>(stageTimer)));
+    }
+    timerCount.setCharacterSize(80);
+    timerCount.setPosition(levelTimer.getPosition().x + levelTimer.getGlobalBounds().width/2 - timerCount.getGlobalBounds().width/2, levelTimer.getPosition().y + timerCount.getGlobalBounds().height + 10);
+    window->draw(timerCount);
     
     
-    
-    
-    
-    sf::Text timer;
-    
-    timer.setFont(font);
-    timer.setFillColor(sf::Color::White);
-    timer.setPosition(SCREENWIDTH - 200, SCREENHEIGHT - 150);
-    timer.setCharacterSize(80);
-    timer.setString(std::to_string(static_cast<int>(stageTimer)));
-    
-    window->draw(timer);
-    
-    
-    
-    //level counter
-    sf::Text levelCount;
-    
-    levelCount.setFont(font);
-    levelCount.setFillColor(sf::Color::White);
-    levelCount.setCharacterSize(80);
-    levelCount.setString(std::to_string(level));
-    levelCount.setPosition(SCREENWIDTH - levelCount.getLocalBounds().width -  50, SCREENHEIGHT - 150);
-    
-    
-    
-    window->draw(levelCount);
-    
-    //level counter
-    sf::Text levelNumber;
-    levelNumber.setFont(font);
-    levelNumber.setFillColor(sf::Color::White);
-    levelNumber.setCharacterSize(80);
-    levelNumber.setString("Level: ");
-    levelNumber.setPosition(SCREENWIDTH - levelCount.getLocalBounds().width -  60 - levelNumber.getLocalBounds().width, SCREENHEIGHT - 150);
-    window->draw(levelNumber);
     
     
     
@@ -464,13 +456,13 @@ void PlayState::checkCollisions() {
         vector1.left +=  .1*ship1.vel.x;
         vector1.top += .1*ship1.vel.y;
         bool part1_collision = (vector1.intersects(turrets[t]->turretObject.getGlobalBounds()));
-        
+        bool part2_collision;
         if (twoPlayerMode) {
             sf::FloatRect vector2 = ship2.rocketShipObject.getGlobalBounds();
             
             vector2.left += .1*ship2.vel.x;
             vector2.top  += .1*ship2.vel.y;
-            bool part2_collision = (vector2.intersects(turrets[t]->turretObject.getGlobalBounds()));
+            part2_collision = (vector2.intersects(turrets[t]->turretObject.getGlobalBounds()));
         }
         
         
@@ -668,13 +660,10 @@ void PlayState::generateTurrets() {
             {
                 for (int b = 1; b < 3; b++)
                 {
-                    turretID = rand() % 6 + 1;
+                    turretID = randomButNotRandomSelector();
                     turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/7) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/6) * (pow(-1,b)))));
-                    turretID = rand() % 6 + 1;
                     turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/4) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/6) * (pow(-1,b)))));
-                    turretID = rand() % 6 + 1;
                     turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/7) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/3) * (pow(-1,b)))));
-                    turretID = rand() % 6 + 1;
                     turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/2.2) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/3) * (pow(-1,b)))));
                 }
             }
@@ -730,7 +719,7 @@ int PlayState::randomButNotRandomSelector() {
     
     turretID = (rand() % 6 + 1);
     
-    return turretID;
+    return 1;
 }
 
 
@@ -744,32 +733,32 @@ void PlayState::turretSelect(int turretID, sf::Vector2f p) {
     
     switch(turretID)
     {
-        case 1 :  // Boomerang Turret
+        case 1 : // Machine Gun Turret
         {
-            BoomerangTurret *t1 = new BoomerangTurret(p);
-            t1->setReference(this);
-            turrets.push_back(t1);
+            MachineGunTurret *t4 = new MachineGunTurret(p);
+            t4->setReference(this);
+            turrets.push_back(t4);
             break;
         }
-        case 2 :  // Glue Gun Turret
-        {
-            GlueGunTurret *t2 = new GlueGunTurret(p);
-            t2->setReference(this);
-            turrets.push_back(t2);
-            break;
-        }
-        case 3 : // Guided Turret
+        case 2 : // Guided Turret
         {
             GuidedTurret *t3 = new GuidedTurret(p);
             t3->setReference(this);
             turrets.push_back(t3);
             break;
         }
-        case 4 : // Machine Gun Turret
+        case 3 :  // Boomerang Turret
         {
-            MachineGunTurret *t4 = new MachineGunTurret(p);
-            t4->setReference(this);
-            turrets.push_back(t4);
+            BoomerangTurret *t1 = new BoomerangTurret(p);
+            t1->setReference(this);
+            turrets.push_back(t1);
+            break;
+        }
+        case 4 : // Ricochet Turret
+        {
+            RicochetTurret *t6 = new RicochetTurret(p);
+            t6->setReference(this);
+            turrets.push_back(t6);
             break;
         }
         case 5 : // Rail Gun Turret
@@ -779,16 +768,16 @@ void PlayState::turretSelect(int turretID, sf::Vector2f p) {
             turrets.push_back(t5);
             break;
         }
-        case 6 : // Ricochet Turret
+        case 6 :  // Glue Gun Turret
         {
-            RicochetTurret *t6 = new RicochetTurret(p);
-            t6->setReference(this);
-            turrets.push_back(t6);
+            GlueGunTurret *t2 = new GlueGunTurret(p);
+            t2->setReference(this);
+            turrets.push_back(t2);
             break;
         }
         default:
         {
-            std::cout << "Turret Select Error" << std::endl;
+            std::cout << "Turret Select Error: "<< turretID << std::endl;
             break;
         }
     }

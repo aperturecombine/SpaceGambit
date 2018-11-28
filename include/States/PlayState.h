@@ -34,7 +34,7 @@ public:
 
 
 private:
-        sf::Texture hudTexture;
+    sf::Texture hudTexture;
     b2Vec2 gravity{0,0};
 
     b2Body* bShip1;
