@@ -457,8 +457,6 @@ void PlayState::checkCollisions() {
                         ship2.vel.x += 2*ship2.vel.x;
                         ship2.vel.y += 2*ship2.vel.y;
                         break;
-
-
                 }
                 powerups.erase(powerups.begin() + p);
             }
@@ -498,7 +496,7 @@ void PlayState::checkCollisions() {
 
         if (part1_collision){
             printf("ship1 collide with turret\n");
-            if (ship1.currentHealth != 0) ship1.currentHealth -= 1;
+            if (ship1.currentHealth != 0) ship1.currentHealth -= turrets[t]->damage;
 
             //if (ship1.vel.x > 0 | ship1.vel.y > 0)
             ship1.freeze = true;
@@ -549,8 +547,6 @@ void PlayState::checkCollisions() {
      **/
     //ship collisions
     for (int t = 0; t < turrets.size(); t++) {
-
-
         for (int b = 0; b < turrets[t]->bullets.size(); b++) {
 
             //printf("bullet size%f\n", turrets[t]->bullets[b]->getShape()->m_radius);
@@ -566,8 +562,7 @@ void PlayState::checkCollisions() {
             if (part1_collision){
                 //printf("Ship1 got shot\n");
 
-
-                if ((turrets[t]->type_id != 5) && ship1.currentHealth != 0) ship1.currentHealth -= 1;
+                if (ship1.currentHealth != 0) ship1.currentHealth -= 1;
 
                 turrets[t]->bullets.erase(turrets[t]->bullets.begin() + b);
 
@@ -577,10 +572,10 @@ void PlayState::checkCollisions() {
             }
             if (twoPlayerMode) {
                 if (part2_collision){
-                    if ((turrets[t]->type_id != 5) && ship2.currentHealth != 0) ship2.currentHealth -= .1;
+                    if (ship2.currentHealth != 0)
+						ship2.currentHealth -= turrets[t]->damage;
 
                     turrets[t]->bullets.erase(turrets[t]->bullets.begin() + b);
-
                 }
             }
 
