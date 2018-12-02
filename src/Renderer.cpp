@@ -76,32 +76,85 @@ void Renderer::draw(sf::RenderWindow *window) {
 
 		text.setCharacterSize(80);
 
-		text.setString("Strength");
-		centerText(&text, 600);
-		gsm->window.draw(text);
+        
+        if (((PickState *)state)->players == 2)
+        {
+            text.setString("Strength");
+            centerText(&text, 600);
+            gsm->window.draw(text);
 
-		text.setString("Speed");
-		centerText(&text, 700);
-		gsm->window.draw(text);
+            text.setString("Speed");
+            centerText(&text, 700);
+            gsm->window.draw(text);
 
-		text.setString("Defense");
-		centerText(&text, 800);
-		gsm->window.draw(text);
+            text.setString("Defense");
+            centerText(&text, 800);
+            gsm->window.draw(text);
+        }
+        else
+        {
+            text.setString("Strength");
+            centerText(&text, 600);
+            text.setPosition (SCREENWIDTH/4 + text.getGlobalBounds().width/2, 600);
+            gsm->window.draw(text);
+            
+            text.setString("Speed");
+            centerText(&text, 700);
+            text.setPosition (SCREENWIDTH/4 + text.getGlobalBounds().width/2, 700);
+            gsm->window.draw(text);
+            
+            text.setString("Defense");
+            centerText(&text, 800);
+            text.setPosition (SCREENWIDTH/4 + text.getGlobalBounds().width/2, 800);
+            gsm->window.draw(text);
+        }
+        
+        
+        
 
 		//draw status bars and ship sprite
-		for (int i = 0; i < 2; i++) {
-			sp[i].setPosition((SCREENWIDTH / 2 + SCREENWIDTH / 4 * pow(-1, 1 + i)), 300);
-			gsm->window.draw(sp[i]);
+        
+        for (int i = 0; i < ((PickState *)state) ->players; i++) {
+            sp[i].setPosition(  (  (SCREENWIDTH*3/2)/(((PickState *)state)->players + 1)*(i+1)   ) - ( (SCREENWIDTH*3/2)/2 - SCREENWIDTH/2 ), 300);
+            gsm->window.draw(sp[i]);
+            
+            strength[i].setPosition( (sp[i].getPosition().x), 600);
+            gsm->window.draw(strength[i]);
+            
+            speed[i].setPosition(sp[i].getPosition().x, 700);
+            gsm->window.draw(speed[i]);
+            
+            defense[i].setPosition(sp[i].getPosition().x, 800);
+            gsm->window.draw(defense[i]);
+            
+            //        std::cout << "x Position" << (SCREENWIDTH/(2 + players)*(i+1) << std::endl;
+        }
+        
+        for (int i = 0; i < ((PickState *)state)->players; i++) {
+            if (((PickState *)state)->playerConfirmation[i] == 1)
+                text.setString("Selected");
+            else
+                text.setString("Unselected");
+            centerText(&text, 1000);
+            text.setPosition((sp[i].getPosition().x), text.getPosition().y);
+            gsm->window.draw(text);
+        }
+        
+        
+        text.setCharacterSize(60);
+        text.setString("Use the Left/Right Keys to Select Rocket");
+        centerText(&text, SCREENHEIGHT - (text.getGlobalBounds().height*3) - 10);
+        gsm->window.draw(text);
+        text.setString("Use the Down Key to Confirm Selction");
+        centerText(&text, SCREENHEIGHT - (text.getGlobalBounds().height*2) - 10);
+        gsm->window.draw(text);
+        text.setString("Press P Key to Add or Remove Player 2");
+        centerText(&text, SCREENHEIGHT - text.getGlobalBounds().height - 10);
+        gsm->window.draw(text);
 
-			strength[i].setPosition((SCREENWIDTH / 2 + SCREENWIDTH / 4 * pow(-1, 1 + i)), 600);
-			gsm->window.draw(strength[i]);
-
-			speed[i].setPosition((SCREENWIDTH / 2 + SCREENWIDTH / 4 * pow(-1, 1 + i)), 700);
-			gsm->window.draw(speed[i]);
-
-			defense[i].setPosition((SCREENWIDTH / 2 + SCREENWIDTH / 4 * pow(-1, 1 + i)), 800);
-			gsm->window.draw(defense[i]);
-		}
+        
+        
+        
 	}
 
 	if (currState == PLAYSTATE) {
