@@ -69,7 +69,7 @@ PlayState::PlayState(class GameStateManager *g, int numPlayer) {
     // shipHealth1.setSize(sf::Vector2f (ship1.health, 10));
     // shipHealth1.setFillColor(sf::Color::Green);
     generateTurrets();
-
+    loadPauseFonts();
     gsm->window.setKeyRepeatEnabled(false);
 }
 
@@ -330,12 +330,14 @@ void PlayState::draw(sf::RenderWindow *window) {
 
 
     if(pause){
+    window->draw(pauseState);
+    window->draw(pauseSprite);
     sf::Text pauseNotif;
     pauseNotif.setFont(font);
-    pauseNotif.setFillColor(sf::Color::White);
+    pauseNotif.setFillColor(sf::Color::Black);
     pauseNotif.setString("Game Paused" );
     pauseNotif.setCharacterSize(80);
-    pauseNotif.setPosition(SCREENWIDTH/2 - pauseNotif.getGlobalBounds().width/2, SCREENHEIGHT - 200);
+    pauseNotif.setPosition(SCREENWIDTH/2 - pauseNotif.getGlobalBounds().width/2, SCREENHEIGHT/2 - 200);
     window->draw(pauseNotif);
     }
 
@@ -358,10 +360,7 @@ void PlayState::draw(sf::RenderWindow *window) {
      turretRect.setPosition(turrets[t]->pos - sf::Vector2f(50, 50));
      gsm->window.draw(turretRect);
      }*/
-    if (pause){
-        window->draw(pauseState);
-        window->draw(pauseSprite);
-    }
+
 }
 
 void PlayState::handleInput(sf::Event event) {
@@ -897,9 +896,9 @@ void PlayState::loadPauseFonts(){
     }
 
     pauseSprite.setTexture(pauseTexture);
-    pauseSprite.setPosition(SCREENWIDTH/8,SCREENHEIGHT/8);
-    pauseSprite.setScale(1.0f, 1.0f);
 
+    pauseSprite.setScale(0.3f, 0.3f);
+    pauseSprite.setPosition(SCREENHEIGHT/2 - pauseSprite.getGlobalBounds().width/2,SCREENWIDTH/2 );
     sf::Color color(220,220,220);
     color.a = 90;
     pauseState.setFillColor(color);
