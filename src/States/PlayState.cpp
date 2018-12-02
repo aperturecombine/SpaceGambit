@@ -368,7 +368,7 @@ void PlayState::handleInput(sf::Event event) {
     {
         pause = true;
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
     {
         pause = false;
     }
