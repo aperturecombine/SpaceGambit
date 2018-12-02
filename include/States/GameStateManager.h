@@ -14,6 +14,8 @@
 #define FINISHSTATE 2
 #define OPTIONSTATE 3
 #define PICKSTATE 4
+#define SINGLEPLAYERFINISHSTATE 5
+#define TWOPLAYERFINISHSTATE 6
 
 class GameStateManager {
 public:

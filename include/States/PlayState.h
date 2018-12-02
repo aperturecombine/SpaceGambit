@@ -10,10 +10,14 @@
 
 class PlayState : public GameState {
 public:
+
+
+
+
     PlayState() {}
 //    PlayState(class GameStateManager *gsm);
     PlayState(class GameStateManager *gsm, int numPlayer);
-    
+
     virtual void update(float deltams);
     virtual void draw(sf::RenderWindow *window);
     virtual void handleInput(sf::Event event);
@@ -34,7 +38,13 @@ public:
 
 
 private:
-    
+
+
+
+	//chain.CreateChain(vs,6);
+		b2ChainShape backgroundShapeb;
+
+    //polygonStage stage;
     b2Vec2 gravity{0,0};
 
     b2Body* bShip1;
