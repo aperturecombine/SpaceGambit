@@ -3,7 +3,7 @@
 
 PickState::PickState(class GameStateManager *g) {
     gsm = g;
-    
+	stateID = PICKSTATE;
     currentChoicePlayer[0] = 0;
     currentChoicePlayer[1] = 0;
     
@@ -198,6 +198,9 @@ void PickState::select(int player) {
     
     if (playerConfirmation[0] == playerConfirmation[1] && playerConfirmation[1] == 1)
     {
+		printf("SELECT!\n");
+		playerConfirmation[0] = 0;
+		playerConfirmation[1] = 0;
         gsm -> numPlayer = 2;
         gsm -> pushState(PLAYSTATE);
     }

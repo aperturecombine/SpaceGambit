@@ -25,6 +25,7 @@ public:
 	void start();
 	void pushState(int newState);
 	void popState();
+	void returnToMenu();
     int numPlayer = 2;
 
 	GameState * getTop() {
@@ -33,9 +34,9 @@ public:
 
 	sf::RenderWindow window;
 
+	bool running;
 private:
 	class Renderer * renderer;
 	std::stack<class GameState*> states;
 
-	bool running;
 };

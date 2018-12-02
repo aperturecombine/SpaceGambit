@@ -3,6 +3,8 @@
 
 Renderer::Renderer(GameStateManager * g) {
 	gsm = g;
+	if (!playMusic.openFromFile("resources/SpaceGambit_SampleLoop1.wav"))
+    	printf("Failed to get music.\n");
 }
 
 void Renderer::draw(sf::RenderWindow *window) {
@@ -294,7 +296,8 @@ void Renderer::handleInput(sf::Event event) {
 
 void Renderer::loadFont(sf::Font * font, std::string filename) {
 	if (!font->loadFromFile(filename))
-		printf("Failed to load %s.\n", filename);
+		// printf("Failed to load %s.\n", filename);
+		printf("Failed to load File.\n");
 }
 
 void Renderer::loadTexture(sf::Texture * texture, std::string filename) {
@@ -354,6 +357,10 @@ void Renderer::setState(int newState) {
 	}
 
 	else if (newState == PLAYSTATE) {
+
+		playMusic.play();
+
+
 		loadImage(&image, "resources/space_background.jpg");
 
 		printf("newState PLAYSTATE: %d %d\n", shipTypes[0], shipTypes[1]);
@@ -426,8 +433,7 @@ void Renderer::centerText(sf::Text *text, int y) {
 	sf::FloatRect textRect = text->getLocalBounds();
 	text->setOrigin(textRect.left + textRect.width / 2.0f,
 		textRect.top + textRect.height / 2.0f);
-
-	text->setPosition(sf::Vector2f(SCREENWIDTH/2.0f, y));
+	text->setPosition(sf::Vector2f(SCREENWIDTH, y));
 }
 
 /*void Renderer::loadPauseFonts() {

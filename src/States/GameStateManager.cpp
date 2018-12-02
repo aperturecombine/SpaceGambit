@@ -56,7 +56,6 @@ void GameStateManager::pushState(int newState) {
 		}
 		break;
         case FINISHSTATE:
-			printf("finish state\n");
             states.push(new FinishState(this));
             break;
         case OPTIONSTATE:
@@ -72,6 +71,16 @@ void GameStateManager::popState() {
         printf("SHUTDOWN\n");
         running = false;
     }
+	else
+		renderer->setState(this->states.top()->stateID);
+
 	//TODO: fix this please (add prevState?)
-	renderer->setState(MENUSTATE);
+	//renderer->setState(MENUSTATE);
+}
+
+void GameStateManager::returnToMenu() {
+	while (this->states.top()->stateID != MENUSTATE) {
+		printf("poppers\n");
+		popState();
+	}
 }

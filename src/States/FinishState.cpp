@@ -12,6 +12,7 @@
 FinishState::FinishState(class GameStateManager *g) {
     gsm = g;
     currentChoice = 0;
+	stateID = FINISHSTATE;
 
     if (!font.loadFromFile("resources/spaceranger.ttf"))
     {
@@ -82,12 +83,12 @@ void FinishState::centerText(sf::Text *text, int y) {
 }
 
 void FinishState::select() {
-    if (currentChoice == 1)
-    {
-        gsm->popState();
-        exit(0);
-    }
-    if (currentChoice == 0)
-        gsm->pushState(PLAYSTATE);
 
+	if (currentChoice == 0) {
+		gsm->returnToMenu();
+	}
+	if (currentChoice == 1)
+	{
+		gsm->running = false;
+	}
 }

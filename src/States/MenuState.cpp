@@ -5,6 +5,7 @@
 MenuState::MenuState(class GameStateManager *g) {
     gsm = g;
     currentChoice = 0;
+	stateID = MENUSTATE;
     
     if (!font.loadFromFile("resources/spaceranger.ttf")) {
         printf("Could not load font");

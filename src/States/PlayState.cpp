@@ -17,6 +17,7 @@
 
 PlayState::PlayState(class GameStateManager *g, int numPlayer) {
     gsm = g;
+	stateID = PLAYSTATE;
     turretCount = 6;
     stageTimer = STAGETIME;
     level = 1;
