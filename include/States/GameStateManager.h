@@ -24,11 +24,15 @@ public:
 	void pushState(int newState);
 	void popState();
 
+	GameState * getTop() {
+		return states.top();
+	}
+
 	sf::RenderWindow window;
 
 private:
+	class Renderer * renderer;
 	std::stack<class GameState*> states;
-	int currentState;
 
 	bool running;
 };

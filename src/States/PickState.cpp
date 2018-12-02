@@ -35,9 +35,9 @@ void PickState::update(float deltams) {}
 void PickState::draw(sf::RenderWindow *window) {
     gsm->window.draw(background);
     
-    //set individual health bars
-    //TODO: combine setting the bars and drawing
-    //TODO: make the bar positions constants and more elegant
+    // TODO: set individual health bars
+    // combine setting the bars and drawing and 
+	// make the bar positions constants and more elegant
     for (int i = 0; i < 2; i++) {
         switch (currentChoicePlayer[i]) {
             case 0:
@@ -128,6 +128,7 @@ void PickState::centerText(sf::Text *text, int y) {
 
 
 void PickState::select(int player) {
+	//TODO: why are these ints? Can't they be bools?
     if (selected[player] == 0)
         selected[player] = 1;
     else
@@ -150,8 +151,7 @@ void PickState::moveDownPick(int player) {
         currentChoicePlayer[player] = 0;
 }
 
-void PickState::loadFonts(){
-    
+void PickState::loadFonts() {
     if (!font.loadFromFile("resources/spaceranger.ttf"))
         std::cout << "Could not load font." << std::endl;
     

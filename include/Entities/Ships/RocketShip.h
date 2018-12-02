@@ -4,7 +4,6 @@
 
 class RocketShip {
 public:
-
     sf::Texture rocketShipTexture;
     sf::Image rocketShipImage;
     sf::Sprite rocketShipObject;
@@ -32,6 +31,8 @@ public:
 
     b2PolygonShape* getShape();
 
+	int shipType;
+
     float maxHealth;
     float currentHealth;
 
@@ -42,13 +43,9 @@ public:
     float bounceFactor;
     void bounce(sf::Vector2f collision_point, float bounce_factor);
 
-
 private:
 	float ACCEL;
 	float DECEL;
-
-
-
 
 	int damageStat;
 	int defenseStat;

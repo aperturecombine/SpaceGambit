@@ -9,7 +9,6 @@ BeamBullet::BeamBullet(sf::Vector2f p, sf::Vector2f v, PlayState *refe) {
     ref = refe;
     timePassed = 0;
     attachShape();
-    loadFont();
 }
 
 void BeamBullet::update(float dt) {
@@ -17,14 +16,4 @@ void BeamBullet::update(float dt) {
     if (timePassed>0.25)
         pos += vel * speed * dt;
 
-}
-
-void BeamBullet::loadFont(){
-
-  if (!bulletImage.loadFromFile("resources/ggunbullet.png")) {
-      //printf("Could not load \n");
-  }
-  bulletTexture.loadFromImage(bulletImage);
-  bulletTexture.setSmooth(true);
-  bulletObject.setTexture(bulletTexture);
 }

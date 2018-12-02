@@ -8,10 +8,8 @@ BoomerangBullet::BoomerangBullet(sf::Vector2f p, sf::Vector2f v) {
     radius = 5;
     returnCounter = 0;
     returnPoint = 2;
-    isAlive = true;
     travelled = false;
     attachShape();
-    loadFont();
 }
 
 void BoomerangBullet::update(float dt) {
@@ -27,17 +25,6 @@ void BoomerangBullet::update(float dt) {
 
     pos += vel * speed * dt;
     returnCounter += dt;
-}
-
-void BoomerangBullet::loadFont(){
-
-  if (!bulletImage.loadFromFile("resources/ggunbullet.png")) {
-      //printf("Could not load\n ");
-  }
-
-  bulletTexture.loadFromImage(bulletImage);
-  bulletTexture.setSmooth(true);
-  bulletObject.setTexture(bulletTexture);
 }
 
 //bool BoomerangBullet::finished() {

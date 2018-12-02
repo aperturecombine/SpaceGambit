@@ -12,6 +12,7 @@ public:
 	virtual void update(float deltams);
 	virtual void draw(sf::RenderWindow *window);
     virtual void handleInput(sf::Event event);
+	int currentChoice;
 
 private:
 	
@@ -22,7 +23,6 @@ private:
     sf::Texture texture;
     sf::Sprite background;
 
-	int currentChoice;
 	std::string options[3] = { "Play", "Options", "Quit" };
 
 	void moveUp() {
