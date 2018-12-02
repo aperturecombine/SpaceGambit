@@ -45,7 +45,7 @@ PlayState::PlayState(class GameStateManager *g, int numPlayer) {
         printf("playstate space_background load error\n");
     }
 
-    if (!hudTexture.loadFromFile("⁨resources/HP_PVP.png")){
+    if (!hudTexture.loadFromFile("⁨resources/HPfP1.png")){
         printf("Not loading hudTexture\n");
 
     }
@@ -104,6 +104,11 @@ void PlayState::update(float deltams) {
         else
         {
             level++;
+            ship1.pos = sf::Vector2f(SCREENWIDTH/2,SCREENHEIGHT/2);
+            if (twoPlayerMode) {
+                ship1.pos = sf::Vector2f(SCREENWIDTH/2,SCREENHEIGHT/2- 50);
+              ship2.pos = sf::Vector2f(SCREENWIDTH/2,SCREENHEIGHT/2+ 50);
+            }
             generateTurrets();
 
             int pOfPup = (rand() % 10) + 1;
@@ -564,7 +569,7 @@ void PlayState::checkCollisions() {
                 //printf("Ship1 got shot\n");
 
 
-                if (ship1.currentHealth != 0) ship1.currentHealth -= 1;
+                if ((turrets[t]->type_id != 5) && ship1.currentHealth != 0) ship1.currentHealth -= 1;
 
                 turrets[t]->bullets.erase(turrets[t]->bullets.begin() + b);
 
@@ -574,7 +579,7 @@ void PlayState::checkCollisions() {
             }
             if (twoPlayerMode) {
                 if (part2_collision){
-                    if (ship2.currentHealth != 0) ship2.currentHealth -= 1;
+                    if ((turrets[t]->type_id != 5) && ship2.currentHealth != 0) ship2.currentHealth -= .1;
 
                     turrets[t]->bullets.erase(turrets[t]->bullets.begin() + b);
 
