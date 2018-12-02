@@ -1,4 +1,4 @@
-#include "../Stages/squareStage.h"
+#include "../../include/Stages/squareStage.h"
 
 squareStage::squareStage(sf::Vector2f p){
     pos = p;

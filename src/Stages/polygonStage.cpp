@@ -1,4 +1,4 @@
-#include "../Stages/polygonStage.h"
+#include "../../include/Stages/polygonStage.h"
 
 polygonStage::polygonStage(sf::Vector2f p){
     pos = p;
