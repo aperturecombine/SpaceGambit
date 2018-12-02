@@ -163,6 +163,31 @@ void PlayState::draw(sf::RenderWindow *window) {
 
     //window->clear(sf::Color::);
     window->draw(background);
+    
+    sf::ConvexShape triangle;
+    triangle.setPointCount(3);
+    triangle.setPoint(0, sf::Vector2f(0, 0));
+    triangle.setPoint(1, sf::Vector2f(0,SCREENHEIGHT/3));
+    triangle.setPoint(2,sf::Vector2f(SCREENWIDTH/3, 0));
+    //sf::Color color(45,30,87);
+    triangle.setFillColor(sf::Color::Black);
+    window->draw(triangle);
+    
+    triangle.setPoint(0, sf::Vector2f(0, 2*SCREENHEIGHT/3));
+    triangle.setPoint(1, sf::Vector2f(0,SCREENHEIGHT));
+    triangle.setPoint(2,sf::Vector2f(SCREENWIDTH/3, SCREENHEIGHT));
+    window->draw(triangle);
+    
+    triangle.setPoint(0, sf::Vector2f(SCREENWIDTH*2/3, 0));
+    triangle.setPoint(1, sf::Vector2f(SCREENWIDTH,0));
+    triangle.setPoint(2,sf::Vector2f(SCREENWIDTH, SCREENHEIGHT/3));
+    window->draw(triangle);
+    
+    triangle.setPoint(0, sf::Vector2f(SCREENWIDTH, SCREENHEIGHT*2/3));
+    triangle.setPoint(1, sf::Vector2f(SCREENWIDTH,SCREENHEIGHT));
+    triangle.setPoint(2,sf::Vector2f(SCREENWIDTH*2/3, SCREENHEIGHT));
+    window->draw(triangle);
+    
     //window->draw(shipHealth1);
     window->draw(ship1.rocketShipObject);
     if (twoPlayerMode) {
@@ -369,7 +394,7 @@ void PlayState::handleInput(sf::Event event) {
     {
         pause = true;
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
     {
         pause = false;
     }

@@ -10,6 +10,7 @@ RicochetBullet::RicochetBullet(sf::Vector2f p, sf::Vector2f v, PlayState *refe) 
     bounceMax = 3;
     ref = refe;
     attachShape();
+    loadFont();
 }
 
 void RicochetBullet::update(float dt) {
@@ -37,12 +38,12 @@ bool RicochetBullet::checkBounds(float dt){
     }
     else
     {
-
+        
         lifeCheck();
         vel.x *= -1;
         return false;
     }
-
+    
 }
 
 void RicochetBullet::lifeCheck(){
@@ -55,4 +56,14 @@ void RicochetBullet::lifeCheck(){
     {
         isAlive = true;
     }
+}
+
+void RicochetBullet::loadFont(){
+    
+    if (!bulletImage.loadFromFile("resources/ggun_bullet.png")) {
+        //printf("Could not load\n");
+    }
+    bulletTexture.loadFromImage(bulletImage);
+    bulletTexture.setSmooth(true);
+    bulletObject.setTexture(bulletTexture);
 }
