@@ -8,6 +8,7 @@ Renderer::Renderer(GameStateManager * g) {
 void Renderer::draw(sf::RenderWindow *window) {
 	state = gsm->getTop();
 	if (currState == MENUSTATE) {
+		//TODO: This really only needs to be called when actually changed, but whatever
 		gsm->window.draw(background);
 		text.setCharacterSize(175);
 		text.setString("Space Gambit");
@@ -27,6 +28,8 @@ void Renderer::draw(sf::RenderWindow *window) {
 	}
 
 	if (currState == PICKSTATE) {
+		//TODO: needs major refactoring.
+		//	why multiple sf::Texts? Either pre-declare each one or use a single sf::Text
 		gsm->window.draw(background);
 
 		//set individual health bars
@@ -93,52 +96,70 @@ void Renderer::draw(sf::RenderWindow *window) {
 	}
 
 	if (currState == PLAYSTATE) {
+		//window->clear(sf::Color::);
 		window->draw(background);
 		//window->draw(shipHealth1);
 
 		rocketShipObjects[0].setPosition(((PlayState *)state)->ship1.pos);
-		rocketShipObjects[1].setPosition(((PlayState *)state)->ship2.pos);
 		window->draw(rocketShipObjects[0]);
-		window->draw(rocketShipObjects[1]);
+		if (((PlayState *)state)->twoPlayerMode) {
+			rocketShipObjects[1].setPosition(((PlayState *)state)->ship2.pos);
+			window->draw(rocketShipObjects[1]);
+		}
 
+		/*for (int p = 0; p < ((PlayState *)state)->powerups.size(); p++) {
+			window->draw(((PlayState *)state)->powerups[p]->pSprite);
+		}*/
+
+		//HUD; later to be refactored into render class
 		for (int t = 0; t < ((PlayState *)state)->turrets.size(); t++) {
-			window->draw( ((PlayState *)state)->turrets[t]->turretObject );
+			((PlayState *)state)->turrets[t]->turretObject.setPosition(((PlayState *)state)->turrets[t]->pos);
+			window->draw(((PlayState *)state)->turrets[t]->turretObject);
 		}
 
 		//draw bullets
+		sf::CircleShape bulletCircle;
 		bulletCircle.setFillColor(sf::Color::Red);
 
 		for (int t = 0; t < ((PlayState *)state)->turrets.size(); t++) {
-			Turret * turret = ((PlayState *)state)->turrets[t];
-			for (int b = 0; b < turret->bullets.size(); b++) {
-				Bullet * bullet = turret->bullets[b];
-				bullet->shape = sf::CircleShape();
-				float bRadius = turret->bullets[b]->radius;
-				bullet->shape.setRadius(bRadius);
-				bullet->shape.setPosition(
-					bullet->pos - sf::Vector2f(bRadius, bRadius));
+			//TODO: draw turrets here?
+			for (int b = 0; b < ((PlayState *)state)->turrets[t]->bullets.size(); b++) {
+				Bullet * bullet = ((PlayState *)state)->turrets[t]->bullets[b];
+				float radius = bullet->radius;
 
-				gsm->window.draw(bullet->shape);
+				// sprite/texture code for bullets
+				/* turrets[t]->bullets[b]->shape =  sf::CircleShape();
+				float bRadius = turrets[t]->bullets[b]->radius;
+				turrets[t]->bullets[b]->shape.setRadius(bRadius);
+				turrets[t]->bullets[b]->shape.setPosition(
+					turrets[t]->bullets[b]->pos - sf::Vector2f(bRadius, bRadius));
+				gsm->window.draw(turrets[t]->bullets[b]->shape); */
+
+				//sf::CircleShape testB = sf::CircleShape();
+				bulletCircle.setRadius(radius);
+				bulletCircle.setPosition(bullet->pos - sf::Vector2f(radius, radius));
+
+				gsm->window.draw(bulletCircle);
 			}
 		}
 
 		//HUD; later to be refactored into render class
-			// position HUD frame
+		// position HUD frame
 
-		loadImage(&hudImage, "resources/HP_P1VT.png");
-		hudTexture.loadFromImage(hudImage);
-
+		//hudTexture.loadFromImage(hudImage);
+		sf::Sprite hud;
 		hud.setTexture(hudTexture);
 		hud.setPosition(0, 0);
-		hud.setScale(0.7f, 0.5f);
+		hud.setScale(SCREENWIDTH / 1800.f, SCREENWIDTH / 1800.f);
 		window->draw(hud);
+
 
 		//Player 1 HUD
 		bar.setFillColor(sf::Color::White);
 		bar.setSize(sf::Vector2f(100, 50));
 		bar.setPosition(10, 20);
 
-		bar.setFillColor(sf::Color::Red);
+		health.setFillColor(sf::Color::Red);
 		health.setSize(sf::Vector2f(100 * (((PlayState *)state)->ship1.currentHealth / ((PlayState *)state)->ship1.maxHealth), 50));
 		health.setPosition(10, 20);
 
@@ -148,69 +169,83 @@ void Renderer::draw(sf::RenderWindow *window) {
 		text.setFillColor(sf::Color::White);
 		text.setPosition(10, 90);
 		text.setCharacterSize(40);
-		text.setString("  Score: " + std::to_string(((PlayState *)state)->ship1.points));
+		text.setString("Score: " + std::to_string(((PlayState *)state)->ship1.points));
 
 		window->draw(bar);
 		window->draw(health);
 		window->draw(text);
 
 		//player 2 HUD
-		bar2.setFillColor(sf::Color::White);
-		bar2.setSize(sf::Vector2f(100, 50));
-		bar2.setPosition(SCREENWIDTH - 250, 20);
+		if (((PlayState *)state)->twoPlayerMode) {
+			sf::RectangleShape bar2;
+			bar2.setFillColor(sf::Color::White);
+			bar2.setSize(sf::Vector2f(100, 50));
+			bar2.setPosition(SCREENWIDTH - 250, 20);
 
-		bar2.setFillColor(sf::Color::Red);
-		health2.setSize(sf::Vector2f(100 * (((PlayState *)state)->ship2.currentHealth / ((PlayState *)state)->ship2.maxHealth), 50));
-		health2.setPosition(SCREENWIDTH - 250, 20);
+			sf::RectangleShape health2;
+			bar2.setFillColor(sf::Color::Red);
+			health2.setSize(sf::Vector2f(100 * (((PlayState *)state)->ship2.currentHealth / ((PlayState *)state)->ship2.maxHealth), 50));
+			health2.setPosition(SCREENWIDTH - 250, 20);
 
+			text2.setFont(font);
+			text2.setFillColor(sf::Color::White);
+			text2.setPosition(SCREENWIDTH - 250, 90);
+			text2.setCharacterSize(40);
+			text2.setString("  Score: " + std::to_string(((PlayState *)state)->ship1.points));
 
-		text2.setFont(font);
-		text2.setFillColor(sf::Color::White);
-		text2.setPosition(SCREENWIDTH - 250, 90);
-		text2.setCharacterSize(40);
-		text2.setString("  Score: " + std::to_string(((PlayState *)state)->ship1.points));
-
-		window->draw(bar2);
-		window->draw(health2);
-		window->draw(text2);
+			window->draw(bar2);
+			window->draw(health2);
+			window->draw(text2);
+		}
 
 		//stage counter
-
 		stage.setFont(font);
 		stage.setFillColor(sf::Color::White);
-		stage.setPosition(10, SCREENHEIGHT - 150);
-		stage.setCharacterSize(80);
 		stage.setString("Stage: ");
+		stage.setCharacterSize(80);
+		stage.setPosition(10, SCREENHEIGHT - 200);
 		window->draw(stage);
 
+		stageCount.setFont(font);
+		stageCount.setFillColor(sf::Color::White);
+		stageCount.setString(std::to_string(((PlayState *)state)->level));
+		stageCount.setCharacterSize(80);
+		stageCount.setPosition(stage.getPosition().x + stage.getGlobalBounds().width / 2 - stageCount.getGlobalBounds().width / 2, stage.getPosition().y + stageCount.getGlobalBounds().height + 10);
+		window->draw(stageCount);
 
-		timer.setFont(font);
-		timer.setFillColor(sf::Color::White);
-		timer.setPosition(SCREENWIDTH - 200, SCREENHEIGHT - 150);
-		timer.setCharacterSize(80);
-		timer.setString(std::to_string(static_cast<int>(((PlayState *)state)->stageTimer)));
+		//level Timer
+		levelTimer.setFont(font);
+		levelTimer.setFillColor(sf::Color::White);
+		levelTimer.setString("Timer: ");
+		levelTimer.setCharacterSize(80);
+		levelTimer.setPosition(SCREENWIDTH - levelTimer.getGlobalBounds().width - 10, SCREENHEIGHT - 200);
+		window->draw(levelTimer);
 
-		window->draw(timer);
+		timerCount.setFont(font);
+		timerCount.setFillColor(sf::Color::White);
+		if (((PlayState *)state)->stageTimer >= 10)
+			timerCount.setString(std::to_string(static_cast<int>(((PlayState *)state)->stageTimer)));
+		else
+			timerCount.setString("0" + std::to_string(static_cast<int>(((PlayState *)state)->stageTimer)));
+		timerCount.setCharacterSize(80);
+		timerCount.setPosition(levelTimer.getPosition().x + levelTimer.getGlobalBounds().width / 2 - timerCount.getGlobalBounds().width / 2, levelTimer.getPosition().y + timerCount.getGlobalBounds().height + 10);
+		window->draw(timerCount);
 
-		//level counter
+		if (((PlayState *)state)->pause) {
+			window->draw(pauseState);
+			window->draw(pauseSprite);
+			sf::Text pauseNotif;
+			pauseNotif.setFont(font);
+			pauseNotif.setFillColor(sf::Color::Black);
+			pauseNotif.setString("Game Paused");
+			pauseNotif.setCharacterSize(80);
+			pauseNotif.setPosition(SCREENWIDTH / 2 - pauseNotif.getGlobalBounds().width / 2, SCREENHEIGHT / 2 - 200);
+			window->draw(pauseNotif);
+		}
 
-		levelCount.setFont(font);
-		levelCount.setFillColor(sf::Color::White);
-		levelCount.setCharacterSize(80);
-		levelCount.setString(std::to_string(((PlayState *)state)->level));
-		levelCount.setPosition(SCREENWIDTH - levelCount.getLocalBounds().width - 50, SCREENHEIGHT - 150);
-
-		window->draw(levelCount);
-
-		//level counter
-		levelNumber.setFont(font);
-		levelNumber.setFillColor(sf::Color::White);
-		levelNumber.setCharacterSize(80);
-		levelNumber.setString("Level: ");
-		levelNumber.setPosition(SCREENWIDTH - levelCount.getLocalBounds().width - 60 - levelNumber.getLocalBounds().width, SCREENHEIGHT - 150);
-		window->draw(levelNumber);
 	}
 	if (currState == OPTIONSTATE) {
+		//TODO: This really only needs to be called when actually changed, but whatever
 		gsm->window.clear(sf::Color(255, 255, 255));
 		gsm->window.draw(background);
 		text.setCharacterSize(150);
@@ -239,21 +274,18 @@ void Renderer::handleInput(sf::Event event) {
 }
 
 void Renderer::loadFont(sf::Font * font, std::string filename) {
-	if (!font->loadFromFile(filename)) {
+	if (!font->loadFromFile(filename))
 		printf("Failed to load font.\n");
-	}
 }
 
 void Renderer::loadTexture(sf::Texture * texture, std::string filename) {
-	if (!texture->loadFromFile(filename)) {
+	if (!texture->loadFromFile(filename))
 		printf("Failed to load texture.\n");
-	}
 }
 
 void Renderer::loadImage(sf::Image * image, std::string filename) {
-	if (!image->loadFromFile(filename)) {
+	if (!image->loadFromFile(filename)) 
 		printf("Failed to load image.\n");
-	}
 }
 
 void Renderer::setState(int newState) {
@@ -322,6 +354,7 @@ void Renderer::setState(int newState) {
 
 		texture.loadFromImage(image);
 		background.setTexture(texture);
+
 		//background.setPosition(0, 0);
 		//background.setScale(0.7f, 0.5f);
 
@@ -350,3 +383,15 @@ void Renderer::centerText(sf::Text *text, int y) {
 		textRect.top + textRect.height / 2.0f);
 	text->setPosition(sf::Vector2f(SCREENWIDTH, y));
 }
+
+/*void Renderer::loadPauseFonts() {
+	loadTexture(&pauseTexture, "resources/pause.png");
+	pauseSprite.setTexture(pauseTexture);
+	pauseSprite.setScale(0.3f, 0.3f);
+	pauseSprite.setPosition(SCREENHEIGHT / 2 - pauseSprite.getGlobalBounds().width / 2, SCREENWIDTH / 2);
+	sf::Color color(220, 220, 220);
+	color.a = 90;
+	pauseState.setFillColor(color);
+	pauseState.setPosition(0, 0);
+	pauseState.setSize(sf::Vector2f(SCREENWIDTH, SCREENHEIGHT));
+}*/

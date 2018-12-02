@@ -372,17 +372,18 @@ void PlayState::handleInput(sf::Event event) {
     {
         pause = false;
     }
-        ship1.moveRight = sf::Keyboard::isKeyPressed(PlayerOne_Right);
-        ship1.moveLeft = sf::Keyboard::isKeyPressed(PlayerOne_Left);
-        ship1.moveUp = sf::Keyboard::isKeyPressed(PlayerOne_Up);
-        ship1.moveDown = sf::Keyboard::isKeyPressed(PlayerOne_Down);
 
-        if (twoPlayerMode) {
-            ship2.moveRight = sf::Keyboard::isKeyPressed(PlayerTwo_Right);
-            ship2.moveLeft = sf::Keyboard::isKeyPressed(PlayerTwo_Left);
-            ship2.moveUp = sf::Keyboard::isKeyPressed(PlayerTwo_Up);
-            ship2.moveDown = sf::Keyboard::isKeyPressed(PlayerTwo_Down);
-        }
+    ship1.moveRight = sf::Keyboard::isKeyPressed(PlayerOne_Right);
+    ship1.moveLeft = sf::Keyboard::isKeyPressed(PlayerOne_Left);
+    ship1.moveUp = sf::Keyboard::isKeyPressed(PlayerOne_Up);
+    ship1.moveDown = sf::Keyboard::isKeyPressed(PlayerOne_Down);
+
+    if (twoPlayerMode) {
+        ship2.moveRight = sf::Keyboard::isKeyPressed(PlayerTwo_Right);
+        ship2.moveLeft = sf::Keyboard::isKeyPressed(PlayerTwo_Left);
+        ship2.moveUp = sf::Keyboard::isKeyPressed(PlayerTwo_Up);
+        ship2.moveDown = sf::Keyboard::isKeyPressed(PlayerTwo_Down);
+    }
 
 }
 
@@ -426,10 +427,6 @@ void PlayState::createPowerUps(){
      }
      */
 }
-
-
-
-
 
 void PlayState::checkCollisions() {
     // powerups
@@ -485,7 +482,7 @@ void PlayState::checkCollisions() {
 
         //bool part1_collision = (vector1.intersects(turrets[t]->turretObject.getGlobalBounds()));
 
-        bool part2_collision;
+        bool part2_collision = false;
         if (twoPlayerMode) {
           sf::Vector2f vector2 = ship2.pos;
           vector2.x += .1*ship2.vel.x;
@@ -591,9 +588,6 @@ void PlayState::checkCollisions() {
     }
 
     //ship bounds checking
-
-
-
 
         b2ChainShape* backgroundShape = &backgroundShapeb;
         float sx = ship1.pos.x;
@@ -828,13 +822,6 @@ int PlayState::randomButNotRandomSelector() {
     return turretID;
 }
 
-
-
-
-
-
-
-
 void PlayState::turretSelect(int turretID, sf::Vector2f p) {
 
     switch(turretID)
@@ -891,8 +878,6 @@ void PlayState::turretSelect(int turretID, sf::Vector2f p) {
 
 
 void PlayState::loadPauseFonts(){
-
-
     if(!pauseTexture.loadFromFile("resources/pause.png")){
         printf("PauseTexture  not loading\n");
     }

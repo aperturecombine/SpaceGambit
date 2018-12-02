@@ -28,6 +28,8 @@ private:
 	GameStateManager * gsm;
 	void centerText(sf::Text *text, int y);
 
+	void loadPauseFonts();
+
 	void loadFont(sf::Font * font, std::string filename);
 	void loadTexture(sf::Texture * texture, std::string filename);
 	void loadImage(sf::Image * image, std::string filename);
@@ -70,12 +72,29 @@ private:
 	sf::RectangleShape health2;
 	sf::Text text2;
 	sf::Text stage;
+	sf::Text stageCount;
 	sf::Text timer;
 	sf::Text levelCount;
 	sf::Text levelNumber;
+	sf::Text levelTimer;
+	sf::Text timerCount;
 	sf::Texture rocketShipTextures[2];
 	sf::Image rocketShipImages[2];
 	sf::Sprite rocketShipObjects[2];
+
+	sf::RectangleShape pauseState;
+	sf::Texture pauseTexture;
+	sf::Sprite pauseSprite;
+
+
+	sf::Texture textureP1;
+	sf::Sprite sP1;
+	sf::Texture textureP2;
+	sf::Sprite sP2;
+	sf::Texture textureP3;
+	sf::Sprite sP3;
+	sf::Texture textureP4;
+	sf::Sprite sP4;
 
 	int shipTypes[2];
 };

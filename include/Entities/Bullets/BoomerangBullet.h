@@ -8,7 +8,6 @@ public:
     ~BoomerangBullet();
 
     virtual void update(float dt);
-    virtual void loadFont();
 private:
     float speed;
     float returnCounter;

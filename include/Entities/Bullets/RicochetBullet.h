@@ -8,7 +8,6 @@ public:
     ~RicochetBullet();
 
     virtual void update(float dt);
-    virtual void loadFont();
 
 private:
     float speed;

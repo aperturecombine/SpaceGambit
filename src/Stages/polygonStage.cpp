@@ -1,23 +1,10 @@
-#include "./Stages/polygonStage.h"
+#include "../Stages/polygonStage.h"
 
 polygonStage::polygonStage(sf::Vector2f p){
     pos = p;
-    loadFont();
     attachBoundary();
     attachRandomJunctions();
 
-}
-
-void polygonStage::loadFont(){
-    //load Textures
-    backgroundTexture.loadFromFile("resources/background.png");
-    background.setTexture(backgroundTexture);
-    background.setScale(1.0f,1.0f);
-    background.setPosition(p);
-    boundaryTexture.loadFromFile("resources/boundaryTexture.png");
-    boundary.setTexture(boundaryTexture);
-    boundary.setScale(1.0f,1.0f);
-    boundary.setPosition(p);
 }
 
 void polygonStage::attachBoundary(){

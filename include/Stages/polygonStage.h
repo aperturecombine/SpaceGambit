@@ -17,7 +17,6 @@ public:
 
     b2ChainShape* backgroundShape;
 
-    void loadFont();
     void attachRandomJunctions();
     void draw(sf::RenderWindow *window);
     b2ChainShape* getBoundaryShape();

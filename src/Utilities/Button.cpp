@@ -1,4 +1,4 @@
-#include "./Utilities/Button.h"
+#include "../../include/Utilities/Button.h"
 
 Button::Button(sf::Texture* normal,sf::Texture* clicked,std::string words,sf::Vector2f location) {
     this->normal.setTexture(*normal);

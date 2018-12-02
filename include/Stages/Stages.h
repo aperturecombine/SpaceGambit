@@ -16,7 +16,4 @@ public:
 
     virtual void draw (sf::RenderWindow *window);
 
-    void loadFont();
-
-
 };

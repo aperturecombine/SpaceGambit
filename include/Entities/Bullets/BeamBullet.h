@@ -9,7 +9,6 @@ public:
     virtual void update(float dt);
     float timePassed;
 
-    virtual void loadFont();
 private:
     float speed;
 

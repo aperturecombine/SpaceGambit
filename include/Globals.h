@@ -1,4 +1,7 @@
 #pragma once
+#define _USE_MATH_DEFINES
+#include <cmath>
+
 extern float SCREENWIDTH;
 extern float SCREENHEIGHT;
 

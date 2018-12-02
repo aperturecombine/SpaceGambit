@@ -7,7 +7,6 @@ GlueBullet::GlueBullet(sf::Vector2f p, sf::Vector2f v) {
     isAlive = true;
     radius = 5;
     attachShape();
-    loadFont();
 }
 
 void GlueBullet::update(float dt) {
@@ -26,14 +25,4 @@ void GlueBullet::checkBounds(float dt){
     {
         isAlive = false;
     }
-}
-
-void GlueBullet::loadFont(){
-
-  if (!bulletImage.loadFromFile("resources/ggun_bullet.png")) {
-    //  printf("Could not load\n ");
-  }
-  bulletTexture.loadFromImage(bulletImage);
-  bulletTexture.setSmooth(true);
-  bulletObject.setTexture(bulletTexture);
 }

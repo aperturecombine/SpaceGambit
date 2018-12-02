@@ -8,7 +8,6 @@ GuidedBullet::GuidedBullet(sf::Vector2f p, sf::Vector2f v, PlayState *refe) {
     radius = 5;
     ref = refe;
     attachShape();
-    loadFont();
 }
 
 void GuidedBullet::update(float dt) {
@@ -34,15 +33,4 @@ void GuidedBullet::update(float dt) {
     if (vel.x > 0) {bulletObject.rotate(180.f);}
     pos += vel * speed * dt;
 
-}
-
-void GuidedBullet::loadFont(){
-
-  if (!bulletImage.loadFromFile("resources/ggun_bullet.png")) {
-      //printf("Could not load\n");
-  }
-
-  bulletTexture.loadFromImage(bulletImage);
-  bulletTexture.setSmooth(true);
-  bulletObject.setTexture(bulletTexture);
 }

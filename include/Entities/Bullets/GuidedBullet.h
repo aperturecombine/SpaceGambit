@@ -8,7 +8,6 @@ public:
     ~GuidedBullet();
 
     virtual void update(float dt);
-    virtual void loadFont();
 private:
     float speed;
 

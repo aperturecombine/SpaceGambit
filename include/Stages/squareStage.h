@@ -4,7 +4,6 @@
 class squareStage : public Stages {
 
 public:
-
     squareStage();
     squareStage(sf::Vector2f p);
     //PlayState *ref;
@@ -16,7 +15,6 @@ public:
     void attachBoundary();
 
     b2ChainShape* backgroundShape;
-    void loadFont();
     void attachRandomJunctions();
     void draw(sf::RenderWindow *window);
     b2ChainShape* getBoundaryShape();

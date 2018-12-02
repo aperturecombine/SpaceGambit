@@ -46,11 +46,11 @@ void GameStateManager::pushState(int newState) {
         case PLAYSTATE:
 		{
 			// TODO: this is probably the wrong way to pass variables.
-			PlayState * newPlay = new PlayState(this);
+			PlayState * newPlay = new PlayState(this, 2);
 			int ship1Type = ((PickState *)getTop())->currentChoicePlayer[0];
 			int ship2Type = ((PickState *)getTop())->currentChoicePlayer[1];
-			newPlay->ship1.shipType = ship1Type;
-			newPlay->ship2.shipType = ship2Type;
+			//newPlay->ship1.shipType = ship1Type;
+			//newPlay->ship2.shipType = ship2Type;
 			printf("%d %d\n", ship1Type, ship2Type);
 			renderer->setShipTypes(ship1Type, ship2Type);
 			states.push(newPlay);
