@@ -7,6 +7,7 @@ public:
     ~BeamBullet();
 
     virtual void update(float dt);
+    virtual void loadFont();
     float timePassed;
 
 private:
