@@ -27,11 +27,15 @@ public:
 	void popState();
     int numPlayer = 2;
 
+	GameState * getTop() {
+		return states.top();
+	}
+
 	sf::RenderWindow window;
 
 private:
+	class Renderer * renderer;
 	std::stack<class GameState*> states;
-	int currentState;
 
 	bool running;
 };
