@@ -31,6 +31,7 @@ public:
     void attachShape();
 
     b2PolygonShape* getShape();
+    int shipType;
 
     float maxHealth;
     float currentHealth;
