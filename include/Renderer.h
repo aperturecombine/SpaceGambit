@@ -1,5 +1,6 @@
 #pragma once
 #include <string.h>
+#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include "States/GameState.h"
 #include "Renderer.h"
@@ -95,6 +96,10 @@ private:
 	sf::Sprite sP3;
 	sf::Texture textureP4;
 	sf::Sprite sP4;
+
+	sf::Music playMusic;
+	sf::Music menuMusic;
+	sf::Music pauseMusic;
 
 
 	// FINISHSTATE
