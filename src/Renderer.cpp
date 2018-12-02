@@ -5,6 +5,13 @@ Renderer::Renderer(GameStateManager * g) {
 	gsm = g;
 	if (!playMusic.openFromFile("resources/SpaceGambit_SampleLoop1.wav"))
     	printf("Failed to get music.\n");
+    playMusic.setLoop(true);
+    if (!menuMusic.openFromFile("resources/SpaceGambit_SampleLoop2.wav"))
+    	printf("Failed to get music.\n");
+    menuMusic.setLoop(true);
+    if (!pauseMusic.openFromFile("resources/SpaceGambit_SampleLoop3.wav"))
+    	printf("Failed to get music.\n");
+    pauseMusic.setLoop(true);
 }
 
 void Renderer::draw(sf::RenderWindow *window) {
@@ -312,7 +319,17 @@ void Renderer::loadImage(sf::Image * image, std::string filename) {
 
 void Renderer::setState(int newState) {
 	currState = newState;
+
+	// playMusic.stop();
+	// pauseMusic.stop();
+	// menuMusic.stop();
+
 	if (newState == MENUSTATE) {
+
+		pauseMusic.stop();
+		menuMusic.pause();
+		menuMusic.play();
+
 		loadFont(&font, "resources/spaceranger.ttf");
 		loadTexture(&texture, "resources/space_real.jpg");
 		background.setTexture(texture);
@@ -358,6 +375,8 @@ void Renderer::setState(int newState) {
 
 	else if (newState == PLAYSTATE) {
 
+		menuMusic.stop();
+		pauseMusic.stop();
 		playMusic.play();
 
 
@@ -415,6 +434,10 @@ void Renderer::setState(int newState) {
 	}
 
 	else if (newState == FINISHSTATE) {
+
+		playMusic.stop();
+		pauseMusic.play();
+
 		loadFont(&font, "resources/spaceranger.ttf");
 		loadTexture(&texture, "resources/good_game.jpg");
 		//texture.loadFromImage(image);
