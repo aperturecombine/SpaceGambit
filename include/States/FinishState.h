@@ -11,6 +11,7 @@ public:
     virtual void update(float deltams);
     virtual void draw(sf::RenderWindow *window);
     virtual void handleInput(sf::Event event);
+	int currentChoice;
     
 private:
     GameStateManager *gsm;
@@ -21,7 +22,6 @@ private:
     sf::Sprite background;
     sf::Image image;
     
-    int currentChoice;
     std::string options[2] = { "Replay", "Quit" };
     
     void moveUp() {

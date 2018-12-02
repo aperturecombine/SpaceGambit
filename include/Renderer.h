@@ -96,5 +96,9 @@ private:
 	sf::Texture textureP4;
 	sf::Sprite sP4;
 
+
+	// FINISHSTATE
+	std::string fOptions[2] = { "Replay", "Quit" };
+
 	int shipTypes[2];
 };

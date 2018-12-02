@@ -135,7 +135,6 @@ void Renderer::draw(sf::RenderWindow *window) {
 					turrets[t]->bullets[b]->pos - sf::Vector2f(bRadius, bRadius));
 				gsm->window.draw(turrets[t]->bullets[b]->shape); */
 
-				//sf::CircleShape testB = sf::CircleShape();
 				bulletCircle.setRadius(radius);
 				bulletCircle.setPosition(bullet->pos - sf::Vector2f(radius, radius));
 
@@ -267,6 +266,26 @@ void Renderer::draw(sf::RenderWindow *window) {
 			gsm->window.draw(text);
 		}
 	}
+	if (currState == FINISHSTATE) {
+		gsm->window.draw(background);
+		text.setCharacterSize(70);
+		text.setString("No!  You Died!");
+		centerText(&text, 150);
+		gsm->window.draw(text);
+
+		text.setCharacterSize(24);
+		for (int i = 0; i < 2; i++) {
+
+			if (i == ((FinishState *)state)->currentChoice) {
+				text.setString("> " + fOptions[i] + " <");
+			}
+			else {
+				text.setString(fOptions[i]);
+			}
+			centerText(&text, 300 + i * 40);
+			gsm->window.draw(text);
+		}
+	}
 }
 
 void Renderer::handleInput(sf::Event event) {
@@ -275,7 +294,7 @@ void Renderer::handleInput(sf::Event event) {
 
 void Renderer::loadFont(sf::Font * font, std::string filename) {
 	if (!font->loadFromFile(filename))
-		printf("Failed to load font.\n");
+		printf("Failed to load %s.\n", filename);
 }
 
 void Renderer::loadTexture(sf::Texture * texture, std::string filename) {
@@ -365,6 +384,18 @@ void Renderer::setState(int newState) {
 				(rocketShipObjects[i].getTexture()->getSize().x) / 2,
 				(rocketShipObjects[i].getTexture()->getSize().y) / 2);
 		}
+
+		// load pause fonts
+		loadTexture(&pauseTexture, "resources/pause.png");
+		pauseSprite.setTexture(pauseTexture);
+
+		pauseSprite.setScale(0.3f, 0.3f);
+		pauseSprite.setPosition(SCREENHEIGHT / 2 - pauseSprite.getGlobalBounds().width / 2, SCREENWIDTH / 2);
+		sf::Color color(220, 220, 220);
+		color.a = 90;
+		pauseState.setFillColor(color);
+		pauseState.setPosition(0, 0);
+		pauseState.setSize(sf::Vector2f(SCREENWIDTH, SCREENHEIGHT));
 	}
 
 	else if (newState == OPTIONSTATE) {
@@ -374,6 +405,20 @@ void Renderer::setState(int newState) {
 		background.setPosition(0, 0);
 		background.setScale(1.5f, 1.5f);
 		text.setFont(font);
+	}
+
+	else if (newState == FINISHSTATE) {
+		loadFont(&font, "resources/spaceranger.ttf");
+		loadTexture(&texture, "resources/good_game.jpg");
+		//texture.loadFromImage(image);
+		background.setTexture(texture);
+		background.setPosition(0, 0);
+
+		//    auto size = background.getTexture()->getSize();
+		background.setScale(0.5f, 0.5f);
+
+		text.setFont(font);
+		text.setFillColor(sf::Color::Red);
 	}
 }
 
