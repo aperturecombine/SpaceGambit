@@ -4,7 +4,7 @@
 RailGunTurret::RailGunTurret(sf::Vector2f p) {
     pos = p;
     fireRate = 5;
-    counter = fireRate;
+    counter = fireRate/2;
     firingRange = 500;
 	damage = 5;
     withinfiringRange = false;
