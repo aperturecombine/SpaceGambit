@@ -11,16 +11,18 @@ float MAXSPEED = 500;
 float STAGETIME = 30;
 
 
+sf::Keyboard::Key PlayerOne_Up = sf::Keyboard::Up;
+sf::Keyboard::Key PlayerOne_Down = sf::Keyboard::Down;
+sf::Keyboard::Key PlayerOne_Left = sf::Keyboard::Left;
+sf::Keyboard::Key PlayerOne_Right = sf::Keyboard::Right;
 
-sf::Keyboard::Key PlayerTwo_Up = sf::Keyboard::Up;
-sf::Keyboard::Key PlayerTwo_Down = sf::Keyboard::Down;
-sf::Keyboard::Key PlayerTwo_Left = sf::Keyboard::Left;
-sf::Keyboard::Key PlayerTwo_Right = sf::Keyboard::Right;
 
-sf::Keyboard::Key PlayerOne_Up = sf::Keyboard::W;
-sf::Keyboard::Key PlayerOne_Down = sf::Keyboard::S;
-sf::Keyboard::Key PlayerOne_Left = sf::Keyboard::A;
-sf::Keyboard::Key PlayerOne_Right = sf::Keyboard::D;
+sf::Keyboard::Key PlayerTwo_Up = sf::Keyboard::W;
+sf::Keyboard::Key PlayerTwo_Down = sf::Keyboard::S;
+sf::Keyboard::Key PlayerTwo_Left = sf::Keyboard::A;
+sf::Keyboard::Key PlayerTwo_Right = sf::Keyboard::D;
+
+
 
 
 
