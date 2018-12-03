@@ -78,7 +78,7 @@ void Renderer::draw(sf::RenderWindow *window) {
 
 		text.setCharacterSize(80);
 
-        
+
         if (((PickState *)state)->players == 2)
         {
             text.setString("Strength");
@@ -99,39 +99,39 @@ void Renderer::draw(sf::RenderWindow *window) {
             centerText(&text, 600);
             text.setPosition (SCREENWIDTH/4 + text.getGlobalBounds().width/2, 600);
             gsm->window.draw(text);
-            
+
             text.setString("Speed");
             centerText(&text, 700);
             text.setPosition (SCREENWIDTH/4 + text.getGlobalBounds().width/2, 700);
             gsm->window.draw(text);
-            
+
             text.setString("Defense");
             centerText(&text, 800);
             text.setPosition (SCREENWIDTH/4 + text.getGlobalBounds().width/2, 800);
             gsm->window.draw(text);
         }
-        
-        
-        
+
+
+
 
 		//draw status bars and ship sprite
-        
+
         for (int i = 0; i < ((PickState *)state) ->players; i++) {
             sp[i].setPosition(  (  (SCREENWIDTH*3/2)/(((PickState *)state)->players + 1)*(i+1)   ) - ( (SCREENWIDTH*3/2)/2 - SCREENWIDTH/2 ), 300);
             gsm->window.draw(sp[i]);
-            
+
             strength[i].setPosition( (sp[i].getPosition().x), 600);
             gsm->window.draw(strength[i]);
-            
+
             speed[i].setPosition(sp[i].getPosition().x, 700);
             gsm->window.draw(speed[i]);
-            
+
             defense[i].setPosition(sp[i].getPosition().x, 800);
             gsm->window.draw(defense[i]);
-            
+
             //        std::cout << "x Position" << (SCREENWIDTH/(2 + players)*(i+1) << std::endl;
         }
-        
+
         for (int i = 0; i < ((PickState *)state)->players; i++) {
             if (((PickState *)state)->playerConfirmation[i] == 1)
                 text.setString("Selected");
@@ -141,8 +141,8 @@ void Renderer::draw(sf::RenderWindow *window) {
             text.setPosition((sp[i].getPosition().x), text.getPosition().y);
             gsm->window.draw(text);
         }
-        
-        
+
+
         text.setCharacterSize(60);
         text.setString("Use the Left/Right Keys to Select Rocket");
         centerText(&text, SCREENHEIGHT - (text.getGlobalBounds().height*3) - 10);
@@ -154,9 +154,9 @@ void Renderer::draw(sf::RenderWindow *window) {
         centerText(&text, SCREENHEIGHT - text.getGlobalBounds().height - 10);
         gsm->window.draw(text);
 
-        
-        
-        
+
+
+
 	}
 
 	if (currState == PLAYSTATE) {
@@ -456,7 +456,7 @@ void Renderer::setState(int newState) {
 		playMusic.play();
 
 
-		loadImage(&image, "resources/space_background.jpg");
+		loadImage(&image, "resources/LV1.JPG");
 
 		printf("newState PLAYSTATE: %d %d\n", shipTypes[0], shipTypes[1]);
 		for (int i = 0; i < 2; i++) {

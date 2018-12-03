@@ -17,7 +17,6 @@
 
 PlayState::PlayState(class GameStateManager *g, int numPlayer) {
     gsm = g;
-	stateID = PLAYSTATE;
     turretCount = 6;
     stageTimer = STAGETIME;
     level = 1;
@@ -163,31 +162,9 @@ void PlayState::draw(sf::RenderWindow *window) {
 
     //window->clear(sf::Color::);
     window->draw(background);
-    
-    sf::ConvexShape triangle;
-    triangle.setPointCount(3);
-    triangle.setPoint(0, sf::Vector2f(0, 0));
-    triangle.setPoint(1, sf::Vector2f(0,SCREENHEIGHT/3));
-    triangle.setPoint(2,sf::Vector2f(SCREENWIDTH/3, 0));
-    //sf::Color color(45,30,87);
-    triangle.setFillColor(sf::Color::Black);
-    window->draw(triangle);
-    
-    triangle.setPoint(0, sf::Vector2f(0, 2*SCREENHEIGHT/3));
-    triangle.setPoint(1, sf::Vector2f(0,SCREENHEIGHT));
-    triangle.setPoint(2,sf::Vector2f(SCREENWIDTH/3, SCREENHEIGHT));
-    window->draw(triangle);
-    
-    triangle.setPoint(0, sf::Vector2f(SCREENWIDTH*2/3, 0));
-    triangle.setPoint(1, sf::Vector2f(SCREENWIDTH,0));
-    triangle.setPoint(2,sf::Vector2f(SCREENWIDTH, SCREENHEIGHT/3));
-    window->draw(triangle);
-    
-    triangle.setPoint(0, sf::Vector2f(SCREENWIDTH, SCREENHEIGHT*2/3));
-    triangle.setPoint(1, sf::Vector2f(SCREENWIDTH,SCREENHEIGHT));
-    triangle.setPoint(2,sf::Vector2f(SCREENWIDTH*2/3, SCREENHEIGHT));
-    window->draw(triangle);
-    
+
+
+
     //window->draw(shipHealth1);
     window->draw(ship1.rocketShipObject);
     if (twoPlayerMode) {
@@ -355,17 +332,7 @@ void PlayState::draw(sf::RenderWindow *window) {
     window->draw(timerCount);
 
 
-    if(pause){
-    window->draw(pauseState);
-    window->draw(pauseSprite);
-    sf::Text pauseNotif;
-    pauseNotif.setFont(font);
-    pauseNotif.setFillColor(sf::Color::Black);
-    pauseNotif.setString("Game Paused" );
-    pauseNotif.setCharacterSize(80);
-    pauseNotif.setPosition(SCREENWIDTH/2 - pauseNotif.getGlobalBounds().width/2, SCREENHEIGHT/2 - 200);
-    window->draw(pauseNotif);
-    }
+
 
 
 
@@ -394,7 +361,7 @@ void PlayState::handleInput(sf::Event event) {
     {
         pause = true;
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))
     {
         pause = false;
     }
@@ -483,6 +450,8 @@ void PlayState::checkCollisions() {
                         ship2.vel.x += 2*ship2.vel.x;
                         ship2.vel.y += 2*ship2.vel.y;
                         break;
+
+
                 }
                 powerups.erase(powerups.begin() + p);
             }
@@ -522,7 +491,7 @@ void PlayState::checkCollisions() {
 
         if (part1_collision){
             printf("ship1 collide with turret\n");
-            if (ship1.currentHealth != 0) ship1.currentHealth -= turrets[t]->damage;
+            if (ship1.currentHealth != 0) ship1.currentHealth -= 1;
 
             //if (ship1.vel.x > 0 | ship1.vel.y > 0)
             ship1.freeze = true;
@@ -563,16 +532,19 @@ void PlayState::checkCollisions() {
      if (shipCollide){
      b2WorldManifold worldManifold;
      b2Manifold manifold;
-     worldManifold.Initialize(&manifold, b2Transform(b2Vec2(ship1.pos.x, ship1.pos.y), ship1.m_radius,b2Transform(b2Vec2(ship2.pos.x, ship2.pos.y), ship2.m_radius);
-     for (int32 i = 0; i < manifold.pointCount; ++i)
-     {
-     b2Vec2 point = worldManifold.points[i];
+     worldManifold.Initialize(&manifold, b2Transform(b2Vec2(ship1.pos.x, ship1.pos.y),b2Rot(0.0f)),ship1.getShape()->m_radius,b2Transform(b2Vec2(ship2.pos.x, ship2.pos.y), b2Rot(0.0f)), ship2.getShape()->m_radius);
+
+     b2Vec2 point = worldManifold.points[0];
      resolveCollision(point, ship1,ship2);
-     }
-     }
-     **/
+
+   }
+   **/
+
+
     //ship collisions
     for (int t = 0; t < turrets.size(); t++) {
+
+
         for (int b = 0; b < turrets[t]->bullets.size(); b++) {
 
             //printf("bullet size%f\n", turrets[t]->bullets[b]->getShape()->m_radius);
@@ -588,6 +560,7 @@ void PlayState::checkCollisions() {
             if (part1_collision){
                 //printf("Ship1 got shot\n");
 
+
                 if (ship1.currentHealth != 0) ship1.currentHealth -= 1;
 
                 turrets[t]->bullets.erase(turrets[t]->bullets.begin() + b);
@@ -598,10 +571,10 @@ void PlayState::checkCollisions() {
             }
             if (twoPlayerMode) {
                 if (part2_collision){
-                    if (ship2.currentHealth != 0)
-						ship2.currentHealth -= turrets[t]->damage;
+                    if ( ship2.currentHealth != 0) ship2.currentHealth -= .1;
 
                     turrets[t]->bullets.erase(turrets[t]->bullets.begin() + b);
+
                 }
             }
 
