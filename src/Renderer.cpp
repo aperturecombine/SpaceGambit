@@ -263,10 +263,10 @@ void Renderer::draw(sf::RenderWindow *window) {
 		//HUD; later to be refactored into render class
 		// position HUD frame
 		if (!((PlayState *)state)->twoPlayerMode) {
-		loadTexture(&hudTexture, "resources/HPfP1.png");
+		loadTexture(&hudTexture, "resources/HUD_1player.png");
 	}
 	else{
-		loadTexture(&hudTexture, "resources/HPPVP.jpg");
+		loadTexture(&hudTexture, "resources/HUD_2player.png");
 	}
 		//hudTexture.loadFromImage(hudImage);
 		sf::Sprite hud;
