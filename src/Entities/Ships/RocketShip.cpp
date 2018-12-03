@@ -18,7 +18,7 @@ RocketShip::RocketShip(sf::Vector2f p) {
 	bounceAccumulator = 5;
 	bounceFactor = 3;
 
-	maxHealth = 5;
+	maxHealth = 100;
 	currentHealth = maxHealth;
 
 	points = 0;
