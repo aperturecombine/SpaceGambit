@@ -7,7 +7,7 @@ GameStateManager::GameStateManager() {
     window.setVerticalSyncEnabled(true);
     
 	renderer = new Renderer(this);
-
+	
     pushState(MENUSTATE);
     running = true;
 }
@@ -79,7 +79,7 @@ void GameStateManager::popState() {
 }
 
 void GameStateManager::returnToMenu() {
-	while (this->states.top()->stateID != MENUSTATE) {
+	while (states.size() > 1) {
 		printf("poppers\n");
 		popState();
 	}
