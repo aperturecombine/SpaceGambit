@@ -133,6 +133,10 @@ void PlayState::update(float deltams) {
           gsm->pushState(FINISHSTATE);
         //else if (ship1.health <= 0 && (twoPlayerMode))
           //gsm->pushState(TWOPLAYERFINISHSTATE);
+        else if(twoPlayerMode) {
+            if (ship1.currentHealth <= 0) gsm->pushState(FINISHSTATE);
+            if (ship2.currentHealth <= 0) gsm->pushState(FINISHSTATE);
+        }
 
         ship1.update(deltams);
         if (twoPlayerMode) {
@@ -572,7 +576,7 @@ void PlayState::checkCollisions() {
                 //printf("Ship1 got shot\n");
 
 
-                if (ship1.currentHealth != 0) ship1.currentHealth -= 1;
+                if (ship1.currentHealth > 0) ship1.currentHealth -= 1;
 
                 turrets[t]->bullets.erase(turrets[t]->bullets.begin() + b);
 
@@ -582,7 +586,7 @@ void PlayState::checkCollisions() {
             }
             if (twoPlayerMode) {
                 if (part2_collision){
-                    if ( ship2.currentHealth != 0) ship2.currentHealth -= .1;
+                    if ( ship2.currentHealth > 0) ship2.currentHealth -= .1;
 
                     turrets[t]->bullets.erase(turrets[t]->bullets.begin() + b);
 
@@ -646,7 +650,7 @@ void PlayState::checkCollisions() {
 
             if (part2_collision){
                 printf("ship2 collide with boundary\n");
-                if (ship2.currentHealth != 0) ship2.currentHealth -= 1;
+                if (ship2.currentHealth > 0) ship2.currentHealth -= 1;
                 ship2.freeze = true;
                 ship2.freezePosition.x = ship2.pos.x;
                 ship2.freezePosition.y = ship2.pos.y;
