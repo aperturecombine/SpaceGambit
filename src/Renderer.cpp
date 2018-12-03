@@ -8,6 +8,8 @@ Renderer::Renderer(GameStateManager * g) {
 }
 
 void Renderer::draw(sf::RenderWindow *window) {
+
+
 	state = gsm->getTop();
 	if (currState == MENUSTATE) {
 		//TODO: This really only needs to be called when actually changed, but whatever
@@ -101,7 +103,29 @@ void Renderer::draw(sf::RenderWindow *window) {
 		//window->clear(sf::Color::);
 		window->draw(background);
 		//window->draw(shipHealth1);
+		sf::ConvexShape triangle;
+    triangle.setPointCount(3);
+    triangle.setPoint(0, sf::Vector2f(0, 0));
+    triangle.setPoint(1, sf::Vector2f(0,SCREENHEIGHT/3));
+    triangle.setPoint(2,sf::Vector2f(SCREENWIDTH/3, 0));
+    //sf::Color color(45,30,87);
+    triangle.setFillColor(sf::Color::Black);
+    window->draw(triangle);
 
+    triangle.setPoint(0, sf::Vector2f(0, 2*SCREENHEIGHT/3));
+    triangle.setPoint(1, sf::Vector2f(0,SCREENHEIGHT));
+    triangle.setPoint(2,sf::Vector2f(SCREENWIDTH/3, SCREENHEIGHT));
+    window->draw(triangle);
+
+    triangle.setPoint(0, sf::Vector2f(SCREENWIDTH*2/3, 0));
+    triangle.setPoint(1, sf::Vector2f(SCREENWIDTH,0));
+    triangle.setPoint(2,sf::Vector2f(SCREENWIDTH, SCREENHEIGHT/3));
+    window->draw(triangle);
+
+    triangle.setPoint(0, sf::Vector2f(SCREENWIDTH, SCREENHEIGHT*2/3));
+    triangle.setPoint(1, sf::Vector2f(SCREENWIDTH,SCREENHEIGHT));
+    triangle.setPoint(2,sf::Vector2f(SCREENWIDTH*2/3, SCREENHEIGHT));
+    window->draw(triangle);
 		rocketShipObjects[0].setPosition(((PlayState *)state)->ship1.pos);
 		window->draw(rocketShipObjects[0]);
 		if (((PlayState *)state)->twoPlayerMode) {
@@ -109,9 +133,9 @@ void Renderer::draw(sf::RenderWindow *window) {
 			window->draw(rocketShipObjects[1]);
 		}
 
-		/*for (int p = 0; p < ((PlayState *)state)->powerups.size(); p++) {
+		for (int p = 0; p < ((PlayState *)state)->powerups.size(); p++) {
 			window->draw(((PlayState *)state)->powerups[p]->pSprite);
-		}*/
+		}
 
 		//HUD; later to be refactored into render class
 		for (int t = 0; t < ((PlayState *)state)->turrets.size(); t++) {
@@ -120,27 +144,26 @@ void Renderer::draw(sf::RenderWindow *window) {
 		}
 
 		//draw bullets
-		sf::CircleShape bulletCircle;
-		bulletCircle.setFillColor(sf::Color::Red);
+		//sf::CircleShape bulletCircle;
+		//bulletCircle.setFillColor(sf::Color::Red);
 
 		for (int t = 0; t < ((PlayState *)state)->turrets.size(); t++) {
-			//TODO: draw turrets here?
+
 			for (int b = 0; b < ((PlayState *)state)->turrets[t]->bullets.size(); b++) {
-				Bullet * bullet = ((PlayState *)state)->turrets[t]->bullets[b];
-				float radius = bullet->radius;
+				//Bullet * bullet = ((PlayState *)state)->turrets[t]->bullets[b];
 
 				// sprite/texture code for bullets
-				/* turrets[t]->bullets[b]->shape =  sf::CircleShape();
-				float bRadius = turrets[t]->bullets[b]->radius;
-				turrets[t]->bullets[b]->shape.setRadius(bRadius);
-				turrets[t]->bullets[b]->shape.setPosition(
-					turrets[t]->bullets[b]->pos - sf::Vector2f(bRadius, bRadius));
-				gsm->window.draw(turrets[t]->bullets[b]->shape); */
+			 	//turrets[t]->bullets[b]->shape =  sf::CircleShape();
+				float bRadius = ((PlayState *)state)->turrets[t]->bullets[b]->radius;
+				((PlayState *)state)->turrets[t]->bullets[b]->bulletObject.setScale(.01f*bRadius,.01f*bRadius);
+				((PlayState *)state)->turrets[t]->bullets[b]->bulletObject.setPosition(
+					((PlayState *)state)->turrets[t]->bullets[b]->pos - sf::Vector2f(.01f*bRadius, .01f*bRadius));
+				gsm->window.draw(((PlayState *)state)->turrets[t]->bullets[b]->bulletObject);
 
-				bulletCircle.setRadius(radius);
-				bulletCircle.setPosition(bullet->pos - sf::Vector2f(radius, radius));
+				//bulletCircle.setRadius(radius);
+				//bulletCircle.setPosition(bullet->pos - sf::Vector2f(radius, radius));
 
-				gsm->window.draw(bulletCircle);
+				//gsm->window.draw(bulletCircle);
 			}
 		}
 
@@ -306,7 +329,7 @@ void Renderer::loadTexture(sf::Texture * texture, std::string filename) {
 }
 
 void Renderer::loadImage(sf::Image * image, std::string filename) {
-	if (!image->loadFromFile(filename)) 
+	if (!image->loadFromFile(filename))
 		printf("Failed to load image.\n");
 }
 
