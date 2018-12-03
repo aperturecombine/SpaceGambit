@@ -17,7 +17,9 @@ OptionState::OptionState(class GameStateManager *g) {
     
     background.setTexture(texture);
     background.setPosition(0, 0);
-    background.setScale(1.5f, 1.5f);
+    
+    auto size = background.getTexture()->getSize();
+    background.setScale(float(SCREENWIDTH)/size.x, float(SCREENHEIGHT) / size.y);
     text.setFont(font);
     text.setFillColor(sf::Color::White);
 }
