@@ -6,22 +6,24 @@ MenuState::MenuState(class GameStateManager *g) {
     gsm = g;
     currentChoice = 0;
 	stateID = MENUSTATE;
-    
+
     if (!font.loadFromFile("resources/spaceranger.ttf")) {
         printf("Could not load font");
     }
-    
-    if(!texture.loadFromFile("resources/space_real.jpg")) {
+
+    if(!texture.loadFromFile("resources/LV2.JPG")) {
         printf("Could not load background");
     }
-    
+
     background.setTexture(texture);
-    
+
     background.setPosition(0, 0);
-    background.setScale(1.5f, 1.5f);
+    auto size = background.getTexture()->getSize();
+    background.setScale(float(SCREENWIDTH)/size.x, float(SCREENHEIGHT)/size.y);
+    
     text.setFont(font);
     text.setFillColor(sf::Color::White);
-    
+
     gsm->window.setKeyRepeatEnabled(false);
 }
 
@@ -34,9 +36,9 @@ void MenuState::draw(sf::RenderWindow *window) {
     text.setString("Space Gambit");
     centerText(&text, SCREENHEIGHT*0.1);
     gsm->window.draw(text);
-    
+
     text.setCharacterSize(70);
-    
+
     for (int i = 0; i < 3; i++) {
         if (i == currentChoice)
             text.setString("> " + options[i] + " <");
