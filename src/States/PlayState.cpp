@@ -410,16 +410,25 @@ void PlayState::createPowerUps(){
     int pOfPup = (rand() % 10) + 1;
 
 
-    int pOfupX = (rand() % 1500) ;
+    int pOfupX = 0;
 
-    int pOfupY = (rand() % 1500) ;
+    do {
+      pOfupX = (rand() % int(SCREENWIDTH)) ;
+    } while( pOfupX <SCREENWIDTH /4  && pOfupX> SCREENWIDTH *3/4 );
 
-    if (pOfPup <= 3){
+    int pOfupY  = 0 ;
+    do {
+      pOfupY = (rand() % int(SCREENHEIGHT)) ;
+    } while( pOfupY <SCREENHEIGHT/4  && pOfupY> SCREENHEIGHT *3/4 );
+
+    printf(pOfupX + "\n");
+    printf(pOfupY + "\n");
+    if (pOfPup <= 5){
         health *Health = new health(sf::Vector2f(pOfupX,pOfupY));
         powerups.push_back(Health);
     }
 
-    else if (pOfPup <= 6){
+    else if (pOfPup <= 9){
         speed *Speed = new speed(sf::Vector2f(pOfupX,pOfupY));
         powerups.push_back(Speed);
     }
@@ -549,7 +558,7 @@ void PlayState::checkCollisions() {
         // ship2.bounce( , ship1.bounceFactor);
     }
 
-    
+
      if (shipCollide){
         b2WorldManifold worldManifold;
          b2Manifold manifold;
@@ -565,12 +574,12 @@ void PlayState::checkCollisions() {
          ship1.bounce(collisionPoint, ship2.bounceFactor);
          ship2.bounce(collisionPoint, ship1.bounceFactor);
 
-     
+
          }
 
 
-         
-     
+
+
 
 
     //ship collisions
