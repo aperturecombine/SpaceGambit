@@ -407,16 +407,25 @@ void PlayState::createPowerUps(){
     int pOfPup = (rand() % 10) + 1;
 
 
-    int pOfupX = (rand() % 1500) ;
+    int pOfupX = 0;
 
-    int pOfupY = (rand() % 1500) ;
+    do {
+      pOfupX = (rand() % int(SCREENWIDTH)) ;
+    } while( pOfupX <SCREENWIDTH /4  && pOfupX> SCREENWIDTH *3/4 );
 
-    if (pOfPup <= 3){
+    int pOfupY  = 0 ;
+    do {
+      pOfupY = (rand() % int(SCREENHEIGHT)) ;
+    } while( pOfupY <SCREENHEIGHT/4  && pOfupY> SCREENHEIGHT *3/4 );
+
+    printf(pOfupX + "\n");
+    printf(pOfupY + "\n");
+    if (pOfPup <= 5){
         health *Health = new health(sf::Vector2f(pOfupX,pOfupY));
         powerups.push_back(Health);
     }
 
-    else if (pOfPup <= 6){
+    else if (pOfPup <= 9){
         speed *Speed = new speed(sf::Vector2f(pOfupX,pOfupY));
         powerups.push_back(Speed);
     }
@@ -544,7 +553,7 @@ void PlayState::checkCollisions() {
         // ship2.bounce( , ship1.bounceFactor);
     }
 
-    
+
      if (shipCollide){
         b2WorldManifold worldManifold;
          b2Manifold manifold;
@@ -560,12 +569,12 @@ void PlayState::checkCollisions() {
          ship1.bounce(collisionPoint, ship2.bounceFactor);
          ship2.bounce(collisionPoint, ship1.bounceFactor);
 
-     
+
          }
 
 
-         
-     
+
+
 
 
     //ship collisions
@@ -764,23 +773,6 @@ void PlayState::generateTurrets() {
             break;
         }
 
-
-        case 4 : // outer most
-        {
-            turretID = randomButNotRandomSelector();
-            for (int a = 1; a < 3; a++)
-            {
-                for (int b = 1; b < 3; b++)
-                {
-                    x = ((SCREENWIDTH/2) + ((SCREENWIDTH/3) * (pow(-1,a))));
-                    y = ((SCREENHEIGHT/2) + ((SCREENHEIGHT/3) * (pow(-1,b))));
-                    turretSelect(turretID, sf::Vector2f(x, y));
-                }
-            }
-            std::cout << "Case 4 COMPLETED: "<< level << std::endl;
-            break;
-        }
-
         default:
         {
             std::cout << "Default Case: "<< level << std::endl;
@@ -793,7 +785,6 @@ void PlayState::generateTurrets() {
                     turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/7) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/6) * (pow(-1,b)))));
                     turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/4) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/6) * (pow(-1,b)))));
                     turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/7) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/3) * (pow(-1,b)))));
-                    turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/2.2) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/3) * (pow(-1,b)))));
                 }
             }
             break;
