@@ -3,7 +3,7 @@
 #include "../../include/Renderer.h"
 
 GameStateManager::GameStateManager() {
-    window.create(sf::VideoMode(SCREENWIDTH, SCREENHEIGHT), "Space Gambit");
+    window.create(sf::VideoMode(SCREENWIDTH, SCREENHEIGHT), "Space Gambit", sf::Style::Titlebar | sf::Style::Close);
     window.setVerticalSyncEnabled(true);
     
 	renderer = new Renderer(this);
