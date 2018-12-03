@@ -229,7 +229,12 @@ void Renderer::draw(sf::RenderWindow *window) {
 
 		//HUD; later to be refactored into render class
 		// position HUD frame
-
+		if (!((PlayState *)state)->twoPlayerMode) {
+		loadTexture(&hudTexture, "resources/HPfP1.png");
+	}
+	else{
+		loadTexture(&hudTexture, "resources/HPPVP.jpg");
+	}
 		//hudTexture.loadFromImage(hudImage);
 		sf::Sprite hud;
 		hud.setTexture(hudTexture);
@@ -244,7 +249,7 @@ void Renderer::draw(sf::RenderWindow *window) {
 		bar.setPosition(10, 20);
 
 		health.setFillColor(sf::Color::Red);
-		health.setSize(sf::Vector2f(100 * (((PlayState *)state)->ship1.currentHealth / ((PlayState *)state)->ship1.maxHealth), 50));
+		health.setSize(sf::Vector2f(700* (((PlayState *)state)->ship1.currentHealth / ((PlayState *)state)->ship1.maxHealth), 50));
 		health.setPosition(10, 20);
 
 		loadFont(&font, "resources/spaceranger.ttf");
@@ -268,7 +273,7 @@ void Renderer::draw(sf::RenderWindow *window) {
 
 			sf::RectangleShape health2;
 			bar2.setFillColor(sf::Color::Red);
-			health2.setSize(sf::Vector2f(100 * (((PlayState *)state)->ship2.currentHealth / ((PlayState *)state)->ship2.maxHealth), 50));
+			health2.setSize(sf::Vector2f(700 * (((PlayState *)state)->ship2.currentHealth / ((PlayState *)state)->ship2.maxHealth), 50));
 			health2.setPosition(SCREENWIDTH - 250, 20);
 
 			text2.setFont(font);
@@ -498,6 +503,9 @@ void Renderer::setState(int newState) {
 		pauseState.setFillColor(color);
 		pauseState.setPosition(0, 0);
 		pauseState.setSize(sf::Vector2f(SCREENWIDTH, SCREENHEIGHT));
+
+
+
 	}
 
 	else if (newState == OPTIONSTATE) {
