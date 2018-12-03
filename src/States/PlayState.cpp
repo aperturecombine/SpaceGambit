@@ -142,6 +142,10 @@ void PlayState::update(float deltams) {
           gsm->pushState(FINISHSTATE);
         //else if (ship1.health <= 0 && (twoPlayerMode))
           //gsm->pushState(TWOPLAYERFINISHSTATE);
+        else if(twoPlayerMode) {
+            if (ship1.currentHealth <= 0) gsm->pushState(FINISHSTATE);
+            if (ship2.currentHealth <= 0) gsm->pushState(FINISHSTATE);
+        }
 
         ship1.update(deltams);
         if (twoPlayerMode) {
@@ -537,25 +541,36 @@ void PlayState::checkCollisions() {
     }
 
 
-
+    bool shipCollide = false;
     //ship-ship collision
     if (twoPlayerMode) {
-        bool shipCollide = b2TestOverlap(ship1.getShape(),0, ship2.getShape(),0,b2Transform(b2Vec2(ship1.pos.x, ship1.pos.y), b2Rot(0.0f)),b2Transform(b2Vec2(ship2.pos.x, ship2.pos.y), b2Rot(0.0f)));
+        shipCollide = b2TestOverlap(ship1.getShape(),0, ship2.getShape(),0,b2Transform(b2Vec2(ship1.pos.x, ship1.pos.y), b2Rot(0.0f)),b2Transform(b2Vec2(ship2.pos.x, ship2.pos.y), b2Rot(0.0f)));
         // ship1.bounce( , ship2.bounceFactor);
         // ship2.bounce( , ship1.bounceFactor);
     }
 
-    /**
+    
      if (shipCollide){
-     b2WorldManifold worldManifold;
-     b2Manifold manifold;
-     worldManifold.Initialize(&manifold, b2Transform(b2Vec2(ship1.pos.x, ship1.pos.y),b2Rot(0.0f)),ship1.getShape()->m_radius,b2Transform(b2Vec2(ship2.pos.x, ship2.pos.y), b2Rot(0.0f)), ship2.getShape()->m_radius);
+        b2WorldManifold worldManifold;
+         b2Manifold manifold;
 
-     b2Vec2 point = worldManifold.points[0];
-     resolveCollision(point, ship1,ship2);
+         worldManifold.Initialize(&manifold, b2Transform(b2Vec2(ship1.pos.x, ship1.pos.y), b2Rot(0.0f)),ship1.getShape()->m_radius ,b2Transform(b2Vec2(ship2.pos.x, ship2.pos.y),b2Rot(0.0f)), ship2.getShape()->m_radius);
 
-   }
-   **/
+         b2Vec2 point = worldManifold.points[0];
+
+         sf::Vector2f collisionPoint;
+         collisionPoint.x = point.x;
+         collisionPoint.y = point.y;
+
+         ship1.bounce(collisionPoint, ship2.bounceFactor);
+         ship2.bounce(collisionPoint, ship1.bounceFactor);
+
+     
+         }
+
+
+         
+     
 
 
     //ship collisions
@@ -578,7 +593,7 @@ void PlayState::checkCollisions() {
                 //printf("Ship1 got shot\n");
 
 
-                if (ship1.currentHealth != 0) ship1.currentHealth -= 1;
+                if (ship1.currentHealth > 0) ship1.currentHealth -= 1;
 
                 turrets[t]->bullets.erase(turrets[t]->bullets.begin() + b);
 
@@ -588,7 +603,7 @@ void PlayState::checkCollisions() {
             }
             if (twoPlayerMode) {
                 if (part2_collision){
-                    if ( ship2.currentHealth != 0) ship2.currentHealth -= .1;
+                    if ( ship2.currentHealth > 0) ship2.currentHealth -= .1;
 
                     turrets[t]->bullets.erase(turrets[t]->bullets.begin() + b);
 
@@ -652,7 +667,7 @@ void PlayState::checkCollisions() {
 
             if (part2_collision){
                 printf("ship2 collide with boundary\n");
-                if (ship2.currentHealth != 0) ship2.currentHealth -= 1;
+                if (ship2.currentHealth > 0) ship2.currentHealth -= 1;
                 ship2.freeze = true;
                 ship2.freezePosition.x = ship2.pos.x;
                 ship2.freezePosition.y = ship2.pos.y;
