@@ -4,6 +4,7 @@
 
 OptionState::OptionState(class GameStateManager *g) {
     gsm = g;
+	stateID = OPTIONSTATE;
     currentChoice = 0;
     counter = 5;
     if (!font.loadFromFile("resources/spaceranger.ttf")) {

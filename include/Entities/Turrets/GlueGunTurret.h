@@ -16,7 +16,6 @@ public:
     sf::Vector2f getInitBulletVel();
 
     sf::Vector2f normalize(sf::Vector2f & v);
-    int type_id = 5;
     float counter1;
     float counter2;
     float linger;

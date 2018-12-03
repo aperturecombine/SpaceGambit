@@ -6,6 +6,7 @@ BoomerangTurret::BoomerangTurret(sf::Vector2f p) {
     fireRate = .45;
     counter = fireRate;
     firingRange = 300;
+	damage = 5;
     withinfiringRange = false;
     attachShape();
 

@@ -6,10 +6,11 @@ RailGunTurret::RailGunTurret(sf::Vector2f p) {
     fireRate = 5;
     counter = fireRate;
     firingRange = 500;
+	damage = 5;
     withinfiringRange = false;
     attachShape();
 
-    if (!turretImage.loadFromFile("resources/railGunTurret.png")) {
+    if (!turretImage.loadFromFile("resources/base_allgun.png")) {
         printf("Could not load turret\n");
     }
 
@@ -52,7 +53,7 @@ sf::Vector2f RailGunTurret::getInitBulletVel() {
     if(ref->twoPlayerMode){
         sf::Vector2f ship2_init = (ref->ship2.pos - pos);
         float ship2_dist = pow((ship2_init.x*ship2_init.x + ship2_init.y*ship2_init.y),0.5);
-        
+
         if (ship1_dist < ship2_dist)
         {
             if (ship1_dist < firingRange) {withinfiringRange=true;}

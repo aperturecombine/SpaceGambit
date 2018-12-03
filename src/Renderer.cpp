@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "./Renderer.h"
+#include "../include/Renderer.h"
 
 Renderer::Renderer(GameStateManager * g) {
 	gsm = g;
@@ -15,6 +15,8 @@ Renderer::Renderer(GameStateManager * g) {
 }
 
 void Renderer::draw(sf::RenderWindow *window) {
+
+
 	state = gsm->getTop();
 	if (currState == MENUSTATE) {
 		//TODO: This really only needs to be called when actually changed, but whatever
@@ -76,39 +78,114 @@ void Renderer::draw(sf::RenderWindow *window) {
 
 		text.setCharacterSize(80);
 
-		text.setString("Strength");
-		centerText(&text, 600);
-		gsm->window.draw(text);
 
-		text.setString("Speed");
-		centerText(&text, 700);
-		gsm->window.draw(text);
+        if (((PickState *)state)->players == 2)
+        {
+            text.setString("Strength");
+            centerText(&text, 600);
+            gsm->window.draw(text);
 
-		text.setString("Defense");
-		centerText(&text, 800);
-		gsm->window.draw(text);
+            text.setString("Speed");
+            centerText(&text, 700);
+            gsm->window.draw(text);
+
+            text.setString("Defense");
+            centerText(&text, 800);
+            gsm->window.draw(text);
+        }
+        else
+        {
+            text.setString("Strength");
+            centerText(&text, 600);
+            text.setPosition (SCREENWIDTH/4 + text.getGlobalBounds().width/2, 600);
+            gsm->window.draw(text);
+
+            text.setString("Speed");
+            centerText(&text, 700);
+            text.setPosition (SCREENWIDTH/4 + text.getGlobalBounds().width/2, 700);
+            gsm->window.draw(text);
+
+            text.setString("Defense");
+            centerText(&text, 800);
+            text.setPosition (SCREENWIDTH/4 + text.getGlobalBounds().width/2, 800);
+            gsm->window.draw(text);
+        }
+
+
+
 
 		//draw status bars and ship sprite
-		for (int i = 0; i < 2; i++) {
-			sp[i].setPosition((SCREENWIDTH / 2 + SCREENWIDTH / 4 * pow(-1, 1 + i)), 300);
-			gsm->window.draw(sp[i]);
 
-			strength[i].setPosition((SCREENWIDTH / 2 + SCREENWIDTH / 4 * pow(-1, 1 + i)), 600);
-			gsm->window.draw(strength[i]);
+        for (int i = 0; i < ((PickState *)state) ->players; i++) {
+            sp[i].setPosition(  (  (SCREENWIDTH*3/2)/(((PickState *)state)->players + 1)*(i+1)   ) - ( (SCREENWIDTH*3/2)/2 - SCREENWIDTH/2 ), 300);
+            gsm->window.draw(sp[i]);
 
-			speed[i].setPosition((SCREENWIDTH / 2 + SCREENWIDTH / 4 * pow(-1, 1 + i)), 700);
-			gsm->window.draw(speed[i]);
+            strength[i].setPosition( (sp[i].getPosition().x), 600);
+            gsm->window.draw(strength[i]);
 
-			defense[i].setPosition((SCREENWIDTH / 2 + SCREENWIDTH / 4 * pow(-1, 1 + i)), 800);
-			gsm->window.draw(defense[i]);
-		}
+            speed[i].setPosition(sp[i].getPosition().x, 700);
+            gsm->window.draw(speed[i]);
+
+            defense[i].setPosition(sp[i].getPosition().x, 800);
+            gsm->window.draw(defense[i]);
+
+            //        std::cout << "x Position" << (SCREENWIDTH/(2 + players)*(i+1) << std::endl;
+        }
+
+        for (int i = 0; i < ((PickState *)state)->players; i++) {
+            if (((PickState *)state)->playerConfirmation[i] == 1)
+                text.setString("Selected");
+            else
+                text.setString("Unselected");
+            centerText(&text, 1000);
+            text.setPosition((sp[i].getPosition().x), text.getPosition().y);
+            gsm->window.draw(text);
+        }
+
+
+        text.setCharacterSize(60);
+        text.setString("Use the Left/Right Keys to Select Rocket");
+        centerText(&text, SCREENHEIGHT - (text.getGlobalBounds().height*3) - 10);
+        gsm->window.draw(text);
+        text.setString("Use the Down Key to Confirm Selction");
+        centerText(&text, SCREENHEIGHT - (text.getGlobalBounds().height*2) - 10);
+        gsm->window.draw(text);
+        text.setString("Press P Key to Add or Remove Player 2");
+        centerText(&text, SCREENHEIGHT - text.getGlobalBounds().height - 10);
+        gsm->window.draw(text);
+
+
+
+
 	}
 
 	if (currState == PLAYSTATE) {
 		//window->clear(sf::Color::);
 		window->draw(background);
 		//window->draw(shipHealth1);
+		sf::ConvexShape triangle;
+    triangle.setPointCount(3);
+    triangle.setPoint(0, sf::Vector2f(0, 0));
+    triangle.setPoint(1, sf::Vector2f(0,SCREENHEIGHT/3));
+    triangle.setPoint(2,sf::Vector2f(SCREENWIDTH/3, 0));
+    //sf::Color color(45,30,87);
+    triangle.setFillColor(sf::Color::Black);
+    window->draw(triangle);
 
+    triangle.setPoint(0, sf::Vector2f(0, 2*SCREENHEIGHT/3));
+    triangle.setPoint(1, sf::Vector2f(0,SCREENHEIGHT));
+    triangle.setPoint(2,sf::Vector2f(SCREENWIDTH/3, SCREENHEIGHT));
+    window->draw(triangle);
+
+    triangle.setPoint(0, sf::Vector2f(SCREENWIDTH*2/3, 0));
+    triangle.setPoint(1, sf::Vector2f(SCREENWIDTH,0));
+    triangle.setPoint(2,sf::Vector2f(SCREENWIDTH, SCREENHEIGHT/3));
+    window->draw(triangle);
+
+    triangle.setPoint(0, sf::Vector2f(SCREENWIDTH, SCREENHEIGHT*2/3));
+    triangle.setPoint(1, sf::Vector2f(SCREENWIDTH,SCREENHEIGHT));
+    triangle.setPoint(2,sf::Vector2f(SCREENWIDTH*2/3, SCREENHEIGHT));
+    window->draw(triangle);
 		rocketShipObjects[0].setPosition(((PlayState *)state)->ship1.pos);
 		window->draw(rocketShipObjects[0]);
 		if (((PlayState *)state)->twoPlayerMode) {
@@ -116,9 +193,9 @@ void Renderer::draw(sf::RenderWindow *window) {
 			window->draw(rocketShipObjects[1]);
 		}
 
-		/*for (int p = 0; p < ((PlayState *)state)->powerups.size(); p++) {
+		for (int p = 0; p < ((PlayState *)state)->powerups.size(); p++) {
 			window->draw(((PlayState *)state)->powerups[p]->pSprite);
-		}*/
+		}
 
 		//HUD; later to be refactored into render class
 		for (int t = 0; t < ((PlayState *)state)->turrets.size(); t++) {
@@ -127,33 +204,37 @@ void Renderer::draw(sf::RenderWindow *window) {
 		}
 
 		//draw bullets
-		sf::CircleShape bulletCircle;
-		bulletCircle.setFillColor(sf::Color::Red);
+		//sf::CircleShape bulletCircle;
+		//bulletCircle.setFillColor(sf::Color::Red);
 
 		for (int t = 0; t < ((PlayState *)state)->turrets.size(); t++) {
-			//TODO: draw turrets here?
+
 			for (int b = 0; b < ((PlayState *)state)->turrets[t]->bullets.size(); b++) {
-				Bullet * bullet = ((PlayState *)state)->turrets[t]->bullets[b];
-				float radius = bullet->radius;
+				//Bullet * bullet = ((PlayState *)state)->turrets[t]->bullets[b];
 
 				// sprite/texture code for bullets
-				/* turrets[t]->bullets[b]->shape =  sf::CircleShape();
-				float bRadius = turrets[t]->bullets[b]->radius;
-				turrets[t]->bullets[b]->shape.setRadius(bRadius);
-				turrets[t]->bullets[b]->shape.setPosition(
-					turrets[t]->bullets[b]->pos - sf::Vector2f(bRadius, bRadius));
-				gsm->window.draw(turrets[t]->bullets[b]->shape); */
+			 	//turrets[t]->bullets[b]->shape =  sf::CircleShape();
+				float bRadius = ((PlayState *)state)->turrets[t]->bullets[b]->radius;
+				((PlayState *)state)->turrets[t]->bullets[b]->bulletObject.setScale(.01f*bRadius,.01f*bRadius);
+				((PlayState *)state)->turrets[t]->bullets[b]->bulletObject.setPosition(
+					((PlayState *)state)->turrets[t]->bullets[b]->pos - sf::Vector2f(.01f*bRadius, .01f*bRadius));
+				gsm->window.draw(((PlayState *)state)->turrets[t]->bullets[b]->bulletObject);
 
-				bulletCircle.setRadius(radius);
-				bulletCircle.setPosition(bullet->pos - sf::Vector2f(radius, radius));
+				//bulletCircle.setRadius(radius);
+				//bulletCircle.setPosition(bullet->pos - sf::Vector2f(radius, radius));
 
-				gsm->window.draw(bulletCircle);
+				//gsm->window.draw(bulletCircle);
 			}
 		}
 
 		//HUD; later to be refactored into render class
 		// position HUD frame
-
+		if (!((PlayState *)state)->twoPlayerMode) {
+		loadTexture(&hudTexture, "resources/HPfP1.png");
+	}
+	else{
+		loadTexture(&hudTexture, "resources/HPPVP.jpg");
+	}
 		//hudTexture.loadFromImage(hudImage);
 		sf::Sprite hud;
 		hud.setTexture(hudTexture);
@@ -168,7 +249,7 @@ void Renderer::draw(sf::RenderWindow *window) {
 		bar.setPosition(10, 20);
 
 		health.setFillColor(sf::Color::Red);
-		health.setSize(sf::Vector2f(100 * (((PlayState *)state)->ship1.currentHealth / ((PlayState *)state)->ship1.maxHealth), 50));
+		health.setSize(sf::Vector2f(700* (((PlayState *)state)->ship1.currentHealth / ((PlayState *)state)->ship1.maxHealth), 50));
 		health.setPosition(10, 20);
 
 		loadFont(&font, "resources/spaceranger.ttf");
@@ -192,7 +273,7 @@ void Renderer::draw(sf::RenderWindow *window) {
 
 			sf::RectangleShape health2;
 			bar2.setFillColor(sf::Color::Red);
-			health2.setSize(sf::Vector2f(100 * (((PlayState *)state)->ship2.currentHealth / ((PlayState *)state)->ship2.maxHealth), 50));
+			health2.setSize(sf::Vector2f(700 * (((PlayState *)state)->ship2.currentHealth / ((PlayState *)state)->ship2.maxHealth), 50));
 			health2.setPosition(SCREENWIDTH - 250, 20);
 
 			text2.setFont(font);
@@ -277,12 +358,13 @@ void Renderer::draw(sf::RenderWindow *window) {
 	}
 	if (currState == FINISHSTATE) {
 		gsm->window.draw(background);
-		text.setCharacterSize(70);
+		text.setFillColor(sf::Color::White);
+		text.setCharacterSize(150);
 		text.setString("No!  You Died!");
 		centerText(&text, 150);
 		gsm->window.draw(text);
 
-		text.setCharacterSize(24);
+		text.setCharacterSize(80);
 		for (int i = 0; i < 2; i++) {
 
 			if (i == ((FinishState *)state)->currentChoice) {
@@ -291,7 +373,7 @@ void Renderer::draw(sf::RenderWindow *window) {
 			else {
 				text.setString(fOptions[i]);
 			}
-			centerText(&text, 300 + i * 40);
+			centerText(&text, 500 + i * 100);
 			gsm->window.draw(text);
 		}
 	}
@@ -313,7 +395,7 @@ void Renderer::loadTexture(sf::Texture * texture, std::string filename) {
 }
 
 void Renderer::loadImage(sf::Image * image, std::string filename) {
-	if (!image->loadFromFile(filename)) 
+	if (!image->loadFromFile(filename))
 		printf("Failed to load image.\n");
 }
 
@@ -331,10 +413,10 @@ void Renderer::setState(int newState) {
 		menuMusic.play();
 
 		loadFont(&font, "resources/spaceranger.ttf");
-		loadTexture(&texture, "resources/space_real.jpg");
+		loadTexture(&texture, "resources/LV2.JPG");
 		background.setTexture(texture);
-		background.setPosition(0, 0);
-		background.setScale(1.5f, 1.5f);
+		auto size = background.getTexture()->getSize();
+		background.setScale(float(SCREENWIDTH)/size.x, float(SCREENHEIGHT)/size.y);
 		text.setFont(font);
 		text.setFillColor(sf::Color::White);
 	}
@@ -380,7 +462,7 @@ void Renderer::setState(int newState) {
 		playMusic.play();
 
 
-		loadImage(&image, "resources/space_background.jpg");
+		loadImage(&image, "resources/LV1.JPG");
 
 		printf("newState PLAYSTATE: %d %d\n", shipTypes[0], shipTypes[1]);
 		for (int i = 0; i < 2; i++) {
@@ -422,6 +504,9 @@ void Renderer::setState(int newState) {
 		pauseState.setFillColor(color);
 		pauseState.setPosition(0, 0);
 		pauseState.setSize(sf::Vector2f(SCREENWIDTH, SCREENHEIGHT));
+
+
+
 	}
 
 	else if (newState == OPTIONSTATE) {
@@ -439,13 +524,11 @@ void Renderer::setState(int newState) {
 		pauseMusic.play();
 
 		loadFont(&font, "resources/spaceranger.ttf");
-		loadTexture(&texture, "resources/good_game.jpg");
+		loadTexture(&texture, "resources/LV1.JPG");
 		//texture.loadFromImage(image);
 		background.setTexture(texture);
-		background.setPosition(0, 0);
-
-		//    auto size = background.getTexture()->getSize();
-		background.setScale(0.5f, 0.5f);
+		auto size = background.getTexture()->getSize();
+		background.setScale(float(SCREENWIDTH)/size.x, float(SCREENHEIGHT)/size.y);
 
 		text.setFont(font);
 		text.setFillColor(sf::Color::Red);
@@ -456,7 +539,7 @@ void Renderer::centerText(sf::Text *text, int y) {
 	sf::FloatRect textRect = text->getLocalBounds();
 	text->setOrigin(textRect.left + textRect.width / 2.0f,
 		textRect.top + textRect.height / 2.0f);
-	text->setPosition(sf::Vector2f(SCREENWIDTH, y));
+	text->setPosition(sf::Vector2f(SCREENWIDTH/2.0f, y));
 }
 
 /*void Renderer::loadPauseFonts() {

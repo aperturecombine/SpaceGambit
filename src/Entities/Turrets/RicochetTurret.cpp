@@ -6,6 +6,7 @@ RicochetTurret::RicochetTurret(sf::Vector2f p) {
     fireRate = 1;
     counter = fireRate;
     firingRange = 400;
+	damage = 5;
     withinfiringRange = false;
     attachShape();
 

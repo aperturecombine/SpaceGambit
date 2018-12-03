@@ -12,6 +12,7 @@
 FinishState::FinishState(class GameStateManager *g) {
     gsm = g;
     currentChoice = 0;
+	stateID = FINISHSTATE;
 
     if (!font.loadFromFile("resources/spaceranger.ttf"))
     {
@@ -42,7 +43,8 @@ void FinishState::draw(sf::RenderWindow *window) {
 
     gsm->window.clear(sf::Color(255,255,255));
     gsm->window.draw(background);
-    text.setCharacterSize(70);
+    text.setCharacterSize(150);
+    text.setFillColor(sf::Color::White);
     text.setString("No!  You Died!");
     centerText(&text, 150);
     gsm->window.draw(text);
@@ -82,12 +84,12 @@ void FinishState::centerText(sf::Text *text, int y) {
 }
 
 void FinishState::select() {
-    if (currentChoice == 1)
-    {
-        gsm->popState();
-        exit(0);
-    }
-    if (currentChoice == 0)
-        gsm->pushState(PLAYSTATE);
 
+	if (currentChoice == 0) {
+		gsm->returnToMenu();
+	}
+	if (currentChoice == 1)
+	{
+		gsm->running = false;
+	}
 }
