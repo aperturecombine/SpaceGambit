@@ -552,26 +552,37 @@ void PlayState::checkCollisions() {
     }
 
 
-
+    bool shipCollide = false;
     //ship-ship collision
     if (twoPlayerMode) {
-        bool shipCollide = b2TestOverlap(ship1.getShape(),0, ship2.getShape(),0,b2Transform(b2Vec2(ship1.pos.x, ship1.pos.y), b2Rot(0.0f)),b2Transform(b2Vec2(ship2.pos.x, ship2.pos.y), b2Rot(0.0f)));
+        shipCollide = b2TestOverlap(ship1.getShape(),0, ship2.getShape(),0,b2Transform(b2Vec2(ship1.pos.x, ship1.pos.y), b2Rot(0.0f)),b2Transform(b2Vec2(ship2.pos.x, ship2.pos.y), b2Rot(0.0f)));
         // ship1.bounce( , ship2.bounceFactor);
         // ship2.bounce( , ship1.bounceFactor);
     }
 
-    /**
+    
      if (shipCollide){
-     b2WorldManifold worldManifold;
-     b2Manifold manifold;
-     worldManifold.Initialize(&manifold, b2Transform(b2Vec2(ship1.pos.x, ship1.pos.y), ship1.m_radius,b2Transform(b2Vec2(ship2.pos.x, ship2.pos.y), ship2.m_radius);
-     for (int32 i = 0; i < manifold.pointCount; ++i)
-     {
-     b2Vec2 point = worldManifold.points[i];
-     resolveCollision(point, ship1,ship2);
-     }
-     }
-     **/
+        b2WorldManifold worldManifold;
+         b2Manifold manifold;
+
+         worldManifold.Initialize(&manifold, b2Transform(b2Vec2(ship1.pos.x, ship1.pos.y), b2Rot(0.0f)),ship1.getShape()->m_radius ,b2Transform(b2Vec2(ship2.pos.x, ship2.pos.y),b2Rot(0.0f)), ship2.getShape()->m_radius);
+
+         b2Vec2 point = worldManifold.points[0];
+
+         sf::Vector2f collisionPoint;
+         collisionPoint.x = point.x;
+         collisionPoint.y = point.y;
+
+         ship1.bounce(collisionPoint, ship2.bounceFactor);
+         ship2.bounce(collisionPoint, ship1.bounceFactor);
+
+     
+         }
+
+
+         
+     
+     
     //ship collisions
     for (int t = 0; t < turrets.size(); t++) {
 
