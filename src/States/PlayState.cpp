@@ -517,7 +517,7 @@ void PlayState::checkCollisions() {
 
 
         if (part1_collision){
-            printf("ship1 collide with turret\n");
+//            printf("ship1 collide with turret\n");
 
             //if (ship1.vel.x > 0 | ship1.vel.y > 0)
             ship1.freeze = true;
@@ -664,7 +664,7 @@ void PlayState::checkCollisions() {
 
 
         if (part1_collision){
-            printf("ship1 collide with boundary\n");
+//            printf("ship1 collide with boundary\n");
 
             //if (ship1.vel.x > 0 | ship1.vel.y > 0)
             ship1.freeze = true;
