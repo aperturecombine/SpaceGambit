@@ -535,10 +535,11 @@ void Renderer::setState(int newState) {
 
 	else if (newState == OPTIONSTATE) {
 		loadFont(&font, "resources/spaceranger.ttf");
-		loadTexture(&texture, "resources/space_real.jpg");
+		loadTexture(&texture, "resources/LV2.JPG");
 		background.setTexture(texture);
 		background.setPosition(0, 0);
-		background.setScale(1.5f, 1.5f);
+		auto size = background.getTexture()->getSize();
+   		background.setScale(float(SCREENWIDTH)/size.x, float(SCREENHEIGHT) / size.y);
 		text.setFont(font);
 	}
 
