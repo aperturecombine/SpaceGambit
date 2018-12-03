@@ -160,6 +160,39 @@ void Renderer::draw(sf::RenderWindow *window) {
 	}
 
 	if (currState == PLAYSTATE) {
+
+		if (((PlayState *)state)->pause) {
+			window->draw(pauseState);
+			window->draw(pauseSprite);
+			sf::Text pauseNotif;
+			pauseNotif.setFont(font);
+			pauseNotif.setFillColor(sf::Color::Black);
+			pauseNotif.setString("Game Paused");
+			pauseNotif.setCharacterSize(80);
+			pauseNotif.setPosition(SCREENWIDTH / 2 - pauseNotif.getGlobalBounds().width / 2, SCREENHEIGHT / 2 - 200);
+			window->draw(pauseNotif);
+		}
+
+		if (((PlayState *) state) -> nextStage){
+			window->draw(pauseState);
+			sf::Text nextNotif;
+			nextNotif.setFont(font);
+			nextNotif.setFillColor(sf::Color::Black);
+			nextNotif.setString("Get Ready For Next Stage");
+
+			nextNotif.setCharacterSize(80);
+
+			nextNotif.setPosition(SCREENWIDTH / 2 - nextNotif.getGlobalBounds().width / 2, SCREENHEIGHT / 2 - 200);
+			
+
+			window->draw(nextNotif);
+
+
+
+			((PlayState *) state) -> nextStageCounter  = 1;
+		}
+		else{
+
 		//window->clear(sf::Color::);
 		window->draw(background);
 		//window->draw(shipHealth1);
@@ -320,17 +353,8 @@ void Renderer::draw(sf::RenderWindow *window) {
 		timerCount.setPosition(levelTimer.getPosition().x + levelTimer.getGlobalBounds().width / 2 - timerCount.getGlobalBounds().width / 2, levelTimer.getPosition().y + timerCount.getGlobalBounds().height + 10);
 		window->draw(timerCount);
 
-		if (((PlayState *)state)->pause) {
-			window->draw(pauseState);
-			window->draw(pauseSprite);
-			sf::Text pauseNotif;
-			pauseNotif.setFont(font);
-			pauseNotif.setFillColor(sf::Color::Black);
-			pauseNotif.setString("Game Paused");
-			pauseNotif.setCharacterSize(80);
-			pauseNotif.setPosition(SCREENWIDTH / 2 - pauseNotif.getGlobalBounds().width / 2, SCREENHEIGHT / 2 - 200);
-			window->draw(pauseNotif);
-		}
+
+	}
 
 	}
 	if (currState == OPTIONSTATE) {

@@ -74,7 +74,7 @@ PlayState::PlayState(class GameStateManager *g, int numPlayer) {
 }
 
 void PlayState::update(float deltams) {
-    if (!pause){
+    if (!pause && nextStageContinue){
         if (ship1.freeze){
             ship1.pos = ship1.freezePosition;
             ship1.freeze = false;
@@ -103,12 +103,17 @@ void PlayState::update(float deltams) {
         //
         else
         {
+          ship1.pos = sf::Vector2f(SCREENWIDTH/2,SCREENHEIGHT/2);
+          if (twoPlayerMode) {
+              ship1.pos = sf::Vector2f(SCREENWIDTH/2,SCREENHEIGHT/2- 50);
+            ship2.pos = sf::Vector2f(SCREENWIDTH/2,SCREENHEIGHT/2+ 50);
+          }
+            nextStageFunction();
+
+            if (nextStageCounter){
             level++;
-            ship1.pos = sf::Vector2f(SCREENWIDTH/2,SCREENHEIGHT/2);
-            if (twoPlayerMode) {
-                ship1.pos = sf::Vector2f(SCREENWIDTH/2,SCREENHEIGHT/2- 50);
-              ship2.pos = sf::Vector2f(SCREENWIDTH/2,SCREENHEIGHT/2+ 50);
-            }
+
+
             generateTurrets();
 
             int pOfPup = (rand() % 10) + 1;
@@ -117,6 +122,10 @@ void PlayState::update(float deltams) {
                 createPowerUps();
             }
             stageTimer = STAGETIME;
+
+            nextStage = 0;
+            nextStageCounter =0;
+          }
         }
 
         ship1.update(deltams);
@@ -144,7 +153,10 @@ void PlayState::update(float deltams) {
 
         for (int t = 0; t < turrets.size(); t++)
             turrets[t]->update(deltams);
+
     }
+
+
 }
 
 /*
@@ -361,9 +373,14 @@ void PlayState::handleInput(sf::Event event) {
     {
         pause = true;
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
     {
         pause = false;
+    }
+
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+    {
+      nextStageContinue = true;
     }
 
     ship1.moveRight = sf::Keyboard::isKeyPressed(PlayerOne_Right);
@@ -887,4 +904,9 @@ void PlayState::loadPauseFonts(){
     pauseState.setSize(sf::Vector2f(SCREENWIDTH, SCREENHEIGHT));
 
 
+}
+
+void PlayState::nextStageFunction(){
+  nextStage = 1;
+  nextStageContinue = false;
 }

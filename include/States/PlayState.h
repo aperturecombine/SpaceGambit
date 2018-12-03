@@ -34,7 +34,10 @@ public:
 	bool pause = false;
 
 	std::vector<class Powerups *> powerups;
-
+  void nextStageFunction();
+  int nextStageCounter = 0;
+  int nextStage = 0;
+  int nextStageContinue = true;
 private:
 	//chain.CreateChain(vs,6);
 	b2ChainShape backgroundShapeb;
