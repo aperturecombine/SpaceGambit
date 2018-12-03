@@ -302,12 +302,12 @@ void Renderer::draw(sf::RenderWindow *window) {
 			sf::RectangleShape bar2;
 			bar2.setFillColor(sf::Color::White);
 			bar2.setSize(sf::Vector2f(100, 50));
-			bar2.setPosition(SCREENWIDTH - 250, 20);
+			bar2.setPosition(SCREENWIDTH - 500, 20);
 
 			sf::RectangleShape health2;
 			bar2.setFillColor(sf::Color::Red);
 			health2.setSize(sf::Vector2f(700 * (((PlayState *)state)->ship2.currentHealth / ((PlayState *)state)->ship2.maxHealth), 50));
-			health2.setPosition(SCREENWIDTH - 250, 20);
+			health2.setPosition(SCREENWIDTH - 500, 20);
 
 			text2.setFont(font);
 			text2.setFillColor(sf::Color::White);
@@ -505,6 +505,8 @@ void Renderer::setState(int newState) {
 
 		texture.loadFromImage(image);
 		background.setTexture(texture);
+		auto size = background.getTexture()->getSize();
+		background.setScale(float(SCREENWIDTH)/size.x, float(SCREENHEIGHT)/size.y);
 
 		//background.setPosition(0, 0);
 		//background.setScale(0.7f, 0.5f);

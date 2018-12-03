@@ -398,8 +398,8 @@ void PlayState::createPowerUps(){
       pOfupY = (rand() % int(SCREENHEIGHT)) ;
     } while( pOfupY <SCREENHEIGHT/4  && pOfupY> SCREENHEIGHT *3/4 );
 
-    printf(pOfupX + "\n");
-    printf(pOfupY + "\n");
+    // printf(pOfupX + "\n");
+    // printf(pOfupY + "\n");
     if (pOfPup <= 5){
         health *Health = new health(sf::Vector2f(pOfupX,pOfupY));
         powerups.push_back(Health);
