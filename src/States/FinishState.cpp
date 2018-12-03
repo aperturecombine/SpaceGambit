@@ -43,7 +43,8 @@ void FinishState::draw(sf::RenderWindow *window) {
 
     gsm->window.clear(sf::Color(255,255,255));
     gsm->window.draw(background);
-    text.setCharacterSize(70);
+    text.setCharacterSize(150);
+    text.setFillColor(sf::Color::White);
     text.setString("No!  You Died!");
     centerText(&text, 150);
     gsm->window.draw(text);

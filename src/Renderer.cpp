@@ -358,12 +358,13 @@ void Renderer::draw(sf::RenderWindow *window) {
 	}
 	if (currState == FINISHSTATE) {
 		gsm->window.draw(background);
-		text.setCharacterSize(70);
+		text.setFillColor(sf::Color::White);
+		text.setCharacterSize(150);
 		text.setString("No!  You Died!");
 		centerText(&text, 150);
 		gsm->window.draw(text);
 
-		text.setCharacterSize(24);
+		text.setCharacterSize(80);
 		for (int i = 0; i < 2; i++) {
 
 			if (i == ((FinishState *)state)->currentChoice) {
@@ -372,7 +373,7 @@ void Renderer::draw(sf::RenderWindow *window) {
 			else {
 				text.setString(fOptions[i]);
 			}
-			centerText(&text, 300 + i * 40);
+			centerText(&text, 500 + i * 100);
 			gsm->window.draw(text);
 		}
 	}
