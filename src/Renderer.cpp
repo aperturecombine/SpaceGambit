@@ -277,13 +277,13 @@ void Renderer::draw(sf::RenderWindow *window) {
 
 
 		//Player 1 HUD
-		bar.setFillColor(sf::Color::White);
-		bar.setSize(sf::Vector2f(100, 50));
-		bar.setPosition(10, 20);
+		// bar.setFillColor(sf::Color::White);
+		// bar.setSize(sf::Vector2f(100, 50));
+		// bar.setPosition(10, 20);
 
 		health.setFillColor(sf::Color::Red);
-		health.setSize(sf::Vector2f(700* (((PlayState *)state)->ship1.currentHealth / ((PlayState *)state)->ship1.maxHealth), 50));
-		health.setPosition(10, 20);
+		health.setSize(sf::Vector2f(600* (((PlayState *)state)->ship1.currentHealth / ((PlayState *)state)->ship1.maxHealth), 50));
+		health.setPosition(110, 20);
 
 		loadFont(&font, "resources/spaceranger.ttf");
 
@@ -299,19 +299,19 @@ void Renderer::draw(sf::RenderWindow *window) {
 
 		//player 2 HUD
 		if (((PlayState *)state)->twoPlayerMode) {
-			sf::RectangleShape bar2;
-			bar2.setFillColor(sf::Color::White);
-			bar2.setSize(sf::Vector2f(100, 50));
-			bar2.setPosition(SCREENWIDTH - 500, 20);
+			// sf::RectangleShape bar2;
+			// bar2.setFillColor(sf::Color::White);
+			// bar2.setSize(sf::Vector2f(100, 50));
+			// bar2.setPosition(SCREENWIDTH - 500, 20);
 
 			sf::RectangleShape health2;
-			bar2.setFillColor(sf::Color::Red);
-			health2.setSize(sf::Vector2f(700 * (((PlayState *)state)->ship2.currentHealth / ((PlayState *)state)->ship2.maxHealth), 50));
-			health2.setPosition(SCREENWIDTH - 500, 20);
+			health2.setFillColor(sf::Color::Red);
+			health2.setSize(sf::Vector2f(600 * (((PlayState *)state)->ship2.currentHealth / ((PlayState *)state)->ship2.maxHealth), 50));
+			health2.setPosition(SCREENWIDTH - 730, 20);
 
 			text2.setFont(font);
 			text2.setFillColor(sf::Color::White);
-			text2.setPosition(SCREENWIDTH - 250, 90);
+			text2.setPosition(SCREENWIDTH - 200, 90);
 			text2.setCharacterSize(40);
 			text2.setString("  Score: " + std::to_string(((PlayState *)state)->ship1.points));
 
