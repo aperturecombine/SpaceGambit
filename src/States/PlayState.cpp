@@ -761,23 +761,6 @@ void PlayState::generateTurrets() {
             break;
         }
 
-
-        case 4 : // outer most
-        {
-            turretID = randomButNotRandomSelector();
-            for (int a = 1; a < 3; a++)
-            {
-                for (int b = 1; b < 3; b++)
-                {
-                    x = ((SCREENWIDTH/2) + ((SCREENWIDTH/3) * (pow(-1,a))));
-                    y = ((SCREENHEIGHT/2) + ((SCREENHEIGHT/3) * (pow(-1,b))));
-                    turretSelect(turretID, sf::Vector2f(x, y));
-                }
-            }
-            std::cout << "Case 4 COMPLETED: "<< level << std::endl;
-            break;
-        }
-
         default:
         {
             std::cout << "Default Case: "<< level << std::endl;
@@ -790,7 +773,6 @@ void PlayState::generateTurrets() {
                     turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/7) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/6) * (pow(-1,b)))));
                     turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/4) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/6) * (pow(-1,b)))));
                     turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/7) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/3) * (pow(-1,b)))));
-                    turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/2.2) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/3) * (pow(-1,b)))));
                 }
             }
             break;
