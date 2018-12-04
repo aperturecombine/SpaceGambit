@@ -69,7 +69,7 @@ void OptionState::handleInput(sf::Event event) {
                 moveLeft();
             else if (event.key.code == sf::Keyboard::Right)
                 moveRight();
-            else if (event.key.code == sf::Keyboard::Space)
+            else if (event.key.code == sf::Keyboard::Space || event.key.code == sf::Keyboard::Return)
                 select();
         }
         
