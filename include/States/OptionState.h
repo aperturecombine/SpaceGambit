@@ -15,6 +15,8 @@ public:
 
 	int currentChoice;
     
+	int volumeLevel;
+
 private:
     GameStateManager *gsm;
     sf::Image image;
@@ -25,7 +27,7 @@ private:
     float counter;
     
     std::string options[5]= {  "Adjust Screen Resolution",
-                                "Adjust Volume",
+                                "Adjust Volume          ",
                                 "Change Player 1 Controls",
                                 "Change Player 2 Controls",
                                 "Return to Menu"

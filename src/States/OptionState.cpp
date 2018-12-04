@@ -7,6 +7,9 @@ OptionState::OptionState(class GameStateManager *g) {
 	stateID = OPTIONSTATE;
     currentChoice = 0;
     counter = 5;
+
+	volumeLevel = gsm->renderer->getVolume();
+
     if (!font.loadFromFile("resources/spaceranger.ttf")) {
         printf("Could not load font");
     }
@@ -53,12 +56,22 @@ void OptionState::draw(sf::RenderWindow *window) {
 
 void OptionState::handleInput(sf::Event event) {
     if (event.type == sf::Event::KeyPressed) {
-        if (event.key.code == sf::Keyboard::Up)
-            moveUp();
-        else if (event.key.code == sf::Keyboard::Down)
-            moveDown();
-        else if (event.key.code == sf::Keyboard::Space)
-            select();
+		if (event.key.code == sf::Keyboard::Up)
+			moveUp();
+		else if (event.key.code == sf::Keyboard::Down)
+			moveDown();
+		else if (event.key.code == sf::Keyboard::Space)
+			select();
+		else if (event.key.code == sf::Keyboard::Left && currentChoice == 1) {
+			if (volumeLevel > 0)
+				volumeLevel -= 10;
+			gsm->renderer->changeVolume(volumeLevel);
+		}
+		else if (event.key.code == sf::Keyboard::Right && currentChoice == 1) {
+			if (volumeLevel < 100)
+				volumeLevel += 10;
+			gsm->renderer->changeVolume(volumeLevel);
+		}
         //        switch (event.key.code) {
         //        case sf::Keyboard::Up:
         //            moveUp();
@@ -82,7 +95,6 @@ void OptionState::centerText(sf::Text *text, int y) {
 }
 
 void OptionState::select() {
-    
     if (currentChoice == 2)
     {
         PlayerOne_Up = sf::Keyboard::T;

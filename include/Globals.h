@@ -4,8 +4,8 @@
 
 extern float SCREENWIDTH;
 extern float SCREENHEIGHT;
-extern float VIEWWIDTH;
-extern float VIEWHEIGHT;
+extern float XRESOLUTION;
+extern float YRESOLUTION;
 
 extern float POSITIVE_INFTY;
 extern float NEGATIVE_INFTY;
