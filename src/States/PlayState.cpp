@@ -744,7 +744,7 @@ void PlayState::checkCollisions() {
 }
 
 void PlayState::generateTurrets() {
-
+    
     //     1 = Machine Gun Turret
     //     2 = Guided Missle Turret
     //     3 = Rail Gun Turret
@@ -756,90 +756,100 @@ void PlayState::generateTurrets() {
     float y = 0;
     switch(level)
     {
+        resetTurrets();
         case 1 : // inner most
         {
-            turretID = randomButNotRandomSelector();
+            
             for (int a = 1; a < 3; a++)
             {
+                turretID = randomButNotRandomSelector();
+                y = ((SCREENHEIGHT/2) + ((SCREENHEIGHT/5) * (pow(-1,a))));
                 for (int b = 1; b < 3; b++)
                 {
-                    x = ((SCREENWIDTH/2) + ((SCREENWIDTH/7) * (pow(-1,a))));
-                    y = ((SCREENHEIGHT/2) + ((SCREENHEIGHT/7) * (pow(-1,b))));
+                    x = ((SCREENWIDTH/2) + ((SCREENWIDTH/5) * (pow(-1,b))));
+                    
                     turretSelect(turretID, sf::Vector2f(x, y));
                 }
             }
             std::cout << "Case 1 COMPLETED: "<< level << std::endl;
             break;
         }
-
+            
         case 2 : // Horizontal
         {
-            turretID = randomButNotRandomSelector();
+            
             for (int a = 1; a < 3; a++)
             {
+                turretID = randomButNotRandomSelector();
+                y = ((SCREENHEIGHT/2) + ((SCREENHEIGHT/3) * (pow(-1,a))));
                 for (int b = 1; b < 3; b++)
                 {
-                    x = ((SCREENWIDTH/2) + ((SCREENWIDTH/3) * (pow(-1,a))));
-                    y = ((SCREENHEIGHT/2) + ((SCREENHEIGHT/15) * (pow(-1,b))));
+                    x = ((SCREENWIDTH/2) + ((SCREENWIDTH/8) * (pow(-1,b))));
+                    
                     turretSelect(turretID, sf::Vector2f(x, y));
                 }
+                
             }
             std::cout << "Case 2 COMPLETED: "<< level << std::endl;
             break;
         }
-
-
+            
+            
         case 3 : // vertical
         {
-            turretID = randomButNotRandomSelector(); // Vertical
+            
             for (int a = 1; a < 3; a++)
             {
+                turretID = randomButNotRandomSelector();
+                y = ((SCREENHEIGHT/2) + ((SCREENHEIGHT/8) * (pow(-1,a))));
                 for (int b = 1; b < 3; b++)
                 {
-                    x = ((SCREENWIDTH/2) + ((SCREENWIDTH/5) * (pow(-1,a))));
-                    y = ((SCREENHEIGHT/2) + ((SCREENHEIGHT/3) * (pow(-1,b))));
+                    x = ((SCREENWIDTH/2) + ((SCREENWIDTH/3) * (pow(-1,b))));
+                    
                     turretSelect(turretID, sf::Vector2f(x, y));
                 }
             }
             std::cout << "Case 3 COMPLETED: "<< level << std::endl;
             break;
         }
-
+            
         default:
         {
             std::cout << "Default Case: "<< level << std::endl;
-            resetTurrets();
             for (int a = 1; a < 3; a++)
             {
                 for (int b = 1; b < 3; b++)
                 {
                     turretID = randomButNotRandomSelector();
-                    turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/7) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/6) * (pow(-1,b)))));
+                    turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/5) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/5) * (pow(-1,b))))); // case 1
                     turretID = randomButNotRandomSelector();
-                    turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/4) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/6) * (pow(-1,b)))));
+                    turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/4) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/6) * (pow(-1,b))))); // case 2
                     turretID = randomButNotRandomSelector();
-                    turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/7) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/3) * (pow(-1,b)))));
+                    turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/7) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/3) * (pow(-1,b))))); //case 3
                 }
             }
             break;
         }
-
+            
     }
-
-
+    
+    
 }
 
 
 void PlayState::resetTurrets() {
+
     for (int t = 0; t < turrets.size(); t++) {
         for (int b = 0; b < turrets[t]->bullets.size(); b++) {
             turrets[t]->bullets.erase(turrets[t]->bullets.begin() + b);
         }
     }
 
-    while (turrets.size()>0) {
-        for (int t = 0; t < turrets.size(); t++) {
-            turrets.erase(turrets.begin() + t);
+    if(level>3){
+        while (turrets.size()>0) {
+            for (int t = 0; t < turrets.size(); t++) {
+                turrets.erase(turrets.begin() + t);
+            }
         }
     }
 }
@@ -906,7 +916,7 @@ void PlayState::turretSelect(int turretID, sf::Vector2f p) {
             turrets.push_back(t2);
             break;
         }
-        case 6 :  // Guided  Turret
+        case 6 :  // Guided  Turret for multipler only
         {
 
             GuidedTurret *t3 = new GuidedTurret(p);
