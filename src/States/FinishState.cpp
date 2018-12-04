@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include "../../include/States/FinishState.h"
 
-FinishState::FinishState(class GameStateManager *g) {
+FinishState::FinishState(class GameStateManager *g, int winners) {
     gsm = g;
     currentChoice = 0;
 	stateID = FINISHSTATE;
@@ -33,6 +33,9 @@ FinishState::FinishState(class GameStateManager *g) {
 
     text.setFont(font);
     text.setFillColor(sf::Color::Red);
+
+
+    winner = winners;
 }
 
 void FinishState::update(float deltams) {

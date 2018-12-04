@@ -384,7 +384,18 @@ void Renderer::draw(sf::RenderWindow *window) {
 		gsm->window.draw(background);
 		text.setFillColor(sf::Color::White);
 		text.setCharacterSize(150);
-		text.setString("No!  You Died!");
+
+		if (((FinishState *)state)->winner == 0){
+			text.setString("No!  You Died!");
+		}
+
+		else if (((FinishState *)state)->winner == 1) {
+
+			text.setString("Player 2 Wins!");
+		}
+		else {
+			text.setString("Player 1 Wins!");
+		}
 		centerText(&text, 150);
 		gsm->window.draw(text);
 

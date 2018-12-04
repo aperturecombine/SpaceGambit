@@ -33,6 +33,7 @@ public:
 	}
 
 	sf::RenderWindow window;
+	int winners;
 
 	bool running;
 private:
