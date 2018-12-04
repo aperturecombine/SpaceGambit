@@ -16,14 +16,14 @@ RocketShip::RocketShip(sf::Vector2f p) {
 
 	isBounced = false;
 	bounceAccumulator = 5;
-	bounceFactor = 3;
+	bounceFactor = 1.5;
 
 	maxHealth = 100;
 	currentHealth = maxHealth;
 
 	points = 0;
 
-	radius = 40;
+	radius = 50;
 	attachShape();
 
 	if (!rocketShipTexture.loadFromFile("resources/SHIP_SPEED.png")) {
@@ -45,7 +45,7 @@ void RocketShip::update(float deltams) {
     //shipShape -> m_p.Set(pos.x,pos.y);
     bounceAccumulator += deltams;
 
-    if (bounceAccumulator < 500 ) {
+    if (bounceAccumulator < 2000 ) {
     	isBounced = false;
     }
 
@@ -114,8 +114,8 @@ void RocketShip::bounce(sf::Vector2f collision_point, float bounce_factor){
 	float x_check = pos.x - collision_point.x;
 	float y_check = pos.y - collision_point.y;
 
-	vel.x = bounce_factor / x_check;
-	vel.y = bounce_factor / y_check;
+	vel.x = bounce_factor * x_check;
+	vel.y = bounce_factor * y_check;
 
 }
 

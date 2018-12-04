@@ -5,7 +5,7 @@ MachineGunBullet::MachineGunBullet(sf::Vector2f p, sf::Vector2f v) {
     vel = v;
     speed = 300;
     isAlive = true;
-    radius = 5;
+    radius = 8;
     attachShape();
     loadFont();
     bulletObject.setRotation(360.f + atan(vel.y/vel.x)*180/M_PI);

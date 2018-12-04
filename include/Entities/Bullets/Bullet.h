@@ -22,7 +22,7 @@ public:
     b2CircleShape* bulletShape;
 
 
-    //virtual void loadFont();
+    void loadFont();
     void setReference(PlayState *r) { ref = r; }
     PlayState *ref;
     void attachShape(){
