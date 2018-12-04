@@ -10,8 +10,8 @@ GameStateManager::GameStateManager() {
     window.setVerticalSyncEnabled(true);
     window.setView(gameView);
     std::cout << "Changing View Size" << std::endl;
+    window.setSize(sf::Vector2u(1000,1000));
     gameView.setSize(1000.f, 1000.f);
-//    window.setSize(sf::Vector2u(2000,2000));
 	renderer = new Renderer(this);
 	
     pushState(MENUSTATE);
