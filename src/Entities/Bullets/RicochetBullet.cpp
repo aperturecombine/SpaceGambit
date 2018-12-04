@@ -38,12 +38,12 @@ bool RicochetBullet::checkBounds(float dt){
     }
     else
     {
-        
+
         lifeCheck();
         vel.x *= -1;
         return false;
     }
-    
+
 }
 
 void RicochetBullet::lifeCheck(){
@@ -59,7 +59,7 @@ void RicochetBullet::lifeCheck(){
 }
 
 void RicochetBullet::loadFont(){
-    
+
     if (!bulletImage.loadFromFile("resources/ggun_bullet.png")) {
         //printf("Could not load\n");
     }
