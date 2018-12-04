@@ -4,13 +4,12 @@
 
 class RocketShip {
 public:
-
     sf::Texture rocketShipTexture;
     sf::Image rocketShipImage;
     sf::Sprite rocketShipObject;
 
 	RocketShip() {}
-	RocketShip(sf::Vector2f p);
+	RocketShip(sf::Vector2f p, int type);
 	~RocketShip() {}
 
 	bool moveUp;
@@ -31,6 +30,7 @@ public:
     void attachShape();
 
     b2PolygonShape* getShape();
+
     int shipType;
 
     float maxHealth;
@@ -47,9 +47,6 @@ public:
 private:
 	float ACCEL;
 	float DECEL;
-
-
-
 
 	int damageStat;
 	int defenseStat;

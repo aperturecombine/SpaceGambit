@@ -50,23 +50,23 @@ void Renderer::draw(sf::RenderWindow *window) {
 			case 0:
 				sp[i].setTexture(imagePower[0]);
 				sp[i].setOrigin(sp[i].getGlobalBounds().width / 2, sp[i].getGlobalBounds().height / 2);
-				strength[i].setSize(sf::Vector2f(100, 10));
-				speed[i].setSize(sf::Vector2f(80, 10));
-				defense[i].setSize(sf::Vector2f(30, 10));
+				strength[i].setSize(sf::Vector2f(150, 40));
+				speed[i].setSize(sf::Vector2f(150, 40));
+				defense[i].setSize(sf::Vector2f(150, 40));
 				break;
 			case 1:
 				sp[i].setTexture(imagePower[1]);
 				sp[i].setOrigin(sp[i].getGlobalBounds().width / 2, sp[i].getGlobalBounds().height / 2);
-				strength[i].setSize(sf::Vector2f(30, 10));
-				speed[i].setSize(sf::Vector2f(100, 10));
-				defense[i].setSize(sf::Vector2f(80, 10));
+				strength[i].setSize(sf::Vector2f(200, 40));
+				speed[i].setSize(sf::Vector2f(100, 40));
+				defense[i].setSize(sf::Vector2f(150, 40));
 				break;
 			case 2:
 				sp[i].setTexture(imagePower[2]);
 				sp[i].setOrigin(sp[i].getGlobalBounds().width / 2, sp[i].getGlobalBounds().height / 2);
-				strength[i].setSize(sf::Vector2f(30, 10));
-				speed[i].setSize(sf::Vector2f(80, 10));
-				defense[i].setSize(sf::Vector2f(100, 10));
+				strength[i].setSize(sf::Vector2f(100, 40));
+				speed[i].setSize(sf::Vector2f(200, 40));
+				defense[i].setSize(sf::Vector2f(150, 40));
 				break;
 			}
 		}
@@ -74,9 +74,7 @@ void Renderer::draw(sf::RenderWindow *window) {
 		text.setString("Pick your Ship");
 		centerText(&text, 100);
 		gsm->window.draw(text);
-
 		text.setCharacterSize(80);
-
 
         if (((PickState *)state)->players == 2)
         {
@@ -178,10 +176,7 @@ void Renderer::draw(sf::RenderWindow *window) {
 
 			nextNotif.setPosition(SCREENWIDTH / 2 - nextNotif.getGlobalBounds().width / 2, SCREENHEIGHT / 2 - 200);
 			
-
 			window->draw(nextNotif);
-
-
 
 			((PlayState *) state) -> nextStageCounter  = 1;
 		}
@@ -192,25 +187,24 @@ void Renderer::draw(sf::RenderWindow *window) {
 		//window->draw(shipHealth1);
 		sf::ConvexShape triangle;
     triangle.setPointCount(3);
+	triangle.setFillColor(sf::Color::Black);
     triangle.setPoint(0, sf::Vector2f(0, 0));
     triangle.setPoint(1, sf::Vector2f(0,SCREENHEIGHT/3));
     triangle.setPoint(2,sf::Vector2f(SCREENWIDTH/3, 0));
-    //sf::Color color(45,30,87);
-    triangle.setFillColor(sf::Color::Black);
     window->draw(triangle);
 
-    triangle.setPoint(0, sf::Vector2f(0, 2*SCREENHEIGHT/3));
-    triangle.setPoint(1, sf::Vector2f(0,SCREENHEIGHT));
+    triangle.setPoint(0,sf::Vector2f(0,2*SCREENHEIGHT/3));
+    triangle.setPoint(1,sf::Vector2f(0,SCREENHEIGHT));
     triangle.setPoint(2,sf::Vector2f(SCREENWIDTH/3, SCREENHEIGHT));
     window->draw(triangle);
 
-    triangle.setPoint(0, sf::Vector2f(SCREENWIDTH*2/3, 0));
-    triangle.setPoint(1, sf::Vector2f(SCREENWIDTH,0));
+    triangle.setPoint(0,sf::Vector2f(SCREENWIDTH*2/3, 0));
+    triangle.setPoint(1,sf::Vector2f(SCREENWIDTH,0));
     triangle.setPoint(2,sf::Vector2f(SCREENWIDTH, SCREENHEIGHT/3));
     window->draw(triangle);
 
-    triangle.setPoint(0, sf::Vector2f(SCREENWIDTH, SCREENHEIGHT*2/3));
-    triangle.setPoint(1, sf::Vector2f(SCREENWIDTH,SCREENHEIGHT));
+    triangle.setPoint(0,sf::Vector2f(SCREENWIDTH, SCREENHEIGHT*2/3));
+    triangle.setPoint(1,sf::Vector2f(SCREENWIDTH,SCREENHEIGHT));
     triangle.setPoint(2,sf::Vector2f(SCREENWIDTH*2/3, SCREENHEIGHT));
     window->draw(triangle);
 		rocketShipObjects[0].setPosition(((PlayState *)state)->ship1.pos);
@@ -224,7 +218,6 @@ void Renderer::draw(sf::RenderWindow *window) {
 			window->draw(((PlayState *)state)->powerups[p]->pSprite);
 		}
 
-		//HUD; later to be refactored into render class
 		for (int t = 0; t < ((PlayState *)state)->turrets.size(); t++) {
 			((PlayState *)state)->turrets[t]->turretObject.setPosition(((PlayState *)state)->turrets[t]->pos);
 			window->draw(((PlayState *)state)->turrets[t]->turretObject);
@@ -276,7 +269,7 @@ void Renderer::draw(sf::RenderWindow *window) {
 		// bar.setPosition(10, 20);
 
 		health.setFillColor(sf::Color::Red);
-		health.setSize(sf::Vector2f(600* (((PlayState *)state)->ship1.currentHealth / ((PlayState *)state)->ship1.maxHealth), 50));
+		health.setSize(sf::Vector2f(600*(((PlayState *)state)->ship1.currentHealth / ((PlayState *)state)->ship1.maxHealth), 50));
 		health.setPosition(110, 20);
 
 		loadFont(&font, "resources/spaceranger.ttf");
@@ -371,9 +364,6 @@ void Renderer::draw(sf::RenderWindow *window) {
 			centerText(&text, SCREENHEIGHT*0.3 + i * 100);
 			gsm->window.draw(text);
 		}
-
-		printf("size: %f\n", ((OptionState *)state)->volumeLevel);
-
 		sf::RectangleShape volumeSlider;
 		volumeSlider.setFillColor(sf::Color(100,100,100));
 		volumeSlider.setSize(sf::Vector2f(150, 50));

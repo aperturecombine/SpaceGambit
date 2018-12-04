@@ -1,13 +1,13 @@
 #include "../../../include/Entities/Ships/RocketShip.h"
 #include "../../../include/Globals.h"
 
-RocketShip::RocketShip(sf::Vector2f p) {
+RocketShip::RocketShip(sf::Vector2f p, int type) {
+	shipType = type;
 	vel = sf::Vector2f(0, 0);
     pos = p;
 
 	ACCEL = 50;
 	DECEL = .92;
-	maxSpeed = MAXSPEED;
 
 	moveUp = false;
 	moveDown = false;
@@ -18,13 +18,26 @@ RocketShip::RocketShip(sf::Vector2f p) {
 	bounceAccumulator = 5;
 	bounceFactor = 1.5;
 
-	maxHealth = 100;
-	currentHealth = maxHealth;
-
 	points = 0;
 
 	radius = 50;
 	attachShape();
+
+	switch (shipType) {
+	case 0:
+		maxSpeed = 500;
+		maxHealth = 100;
+		break;
+	case 1:
+		maxSpeed = 500;
+		maxHealth = 125;
+		break;
+	case 2:
+		maxSpeed = 750;
+		maxHealth = 75;
+		break;
+	}
+	currentHealth = maxHealth;
 
 	if (!rocketShipTexture.loadFromFile("resources/SHIP_SPEED.png")) {
 		printf("Could not load spaceship");
@@ -102,9 +115,6 @@ void RocketShip::attachShape(){
     //shipShape->m_radius = 2;
     //shipFixture.shape = shipShape;
 
-
-
-
 }
 
 void RocketShip::bounce(sf::Vector2f collision_point, float bounce_factor){
@@ -121,7 +131,5 @@ void RocketShip::bounce(sf::Vector2f collision_point, float bounce_factor){
 
 
 b2PolygonShape* RocketShip::getShape(){
-
     return shipShape;
-
 }

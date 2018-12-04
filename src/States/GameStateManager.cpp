@@ -11,7 +11,8 @@ GameStateManager::GameStateManager() {
     window.setView(gameView);
     std::cout << "Changing View Size" << std::endl;
     gameView.setSize(1000.f, 1000.f);
-//    window.setSize(sf::Vector2u(2000,2000));
+	window.setSize(sf::Vector2u(600,600));
+	window.setPosition(sf::Vector2i(50, 50));
 	renderer = new Renderer(this);
 	
     pushState(MENUSTATE);
@@ -51,13 +52,10 @@ void GameStateManager::pushState(int newState) {
             break;
         case PLAYSTATE:
 		{
+			int ship1type = ((PickState *)getTop())->currentChoicePlayer[0];
+			int ship2type = ((PickState *)getTop())->currentChoicePlayer[1];
 			// TODO: this is probably the wrong way to pass variables.
-			PlayState * newPlay = new PlayState(this, numPlayer);
-			int ship1Type = ((PickState *)getTop())->currentChoicePlayer[0];
-			int ship2Type = ((PickState *)getTop())->currentChoicePlayer[1];
-			//newPlay->ship1.shipType = ship1Type;
-			//newPlay->ship2.shipType = ship2Type;
-			renderer->setShipTypes(ship1Type, ship2Type);
+			PlayState * newPlay = new PlayState(this, numPlayer, ship1type, ship2type);
 			states.push(newPlay);
 		}
 		break;
