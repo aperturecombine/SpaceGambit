@@ -82,7 +82,7 @@ protected:
       turretObjectbase.setOrigin((turretObjectbase.getTexture()->getSize().x) / 2,
                              (turretObjectbase.getTexture()->getSize().y) / 2);
 
-      printf("Where is seg \n");
+  
       turretObjectbase.setPosition(pos);
 
     }
