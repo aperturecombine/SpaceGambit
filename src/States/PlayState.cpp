@@ -15,7 +15,7 @@
 #include <math.h>
 #include <cstdlib>
 
-PlayState::PlayState(class GameStateManager *g, int numPlayer) {
+PlayState::PlayState(class GameStateManager *g, int numPlayer, int ship1type, int ship2type) {
     gsm = g;
     turretCount = 6;
     stageTimer = STAGETIME;
@@ -59,11 +59,11 @@ PlayState::PlayState(class GameStateManager *g, int numPlayer) {
 
 
     if (twoPlayerMode) {
-        ship1 = RocketShip(sf::Vector2f(SCREENWIDTH/2 + 100,SCREENHEIGHT/2));
-        ship2 = RocketShip(sf::Vector2f(SCREENWIDTH/2 - 100,SCREENHEIGHT/2));
+        ship1 = RocketShip(sf::Vector2f(SCREENWIDTH/2 + 100,SCREENHEIGHT/2), ship1type);
+        ship2 = RocketShip(sf::Vector2f(SCREENWIDTH/2 - 100,SCREENHEIGHT/2), ship2type);
     }
     else
-        ship1 = RocketShip(sf::Vector2f(SCREENWIDTH/2 ,SCREENHEIGHT/2));
+        ship1 = RocketShip(sf::Vector2f(SCREENWIDTH/2 ,SCREENHEIGHT/2), ship1type);
 
     // shipHealth1.setPosition(sf::Vector2f(300,10));
     // shipHealth1.setSize(sf::Vector2f (ship1.health, 10));

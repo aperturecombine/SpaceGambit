@@ -50,23 +50,23 @@ void Renderer::draw(sf::RenderWindow *window) {
 			case 0:
 				sp[i].setTexture(imagePower[0]);
 				sp[i].setOrigin(sp[i].getGlobalBounds().width / 2, sp[i].getGlobalBounds().height / 2);
-				strength[i].setSize(sf::Vector2f(100, 10));
-				speed[i].setSize(sf::Vector2f(80, 10));
-				defense[i].setSize(sf::Vector2f(30, 10));
+				strength[i].setSize(sf::Vector2f(150, 40));
+				speed[i].setSize(sf::Vector2f(150, 40));
+				defense[i].setSize(sf::Vector2f(150, 40));
 				break;
 			case 1:
 				sp[i].setTexture(imagePower[1]);
 				sp[i].setOrigin(sp[i].getGlobalBounds().width / 2, sp[i].getGlobalBounds().height / 2);
-				strength[i].setSize(sf::Vector2f(30, 10));
-				speed[i].setSize(sf::Vector2f(100, 10));
-				defense[i].setSize(sf::Vector2f(80, 10));
+				strength[i].setSize(sf::Vector2f(200, 40));
+				speed[i].setSize(sf::Vector2f(100, 40));
+				defense[i].setSize(sf::Vector2f(150, 40));
 				break;
 			case 2:
 				sp[i].setTexture(imagePower[2]);
 				sp[i].setOrigin(sp[i].getGlobalBounds().width / 2, sp[i].getGlobalBounds().height / 2);
-				strength[i].setSize(sf::Vector2f(30, 10));
-				speed[i].setSize(sf::Vector2f(80, 10));
-				defense[i].setSize(sf::Vector2f(100, 10));
+				strength[i].setSize(sf::Vector2f(100, 40));
+				speed[i].setSize(sf::Vector2f(200, 40));
+				defense[i].setSize(sf::Vector2f(150, 40));
 				break;
 			}
 		}
@@ -74,9 +74,7 @@ void Renderer::draw(sf::RenderWindow *window) {
 		text.setString("Pick your Ship");
 		centerText(&text, 100);
 		gsm->window.draw(text);
-
 		text.setCharacterSize(80);
-
 
         if (((PickState *)state)->players == 2)
         {
@@ -178,10 +176,7 @@ void Renderer::draw(sf::RenderWindow *window) {
 
 			nextNotif.setPosition(SCREENWIDTH / 2 - nextNotif.getGlobalBounds().width / 2, SCREENHEIGHT / 2 - 200);
 
-
 			window->draw(nextNotif);
-
-
 
 			((PlayState *) state) -> nextStageCounter  = 1;
 		}
@@ -190,49 +185,28 @@ void Renderer::draw(sf::RenderWindow *window) {
 		//window->clear(sf::Color::);
 		window->draw(background);
 		//window->draw(shipHealth1);
+		sf::ConvexShape triangle;
+    triangle.setPointCount(3);
+	triangle.setFillColor(sf::Color::Black);
+    triangle.setPoint(0, sf::Vector2f(0, 0));
+    triangle.setPoint(1, sf::Vector2f(0,SCREENHEIGHT/3));
+    triangle.setPoint(2,sf::Vector2f(SCREENWIDTH/3, 0));
+    window->draw(triangle);
 
+    triangle.setPoint(0,sf::Vector2f(0,2*SCREENHEIGHT/3));
+    triangle.setPoint(1,sf::Vector2f(0,SCREENHEIGHT));
+    triangle.setPoint(2,sf::Vector2f(SCREENWIDTH/3, SCREENHEIGHT));
+    window->draw(triangle);
 
-		 sf::ConvexShape triangle1;
-		 triangle1.setPointCount(3);
-		 triangle1.setPoint(0, sf::Vector2f(0, 0));
-		 triangle1.setPoint(1, sf::Vector2f(0,SCREENHEIGHT/3));
-		 triangle1.setPoint(2,sf::Vector2f(SCREENWIDTH/3, 0));
+    triangle.setPoint(0,sf::Vector2f(SCREENWIDTH*2/3, 0));
+    triangle.setPoint(1,sf::Vector2f(SCREENWIDTH,0));
+    triangle.setPoint(2,sf::Vector2f(SCREENWIDTH, SCREENHEIGHT/3));
+    window->draw(triangle);
 
-		 sf::ConvexShape triangle2;
-		 triangle2.setPointCount(3);
-		 triangle2.setPoint(0, sf::Vector2f(0, 2*SCREENHEIGHT/3));
-		 triangle2.setPoint(1, sf::Vector2f(0,SCREENHEIGHT));
-		 triangle2.setPoint(2,sf::Vector2f(SCREENWIDTH/3, SCREENHEIGHT));
-
-		 sf::ConvexShape triangle3;
-		 triangle3.setPointCount(3);
-		 triangle3.setPoint(0, sf::Vector2f(SCREENWIDTH*2/3, 0));
-		 triangle3.setPoint(1, sf::Vector2f(SCREENWIDTH,0));
-		 triangle3.setPoint(2,sf::Vector2f(SCREENWIDTH, SCREENHEIGHT/3));
-
-		 sf::ConvexShape triangle4;
-		 triangle4.setPointCount(3);
-		 triangle4.setPoint(0, sf::Vector2f(SCREENWIDTH, SCREENHEIGHT*2/3));
-		 triangle4.setPoint(1, sf::Vector2f(SCREENWIDTH,SCREENHEIGHT));
-		 triangle4.setPoint(2,sf::Vector2f(SCREENWIDTH*2/3, SCREENHEIGHT));
-    //sf::Color color(45,30,87);
-    triangle1.setFillColor(sf::Color::Black);
-		triangle2.setFillColor(sf::Color::Black);
-		triangle3.setFillColor(sf::Color::Black);
-	  triangle4.setFillColor(sf::Color::Black);
-
-    window->draw(triangle1);
-
-
-
-    window->draw(triangle2);
-
-
-    window->draw(triangle3);
-
-
-    window->draw(triangle4);
-
+    triangle.setPoint(0,sf::Vector2f(SCREENWIDTH, SCREENHEIGHT*2/3));
+    triangle.setPoint(1,sf::Vector2f(SCREENWIDTH,SCREENHEIGHT));
+    triangle.setPoint(2,sf::Vector2f(SCREENWIDTH*2/3, SCREENHEIGHT));
+    window->draw(triangle);
 		rocketShipObjects[0].setPosition(((PlayState *)state)->ship1.pos);
 		window->draw(rocketShipObjects[0]);
 		if (((PlayState *)state)->twoPlayerMode) {
@@ -244,7 +218,6 @@ void Renderer::draw(sf::RenderWindow *window) {
 			window->draw(((PlayState *)state)->powerups[p]->pSprite);
 		}
 
-		//HUD; later to be refactored into render class
 		for (int t = 0; t < ((PlayState *)state)->turrets.size(); t++) {
 			((PlayState *)state)->turrets[t]->turretObject.setPosition(((PlayState *)state)->turrets[t]->pos);
 			window->draw(((PlayState *)state)->turrets[t]->turretObject);
@@ -296,7 +269,7 @@ void Renderer::draw(sf::RenderWindow *window) {
 		// bar.setPosition(10, 20);
 
 		health.setFillColor(sf::Color::Red);
-		health.setSize(sf::Vector2f(600* (((PlayState *)state)->ship1.currentHealth / ((PlayState *)state)->ship1.maxHealth), 50));
+		health.setSize(sf::Vector2f(600*(((PlayState *)state)->ship1.currentHealth / ((PlayState *)state)->ship1.maxHealth), 50));
 		health.setPosition(110, 20);
 
 		loadFont(&font, "resources/spaceranger.ttf");
@@ -391,9 +364,6 @@ void Renderer::draw(sf::RenderWindow *window) {
 			centerText(&text, SCREENHEIGHT*0.3 + i * 100);
 			gsm->window.draw(text);
 		}
-
-		// printf("size: %f\n", ((OptionState *)state)->volumeLevel);
-
 		sf::RectangleShape volumeSlider;
 		volumeSlider.setFillColor(sf::Color(100,100,100));
 		volumeSlider.setSize(sf::Vector2f(150, 50));
@@ -408,18 +378,7 @@ void Renderer::draw(sf::RenderWindow *window) {
 		gsm->window.draw(background);
 		text.setFillColor(sf::Color::White);
 		text.setCharacterSize(150);
-
-		if (((FinishState *)state)->winner == 0){
-			text.setString("No!  You Died!");
-		}
-
-		else if (((FinishState *)state)->winner == 1) {
-
-			text.setString("Player 2 Wins!");
-		}
-		else {
-			text.setString("Player 1 Wins!");
-		}
+		text.setString("No!  You Died!");
 		centerText(&text, 150);
 		gsm->window.draw(text);
 
