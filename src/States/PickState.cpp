@@ -6,11 +6,11 @@ PickState::PickState(class GameStateManager *g) {
 	stateID = PICKSTATE;
     currentChoicePlayer[0] = 0;
     currentChoicePlayer[1] = 0;
-    
+
     background.setPosition(0, 0);
     //auto size = background.getTexture()->getSize();
     background.setScale(1.5f, 1.5f);
-    
+
     loadFonts();
     text.setFont(font);
     text.setFillColor(sf::Color::White);
@@ -22,20 +22,20 @@ PickState::PickState(class GameStateManager *g) {
     //    std::cout << "Could not load font." << std::endl;
     //    std::cout << "Could not load font." << std::endl;
     //
-    
-    
-    
+
+
+
     sp[1].setOrigin(sp[1].getGlobalBounds().width/2,
                     sp[1].getGlobalBounds().height/2);
-    
+
     for (int i = 0; i < 2; i++) {
         strength[i].setSize(sf::Vector2f(100.0f,100.0f));
         speed[i].setSize(sf::Vector2f(100.0f,100.0f));
         defense[i].setSize(sf::Vector2f(100.0f,100.0f));
     }
-    
-    
-    
+
+
+
     gsm->window.setKeyRepeatEnabled(false);
 }
 
@@ -43,7 +43,7 @@ void PickState::update(float deltams) {}
 
 void PickState::draw(sf::RenderWindow *window) {
     gsm->window.draw(background);
-    
+
     //set individual health bars
     //TODO: combine setting the bars and drawing
     //TODO: make the bar positions constants and more elegant
@@ -133,8 +133,8 @@ void PickState::draw(sf::RenderWindow *window) {
 //
 //
 //
-    
-    
+
+
 }
 
 void PickState::handleInput(sf::Event event) {
@@ -145,7 +145,7 @@ void PickState::handleInput(sf::Event event) {
             moveDownPick(0);
         if (event.key.code == PlayerOne_Down)
             select(0);
-        
+
         if (event.key.code == sf::Keyboard::P)
         {
             if (players == 2)
@@ -188,7 +188,7 @@ void PickState::select(int player) {
     }
     else
         playerConfirmation[player] = 0;
-    
+
     if (playerConfirmation[0] == playerConfirmation[1] && playerConfirmation[1] == 1)
     {
 		printf("SELECT!\n");
@@ -203,7 +203,7 @@ void PickState::select(int player) {
 void PickState::moveUpPick(int player) {
     currentChoicePlayer[player]--;
     if (currentChoicePlayer[player] == -1)
-        currentChoicePlayer[player] = 2;
+        currentChoicePlayer[player] = 3;
 }
 
 void PickState::moveDownPick(int player) {
@@ -213,23 +213,23 @@ void PickState::moveDownPick(int player) {
 }
 
 void PickState::loadFonts(){
-    
+
     if (!font.loadFromFile("resources/spaceranger.ttf"))
         std::cout << "Could not load font." << std::endl;
-    
+
     if(!backgroundTexture.loadFromFile("resources/space_real.jpg"))
         std::cout << "Could not load font." << std::endl;
     background.setTexture(backgroundTexture);
-    
+
     if(!imagePower[0].loadFromFile("resources/SHIP_ATTACK.png"))
         std::cout << "Could not load font." << std::endl;
-    
+
     if(!imagePower[1].loadFromFile("resources/SHIP_DEFENSE.png"))
         std::cout << "Could not load font." << std::endl;
-    
+
     if(!imagePower[2].loadFromFile("resources/SHIP_SPEED.png"))
         std::cout << "Could not load font." << std::endl;
-    
+
     for (int i = 0; i < 2; i++) {
         strength[i].setFillColor(sf::Color::Red);
         speed[i].setFillColor(sf::Color::Green);
