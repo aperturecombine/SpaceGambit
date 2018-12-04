@@ -183,7 +183,7 @@ void Renderer::draw(sf::RenderWindow *window) {
 			nextNotif.setCharacterSize(80);
 
 			nextNotif.setPosition(SCREENWIDTH / 2 - nextNotif.getGlobalBounds().width / 2, SCREENHEIGHT / 2 - 200);
-			
+
 
 			window->draw(nextNotif);
 
@@ -196,29 +196,49 @@ void Renderer::draw(sf::RenderWindow *window) {
 		//window->clear(sf::Color::);
 		window->draw(background);
 		//window->draw(shipHealth1);
-		sf::ConvexShape triangle;
-    triangle.setPointCount(3);
-    triangle.setPoint(0, sf::Vector2f(0, 0));
-    triangle.setPoint(1, sf::Vector2f(0,SCREENHEIGHT/3));
-    triangle.setPoint(2,sf::Vector2f(SCREENWIDTH/3, 0));
+
+
+		 sf::ConvexShape triangle1;
+		 triangle1.setPointCount(3);
+		 triangle1.setPoint(0, sf::Vector2f(0, 0));
+		 triangle1.setPoint(1, sf::Vector2f(0,SCREENHEIGHT/3));
+		 triangle1.setPoint(2,sf::Vector2f(SCREENWIDTH/3, 0));
+
+		 sf::ConvexShape triangle2;
+		 triangle2.setPointCount(3);
+		 triangle2.setPoint(0, sf::Vector2f(0, 2*SCREENHEIGHT/3));
+		 triangle2.setPoint(1, sf::Vector2f(0,SCREENHEIGHT));
+		 triangle2.setPoint(2,sf::Vector2f(SCREENWIDTH/3, SCREENHEIGHT));
+
+		 sf::ConvexShape triangle3;
+		 triangle3.setPointCount(3);
+		 triangle3.setPoint(0, sf::Vector2f(SCREENWIDTH*2/3, 0));
+		 triangle3.setPoint(1, sf::Vector2f(SCREENWIDTH,0));
+		 triangle3.setPoint(2,sf::Vector2f(SCREENWIDTH, SCREENHEIGHT/3));
+
+		 sf::ConvexShape triangle4;
+		 triangle4.setPointCount(3);
+		 triangle4.setPoint(0, sf::Vector2f(SCREENWIDTH, SCREENHEIGHT*2/3));
+		 triangle4.setPoint(1, sf::Vector2f(SCREENWIDTH,SCREENHEIGHT));
+		 triangle4.setPoint(2,sf::Vector2f(SCREENWIDTH*2/3, SCREENHEIGHT));
     //sf::Color color(45,30,87);
-    triangle.setFillColor(sf::Color::Black);
-    window->draw(triangle);
+    triangle1.setFillColor(sf::Color::Black);
+		triangle2.setFillColor(sf::Color::Black);
+		triangle3.setFillColor(sf::Color::Black);
+	  triangle4.setFillColor(sf::Color::Black);
 
-    triangle.setPoint(0, sf::Vector2f(0, 2*SCREENHEIGHT/3));
-    triangle.setPoint(1, sf::Vector2f(0,SCREENHEIGHT));
-    triangle.setPoint(2,sf::Vector2f(SCREENWIDTH/3, SCREENHEIGHT));
-    window->draw(triangle);
+    window->draw(triangle1);
 
-    triangle.setPoint(0, sf::Vector2f(SCREENWIDTH*2/3, 0));
-    triangle.setPoint(1, sf::Vector2f(SCREENWIDTH,0));
-    triangle.setPoint(2,sf::Vector2f(SCREENWIDTH, SCREENHEIGHT/3));
-    window->draw(triangle);
 
-    triangle.setPoint(0, sf::Vector2f(SCREENWIDTH, SCREENHEIGHT*2/3));
-    triangle.setPoint(1, sf::Vector2f(SCREENWIDTH,SCREENHEIGHT));
-    triangle.setPoint(2,sf::Vector2f(SCREENWIDTH*2/3, SCREENHEIGHT));
-    window->draw(triangle);
+
+    window->draw(triangle2);
+
+
+    window->draw(triangle3);
+
+
+    window->draw(triangle4);
+
 		rocketShipObjects[0].setPosition(((PlayState *)state)->ship1.pos);
 		window->draw(rocketShipObjects[0]);
 		if (((PlayState *)state)->twoPlayerMode) {

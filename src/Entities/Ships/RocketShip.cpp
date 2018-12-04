@@ -55,21 +55,21 @@ void RocketShip::update(float deltams) {
 
 	    if (moveUp || moveDown) {
 			if (moveUp)
-				vel.y -= ACCEL;
+				vel.y -= vel_powerup*ACCEL;
 			if (moveDown)
-				vel.y += ACCEL;
+				vel.y += vel_powerup*ACCEL;
 		}
 		else
-			vel.y *= DECEL;
+			vel.y *= vel_powerup*DECEL;
 
 		if (moveLeft || moveRight) {
 			if (moveLeft)
-				vel.x -= ACCEL;
+				vel.x -= vel_powerup*ACCEL;
 			if (moveRight)
-				vel.x += ACCEL;
+				vel.x += vel_powerup*ACCEL;
 		}
 		else
-			vel.x *= DECEL;
+			vel.x *= vel_powerup*DECEL;
 
 		if (vel.x <= -maxSpeed)	vel.x = -maxSpeed;
 		if (vel.x >= maxSpeed)	vel.x = maxSpeed;

@@ -29,7 +29,7 @@ public:
     b2BodyDef rocketBody;
     b2FixtureDef shipFixture;
     void attachShape();
-
+    float vel_powerup = 1;
     b2PolygonShape* getShape();
     int shipType;
 

@@ -32,9 +32,9 @@ PlayState::PlayState(class GameStateManager *g, int numPlayer) {
     vs[5].Set(SCREENHEIGHT*2/3,SCREENWIDTH);
     vs[6].Set(SCREENHEIGHT/3,SCREENWIDTH);
     vs[7].Set(0.0f,2*SCREENWIDTH/3);
-
-
     backgroundShapeb.CreateLoop(vs, 8);
+
+
 
     if(numPlayer == 2)
         twoPlayerMode = true;
@@ -115,11 +115,11 @@ void PlayState::update(float deltams) {
 
 				generateTurrets();
 
-				int pOfPup = (rand() % 10) + 1;
+				//int pOfPup = (rand() % 10) ;
 				powerups.clear();
-				if (pOfPup  <= 2){
-					createPowerUps();
-				}
+
+				createPowerUps();
+
 				stageTimer = STAGETIME;
 
 				nextStage = 0;
@@ -437,8 +437,8 @@ void PlayState::checkCollisions() {
                     ship1.currentHealth = ship1.maxHealth;
                     break;
                 case 2:
-                    ship1.vel.x += 2*ship1.vel.x;
-                    ship1.vel.y += 2*ship1.vel.y;
+                    ship1.vel_powerup = 2;
+
                     break;
 
 
@@ -454,8 +454,8 @@ void PlayState::checkCollisions() {
                         ship2.currentHealth = ship2.maxHealth;
                         break;
                     case 2:
-                        ship2.vel.x += 2*ship2.vel.x;
-                        ship2.vel.y += 2*ship2.vel.y;
+                        ship2.vel_powerup = true;
+
                         break;
 
 
@@ -528,7 +528,7 @@ void PlayState::checkCollisions() {
     bool shipCollide = false;
     //ship-ship collision
     if (twoPlayerMode) {
-        bool shipc = (ship1.rocketShipObject.getGlobalBounds().intersects(ship2.rocketShipObject.getGlobalBounds())); 
+        bool shipc = (ship1.rocketShipObject.getGlobalBounds().intersects(ship2.rocketShipObject.getGlobalBounds()));
         shipCollide = shipc| b2TestOverlap(ship1.getShape(),0, ship2.getShape(),0,b2Transform(b2Vec2(ship1.pos.x, ship1.pos.y), b2Rot(0.0f)),b2Transform(b2Vec2(ship2.pos.x, ship2.pos.y), b2Rot(0.0f)));
         // ship1.bounce( , ship2.bounceFactor);
         // ship2.bounce( , ship1.bounceFactor);
@@ -597,6 +597,11 @@ void PlayState::checkCollisions() {
         }
     }
 
+    // make sure ship does not go off bound if processor is too quick
+
+
+
+
     //ship bounds checking
 
         b2ChainShape* backgroundShape = &backgroundShapeb;
@@ -609,6 +614,7 @@ void PlayState::checkCollisions() {
         //vector1.left +=  .1*ship1.vel.x;
         //vector1.top += .1*ship1.vel.y;
         bool part1_collision;
+
         for (int t = 0; t < 8; t++) {
 
         part1_collision = b2TestOverlap(ship1.getShape(),0, backgroundShape, t, b2Transform(b2Vec2(vector1.x, vector1.y), b2Rot(0.0f)),b2Transform(b2Vec2(0, 0), b2Rot(0.0f)));
@@ -625,6 +631,8 @@ void PlayState::checkCollisions() {
           vector2.y += .1*ship2.vel.y;
           //vector1.left +=  .1*ship1.vel.x;
           //vector1.top += .1*ship1.vel.y;
+
+
           for (int t = 0; t < 8; t++) {
           part2_collision = b2TestOverlap(ship2.getShape(),0, backgroundShape, t, b2Transform(b2Vec2(vector2.x, vector2.y), b2Rot(0.0f)),b2Transform(b2Vec2(0, 0), b2Rot(0.0f)));
 
@@ -652,7 +660,7 @@ void PlayState::checkCollisions() {
 
             if (part2_collision){
                 printf("ship2 collide with boundary\n");
-                if (ship2.currentHealth > 0) ship2.currentHealth -= 1;
+            
                 ship2.freeze = true;
                 ship2.freezePosition.x = ship2.pos.x;
                 ship2.freezePosition.y = ship2.pos.y;
@@ -664,8 +672,52 @@ void PlayState::checkCollisions() {
             }
         }
 
+    if(ship1.pos.x < 0 | ship1.pos.x > SCREENWIDTH | ship1.pos.y < 0 | ship1.pos.y > SCREENHEIGHT)
+    // shipbound addtional checking
+    {
+      ship1.pos.x = SCREENWIDTH/2;
+      ship1.pos.y= SCREENHEIGHT/2;
 
+    }
 
+    float slope1 = -SCREENHEIGHT / SCREENWIDTH;
+
+    float slope2 = - slope1;
+
+    float y1 = slope1*ship1.pos.x + SCREENHEIGHT/3;
+    float y2 = slope2*ship1.pos.x  + 2* SCREENHEIGHT/3;
+
+    float y3 = slope2*ship1.pos.x;
+    float y4 = slope1*ship1.pos.x + 4/3*SCREENHEIGHT;
+    /**
+    if (ship1.pos.y > y1 | ship1.pos.y> y2 | ship1.pos.y < y3 | ship1.pos.y < y4){
+      ship1.pos.x = SCREENWIDTH/2;
+      ship1.pos.y= SCREENHEIGHT/2;
+    }
+    **/
+
+    if (twoPlayerMode){
+
+      if(ship2.pos.x < 0 | ship2.pos.x > SCREENWIDTH | ship2.pos.y < 0 | ship2.pos.y > SCREENHEIGHT)
+      // shipbound addtional checking
+      {
+        ship2.pos.x = SCREENWIDTH/2;
+        ship2.pos.y= SCREENHEIGHT/2 + 50;
+
+      }
+      /**
+      y1 = slope2*ship2.pos.x + SCREENHEIGHT/3;
+      y2 = slope1*(ship2.pos.x - 2*SCREENWIDTH/3)  - 2* SCREENHEIGHT/3;
+
+      y3 = slope1*ship2.pos.x - 2* SCREENHEIGHT/3;
+      y4 = slope2*(ship2.pos.x- 2*SCREENWIDTH/3) + SCREENHEIGHT/3;
+
+      if (ship2.pos.y > y1 | ship2.pos.y> y2 | ship2.pos.y < y3 | ship2.pos.y < y4){
+        ship2.pos.x = SCREENWIDTH/2;
+        ship2.pos.y= SCREENHEIGHT/2;
+      }**/
+
+    }
 
     //bullet bounds checking
 

@@ -38,6 +38,10 @@ public:
   int nextStageCounter = 0;
   int nextStage = 0;
   int nextStageContinue = true;
+  sf::ConvexShape triangle1;
+  sf::ConvexShape triangle2;
+  sf::ConvexShape triangle3;
+  sf::ConvexShape triangle4;
 private:
 	//chain.CreateChain(vs,6);
 	b2ChainShape backgroundShapeb;
