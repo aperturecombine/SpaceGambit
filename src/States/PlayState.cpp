@@ -756,7 +756,9 @@ void PlayState::generateTurrets() {
                 {
                     turretID = randomButNotRandomSelector();
                     turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/7) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/6) * (pow(-1,b)))));
+                    turretID = randomButNotRandomSelector();
                     turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/4) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/6) * (pow(-1,b)))));
+                    turretID = randomButNotRandomSelector();
                     turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/7) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/3) * (pow(-1,b)))));
                 }
             }
@@ -806,7 +808,7 @@ int PlayState::randomButNotRandomSelector() {
 
     turretID = (rand() % 6 + 1);
 
-    return 2;
+    return turretID;
 }
 
 void PlayState::turretSelect(int turretID, sf::Vector2f p) {

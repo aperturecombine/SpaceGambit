@@ -365,14 +365,23 @@ void Renderer::draw(sf::RenderWindow *window) {
 
 		for (int i = 0; i < 5; i++) {
 			if (i == ((OptionState *)state)->currentChoice)
-				text.setString("> " + oOptions[i] + " <");
+            {
+                int j = ((OptionState *)state)->hor_CurrentChoice;
+                
+                if(i == 0)
+                {
+                    text.setString(oOptions[i] + "> " + resolution[j]  +" <");
+                }
+                else
+                {
+                text.setString("> " + oOptions[i] + " <");
+                }
+            }
 			else
 				text.setString(oOptions[i]);
 			centerText(&text, SCREENHEIGHT*0.3 + i * 100);
 			gsm->window.draw(text);
 		}
-
-		printf("size: %f\n", ((OptionState *)state)->volumeLevel);
 
 		sf::RectangleShape volumeSlider;
 		volumeSlider.setFillColor(sf::Color(100,100,100));
@@ -380,7 +389,7 @@ void Renderer::draw(sf::RenderWindow *window) {
 		volumeSlider.setPosition(SCREENWIDTH / 2 + 325, SCREENHEIGHT*0.3 + 75);
 		window->draw(volumeSlider);
 
-		volumeSlider.setFillColor(sf::Color::Yellow);
+		volumeSlider.setFillColor(sf::Color::Red);
 		volumeSlider.setSize(sf::Vector2f(((OptionState *)state)->volumeLevel*1.5, 50));
 		window->draw(volumeSlider);
 	}

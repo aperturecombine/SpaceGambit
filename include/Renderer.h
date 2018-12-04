@@ -57,7 +57,9 @@ private:
 								"Change Player 1 Controls",
 								"Change Player 2 Controls",
 								"Return to Menu" };
-
+    
+    std::string resolution[3]= {"720px by 720px", "1440px by 1440px", "2160px by 2160px"};
+    
 	// PICKSTATE
 	sf::Sprite sp[2];
 

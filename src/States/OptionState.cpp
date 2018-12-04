@@ -62,27 +62,50 @@ void OptionState::handleInput(sf::Event event) {
 			moveDown();
 		else if (event.key.code == sf::Keyboard::Space)
 			select();
-		else if (event.key.code == sf::Keyboard::Left && currentChoice == 1) {
-			if (volumeLevel > 0)
-				volumeLevel -= 10;
-			gsm->renderer->changeVolume(volumeLevel);
-		}
-		else if (event.key.code == sf::Keyboard::Right && currentChoice == 1) {
-			if (volumeLevel < 100)
-				volumeLevel += 10;
-			gsm->renderer->changeVolume(volumeLevel);
-		}
-        //        switch (event.key.code) {
-        //        case sf::Keyboard::Up:
-        //            moveUp();
-        //            break;
-        //        case sf::Keyboard::Down:
-        //            moveDown();
-        //            break;
-        //        case sf::Keyboard::Space:
-        //            select();
-        //            break;
-        //        }
+        
+        if (currentChoice == 0)
+        {
+            if (event.key.code == sf::Keyboard::Left)
+                moveLeft();
+            else if (event.key.code == sf::Keyboard::Right)
+                moveRight();
+            else if (event.key.code == sf::Keyboard::Space)
+                select();
+        }
+        
+        
+        
+        
+        if (currentChoice == 1)
+        {
+            if (event.key.code == sf::Keyboard::Left)
+            {
+                if (volumeLevel > 0)
+                    volumeLevel -= 10;
+                gsm->renderer->changeVolume(volumeLevel);
+            }
+            else if (event.key.code == sf::Keyboard::Right)
+            {
+                if (volumeLevel < 100)
+                    volumeLevel += 10;
+                gsm->renderer->changeVolume(volumeLevel);
+            }
+        }
+        
+        
+        
+        
+//                switch (event.key.code) {
+//                case sf::Keyboard::Up:
+//                    moveUp();
+//                    break;
+//                case sf::Keyboard::Down:
+//                    moveDown();
+//                    break;
+//                case sf::Keyboard::Space:
+//                    select();
+//                    break;
+//                }
     }
 }
 
@@ -95,7 +118,42 @@ void OptionState::centerText(sf::Text *text, int y) {
 }
 
 void OptionState::select() {
-    if (currentChoice == 2)
+    
+    if (currentChoice == 0) //Resolution Selection
+    {
+        switch (hor_CurrentChoice) {
+            case 0: //720px by 720px
+                RESOLUTION = 720;
+                gsm->window.setSize(sf::Vector2u(720,720));
+                break;
+            case 1: //1440px by 1440px
+                RESOLUTION = 1440;
+                gsm->window.setSize(sf::Vector2u(1440,1440));
+                break;
+            case 2: //2160px by 2160px
+                RESOLUTION = 2160 ;
+                gsm->window.setSize(sf::Vector2u(2160,2160));
+                break;
+        }
+
+        
+        
+    }
+    
+    if (currentChoice == 1) //Volume Selection
+    {
+    }
+    
+    if (currentChoice == 2) //Player 1 Controls
+    {
+        PlayerOne_Up = sf::Keyboard::T;
+        PlayerOne_Down = sf::Keyboard::G;
+        PlayerOne_Left = sf::Keyboard::F;
+        PlayerOne_Right = sf::Keyboard::H;
+        std::cout <<"Player 1 Controls Changed"<< std::endl;
+    }
+    
+    if (currentChoice == 3) //Player 2 Controls
     {
         PlayerOne_Up = sf::Keyboard::T;
         PlayerOne_Down = sf::Keyboard::G;
