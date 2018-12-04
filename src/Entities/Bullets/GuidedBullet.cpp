@@ -39,7 +39,7 @@ void GuidedBullet::update(float dt) {
 
 void GuidedBullet::loadFont(){
 
-    if (!bulletImage.loadFromFile("resources/ggun_bullet.png")) {
+    if (!bulletImage.loadFromFile("resources/missle_frame2.png")) {
         //printf("Could not load\n");
     }
 

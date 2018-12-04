@@ -439,7 +439,7 @@ void PlayState::checkCollisions() {
                     ship1.currentHealth = ship1.maxHealth;
                     break;
                 case 2:
-                    ship1.vel_powerup = 2;
+                    ship1.vel_powerup = 5;
 
                     break;
 
@@ -527,38 +527,39 @@ void PlayState::checkCollisions() {
     }
 
 
-    // bool shipCollide = false;
-    // //ship-ship collision
-    // if (twoPlayerMode) {
-    //     bool shipc = (ship1.rocketShipObject.getGlobalBounds().intersects(ship2.rocketShipObject.getGlobalBounds()));
-    //     shipCollide = shipc| b2TestOverlap(ship1.getShape(),0, ship2.getShape(),0,b2Transform(b2Vec2(ship1.pos.x, ship1.pos.y), b2Rot(0.0f)),b2Transform(b2Vec2(ship2.pos.x, ship2.pos.y), b2Rot(0.0f)));
-    //     // ship1.bounce( , ship2.bounceFactor);
-    //     // ship2.bounce( , ship1.bounceFactor);
-    // }
+    bool shipCollide = false;
+    //ship-ship collision
+    if (twoPlayerMode) {
+        bool shipc = (ship1.rocketShipObject.getGlobalBounds().intersects(ship2.rocketShipObject.getGlobalBounds()));
+        shipCollide = shipc| b2TestOverlap(ship1.getShape(),0, ship2.getShape(),0,b2Transform(b2Vec2(ship1.pos.x, ship1.pos.y), b2Rot(0.0f)),b2Transform(b2Vec2(ship2.pos.x, ship2.pos.y), b2Rot(0.0f)));
+        // ship1.bounce( , ship2.bounceFactor);
+        // ship2.bounce( , ship1.bounceFactor);
+    }
+
+    /*
+     if (shipCollide){
+        b2WorldManifold worldManifold;
+         b2Manifold manifold;
+
+         worldManifold.Initialize(&manifold, b2Transform(b2Vec2(ship1.pos.x, ship1.pos.y), b2Rot(0.0f)),ship1.getShape()->m_radius ,b2Transform(b2Vec2(ship2.pos.x, ship2.pos.y),b2Rot(0.0f)), ship2.getShape()->m_radius);
+
+         b2Vec2 point = worldManifold.points[0];
+
+         std::cout << point.x << std::endl;
+
+         sf::Vector2f collisionPoint;
+         collisionPoint.x = point.x;
+         collisionPoint.y = point.y;
+
+         std::cout << collisionPoint.x << std::endl;
+         std::cout << collisionPoint.y << std::endl;
+
+         ship1.bounce(collisionPoint, ship2.bounceFactor);
+         ship2.bounce(collisionPoint, ship1.bounceFactor);
 
 
-    //  if (shipCollide){
-    //     b2WorldManifold worldManifold;
-    //      b2Manifold manifold;
-
-    //      worldManifold.Initialize(&manifold, b2Transform(b2Vec2(ship1.pos.x, ship1.pos.y), b2Rot(0.0f)),ship1.getShape()->m_radius ,b2Transform(b2Vec2(ship2.pos.x, ship2.pos.y),b2Rot(0.0f)), ship2.getShape()->m_radius);
-
-    //      b2Vec2 point = worldManifold.points[0];
-
-    //      std::cout << point.x << std::endl;
-
-    //      sf::Vector2f collisionPoint;
-    //      collisionPoint.x = point.x;
-    //      collisionPoint.y = point.y;
-
-    //      std::cout << collisionPoint.x << std::endl;
-    //      std::cout << collisionPoint.y << std::endl;
-
-    //      ship1.bounce(collisionPoint, ship2.bounceFactor);
-    //      ship2.bounce(collisionPoint, ship1.bounceFactor);
-
-
-    //      }
+         }
+         */
 
 
 
@@ -849,7 +850,7 @@ int PlayState::randomButNotRandomSelector() {
     //    int range = sizeof(turretCounter);
     int turretID;
     int max;
-    
+
     if (level > 1)
     {
         if(twoPlayerMode)
@@ -859,9 +860,9 @@ int PlayState::randomButNotRandomSelector() {
     }
     else
         max = 4;
-    
+
     turretID = (rand() % max + 1);
-    
+
     return turretID;
 }
 
@@ -898,7 +899,7 @@ void PlayState::turretSelect(int turretID, sf::Vector2f p) {
             turrets.push_back(t5);
             break;
         }
-            
+
         case 5 : // Glue Turret
         {
             GlueGunTurret *t2 = new GlueGunTurret(p);

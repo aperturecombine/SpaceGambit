@@ -57,7 +57,7 @@ sf::Vector2f BoomerangTurret::getInitBulletVel() {
     if(ref->twoPlayerMode){
         sf::Vector2f ship2_init = (ref->ship2.pos - pos);
         float ship2_dist = pow((ship2_init.x*ship2_init.x + ship2_init.y*ship2_init.y),0.5);
-        
+
         if (ship1_dist < ship2_dist)
         {
             if (ship1_dist < firingRange) {withinfiringRange=true;}

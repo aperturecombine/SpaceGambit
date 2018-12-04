@@ -10,7 +10,7 @@ RailGunTurret::RailGunTurret(sf::Vector2f p) {
     withinfiringRange = false;
     attachShape();
 
-    if (!turretImage.loadFromFile("resources/base_allgun.png")) {
+    if (!turretImage.loadFromFile("resources/rail_normal.png")) {
         printf("Could not load turret\n");
     }
 
@@ -19,7 +19,7 @@ RailGunTurret::RailGunTurret(sf::Vector2f p) {
     turretObject.setTexture(turretTexture);
     turretObject.setOrigin((turretObject.getTexture()->getSize().x) / 2,
                            (turretObject.getTexture()->getSize().y) / 2);
-    turretObject.setScale(.1, .1);
+    turretObject.setScale(.3, .3);
     turretObject.setPosition(p);
 }
 
