@@ -25,6 +25,14 @@ public:
 		shipTypes[1] = s2;
 	}
 
+	void changeVolume(int v) {
+		volume = v;
+		playMusic.setVolume(volume);
+		menuMusic.setVolume(volume);
+		pauseMusic.setVolume(volume);
+	}
+	int getVolume() { return volume; }
+
 private:
 	GameStateManager * gsm;
 	void centerText(sf::Text *text, int y);
@@ -45,7 +53,7 @@ private:
 	std::string options[3] = { "Play", "Options", "Quit" };
 
 	std::string oOptions[5] = { "Adjust Screen Resolution",
-								"Adjust Volume",
+								"Adjust Volume       ",
 								"Change Player 1 Controls",
 								"Change Player 2 Controls",
 								"Return to Menu" };
@@ -87,7 +95,6 @@ private:
 	sf::Texture pauseTexture;
 	sf::Sprite pauseSprite;
 
-
 	sf::Texture textureP1;
 	sf::Sprite sP1;
 	sf::Texture textureP2;
@@ -100,7 +107,7 @@ private:
 	sf::Music playMusic;
 	sf::Music menuMusic;
 	sf::Music pauseMusic;
-
+	int volume = 50;
 
 	// FINISHSTATE
 	std::string fOptions[2] = { "Replay", "Quit" };
