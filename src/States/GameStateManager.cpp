@@ -1,15 +1,22 @@
 #include "../../include/States/GameStateManager.h"
 #include "../../include/Globals.h"
 #include "../../include/Renderer.h"
+#include <chrono>
+#include <thread>
 
 GameStateManager::GameStateManager() {
-    window.create(sf::VideoMode(SCREENWIDTH, SCREENHEIGHT), "Space Gambit", sf::Style::Titlebar | sf::Style::Close);
+    window.create(sf::VideoMode(XRESOLUTION, YRESOLUTION), "Space Gambit", sf::Style::Titlebar | sf::Style::Close);
+    gameView.reset(sf::FloatRect(0.f, 0.f, SCREENWIDTH, SCREENHEIGHT));
     window.setVerticalSyncEnabled(true);
-    
+    window.setView(gameView);
+    std::cout << "Changing View Size" << std::endl;
+    window.setSize(sf::Vector2u(1000,1000));
+    gameView.setSize(1000.f, 1000.f);
 	renderer = new Renderer(this);
 	
     pushState(MENUSTATE);
     running = true;
+    winners = 0;
 }
 
 void GameStateManager::start() {
@@ -56,7 +63,7 @@ void GameStateManager::pushState(int newState) {
 		}
 		break;
         case FINISHSTATE:
-            states.push(new FinishState(this));
+            states.push(new FinishState(this, winners));
             break;
         case OPTIONSTATE:
             states.push(new OptionState(this));

@@ -7,6 +7,7 @@
 #include "PickState.h"
 #include "OptionState.h"
 #include "../Entities/Ships/RocketShip.h"
+#include "../Renderer.h"
 #include <SFML/Graphics.hpp>
 
 #define MENUSTATE 0
@@ -27,16 +28,19 @@ public:
 	void popState();
 	void returnToMenu();
     int numPlayer = 2;
+    sf::View gameView;
 
 	GameState * getTop() {
 		return states.top();
 	}
 
 	sf::RenderWindow window;
+	int winners;
 
 	bool running;
-private:
+
 	class Renderer * renderer;
+private:
 	std::stack<class GameState*> states;
 
 };

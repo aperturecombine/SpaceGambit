@@ -15,9 +15,8 @@ Renderer::Renderer(GameStateManager * g) {
 }
 
 void Renderer::draw(sf::RenderWindow *window) {
-
-
 	state = gsm->getTop();
+
 	if (currState == MENUSTATE) {
 		//TODO: This really only needs to be called when actually changed, but whatever
 		gsm->window.draw(background);
@@ -153,14 +152,9 @@ void Renderer::draw(sf::RenderWindow *window) {
         text.setString("Press P Key to Add or Remove Player 2");
         centerText(&text, SCREENHEIGHT - text.getGlobalBounds().height - 10);
         gsm->window.draw(text);
-
-
-
-
 	}
 
 	if (currState == PLAYSTATE) {
-
 		if (((PlayState *)state)->pause) {
 			window->draw(pauseState);
 			window->draw(pauseSprite);
@@ -372,8 +366,6 @@ void Renderer::draw(sf::RenderWindow *window) {
 		timerCount.setCharacterSize(80);
 		timerCount.setPosition(levelTimer.getPosition().x + levelTimer.getGlobalBounds().width / 2 - timerCount.getGlobalBounds().width / 2, levelTimer.getPosition().y + timerCount.getGlobalBounds().height + 10);
 		window->draw(timerCount);
-
-
 	}
 
 	}
@@ -399,18 +391,40 @@ void Renderer::draw(sf::RenderWindow *window) {
 			centerText(&text, SCREENHEIGHT*0.3 + i * 100);
 			gsm->window.draw(text);
 		}
+
+		// printf("size: %f\n", ((OptionState *)state)->volumeLevel);
+
+		sf::RectangleShape volumeSlider;
+		volumeSlider.setFillColor(sf::Color(100,100,100));
+		volumeSlider.setSize(sf::Vector2f(150, 50));
+		volumeSlider.setPosition(SCREENWIDTH / 2 + 325, SCREENHEIGHT*0.3 + 75);
+		window->draw(volumeSlider);
+
+		volumeSlider.setFillColor(sf::Color::Yellow);
+		volumeSlider.setSize(sf::Vector2f(((OptionState *)state)->volumeLevel*1.5, 50));
+		window->draw(volumeSlider);
 	}
 	if (currState == FINISHSTATE) {
 		gsm->window.draw(background);
 		text.setFillColor(sf::Color::White);
 		text.setCharacterSize(150);
-		text.setString("No!  You Died!");
+
+		if (((FinishState *)state)->winner == 0){
+			text.setString("No!  You Died!");
+		}
+
+		else if (((FinishState *)state)->winner == 1) {
+
+			text.setString("Player 2 Wins!");
+		}
+		else {
+			text.setString("Player 1 Wins!");
+		}
 		centerText(&text, 150);
 		gsm->window.draw(text);
 
 		text.setCharacterSize(80);
 		for (int i = 0; i < 2; i++) {
-
 			if (i == ((FinishState *)state)->currentChoice) {
 				text.setString("> " + fOptions[i] + " <");
 			}
@@ -451,9 +465,9 @@ void Renderer::setState(int newState) {
 	// menuMusic.stop();
 
 	if (newState == MENUSTATE) {
-
 		pauseMusic.stop();
 		menuMusic.pause();
+		menuMusic.setVolume(volume);
 		menuMusic.play();
 
 		loadFont(&font, "resources/spaceranger.ttf");
@@ -503,8 +517,8 @@ void Renderer::setState(int newState) {
 
 		menuMusic.stop();
 		pauseMusic.stop();
+		playMusic.setVolume(volume);
 		playMusic.play();
-
 
 		loadImage(&image, "resources/LV1.JPG");
 
@@ -566,8 +580,8 @@ void Renderer::setState(int newState) {
 	}
 
 	else if (newState == FINISHSTATE) {
-
 		playMusic.stop();
+		pauseMusic.setVolume(volume);
 		pauseMusic.play();
 
 		loadFont(&font, "resources/spaceranger.ttf");
