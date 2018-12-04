@@ -27,6 +27,7 @@ public:
 	void popState();
 	void returnToMenu();
     int numPlayer = 2;
+    sf::View gameView;
 
 	GameState * getTop() {
 		return states.top();
