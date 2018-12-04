@@ -10,7 +10,18 @@ GuidedTurret::GuidedTurret(sf::Vector2f p) {
 	damage = 5;
     withinfiringRange = false;
     attachShape();
-
+    loadbase(p);
+    if (!turretbase.loadFromFile("resources/base_allgun.png")) {
+        printf("Could not load turret\n");
+    }
+    turretTexturebase.loadFromImage(turretbase);
+    turretTexturebase.setSmooth(true);
+    turretObjectbase.setTexture(turretTexture);
+    turretObjectbase.setScale(.3, .3);
+    turretObjectbase.setOrigin((turretObjectbase.getTexture()->getSize().x) / 2,
+                           (turretObject.getTexture()->getSize().y) / 2);
+    turretObjectbase.setPosition(p);
+        printf("Where is seg \n");
     if (!turretImage.loadFromFile("resources/missile_normal.png")) {
         printf("Could not load turret\n");
     }

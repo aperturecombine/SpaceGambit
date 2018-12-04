@@ -14,7 +14,7 @@
 
 #include <math.h>
 #include <cstdlib>
-
+#include <iostream>
 PlayState::PlayState(class GameStateManager *g, int numPlayer, int ship1type, int ship2type) {
     gsm = g;
     turretCount = 6;
@@ -402,7 +402,7 @@ void PlayState::createPowerUps(){
 
     // printf(pOfupX + "\n");
     // printf(pOfupY + "\n");
-    if (pOfPup <= 5){
+    if (pOfPup <= 10){
         health *Health = new health(sf::Vector2f(pOfupX,pOfupY));
         powerups.push_back(Health);
     }
@@ -436,7 +436,8 @@ void PlayState::checkCollisions() {
         if (ship1.rocketShipObject.getGlobalBounds().intersects(powerups[p]->pSprite.getGlobalBounds())){
             switch (powerups[p]->type) {
                 case 1:
-                    ship1.currentHealth = ship1.maxHealth;
+                    ship1.currentHealth += ship1.maxHealth;
+                   std::cout << ship1.currentHealth  << std::endl;
                     break;
                 case 2:
                     ship1.vel_powerup = 5;
@@ -456,7 +457,7 @@ void PlayState::checkCollisions() {
                         ship2.currentHealth = ship2.maxHealth;
                         break;
                     case 2:
-                        ship2.vel_powerup = true;
+                        ship2.vel_powerup =  5;
 
                         break;
 

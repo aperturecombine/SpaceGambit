@@ -12,6 +12,9 @@ public:
     sf::Sprite turretObject;
     sf::Image turretImage;
     sf::Texture turretTexture;
+    sf::Sprite turretObjectbase;
+    sf::Image turretbase;
+    sf::Texture turretTexturebase;
 
     bool moveable;
 
@@ -63,6 +66,26 @@ protected:
         }
         std::cout << "Turret Position: " << position.x << ", " << position.y << std::endl;
     }*/
+
+    void loadbase(sf::Vector2f pos){
+      if (!turretbase.loadFromFile("resources/base_allgun.png")) {
+          printf("Could not load turret\n");
+      }
+
+
+      turretTexturebase.loadFromImage(turretbase);
+      turretTexturebase.setSmooth(true);
+
+      turretObjectbase.setTexture(turretTexture);
+
+
+      turretObjectbase.setOrigin((turretObjectbase.getTexture()->getSize().x) / 2,
+                             (turretObjectbase.getTexture()->getSize().y) / 2);
+
+      printf("Where is seg \n");
+      turretObjectbase.setPosition(pos);
+
+    }
 
 
 };

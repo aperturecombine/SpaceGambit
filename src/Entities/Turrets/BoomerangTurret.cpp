@@ -13,6 +13,7 @@ BoomerangTurret::BoomerangTurret(sf::Vector2f p) {
     if (!turretImage.loadFromFile("resources/bgun_normal.png")) {
         printf("Could not load turret");
     }
+    loadbase(p);
 
     turretTexture.loadFromImage(turretImage);
     turretTexture.setSmooth(true);

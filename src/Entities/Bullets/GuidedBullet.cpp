@@ -5,7 +5,7 @@ GuidedBullet::GuidedBullet(sf::Vector2f p, sf::Vector2f v, PlayState *refe) {
     vel = v;
     speed = 300;
     isAlive = true;
-    radius = 8;
+    radius = 10;
     ref = refe;
     attachShape();
     loadFont();
