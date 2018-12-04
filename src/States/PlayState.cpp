@@ -777,11 +777,6 @@ void PlayState::generateTurrets() {
 
 
 void PlayState::resetTurrets() {
-    //    for (int t = 0; t < sizeof(turretCounter); t++) {
-    //            turretCounter[t] = (t + 1);
-    //    }
-
-
     for (int t = 0; t < turrets.size(); t++) {
         for (int b = 0; b < turrets[t]->bullets.size(); b++) {
             turrets[t]->bullets.erase(turrets[t]->bullets.begin() + b);
@@ -793,7 +788,6 @@ void PlayState::resetTurrets() {
             turrets.erase(turrets.begin() + t);
         }
     }
-
 }
 
 int PlayState::randomButNotRandomSelector() {
@@ -819,7 +813,7 @@ int PlayState::randomButNotRandomSelector() {
 
     turretID = (rand() % 6 + 1);
 
-    return turretID;
+    return 2;
 }
 
 void PlayState::turretSelect(int turretID, sf::Vector2f p) {
