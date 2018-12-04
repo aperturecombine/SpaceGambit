@@ -114,7 +114,7 @@ void PickState::select(int player) {
 void PickState::moveUpPick(int player) {
     currentChoicePlayer[player]--;
     if (currentChoicePlayer[player] == -1)
-        currentChoicePlayer[player] = 3;
+        currentChoicePlayer[player] = 2;
 }
 
 void PickState::moveDownPick(int player) {
