@@ -45,7 +45,7 @@ void RocketShip::update(float deltams) {
     //shipShape -> m_p.Set(pos.x,pos.y);
     bounceAccumulator += deltams;
 
-    if (bounceAccumulator < 500 ) {
+    if (bounceAccumulator < 2000 ) {
     	isBounced = false;
     }
 

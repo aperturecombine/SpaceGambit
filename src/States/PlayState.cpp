@@ -92,7 +92,7 @@ void PlayState::update(float deltams) {
         //gsm->pushState(FINISHSTATE);
 
         if (stageTimer > 0)
-            stageTimer -= deltams;
+            stageTimer -= deltams*.5;
         //    else if (level == 5)
         //    {
         //        level = 1;
