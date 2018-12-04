@@ -11,7 +11,7 @@ class health : public Powerups {
 public:
 
     health(sf::Vector2f p);
-    int type = 1;
+    int type;
 
 
 

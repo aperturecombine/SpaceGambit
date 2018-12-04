@@ -436,13 +436,16 @@ void PlayState::checkCollisions() {
         if (ship1.rocketShipObject.getGlobalBounds().intersects(powerups[p]->pSprite.getGlobalBounds())){
             switch (powerups[p]->type) {
                 case 1:
-                    ship1.currentHealth += ship1.maxHealth;
+                    ship1.currentHealth = ship1.maxHealth;
                    std::cout << ship1.currentHealth  << std::endl;
                     break;
                 case 2:
                     ship1.vel_powerup = 5;
 
                     break;
+                default:
+                  ship1.currentHealth = ship1.maxHealth;
+
 
 
             }
@@ -459,7 +462,9 @@ void PlayState::checkCollisions() {
                     case 2:
                         ship2.vel_powerup =  5;
 
-                        break;
+                    default:
+                        ship2.currentHealth = ship1.maxHealth;
+
 
 
                 }

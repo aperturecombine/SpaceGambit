@@ -5,6 +5,7 @@
 health::health(sf::Vector2f p) {
 	pos = p;
 	radius = 5;
+	type = 1;
   if (!pTexture.loadFromFile("resources/health.png")){
     printf("Health Sprite Not Loaded");
   }
