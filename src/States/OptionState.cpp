@@ -164,7 +164,7 @@ void OptionState::select() {
     
     if (currentChoice == 4)
     {
-        std::cout <<"Return to MenuState"<< std::endl;
+        std::cout <<"Return"<< std::endl;
         gsm->popState();
     }
 }
