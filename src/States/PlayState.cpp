@@ -848,28 +848,20 @@ int PlayState::randomButNotRandomSelector() {
     //    int max = -1;
     //    int range = sizeof(turretCounter);
     int turretID;
-    //    for (int t = 0; t < sizeof(turretCounter); t++) {
-    //        if(turretCounter[t] != 0)
-    //        {
-    //            max = t;
-    //            break;
-    //        }
-    //    }
-    //    range = sizeof(turretCounter) - max;
-    //    turretID = turretCounter[max + (rand() % range)];
-    //
-    //    for (int t = 0; t < sizeof(turretCounter); t++) {
-    //        if(turretCounter[t] == turretID)
-    //        {
-    //            turretCounter[t] = 0;
-    //        }
-    //    }
-    if(twoPlayerMode){
-        turretID = (rand() % 6 + 1);
-    } else {
-        turretID = (rand() % 5 + 1);
+    int max;
+    
+    if (level > 1)
+    {
+        if(twoPlayerMode)
+            max = 6;
+        else
+            max = 5;
     }
-
+    else
+        max = 4;
+    
+    turretID = (rand() % max + 1);
+    
     return turretID;
 }
 
@@ -884,32 +876,34 @@ void PlayState::turretSelect(int turretID, sf::Vector2f p) {
             turrets.push_back(t4);
             break;
         }
-        case 2 : // Glue Turret
-        {
-            GlueGunTurret *t2 = new GlueGunTurret(p);
-            t2->setReference(this);
-            turrets.push_back(t2);
-            break;
-        }
-        case 3 :  // Boomerang Turret
+
+        case 2 :  // Boomerang Turret
         {
             BoomerangTurret *t1 = new BoomerangTurret(p);
             t1->setReference(this);
             turrets.push_back(t1);
             break;
         }
-        case 4 : // Ricochet Turret
+        case 3 : // Ricochet Turret
         {
             RicochetTurret *t6 = new RicochetTurret(p);
             t6->setReference(this);
             turrets.push_back(t6);
             break;
         }
-        case 5 : // Rail Gun Turret
+        case 4 : // Rail Gun Turret
         {
             RailGunTurret *t5 = new RailGunTurret(p);
             t5->setReference(this);
             turrets.push_back(t5);
+            break;
+        }
+            
+        case 5 : // Glue Turret
+        {
+            GlueGunTurret *t2 = new GlueGunTurret(p);
+            t2->setReference(this);
+            turrets.push_back(t2);
             break;
         }
         case 6 :  // Guided  Turret
