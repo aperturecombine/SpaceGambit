@@ -7,11 +7,13 @@
 GameStateManager::GameStateManager() {
     window.create(sf::VideoMode(RESOLUTION, RESOLUTION), "Space Gambit", sf::Style::Titlebar | sf::Style::Close);
     gameView.reset(sf::FloatRect(0.f, 0.f, SCREENWIDTH, SCREENHEIGHT));
-    window.setVerticalSyncEnabled(true);
     window.setView(gameView);
     gameView.zoom(RESOLUTION/SCREENWIDTH);
 	renderer = new Renderer(this);
 	
+    window.setFramerateLimit(60);
+    window.setVerticalSyncEnabled(true);
+    
     pushState(MENUSTATE);
     running = true;
     winners = 0;
