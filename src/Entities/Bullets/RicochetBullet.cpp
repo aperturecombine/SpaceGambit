@@ -60,7 +60,7 @@ void RicochetBullet::lifeCheck(){
 
 void RicochetBullet::loadFont(){
 
-    if (!bulletImage.loadFromFile("resources/ggun_bullet.png")) {
+    if (!bulletImage.loadFromFile("resources/bounce_bullet.png")) {
         //printf("Could not load\n");
     }
     bulletTexture.loadFromImage(bulletImage);

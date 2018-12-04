@@ -5,7 +5,7 @@ BoomerangBullet::BoomerangBullet(sf::Vector2f p, sf::Vector2f v) {
     vel = v;
     speed = 300;
     isAlive = true;
-    radius = 8;
+    radius = 15;
     returnCounter = 0;
     returnPoint = 2;
     isAlive = true;

@@ -13,14 +13,14 @@ OptionState::OptionState(class GameStateManager *g) {
     if (!font.loadFromFile("resources/spaceranger.ttf")) {
         printf("Could not load font");
     }
-    
+
     if(!texture.loadFromFile("resources/space_real.jpg")) {
         printf("Could not load background");
     }
-    
+
     background.setTexture(texture);
     background.setPosition(0, 0);
-    
+
     auto size = background.getTexture()->getSize();
     background.setScale(float(SCREENWIDTH)/size.x, float(SCREENHEIGHT) / size.y);
     text.setFont(font);
@@ -30,28 +30,7 @@ OptionState::OptionState(class GameStateManager *g) {
 void OptionState::update(float deltams) {}
 
 void OptionState::draw(sf::RenderWindow *window) {
-//    gsm->window.clear(sf::Color(255,255,255));
-//    gsm->window.draw(background);
-//    text.setCharacterSize(150);
-//    text.setString("Welcome to the");
-//    centerText(&text, SCREENHEIGHT*0.1);
-//    gsm->window.draw(text);
-//    text.setString("Options Menu");
-//    centerText(&text, SCREENHEIGHT*0.2);
-//    gsm->window.draw(text);
-//    
-//    text.setCharacterSize(70);
-//    
-//    for (int i = 0; i < 5; i++) {
-//        if (i == currentChoice)
-//            text.setString("> " + options[i] + " <");
-//        else
-//            text.setString(options[i]);
-//        centerText(&text, SCREENHEIGHT*0.3 + i * 100);
-//        gsm->window.draw(text);
-//    }
-//    
-//    
+
 }
 
 void OptionState::handleInput(sf::Event event) {
@@ -62,7 +41,7 @@ void OptionState::handleInput(sf::Event event) {
 			moveDown();
 		else if (event.key.code == sf::Keyboard::Space)
 			select();
-        
+
         if (currentChoice == 0)
         {
             if (event.key.code == sf::Keyboard::Left)
@@ -72,10 +51,10 @@ void OptionState::handleInput(sf::Event event) {
             else if (event.key.code == sf::Keyboard::Space || event.key.code == sf::Keyboard::Return)
                 select();
         }
-        
-        
-        
-        
+
+
+
+
         if (currentChoice == 1)
         {
             if (event.key.code == sf::Keyboard::Left)
@@ -91,10 +70,10 @@ void OptionState::handleInput(sf::Event event) {
                 gsm->renderer->changeVolume(volumeLevel);
             }
         }
-        
-        
-        
-        
+
+
+
+
 //                switch (event.key.code) {
 //                case sf::Keyboard::Up:
 //                    moveUp();
@@ -118,7 +97,7 @@ void OptionState::centerText(sf::Text *text, int y) {
 }
 
 void OptionState::select() {
-    
+
     if (currentChoice == 0) //Resolution Selection
     {
         switch (hor_CurrentChoice) {
@@ -136,14 +115,14 @@ void OptionState::select() {
                 break;
         }
 
-        
-        
+
+
     }
-    
+
     if (currentChoice == 1) //Volume Selection
     {
     }
-    
+
     if (currentChoice == 2) //Player 1 Controls
     {
         PlayerOne_Up = sf::Keyboard::T;
@@ -152,7 +131,7 @@ void OptionState::select() {
         PlayerOne_Right = sf::Keyboard::H;
         std::cout <<"Player 1 Controls Changed"<< std::endl;
     }
-    
+
     if (currentChoice == 3) //Player 2 Controls
     {
         PlayerOne_Up = sf::Keyboard::T;
@@ -161,7 +140,7 @@ void OptionState::select() {
         PlayerOne_Right = sf::Keyboard::H;
         std::cout <<"Player 1 Controls Changed"<< std::endl;
     }
-    
+
     if (currentChoice == 4)
     {
         std::cout <<"Return"<< std::endl;

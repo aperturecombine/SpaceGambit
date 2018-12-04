@@ -217,8 +217,16 @@ void Renderer::draw(sf::RenderWindow *window) {
 		for (int p = 0; p < ((PlayState *)state)->powerups.size(); p++) {
 			window->draw(((PlayState *)state)->powerups[p]->pSprite);
 		}
-
+		sf::Image turretbase;
+		if (!turretbase.loadFromFile("resources/base_allgun.png")) {
+				printf("Could not load turret\n");
+		}
 		for (int t = 0; t < ((PlayState *)state)->turrets.size(); t++) {
+
+
+
+			((PlayState *)state)->turrets[t]->turretObjectbase.setPosition(((PlayState *)state)->turrets[t]->pos);
+			window->draw(((PlayState *)state)->turrets[t]->turretObjectbase);
 			((PlayState *)state)->turrets[t]->turretObject.setPosition(((PlayState *)state)->turrets[t]->pos);
 			window->draw(((PlayState *)state)->turrets[t]->turretObject);
 		}
@@ -269,6 +277,7 @@ void Renderer::draw(sf::RenderWindow *window) {
 		// bar.setPosition(10, 20);
 
 		health.setFillColor(sf::Color::Red);
+
 		health.setSize(sf::Vector2f(600*(((PlayState *)state)->ship1.currentHealth / ((PlayState *)state)->ship1.maxHealth), 50));
 		health.setPosition(110, 20);
 
@@ -360,7 +369,7 @@ void Renderer::draw(sf::RenderWindow *window) {
 			if (i == ((OptionState *)state)->currentChoice)
             {
                 int j = ((OptionState *)state)->hor_CurrentChoice;
-                
+
                 if(i == 0)
                 {
                     text.setString(oOptions[i] + "> " + resolution[j]  +" <");
@@ -375,7 +384,7 @@ void Renderer::draw(sf::RenderWindow *window) {
 			centerText(&text, SCREENHEIGHT*0.3 + i * 100);
 			gsm->window.draw(text);
 		}
-		
+
 		sf::RectangleShape volumeSlider;
 		volumeSlider.setFillColor(sf::Color(100,100,100));
 		volumeSlider.setSize(sf::Vector2f(150, 50));

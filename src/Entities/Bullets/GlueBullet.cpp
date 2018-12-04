@@ -5,7 +5,7 @@ GlueBullet::GlueBullet(sf::Vector2f p, sf::Vector2f v) {
     vel = v;
     speed = 1000;
     isAlive = true;
-    radius = 8;
+    radius = 10;
     attachShape();
     loadFont();
 }

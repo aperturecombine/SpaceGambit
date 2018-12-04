@@ -10,8 +10,19 @@ GuidedTurret::GuidedTurret(sf::Vector2f p) {
 	damage = 5;
     withinfiringRange = false;
     attachShape();
-
-    if (!turretImage.loadFromFile("resources/guidedTurret.png")) {
+    loadbase(p);
+    if (!turretbase.loadFromFile("resources/base_allgun.png")) {
+        printf("Could not load turret\n");
+    }
+    turretTexturebase.loadFromImage(turretbase);
+    turretTexturebase.setSmooth(true);
+    turretObjectbase.setTexture(turretTexture);
+    turretObjectbase.setScale(.3, .3);
+    turretObjectbase.setOrigin((turretObjectbase.getTexture()->getSize().x) / 2,
+                           (turretObject.getTexture()->getSize().y) / 2);
+    turretObjectbase.setPosition(p);
+        printf("Where is seg \n");
+    if (!turretImage.loadFromFile("resources/missile_normal.png")) {
         printf("Could not load turret\n");
     }
 
@@ -54,13 +65,13 @@ void GuidedTurret::update(float dt) {
 sf::Vector2f GuidedTurret::getInitBulletVel() {
     sf::Vector2f ship1_init = (ref->ship1.pos - pos);
     float ship1_dist = pow((ship1_init.x*ship1_init.x + ship1_init.y*ship1_init.y),0.5);
-    
+
     // std::cout << "Single PLayer Check getInit: " << std::endl;
     if(ref->twoPlayerMode)
     {
         sf::Vector2f ship2_init = (ref->ship2.pos - pos);
         float ship2_dist = pow((ship2_init.x*ship2_init.x + ship2_init.y*ship2_init.y),0.5);
-        
+
         if (ship1_dist < ship2_dist)
         {
             if (ship1_dist < firingRange)
@@ -92,7 +103,7 @@ sf::Vector2f GuidedTurret::getInitBulletVel() {
         if (ship1_dist < firingRange)
         {
             withinfiringRange=true;
-            
+
         }
         else
         {

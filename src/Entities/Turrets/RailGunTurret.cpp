@@ -9,16 +9,17 @@ RailGunTurret::RailGunTurret(sf::Vector2f p) {
 	damage = 5;
     withinfiringRange = false;
     attachShape();
-
-    if (!turretImage.loadFromFile("resources/base_allgun.png")) {
+    loadbase(p);
+    if (!turretImage.loadFromFile("resources/rail_normal.png")) {
         printf("Could not load turret\n");
     }
 
     turretTexture.loadFromImage(turretImage);
     turretTexture.setSmooth(true);
     turretObject.setTexture(turretTexture);
-    turretObject.setOrigin(turretTexture.getSize().x/2, turretTexture.getSize().y/2);
-    turretObject.setScale(.1, .1);
+    turretObject.setOrigin((turretObject.getTexture()->getSize().x) / 2,
+                           (turretObject.getTexture()->getSize().y) / 2);
+    turretObject.setScale(.3, .3);
     turretObject.setPosition(p);
 }
 

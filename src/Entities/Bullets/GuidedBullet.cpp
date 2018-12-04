@@ -5,7 +5,7 @@ GuidedBullet::GuidedBullet(sf::Vector2f p, sf::Vector2f v, PlayState *refe) {
     vel = v;
     speed = 300;
     isAlive = true;
-    radius = 8;
+    radius = 10;
     ref = refe;
     attachShape();
     loadFont();
@@ -39,7 +39,7 @@ void GuidedBullet::update(float dt) {
 
 void GuidedBullet::loadFont(){
 
-    if (!bulletImage.loadFromFile("resources/ggun_bullet.png")) {
+    if (!bulletImage.loadFromFile("resources/missle_frame2.png")) {
         //printf("Could not load\n");
     }
 
