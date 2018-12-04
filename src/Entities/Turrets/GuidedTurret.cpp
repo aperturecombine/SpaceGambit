@@ -56,7 +56,7 @@ sf::Vector2f GuidedTurret::getInitBulletVel() {
     sf::Vector2f ship1_init = (ref->ship1.pos - pos);
     float ship1_dist = pow((ship1_init.x*ship1_init.x + ship1_init.y*ship1_init.y),0.5);
     
-    std::cout << "Single PLayer Check getInit: " << std::endl;
+    // std::cout << "Single PLayer Check getInit: " << std::endl;
     if(ref->twoPlayerMode)
     {
         sf::Vector2f ship2_init = (ref->ship2.pos - pos);
@@ -89,9 +89,11 @@ sf::Vector2f GuidedTurret::getInitBulletVel() {
     }
     else
     {
+
         if (ship1_dist < firingRange)
         {
             withinfiringRange=true;
+            
         }
         else
         {

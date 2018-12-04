@@ -1,5 +1,6 @@
 #include "../../../include/Entities/Ships/RocketShip.h"
 #include "../../../include/Globals.h"
+#include <iostream>
 
 RocketShip::RocketShip(sf::Vector2f p, int type) {
 	shipType = type;
@@ -121,8 +122,15 @@ void RocketShip::bounce(sf::Vector2f collision_point, float bounce_factor){
 
 	isBounced = true;
 
+	// std::cout << collision_point.x << std::endl;
+	// std::cout << collision_point.y << std::endl;
+
+
 	float x_check = pos.x - collision_point.x;
 	float y_check = pos.y - collision_point.y;
+
+	// std::cout << x_check << std::endl;
+	// std::cout << y_check << std::endl << std::endl;
 
 	vel.x = bounce_factor * x_check;
 	vel.y = bounce_factor * y_check;
