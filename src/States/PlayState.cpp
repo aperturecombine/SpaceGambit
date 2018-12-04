@@ -15,7 +15,7 @@
 #include <math.h>
 #include <cstdlib>
 
-PlayState::PlayState(class GameStateManager *g, int numPlayer) {
+PlayState::PlayState(class GameStateManager *g, int numPlayer, int ship1type, int ship2type) {
     gsm = g;
     turretCount = 6;
     stageTimer = STAGETIME;
@@ -32,9 +32,9 @@ PlayState::PlayState(class GameStateManager *g, int numPlayer) {
     vs[5].Set(SCREENHEIGHT*2/3,SCREENWIDTH);
     vs[6].Set(SCREENHEIGHT/3,SCREENWIDTH);
     vs[7].Set(0.0f,2*SCREENWIDTH/3);
-
-
     backgroundShapeb.CreateLoop(vs, 8);
+
+
 
     if(numPlayer == 2)
         twoPlayerMode = true;
@@ -59,11 +59,11 @@ PlayState::PlayState(class GameStateManager *g, int numPlayer) {
 
 
     if (twoPlayerMode) {
-        ship1 = RocketShip(sf::Vector2f(SCREENWIDTH/2 + 100,SCREENHEIGHT/2));
-        ship2 = RocketShip(sf::Vector2f(SCREENWIDTH/2 - 100,SCREENHEIGHT/2));
+        ship1 = RocketShip(sf::Vector2f(SCREENWIDTH/2 + 100,SCREENHEIGHT/2), ship1type);
+        ship2 = RocketShip(sf::Vector2f(SCREENWIDTH/2 - 100,SCREENHEIGHT/2), ship2type);
     }
     else
-        ship1 = RocketShip(sf::Vector2f(SCREENWIDTH/2 ,SCREENHEIGHT/2));
+        ship1 = RocketShip(sf::Vector2f(SCREENWIDTH/2 ,SCREENHEIGHT/2), ship1type);
 
     // shipHealth1.setPosition(sf::Vector2f(300,10));
     // shipHealth1.setSize(sf::Vector2f (ship1.health, 10));
@@ -115,11 +115,11 @@ void PlayState::update(float deltams) {
 
 				generateTurrets();
 
-				int pOfPup = (rand() % 10) + 1;
+				//int pOfPup = (rand() % 10) ;
 				powerups.clear();
-				if (pOfPup  <= 2){
-					createPowerUps();
-				}
+
+				createPowerUps();
+
 				stageTimer = STAGETIME;
 
 				nextStage = 0;
@@ -137,25 +137,27 @@ void PlayState::update(float deltams) {
             turrets[t]->update(deltams);
 
 
-        if (ship1.currentHealth <= 0 && (!twoPlayerMode) )
+        if (ship1.currentHealth <= 0 && (!twoPlayerMode) ){
           gsm->pushState(FINISHSTATE);
+        }
         //else if (ship1.health <= 0 && (twoPlayerMode))
           //gsm->pushState(TWOPLAYERFINISHSTATE);
-        else if(twoPlayerMode) {
-            if (ship1.currentHealth <= 0) gsm->pushState(FINISHSTATE);
-            if (ship2.currentHealth <= 0) gsm->pushState(FINISHSTATE);
+        else if(twoPlayerMode && (ship1.currentHealth <= 0 || ship2.currentHealth <= 0)) {
+            if (ship1.currentHealth <= 0) gsm->winners = 1;
+            if (ship2.currentHealth <= 0) gsm->winners = 2;
+            gsm->pushState(FINISHSTATE);
         }
 
-        ship1.update(deltams);
-        if (twoPlayerMode) {
-            ship2.update(deltams);
-        }
+        // ship1.update(deltams);
+        // if (twoPlayerMode) {
+        //     ship2.update(deltams);
+        // }
 
         if (stageTimer > 0) stageTimer -= deltams;
         else stageTimer = 0;
 
-        for (int t = 0; t < turrets.size(); t++)
-            turrets[t]->update(deltams);
+        // for (int t = 0; t < turrets.size(); t++)
+        //     turrets[t]->update(deltams);
 
     }
 
@@ -437,8 +439,8 @@ void PlayState::checkCollisions() {
                     ship1.currentHealth = ship1.maxHealth;
                     break;
                 case 2:
-                    ship1.vel.x += 2*ship1.vel.x;
-                    ship1.vel.y += 2*ship1.vel.y;
+                    ship1.vel_powerup = 2;
+
                     break;
 
 
@@ -454,8 +456,8 @@ void PlayState::checkCollisions() {
                         ship2.currentHealth = ship2.maxHealth;
                         break;
                     case 2:
-                        ship2.vel.x += 2*ship2.vel.x;
-                        ship2.vel.y += 2*ship2.vel.y;
+                        ship2.vel_powerup = true;
+
                         break;
 
 
@@ -525,33 +527,38 @@ void PlayState::checkCollisions() {
     }
 
 
-    bool shipCollide = false;
-    //ship-ship collision
-    if (twoPlayerMode) {
-        bool shipc = (ship1.rocketShipObject.getGlobalBounds().intersects(ship2.rocketShipObject.getGlobalBounds())); 
-        shipCollide = shipc| b2TestOverlap(ship1.getShape(),0, ship2.getShape(),0,b2Transform(b2Vec2(ship1.pos.x, ship1.pos.y), b2Rot(0.0f)),b2Transform(b2Vec2(ship2.pos.x, ship2.pos.y), b2Rot(0.0f)));
-        // ship1.bounce( , ship2.bounceFactor);
-        // ship2.bounce( , ship1.bounceFactor);
-    }
+    // bool shipCollide = false;
+    // //ship-ship collision
+    // if (twoPlayerMode) {
+    //     bool shipc = (ship1.rocketShipObject.getGlobalBounds().intersects(ship2.rocketShipObject.getGlobalBounds()));
+    //     shipCollide = shipc| b2TestOverlap(ship1.getShape(),0, ship2.getShape(),0,b2Transform(b2Vec2(ship1.pos.x, ship1.pos.y), b2Rot(0.0f)),b2Transform(b2Vec2(ship2.pos.x, ship2.pos.y), b2Rot(0.0f)));
+    //     // ship1.bounce( , ship2.bounceFactor);
+    //     // ship2.bounce( , ship1.bounceFactor);
+    // }
 
 
-     if (shipCollide){
-        b2WorldManifold worldManifold;
-         b2Manifold manifold;
+    //  if (shipCollide){
+    //     b2WorldManifold worldManifold;
+    //      b2Manifold manifold;
 
-         worldManifold.Initialize(&manifold, b2Transform(b2Vec2(ship1.pos.x, ship1.pos.y), b2Rot(0.0f)),ship1.getShape()->m_radius ,b2Transform(b2Vec2(ship2.pos.x, ship2.pos.y),b2Rot(0.0f)), ship2.getShape()->m_radius);
+    //      worldManifold.Initialize(&manifold, b2Transform(b2Vec2(ship1.pos.x, ship1.pos.y), b2Rot(0.0f)),ship1.getShape()->m_radius ,b2Transform(b2Vec2(ship2.pos.x, ship2.pos.y),b2Rot(0.0f)), ship2.getShape()->m_radius);
 
-         b2Vec2 point = worldManifold.points[0];
+    //      b2Vec2 point = worldManifold.points[0];
 
-         sf::Vector2f collisionPoint;
-         collisionPoint.x = point.x;
-         collisionPoint.y = point.y;
+    //      std::cout << point.x << std::endl;
 
-         ship1.bounce(collisionPoint, ship2.bounceFactor);
-         ship2.bounce(collisionPoint, ship1.bounceFactor);
+    //      sf::Vector2f collisionPoint;
+    //      collisionPoint.x = point.x;
+    //      collisionPoint.y = point.y;
+
+    //      std::cout << collisionPoint.x << std::endl;
+    //      std::cout << collisionPoint.y << std::endl;
+
+    //      ship1.bounce(collisionPoint, ship2.bounceFactor);
+    //      ship2.bounce(collisionPoint, ship1.bounceFactor);
 
 
-         }
+    //      }
 
 
 
@@ -597,6 +604,11 @@ void PlayState::checkCollisions() {
         }
     }
 
+    // make sure ship does not go off bound if processor is too quick
+
+
+
+
     //ship bounds checking
 
         b2ChainShape* backgroundShape = &backgroundShapeb;
@@ -609,6 +621,7 @@ void PlayState::checkCollisions() {
         //vector1.left +=  .1*ship1.vel.x;
         //vector1.top += .1*ship1.vel.y;
         bool part1_collision;
+
         for (int t = 0; t < 8; t++) {
 
         part1_collision = b2TestOverlap(ship1.getShape(),0, backgroundShape, t, b2Transform(b2Vec2(vector1.x, vector1.y), b2Rot(0.0f)),b2Transform(b2Vec2(0, 0), b2Rot(0.0f)));
@@ -625,6 +638,8 @@ void PlayState::checkCollisions() {
           vector2.y += .1*ship2.vel.y;
           //vector1.left +=  .1*ship1.vel.x;
           //vector1.top += .1*ship1.vel.y;
+
+
           for (int t = 0; t < 8; t++) {
           part2_collision = b2TestOverlap(ship2.getShape(),0, backgroundShape, t, b2Transform(b2Vec2(vector2.x, vector2.y), b2Rot(0.0f)),b2Transform(b2Vec2(0, 0), b2Rot(0.0f)));
 
@@ -637,7 +652,7 @@ void PlayState::checkCollisions() {
 
 
         if (part1_collision){
-//            printf("ship1 collide with boundary\n");
+           // printf("ship1 collide with boundary\n");
 
             //if (ship1.vel.x > 0 | ship1.vel.y > 0)
             ship1.freeze = true;
@@ -652,7 +667,7 @@ void PlayState::checkCollisions() {
 
             if (part2_collision){
                 printf("ship2 collide with boundary\n");
-                if (ship2.currentHealth > 0) ship2.currentHealth -= 1;
+
                 ship2.freeze = true;
                 ship2.freezePosition.x = ship2.pos.x;
                 ship2.freezePosition.y = ship2.pos.y;
@@ -664,8 +679,52 @@ void PlayState::checkCollisions() {
             }
         }
 
+    if(ship1.pos.x < 0 | ship1.pos.x > SCREENWIDTH | ship1.pos.y < 0 | ship1.pos.y > SCREENHEIGHT)
+    // shipbound addtional checking
+    {
+      ship1.pos.x = SCREENWIDTH/2;
+      ship1.pos.y= SCREENHEIGHT/2;
 
+    }
 
+    float slope1 = -SCREENHEIGHT / SCREENWIDTH;
+
+    float slope2 = - slope1;
+
+    float y1 = slope1*ship1.pos.x + SCREENHEIGHT/3;
+    float y2 = slope2*ship1.pos.x  + 2* SCREENHEIGHT/3;
+
+    float y3 = slope2*ship1.pos.x;
+    float y4 = slope1*ship1.pos.x + 4/3*SCREENHEIGHT;
+    /**
+    if (ship1.pos.y > y1 | ship1.pos.y> y2 | ship1.pos.y < y3 | ship1.pos.y < y4){
+      ship1.pos.x = SCREENWIDTH/2;
+      ship1.pos.y= SCREENHEIGHT/2;
+    }
+    **/
+
+    if (twoPlayerMode){
+
+      if(ship2.pos.x < 0 | ship2.pos.x > SCREENWIDTH | ship2.pos.y < 0 | ship2.pos.y > SCREENHEIGHT)
+      // shipbound addtional checking
+      {
+        ship2.pos.x = SCREENWIDTH/2;
+        ship2.pos.y= SCREENHEIGHT/2 + 50;
+
+      }
+      /**
+      y1 = slope2*ship2.pos.x + SCREENHEIGHT/3;
+      y2 = slope1*(ship2.pos.x - 2*SCREENWIDTH/3)  - 2* SCREENHEIGHT/3;
+
+      y3 = slope1*ship2.pos.x - 2* SCREENHEIGHT/3;
+      y4 = slope2*(ship2.pos.x- 2*SCREENWIDTH/3) + SCREENHEIGHT/3;
+
+      if (ship2.pos.y > y1 | ship2.pos.y> y2 | ship2.pos.y < y3 | ship2.pos.y < y4){
+        ship2.pos.x = SCREENWIDTH/2;
+        ship2.pos.y= SCREENHEIGHT/2;
+      }**/
+
+    }
 
     //bullet bounds checking
 
@@ -805,8 +864,11 @@ int PlayState::randomButNotRandomSelector() {
     //            turretCounter[t] = 0;
     //        }
     //    }
-
-    turretID = (rand() % 6 + 1);
+    if(twoPlayerMode){
+        turretID = (rand() % 6 + 1);
+    } else {
+        turretID = (rand() % 5 + 1);
+    }
 
     return turretID;
 }
@@ -822,11 +884,11 @@ void PlayState::turretSelect(int turretID, sf::Vector2f p) {
             turrets.push_back(t4);
             break;
         }
-        case 2 : // Guided Turret
+        case 2 : // Glue Turret
         {
-            GuidedTurret *t3 = new GuidedTurret(p);
-            t3->setReference(this);
-            turrets.push_back(t3);
+            GlueGunTurret *t2 = new GlueGunTurret(p);
+            t2->setReference(this);
+            turrets.push_back(t2);
             break;
         }
         case 3 :  // Boomerang Turret
@@ -850,12 +912,14 @@ void PlayState::turretSelect(int turretID, sf::Vector2f p) {
             turrets.push_back(t5);
             break;
         }
-        case 6 :  // Glue Gun Turret
+        case 6 :  // Guided  Turret
         {
-            GlueGunTurret *t2 = new GlueGunTurret(p);
-            t2->setReference(this);
-            turrets.push_back(t2);
+
+            GuidedTurret *t3 = new GuidedTurret(p);
+            t3->setReference(this);
+            turrets.push_back(t3);
             break;
+
         }
         default:
         {

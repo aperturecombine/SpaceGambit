@@ -11,7 +11,7 @@
 class PlayState : public GameState {
 public:
     PlayState() {}
-    PlayState(class GameStateManager *gsm, int numPlayer);
+    PlayState(class GameStateManager *gsm, int numPlayer, int ship1type, int ship2type);
 
     virtual void update(float deltams);
     virtual void draw(sf::RenderWindow *window);
@@ -38,6 +38,18 @@ public:
   int nextStageCounter = 0;
   int nextStage = 0;
   int nextStageContinue = true;
+
+  sf::ConvexShape triangle1;
+  sf::ConvexShape triangle2;
+  sf::ConvexShape triangle3;
+  sf::ConvexShape triangle4;
+
+
+  void setShipTypes(int s1, int s2) {
+	  ship1.shipType = s1;
+	  ship2.shipType = s2;
+	}
+
 private:
 	//chain.CreateChain(vs,6);
 	b2ChainShape backgroundShapeb;
