@@ -178,7 +178,7 @@ void Renderer::draw(sf::RenderWindow *window) {
 			sf::Text nextNotif;
 			nextNotif.setFont(font);
 			nextNotif.setFillColor(sf::Color::Black);
-			nextNotif.setString("Get Ready For Next Stage");
+			nextNotif.setString("Get Ready For Next Stage\nPress Space Twice to Continue");
 
 			nextNotif.setCharacterSize(80);
 

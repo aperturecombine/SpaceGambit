@@ -92,7 +92,7 @@ void PlayState::update(float deltams) {
         //gsm->pushState(FINISHSTATE);
 
         if (stageTimer > 0)
-            stageTimer -= deltams;
+            stageTimer -= deltams*.5;
         //    else if (level == 5)
         //    {
         //        level = 1;
@@ -563,23 +563,14 @@ void PlayState::checkCollisions() {
 
             //printf("bullet size%f\n", turrets[t]->bullets[b]->getShape()->m_radius);
             //printf("ship size%f\n", ship1.getShape()->m_radius);
-            //bool part1_collision = (ship1.rocketShipObject.getGlobalBounds().intersects(turrets[t]->bullets[b]->shape.getGlobalBounds()));
+            bool p1 = (ship1.rocketShipObject.getGlobalBounds().intersects(turrets[t]->bullets[b]->shape.getGlobalBounds()));
             bool part2_collision;
-            bool part1_collision = b2TestOverlap(ship1.getShape(),0, turrets[t]->bullets[b]->getShape(), 0, b2Transform(b2Vec2(ship1.pos.x, ship1.pos.y), b2Rot(0.0f)),b2Transform(b2Vec2(turrets[t]->bullets[b]->pos.x, turrets[t]->bullets[b]->pos.y), b2Rot(0.0f)));
+            bool part1_collision = p1 | b2TestOverlap(ship1.getShape(),0, turrets[t]->bullets[b]->getShape(), 0, b2Transform(b2Vec2(ship1.pos.x, ship1.pos.y), b2Rot(0.0f)),b2Transform(b2Vec2(turrets[t]->bullets[b]->pos.x, turrets[t]->bullets[b]->pos.y), b2Rot(0.0f)));
             if (twoPlayerMode) {
-				part2_collision = b2TestOverlap(ship2.getShape(),
-					0,
-					turrets[t]->bullets[b]->getShape(),
-					0,
-					b2Transform(
-						b2Vec2(ship2.pos.x, ship2.pos.y),
-						b2Rot(0.0f)),
-					b2Transform(
-						b2Vec2(turrets[t]->bullets[b]->pos.x,
-							turrets[t]->bullets[b]->pos.y),
-						b2Rot(0.0f))
-				);
-			}
+                bool p2 = (ship2.rocketShipObject.getGlobalBounds().intersects(turrets[t]->bullets[b]->shape.getGlobalBounds()));
+              part2_collision = p2 | b2TestOverlap(ship2.getShape(),0, turrets[t]->bullets[b]->getShape(), 0, b2Transform(b2Vec2(ship2.pos.x, ship2.pos.y), b2Rot(0.0f)),b2Transform(b2Vec2(turrets[t]->bullets[b]->pos.x, turrets[t]->bullets[b]->pos.y), b2Rot(0.0f)));
+
+            }
 
 
 

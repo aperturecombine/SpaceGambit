@@ -23,7 +23,7 @@ RocketShip::RocketShip(sf::Vector2f p) {
 
 	points = 0;
 
-	radius = 40;
+	radius = 50;
 	attachShape();
 
 	if (!rocketShipTexture.loadFromFile("resources/SHIP_SPEED.png")) {
@@ -45,7 +45,7 @@ void RocketShip::update(float deltams) {
     //shipShape -> m_p.Set(pos.x,pos.y);
     bounceAccumulator += deltams;
 
-    if (bounceAccumulator < 500 ) {
+    if (bounceAccumulator < 2000 ) {
     	isBounced = false;
     }
 
