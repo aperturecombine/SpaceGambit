@@ -30,23 +30,23 @@ MenuState::MenuState(class GameStateManager *g) {
 void MenuState::update(float deltams) {}
 
 void MenuState::draw(sf::RenderWindow *window) {
-    gsm->window.clear(sf::Color(255,255,255));
-    gsm->window.draw(background);
-    text.setCharacterSize(175);
-    text.setString("Space Gambit");
-    centerText(&text, SCREENHEIGHT*0.1);
-    gsm->window.draw(text);
-
-    text.setCharacterSize(70);
-
-    for (int i = 0; i < 3; i++) {
-        if (i == currentChoice)
-            text.setString("> " + options[i] + " <");
-        else
-            text.setString(options[i]);
-        centerText(&text, SCREENHEIGHT*0.2 + i * 100);
-        gsm->window.draw(text);
-    }
+//    gsm->window.clear(sf::Color(255,255,255));
+//    gsm->window.draw(background);
+//    text.setCharacterSize(175);
+//    text.setString("Space Gambit");
+//    centerText(&text, SCREENHEIGHT*0.1);
+//    gsm->window.draw(text);
+//
+//    text.setCharacterSize(70);
+//
+//    for (int i = 0; i < 3; i++) {
+//        if (i == currentChoice)
+//            text.setString("> " + options[i] + " <");
+//        else
+//            text.setString(options[i]);
+//        centerText(&text, SCREENHEIGHT*0.2 + i * 100);
+//        gsm->window.draw(text);
+//    }
 }
 
 void MenuState::handleInput(sf::Event event) {

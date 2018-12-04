@@ -25,6 +25,8 @@ public:
     b2BodyDef turretBody;
     b2FixtureDef turretFixture;
 
+	float damage = 5;
+
     void attachShape(){
         turretShape= new b2CircleShape();
         turretShape -> m_p.Set(0.0f, 0.0f);
@@ -35,8 +37,6 @@ public:
     b2CircleShape* getShape(){
         return  turretShape;
     }
-
-	float damage;
 
 protected:
 	float fireRate;

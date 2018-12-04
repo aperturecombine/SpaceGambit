@@ -92,7 +92,7 @@ void PlayState::update(float deltams) {
         //gsm->pushState(FINISHSTATE);
 
         if (stageTimer > 0)
-            stageTimer -= deltams;
+            stageTimer -= deltams*.5;
         //    else if (level == 5)
         //    {
         //        level = 1;
@@ -111,21 +111,20 @@ void PlayState::update(float deltams) {
             nextStageFunction();
 
             if (nextStageCounter){
-            level++;
+				level++;
 
+				generateTurrets();
 
-            generateTurrets();
+				int pOfPup = (rand() % 10) + 1;
+				powerups.clear();
+				if (pOfPup  <= 2){
+					createPowerUps();
+				}
+				stageTimer = STAGETIME;
 
-            int pOfPup = (rand() % 10) + 1;
-            powerups.clear();
-            if (pOfPup  <= 2){
-                createPowerUps();
-            }
-            stageTimer = STAGETIME;
-
-            nextStage = 0;
-            nextStageCounter =0;
-          }
+				nextStage = 0;
+				nextStageCounter =0;
+			}
         }
 
         ship1.update(deltams);
@@ -174,201 +173,179 @@ void PlayState::update(float deltams) {
 
  */
 void PlayState::draw(sf::RenderWindow *window) {
+//
+//
+//    //window->clear(sf::Color::);
+//    window->draw(background);
+//
+//
+//
+//    //window->draw(shipHealth1);
+//    window->draw(ship1.rocketShipObject);
+//    if (twoPlayerMode) {
+//        window->draw(ship2.rocketShipObject);
+//    }
+//
+//    for (int p = 0; p < powerups.size(); p++){
+//        window->draw(powerups[p]->pSprite);
+//    }
+//
+//    //HUD; later to be refactored into render class
+//
+//
+//    for (int t = 0; t < turrets.size(); t++) {
+//        turrets[t]->turretObject.setPosition(turrets[t]->pos);
+//        window->draw(turrets[t]->turretObject);
+//    }
+//
+//    //draw bullets
+//    sf::CircleShape bulletCircle;
+//    bulletCircle.setFillColor(sf::Color::Red);
+//
+//    for (int t = 0; t < turrets.size(); t++) {
+//        for (int b = 0; b < turrets[t]->bullets.size(); b++) {
+//
+//            float radius = turrets[t]->bullets[b]->radius;
+//            turrets[t]->bullets[b]->bulletObject.setScale(.01f*radius,.01f*radius);
+//            turrets[t]->bullets[b]->bulletObject.setPosition(
+//                                                             turrets[t]->bullets[b]->pos - sf::Vector2f(.01f*radius, .01f*radius));
+//
+//            gsm->window.draw(turrets[t]->bullets[b]->bulletObject);
+//        }
+//    }
+//
+//
+//
+//
+//
+//
+//
+//    //HUD; later to be refactored into render class
+//    // position HUD frame
+//
+//
+//
+//
+//    //hudTexture.loadFromImage(hudImage);
+//    sf::Sprite hud;
+//    hud.setTexture(hudTexture);
+//    hud.setPosition(0,0);
+//    hud.setScale(SCREENWIDTH/1800.f, SCREENWIDTH/1800.f);
+//    window->draw(hud);
+//
+//
+//    //Player 1 HUD
+//    sf::RectangleShape bar;
+//    bar.setFillColor(sf::Color::White);
+//    bar.setSize(sf::Vector2f(100, 50));
+//    bar.setPosition(10, 20);
+//
+//    sf::RectangleShape health;
+//    bar.setFillColor(sf::Color::Red);
+//    health.setSize(sf::Vector2f(100*(ship1.currentHealth / ship1.maxHealth), 50));
+//    health.setPosition(10, 20);
+//
+//
+//
+//    sf::Font font;
+//    sf::Text text;
+//
+//
+//    if (!font.loadFromFile("resources/spaceranger.ttf")) {
+//        printf("Could not load font");
+//
+//
+//
+//
+//    }
+//
+//    text.setFont(font);
+//    text.setFillColor(sf::Color::White);
+//    text.setPosition(10, 90);
+//    text.setCharacterSize(40);
+//    text.setString("Score: " + std::to_string(ship1.points));
+//
+//    window->draw(bar);
+//    window->draw(health);
+//    window->draw(text);
+//
+//
+//
+//
+//
+//    //player 2 HUD
+//    if (twoPlayerMode) {
+//        sf::RectangleShape bar2;
+//        bar2.setFillColor(sf::Color::White);
+//        bar2.setSize(sf::Vector2f(100, 50));
+//        bar2.setPosition(SCREENWIDTH - 250, 20);
+//
+//        sf::RectangleShape health2;
+//        bar2.setFillColor(sf::Color::Red);
+//        health2.setSize(sf::Vector2f(100*(ship2.currentHealth / ship2.maxHealth), 50));
+//        health2.setPosition(SCREENWIDTH - 250, 20);
+//
+//
+//        sf::Text text2;
+//
+//        text2.setFont(font);
+//        text2.setFillColor(sf::Color::White);
+//        text2.setPosition(SCREENWIDTH - 250, 90);
+//        text2.setCharacterSize(40);
+//        text2.setString("  Score: "+ std::to_string(ship1.points));
+//
+//        window->draw(bar2);
+//        window->draw(health2);
+//        window->draw(text2);
+//    }
+//
+//
+//
+//
+//    //stage counter
+//    sf::Text stage;
+//    stage.setFont(font);
+//    stage.setFillColor(sf::Color::White);
+//    stage.setString("Stage: ");
+//    stage.setCharacterSize(80);
+//    stage.setPosition(10, SCREENHEIGHT - 200);
+//    window->draw(stage);
+//
+//    sf::Text stageCount;
+//    stageCount.setFont(font);
+//    stageCount.setFillColor(sf::Color::White);
+//    stageCount.setString(std::to_string(level));
+//    stageCount.setCharacterSize(80);
+//    stageCount.setPosition(stage.getPosition().x + stage.getGlobalBounds().width/2 - stageCount.getGlobalBounds().width/2, stage.getPosition().y + stageCount.getGlobalBounds().height + 10);
+//    window->draw(stageCount);
+//
+//
+//    //level Timer
+//
+//    sf::Text levelTimer;
+//    levelTimer.setFont(font);
+//    levelTimer.setFillColor(sf::Color::White);
+//    levelTimer.setString("Timer: " );
+//    levelTimer.setCharacterSize(80);
+//    levelTimer.setPosition(SCREENWIDTH - levelTimer.getGlobalBounds().width - 10, SCREENHEIGHT - 200);
+//    window->draw(levelTimer);
+//
+//    sf::Text timerCount;
+//    timerCount.setFont(font);
+//    timerCount.setFillColor(sf::Color::White);
+//    if (stageTimer >= 10)
+//        timerCount.setString(std::to_string(static_cast<int>(stageTimer)));
+//    else
+//    {
+//
+//        timerCount.setString("0" + std::to_string(static_cast<int>(stageTimer)));
+//    }
+//    timerCount.setCharacterSize(80);
+//    timerCount.setPosition(levelTimer.getPosition().x + levelTimer.getGlobalBounds().width/2 - timerCount.getGlobalBounds().width/2, levelTimer.getPosition().y + timerCount.getGlobalBounds().height + 10);
+//    window->draw(timerCount);
+//
 
 
-    //window->clear(sf::Color::);
-    window->draw(background);
-
-
-
-    //window->draw(shipHealth1);
-    window->draw(ship1.rocketShipObject);
-    if (twoPlayerMode) {
-        window->draw(ship2.rocketShipObject);
-    }
-
-    for (int p = 0; p < powerups.size(); p++){
-        window->draw(powerups[p]->pSprite);
-    }
-
-
-
-    //HUD; later to be refactored into render class
-
-
-    for (int t = 0; t < turrets.size(); t++) {
-        turrets[t]->turretObject.setPosition(turrets[t]->pos);
-        window->draw(turrets[t]->turretObject);
-    }
-
-    //draw bullets
-    sf::CircleShape bulletCircle;
-    bulletCircle.setFillColor(sf::Color::Red);
-
-    for (int t = 0; t < turrets.size(); t++) {
-        for (int b = 0; b < turrets[t]->bullets.size(); b++) {
-
-            float radius = turrets[t]->bullets[b]->radius;
-            turrets[t]->bullets[b]->bulletObject.setScale(.01f*radius,.01f*radius);
-            turrets[t]->bullets[b]->bulletObject.setPosition(
-                                                             turrets[t]->bullets[b]->pos - sf::Vector2f(.01f*radius, .01f*radius));
-
-            gsm->window.draw(turrets[t]->bullets[b]->bulletObject);
-        }
-    }
-
-
-
-
-
-
-
-    //HUD; later to be refactored into render class
-    // position HUD frame
-
-
-
-
-    //hudTexture.loadFromImage(hudImage);
-    sf::Sprite hud;
-    hud.setTexture(hudTexture);
-    hud.setPosition(0,0);
-    hud.setScale(SCREENWIDTH/1800.f, SCREENWIDTH/1800.f);
-    window->draw(hud);
-
-
-    //Player 1 HUD
-    sf::RectangleShape bar;
-    bar.setFillColor(sf::Color::White);
-    bar.setSize(sf::Vector2f(100, 50));
-    bar.setPosition(10, 20);
-
-    sf::RectangleShape health;
-    bar.setFillColor(sf::Color::Red);
-    health.setSize(sf::Vector2f(100*(ship1.currentHealth / ship1.maxHealth), 50));
-    health.setPosition(10, 20);
-
-
-
-    sf::Font font;
-    sf::Text text;
-
-
-    if (!font.loadFromFile("resources/spaceranger.ttf")) {
-        printf("Could not load font");
-
-
-
-
-    }
-
-    text.setFont(font);
-    text.setFillColor(sf::Color::White);
-    text.setPosition(10, 90);
-    text.setCharacterSize(40);
-    text.setString("Score: " + std::to_string(ship1.points));
-
-    window->draw(bar);
-    window->draw(health);
-    window->draw(text);
-
-
-
-
-
-    //player 2 HUD
-    if (twoPlayerMode) {
-        sf::RectangleShape bar2;
-        bar2.setFillColor(sf::Color::White);
-        bar2.setSize(sf::Vector2f(100, 50));
-        bar2.setPosition(SCREENWIDTH - 250, 20);
-
-        sf::RectangleShape health2;
-        bar2.setFillColor(sf::Color::Red);
-        health2.setSize(sf::Vector2f(100*(ship2.currentHealth / ship2.maxHealth), 50));
-        health2.setPosition(SCREENWIDTH - 250, 20);
-
-
-        sf::Text text2;
-
-        text2.setFont(font);
-        text2.setFillColor(sf::Color::White);
-        text2.setPosition(SCREENWIDTH - 250, 90);
-        text2.setCharacterSize(40);
-        text2.setString("  Score: "+ std::to_string(ship1.points));
-
-        window->draw(bar2);
-        window->draw(health2);
-        window->draw(text2);
-    }
-
-
-
-
-    //stage counter
-    sf::Text stage;
-    stage.setFont(font);
-    stage.setFillColor(sf::Color::White);
-    stage.setString("Stage: ");
-    stage.setCharacterSize(80);
-    stage.setPosition(10, SCREENHEIGHT - 200);
-    window->draw(stage);
-
-    sf::Text stageCount;
-    stageCount.setFont(font);
-    stageCount.setFillColor(sf::Color::White);
-    stageCount.setString(std::to_string(level));
-    stageCount.setCharacterSize(80);
-    stageCount.setPosition(stage.getPosition().x + stage.getGlobalBounds().width/2 - stageCount.getGlobalBounds().width/2, stage.getPosition().y + stageCount.getGlobalBounds().height + 10);
-    window->draw(stageCount);
-
-
-    //level Timer
-
-    sf::Text levelTimer;
-    levelTimer.setFont(font);
-    levelTimer.setFillColor(sf::Color::White);
-    levelTimer.setString("Timer: " );
-    levelTimer.setCharacterSize(80);
-    levelTimer.setPosition(SCREENWIDTH - levelTimer.getGlobalBounds().width - 10, SCREENHEIGHT - 200);
-    window->draw(levelTimer);
-
-    sf::Text timerCount;
-    timerCount.setFont(font);
-    timerCount.setFillColor(sf::Color::White);
-    if (stageTimer >= 10)
-        timerCount.setString(std::to_string(static_cast<int>(stageTimer)));
-    else
-    {
-
-        timerCount.setString("0" + std::to_string(static_cast<int>(stageTimer)));
-    }
-    timerCount.setCharacterSize(80);
-    timerCount.setPosition(levelTimer.getPosition().x + levelTimer.getGlobalBounds().width/2 - timerCount.getGlobalBounds().width/2, levelTimer.getPosition().y + timerCount.getGlobalBounds().height + 10);
-    window->draw(timerCount);
-
-
-
-
-
-
-    /*
-     //draw ship
-     sf::CircleShape shipCircle;
-     shipCircle.setFillColor(ship1.color);
-     shipCircle.setRadius(ship1.radius);
-     shipCircle.setPosition(ship1.getPosition() -
-     sf::Vector2f(ship1.radius, ship1.radius));
-     gsm->window.draw(shipCircle);
-
-     //draw turret
-     sf::RectangleShape turretRect;
-     turretRect.setSize(sf::Vector2f(100, 100));
-     turretRect.setFillColor(sf::Color::Yellow);
-     for (int t = 0; t < turrets.size(); t++) {
-     turretRect.setPosition(turrets[t]->pos - sf::Vector2f(50, 50));
-     gsm->window.draw(turretRect);
-     }*/
 
 }
 
@@ -421,8 +398,8 @@ void PlayState::createPowerUps(){
       pOfupY = (rand() % int(SCREENHEIGHT)) ;
     } while( pOfupY <SCREENHEIGHT/4  && pOfupY> SCREENHEIGHT *3/4 );
 
-    printf(pOfupX + "\n");
-    printf(pOfupY  + "\n");
+    // printf(pOfupX + "\n");
+    // printf(pOfupY + "\n");
     if (pOfPup <= 5){
         health *Health = new health(sf::Vector2f(pOfupX,pOfupY));
         powerups.push_back(Health);
@@ -520,8 +497,7 @@ void PlayState::checkCollisions() {
 
 
         if (part1_collision){
-            printf("ship1 collide with turret\n");
-            if (ship1.currentHealth != 0) ship1.currentHealth -= 1;
+//            printf("ship1 collide with turret\n");
 
             //if (ship1.vel.x > 0 | ship1.vel.y > 0)
             ship1.freeze = true;
@@ -535,7 +511,6 @@ void PlayState::checkCollisions() {
 
             if (part2_collision){
                 printf("ship2 collide with turret\n");
-                if (ship2.currentHealth != 0) ship2.currentHealth -= 1;
                 ship2.freeze = true;
                 ship2.freezePosition.x = ship2.pos.x;
                 ship2.freezePosition.y = ship2.pos.y;
@@ -584,8 +559,6 @@ void PlayState::checkCollisions() {
 
     //ship collisions
     for (int t = 0; t < turrets.size(); t++) {
-
-
         for (int b = 0; b < turrets[t]->bullets.size(); b++) {
 
             //printf("bullet size%f\n", turrets[t]->bullets[b]->getShape()->m_radius);
@@ -603,10 +576,8 @@ void PlayState::checkCollisions() {
 
             if (part1_collision){
                 //printf("Ship1 got shot\n");
-
-
-                if (ship1.currentHealth > 0) ship1.currentHealth -= 1;
-
+                if (ship1.currentHealth > 0)
+					ship1.currentHealth -= turrets[t]->damage;
                 turrets[t]->bullets.erase(turrets[t]->bullets.begin() + b);
 
             }
@@ -615,8 +586,8 @@ void PlayState::checkCollisions() {
             }
             if (twoPlayerMode) {
                 if (part2_collision){
-                    if ( ship2.currentHealth > 0) ship2.currentHealth -= .1;
-
+                    if ( ship2.currentHealth > 0)
+						ship2.currentHealth -= turrets[t]->damage;
                     turrets[t]->bullets.erase(turrets[t]->bullets.begin() + b);
 
                 }
@@ -664,7 +635,7 @@ void PlayState::checkCollisions() {
 
 
         if (part1_collision){
-            printf("ship1 collide with boundary\n");
+//            printf("ship1 collide with boundary\n");
 
             //if (ship1.vel.x > 0 | ship1.vel.y > 0)
             ship1.freeze = true;
@@ -773,23 +744,6 @@ void PlayState::generateTurrets() {
             break;
         }
 
-
-        case 4 : // outer most
-        {
-            turretID = randomButNotRandomSelector();
-            for (int a = 1; a < 3; a++)
-            {
-                for (int b = 1; b < 3; b++)
-                {
-                    x = ((SCREENWIDTH/2) + ((SCREENWIDTH/3) * (pow(-1,a))));
-                    y = ((SCREENHEIGHT/2) + ((SCREENHEIGHT/3) * (pow(-1,b))));
-                    turretSelect(turretID, sf::Vector2f(x, y));
-                }
-            }
-            std::cout << "Case 4 COMPLETED: "<< level << std::endl;
-            break;
-        }
-
         default:
         {
             std::cout << "Default Case: "<< level << std::endl;
@@ -802,7 +756,6 @@ void PlayState::generateTurrets() {
                     turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/7) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/6) * (pow(-1,b)))));
                     turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/4) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/6) * (pow(-1,b)))));
                     turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/7) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/3) * (pow(-1,b)))));
-                    turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/2.2) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/3) * (pow(-1,b)))));
                 }
             }
             break;

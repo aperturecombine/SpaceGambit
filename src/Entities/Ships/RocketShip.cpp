@@ -18,7 +18,7 @@ RocketShip::RocketShip(sf::Vector2f p) {
 	bounceAccumulator = 5;
 	bounceFactor = 3;
 
-	maxHealth = 5;
+	maxHealth = 100;
 	currentHealth = maxHealth;
 
 	points = 0;
@@ -45,7 +45,7 @@ void RocketShip::update(float deltams) {
     //shipShape -> m_p.Set(pos.x,pos.y);
     bounceAccumulator += deltams;
 
-    if (bounceAccumulator < 500 ) {
+    if (bounceAccumulator < 2000 ) {
     	isBounced = false;
     }
 

@@ -27,28 +27,28 @@ OptionState::OptionState(class GameStateManager *g) {
 void OptionState::update(float deltams) {}
 
 void OptionState::draw(sf::RenderWindow *window) {
-    gsm->window.clear(sf::Color(255,255,255));
-    gsm->window.draw(background);
-    text.setCharacterSize(150);
-    text.setString("Welcome to the");
-    centerText(&text, SCREENHEIGHT*0.1);
-    gsm->window.draw(text);
-    text.setString("Options Menu");
-    centerText(&text, SCREENHEIGHT*0.2);
-    gsm->window.draw(text);
-    
-    text.setCharacterSize(70);
-    
-    for (int i = 0; i < 5; i++) {
-        if (i == currentChoice)
-            text.setString("> " + options[i] + " <");
-        else
-            text.setString(options[i]);
-        centerText(&text, SCREENHEIGHT*0.3 + i * 100);
-        gsm->window.draw(text);
-    }
-    
-    
+//    gsm->window.clear(sf::Color(255,255,255));
+//    gsm->window.draw(background);
+//    text.setCharacterSize(150);
+//    text.setString("Welcome to the");
+//    centerText(&text, SCREENHEIGHT*0.1);
+//    gsm->window.draw(text);
+//    text.setString("Options Menu");
+//    centerText(&text, SCREENHEIGHT*0.2);
+//    gsm->window.draw(text);
+//    
+//    text.setCharacterSize(70);
+//    
+//    for (int i = 0; i < 5; i++) {
+//        if (i == currentChoice)
+//            text.setString("> " + options[i] + " <");
+//        else
+//            text.setString(options[i]);
+//        centerText(&text, SCREENHEIGHT*0.3 + i * 100);
+//        gsm->window.draw(text);
+//    }
+//    
+//    
 }
 
 void OptionState::handleInput(sf::Event event) {
