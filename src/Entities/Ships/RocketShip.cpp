@@ -25,16 +25,16 @@ RocketShip::RocketShip(sf::Vector2f p, int type) {
 	attachShape();
 
 	switch (shipType) {
-	case 0:
-		maxSpeed = 500;
+	case 2:
+		maxSpeed = 500; //HEavy or fast
 		maxHealth = 100;
 		break;
 	case 1:
-		maxSpeed = 500;
+		maxSpeed = 400; //HEavy or fast
 		maxHealth = 125;
 		break;
-	case 2:
-		maxSpeed = 750;
+	case 0:
+		maxSpeed = 600; //
 		maxHealth = 75;
 		break;
 	}

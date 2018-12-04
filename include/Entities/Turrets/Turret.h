@@ -26,6 +26,7 @@ public:
     b2FixtureDef turretFixture;
 
 	float damage = 5;
+    sf::Vector2f v;
 
     void attachShape(){
         turretShape= new b2CircleShape();

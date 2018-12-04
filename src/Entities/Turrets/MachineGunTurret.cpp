@@ -5,7 +5,7 @@ MachineGunTurret::MachineGunTurret(sf::Vector2f p) {
     pos = p;
     fireRate = .45;
     counter = fireRate;
-    firingRange = 300;
+    firingRange = (SCREENHEIGHT/4);
 	damage = 5;
     withinfiringRange = false;
     attachShape();
@@ -17,16 +17,14 @@ MachineGunTurret::MachineGunTurret(sf::Vector2f p) {
     turretTexture.loadFromImage(turretImage);
     turretTexture.setSmooth(true);
     turretObject.setTexture(turretTexture);
-    turretObject.setOrigin((turretObject.getTexture()->getSize().x) / 2,
-        (turretObject.getTexture()->getSize().y) / 2);
+    turretObject.setOrigin(0,0);
+    turretObject.setOrigin((turretObject.getTexture()->getSize().x/2),(turretObject.getTexture()->getSize().y/2));
     turretObject.setScale(.2, .2);
     turretObject.setPosition(p);
+
 }
 
 void MachineGunTurret::fire() {
-    sf::Vector2f v = getInitBulletVel();
-    turretObject.setRotation(atan(v.y/v.x)*180/M_PI);
-    if (v.x > 0) {turretObject.rotate(180.f);}
     if (withinfiringRange)
     {
     MachineGunBullet *newBullet = new MachineGunBullet(pos, v);
@@ -40,6 +38,9 @@ void MachineGunTurret::update(float dt) {
     if (counter >= fireRate) {
         fire();
     }
+    v = getInitBulletVel();
+    turretObject.setRotation(atan(v.y/v.x)*180/M_PI);
+    if (v.x > 0) {turretObject.rotate(180.f);}
 
     for (int i = 0; i < bullets.size(); i++) {
         bullets.at(i)->update(dt);

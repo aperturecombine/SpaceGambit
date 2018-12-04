@@ -9,7 +9,7 @@ GlueGunTurret::GlueGunTurret(sf::Vector2f p) {
     counter1 = 0;
     counter2 = 0;
 	damage = 0;
-    firingRange = 300;
+    firingRange = (SCREENHEIGHT/5+50);
     withinfiringRange = false;
     linger = 2;
     attachShape();
@@ -22,8 +22,7 @@ GlueGunTurret::GlueGunTurret(sf::Vector2f p) {
     turretTexture.setSmooth(true);
     turretObject.setTexture(turretTexture);
     turretObject.setScale(.2, .2);
-    turretObject.setOrigin((turretObject.getTexture()->getSize().x) / 2,
-                           (turretObject.getTexture()->getSize().y) / 2);
+    turretObject.setOrigin(turretTexture.getSize().x/2, turretTexture.getSize().y/2);
     turretObject.setPosition(p);
 }
 
@@ -50,7 +49,7 @@ void GlueGunTurret::update(float dt) {
         counter2 = 0;
         ref->ship2.maxSpeed = MAXSPEED*.5;
 
-        GlueBullet *newBullet = new GlueBullet(pos, normalize(ship2_init));
+        GlueBullet *newBullet = new GlueBullet(turretObject.getPosition(), normalize(ship2_init));
         bullets.push_back(newBullet);
 //        std::cout << "fire2" << std::endl;
 
@@ -59,7 +58,7 @@ void GlueGunTurret::update(float dt) {
         counter1 = 0;
         ref->ship1.maxSpeed = MAXSPEED*.5;
 
-        GlueBullet *newBullet = new GlueBullet(pos, normalize(ship1_init));
+        GlueBullet *newBullet = new GlueBullet(turretObject.getPosition(), normalize(ship1_init));
         bullets.push_back(newBullet);
 //        std::cout << "fire2" << std::endl;
 
@@ -71,11 +70,11 @@ void GlueGunTurret::update(float dt) {
     if (counter2 > linger){
         ref->ship2.maxSpeed = MAXSPEED;
     }
-
+    v = getInitBulletVel();
+    turretObject.setRotation(atan(v.y/v.x)*180/M_PI);
+    if (v.x > 0) {turretObject.rotate(180.f);}
+    
     if (counter >= fireRate) {
-        sf::Vector2f v = getInitBulletVel();
-        turretObject.setRotation(360.f + atan(v.y/v.x)*180/M_PI);
-        if (v.x > 0) {turretObject.rotate(180.f);}
         fire();
         counter = 0;
     }

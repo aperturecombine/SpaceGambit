@@ -6,7 +6,7 @@ GuidedTurret::GuidedTurret(sf::Vector2f p) {
     pos = p;
     fireRate = 5;
     counter = fireRate;
-    firingRange = 500;
+    firingRange = (SCREENHEIGHT/4);
 	damage = 5;
     withinfiringRange = false;
     attachShape();
@@ -19,15 +19,11 @@ GuidedTurret::GuidedTurret(sf::Vector2f p) {
     turretTexture.setSmooth(true);
     turretObject.setTexture(turretTexture);
     turretObject.setScale(.3, .3);
-    turretObject.setOrigin((turretObject.getTexture()->getSize().x) / 2,
-                           (turretObject.getTexture()->getSize().y) / 2);
+    turretObject.setOrigin(turretTexture.getSize().x/2, turretTexture.getSize().y/2);
     turretObject.setPosition(p);
 }
 
 void GuidedTurret::fire() {
-    sf::Vector2f v = getInitBulletVel();
-    turretObject.setRotation(360.f + atan(v.y/v.x)*180/M_PI);
-    if (v.x > 0) {turretObject.rotate(180.f);}
     if (withinfiringRange)
     {
     GuidedBullet *newBullet = new GuidedBullet(pos, v, ref);
@@ -46,6 +42,9 @@ void GuidedTurret::update(float dt) {
         if(!bullets.empty()) {explode();}
         fire();
     }
+    v = getInitBulletVel();
+    turretObject.setRotation(atan(v.y/v.x)*180/M_PI);
+    if (v.x > 0) {turretObject.rotate(180.f);}
 
     for (int i = 0; i < bullets.size(); i++) {
         bullets.at(i)->update(dt);

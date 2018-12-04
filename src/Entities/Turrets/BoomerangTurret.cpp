@@ -2,10 +2,10 @@
 #include <math.h>
 
 BoomerangTurret::BoomerangTurret(sf::Vector2f p) {
-    pos = p;
+
     fireRate = .45;
     counter = fireRate;
-    firingRange = 300;
+    firingRange = (SCREENHEIGHT/4);
 	damage = 5;
     withinfiringRange = false;
     attachShape();
@@ -17,19 +17,16 @@ BoomerangTurret::BoomerangTurret(sf::Vector2f p) {
     turretTexture.loadFromImage(turretImage);
     turretTexture.setSmooth(true);
     turretObject.setTexture(turretTexture);
-    turretObject.setScale(.2, .2);
-    turretObject.setOrigin((turretObject.getTexture()->getSize().x) / 2,
-                           (turretObject.getTexture()->getSize().y) / 2);
+    turretObject.setScale(.15, .15);
+    turretObject.setOrigin(turretTexture.getSize().x/2, turretTexture.getSize().y/2);
+    pos = p;
     turretObject.setPosition(p);
 }
 
 void BoomerangTurret::fire() {
-    sf::Vector2f v = getInitBulletVel();
-    turretObject.setRotation(360.f + atan(v.y/v.x)*180/M_PI);
-    if (v.x > 0) {turretObject.rotate(180.f);}
     if (withinfiringRange)
     {
-    BoomerangBullet *newBullet = new BoomerangBullet(pos, v);
+    BoomerangBullet *newBullet = new BoomerangBullet(turretObject.getPosition(), v);
     bullets.push_back(newBullet);
     counter = 0;
     }
@@ -40,6 +37,9 @@ void BoomerangTurret::update(float dt) {
     if (counter >= fireRate) {
         fire();
     }
+    v = getInitBulletVel();
+    turretObject.setRotation(atan(v.y/v.x)*180/M_PI);
+    if (v.x > 0) {turretObject.rotate(180.f);}
 
     for (int i = 0; i < bullets.size(); i++) {
 
