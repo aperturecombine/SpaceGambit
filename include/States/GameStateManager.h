@@ -7,6 +7,7 @@
 #include "PickState.h"
 #include "OptionState.h"
 #include "../Entities/Ships/RocketShip.h"
+#include "../Renderer.h"
 #include <SFML/Graphics.hpp>
 
 #define MENUSTATE 0
@@ -36,8 +37,9 @@ public:
 	sf::RenderWindow window;
 
 	bool running;
-private:
+
 	class Renderer * renderer;
+private:
 	std::stack<class GameState*> states;
 
 };

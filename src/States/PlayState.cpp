@@ -528,7 +528,8 @@ void PlayState::checkCollisions() {
     bool shipCollide = false;
     //ship-ship collision
     if (twoPlayerMode) {
-        shipCollide = b2TestOverlap(ship1.getShape(),0, ship2.getShape(),0,b2Transform(b2Vec2(ship1.pos.x, ship1.pos.y), b2Rot(0.0f)),b2Transform(b2Vec2(ship2.pos.x, ship2.pos.y), b2Rot(0.0f)));
+        bool shipc = (ship1.rocketShipObject.getGlobalBounds().intersects(ship2.rocketShipObject.getGlobalBounds())); 
+        shipCollide = shipc| b2TestOverlap(ship1.getShape(),0, ship2.getShape(),0,b2Transform(b2Vec2(ship1.pos.x, ship1.pos.y), b2Rot(0.0f)),b2Transform(b2Vec2(ship2.pos.x, ship2.pos.y), b2Rot(0.0f)));
         // ship1.bounce( , ship2.bounceFactor);
         // ship2.bounce( , ship1.bounceFactor);
     }
@@ -632,6 +633,7 @@ void PlayState::checkCollisions() {
               break;
             }
       }
+
 
 
         if (part1_collision){
