@@ -563,23 +563,14 @@ void PlayState::checkCollisions() {
 
             //printf("bullet size%f\n", turrets[t]->bullets[b]->getShape()->m_radius);
             //printf("ship size%f\n", ship1.getShape()->m_radius);
-            //bool part1_collision = (ship1.rocketShipObject.getGlobalBounds().intersects(turrets[t]->bullets[b]->shape.getGlobalBounds()));
+            bool p1 = (ship1.rocketShipObject.getGlobalBounds().intersects(turrets[t]->bullets[b]->shape.getGlobalBounds()));
             bool part2_collision;
-            bool part1_collision = b2TestOverlap(ship1.getShape(),0, turrets[t]->bullets[b]->getShape(), 0, b2Transform(b2Vec2(ship1.pos.x, ship1.pos.y), b2Rot(0.0f)),b2Transform(b2Vec2(turrets[t]->bullets[b]->pos.x, turrets[t]->bullets[b]->pos.y), b2Rot(0.0f)));
+            bool part1_collision = p1 | b2TestOverlap(ship1.getShape(),0, turrets[t]->bullets[b]->getShape(), 0, b2Transform(b2Vec2(ship1.pos.x, ship1.pos.y), b2Rot(0.0f)),b2Transform(b2Vec2(turrets[t]->bullets[b]->pos.x, turrets[t]->bullets[b]->pos.y), b2Rot(0.0f)));
             if (twoPlayerMode) {
-				part2_collision = b2TestOverlap(ship2.getShape(),
-					0,
-					turrets[t]->bullets[b]->getShape(),
-					0,
-					b2Transform(
-						b2Vec2(ship2.pos.x, ship2.pos.y),
-						b2Rot(0.0f)),
-					b2Transform(
-						b2Vec2(turrets[t]->bullets[b]->pos.x,
-							turrets[t]->bullets[b]->pos.y),
-						b2Rot(0.0f))
-				);
-			}
+                bool p2 = (ship2.rocketShipObject.getGlobalBounds().intersects(turrets[t]->bullets[b]->shape.getGlobalBounds()));
+              part2_collision = p2 | b2TestOverlap(ship2.getShape(),0, turrets[t]->bullets[b]->getShape(), 0, b2Transform(b2Vec2(ship2.pos.x, ship2.pos.y), b2Rot(0.0f)),b2Transform(b2Vec2(turrets[t]->bullets[b]->pos.x, turrets[t]->bullets[b]->pos.y), b2Rot(0.0f)));
+
+            }
 
 
 
@@ -777,11 +768,6 @@ void PlayState::generateTurrets() {
 
 
 void PlayState::resetTurrets() {
-    //    for (int t = 0; t < sizeof(turretCounter); t++) {
-    //            turretCounter[t] = (t + 1);
-    //    }
-
-
     for (int t = 0; t < turrets.size(); t++) {
         for (int b = 0; b < turrets[t]->bullets.size(); b++) {
             turrets[t]->bullets.erase(turrets[t]->bullets.begin() + b);
@@ -793,7 +779,6 @@ void PlayState::resetTurrets() {
             turrets.erase(turrets.begin() + t);
         }
     }
-
 }
 
 int PlayState::randomButNotRandomSelector() {
@@ -819,7 +804,7 @@ int PlayState::randomButNotRandomSelector() {
 
     turretID = (rand() % 6 + 1);
 
-    return turretID;
+    return 2;
 }
 
 void PlayState::turretSelect(int turretID, sf::Vector2f p) {
