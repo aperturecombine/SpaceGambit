@@ -148,16 +148,16 @@ void PlayState::update(float deltams) {
             gsm->pushState(FINISHSTATE);
         }
 
-        ship1.update(deltams);
-        if (twoPlayerMode) {
-            ship2.update(deltams);
-        }
+        // ship1.update(deltams);
+        // if (twoPlayerMode) {
+        //     ship2.update(deltams);
+        // }
 
         if (stageTimer > 0) stageTimer -= deltams;
         else stageTimer = 0;
 
-        for (int t = 0; t < turrets.size(); t++)
-            turrets[t]->update(deltams);
+        // for (int t = 0; t < turrets.size(); t++)
+        //     turrets[t]->update(deltams);
 
     }
 
@@ -810,8 +810,11 @@ int PlayState::randomButNotRandomSelector() {
     //            turretCounter[t] = 0;
     //        }
     //    }
-
-    turretID = (rand() % 6 + 1);
+    if(twoPlayerMode){
+        turretID = (rand() % 6 + 1);
+    } else {
+        turretID = (rand() % 5 + 1);
+    }
 
     return turretID;
 }
@@ -827,11 +830,11 @@ void PlayState::turretSelect(int turretID, sf::Vector2f p) {
             turrets.push_back(t4);
             break;
         }
-        case 2 : // Guided Turret
+        case 2 : // Glue Turret
         {
-            GuidedTurret *t3 = new GuidedTurret(p);
-            t3->setReference(this);
-            turrets.push_back(t3);
+            GlueGunTurret *t2 = new GlueGunTurret(p);
+            t2->setReference(this);
+            turrets.push_back(t2);
             break;
         }
         case 3 :  // Boomerang Turret
@@ -855,12 +858,14 @@ void PlayState::turretSelect(int turretID, sf::Vector2f p) {
             turrets.push_back(t5);
             break;
         }
-        case 6 :  // Glue Gun Turret
+        case 6 :  // Guided  Turret
         {
-            GlueGunTurret *t2 = new GlueGunTurret(p);
-            t2->setReference(this);
-            turrets.push_back(t2);
+            
+            GuidedTurret *t3 = new GuidedTurret(p);
+            t3->setReference(this);
+            turrets.push_back(t3);
             break;
+
         }
         default:
         {

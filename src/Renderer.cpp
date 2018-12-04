@@ -372,7 +372,7 @@ void Renderer::draw(sf::RenderWindow *window) {
 			gsm->window.draw(text);
 		}
 
-		printf("size: %f\n", ((OptionState *)state)->volumeLevel);
+		// printf("size: %f\n", ((OptionState *)state)->volumeLevel);
 
 		sf::RectangleShape volumeSlider;
 		volumeSlider.setFillColor(sf::Color(100,100,100));

@@ -14,6 +14,7 @@ GuidedBullet::GuidedBullet(sf::Vector2f p, sf::Vector2f v, PlayState *refe) {
 void GuidedBullet::update(float dt) {
     sf::Vector2f ship1_init = (ref->ship1.pos - pos);
 
+
     if(ref->twoPlayerMode){
         sf::Vector2f ship2_init = (ref->ship2.pos - pos);
         float ship1_dist = pow((ship1_init.x*ship1_init.x + ship1_init.y*ship1_init.y),0.5);
