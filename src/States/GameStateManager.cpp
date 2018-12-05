@@ -7,6 +7,7 @@
 GameStateManager::GameStateManager() {
     window.create(sf::VideoMode(RESOLUTION, RESOLUTION), "Space Gambit", sf::Style::Titlebar | sf::Style::Close);
     gameView.reset(sf::FloatRect(0.f, 0.f, SCREENWIDTH, SCREENHEIGHT));
+	window.setPosition(sf::Vector2i(10,10));
     window.setView(gameView);
     gameView.zoom(RESOLUTION/SCREENWIDTH);
 	renderer = new Renderer(this);

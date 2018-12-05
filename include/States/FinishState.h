@@ -29,13 +29,13 @@ private:
         currentChoice--;
         
         if ( currentChoice < 0)
-            currentChoice = 0;
+            currentChoice = 1;
         //currentChoice = currentChoice % 2;
     }
     void moveDown() {
         currentChoice++;
         if (currentChoice > 1)
-            currentChoice = 1;
+            currentChoice = 0;
         //currentChoice = currentChoice % 2;
     }
 

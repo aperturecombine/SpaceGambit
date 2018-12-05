@@ -73,6 +73,8 @@ void PickState::handleInput(sf::Event event) {
             if (event.key.code == PlayerTwo_Down)
                 select(1);
         }
+		if (event.key.code == sf::Keyboard::Escape)
+			gsm->returnToMenu();
     }
 }
 

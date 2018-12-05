@@ -112,7 +112,7 @@ private:
 	int volume = 50;
 
 	// FINISHSTATE
-	std::string fOptions[2] = { "Replay", "Quit" };
+	std::string fOptions[2] = { "Return to Menu", "Quit" };
 
 	int shipTypes[2];
 };
