@@ -6,7 +6,7 @@ RailGunTurret::RailGunTurret(sf::Vector2f p) {
     fireRate = 5;
     counter = fireRate/2;
     firingRange = (SCREENHEIGHT/3);
-	damage = 5;
+	damage = 8;
     withinfiringRange = false;
     attachShape();
     loadbase(p);
