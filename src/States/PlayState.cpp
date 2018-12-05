@@ -8,6 +8,7 @@
 #include "../../include/Entities/Turrets/RicochetTurret.h"
 #include "../../include/Entities/Turrets/GlueGunTurret.h"
 #include "../../include/Entities/Bullets/Bullet.h"
+#include "../../include/Entities/Bullets/Bludger.h"
 #include "../../include/Entities/Powerups/Powerup.h"
 #include "../../include/Entities/Powerups/health.h"
 #include "../../include/Entities/Powerups/speed.h"
@@ -65,6 +66,7 @@ PlayState::PlayState(class GameStateManager *g, int numPlayer, int ship1type, in
     else
         ship1 = RocketShip(sf::Vector2f(SCREENWIDTH/2 ,SCREENHEIGHT/2), ship1type);
 
+    bludger = Bludger(sf::Vector2f(SCREENWIDTH/2 + 100,SCREENHEIGHT/2), sf::Vector2f(0.0,0.0), this);
 
     generateTurrets();
     loadPauseFonts();
@@ -120,6 +122,8 @@ void PlayState::update(float deltams) {
         if (twoPlayerMode) {
             ship2.update(deltams);
         }
+
+        bludger.update(deltams)
 
         for (int t = 0; t < turrets.size(); t++)
             turrets[t]->update(deltams);

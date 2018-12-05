@@ -6,6 +6,7 @@
 #include <math.h>
 #include "Box2D/Box2D.h"
 #include "../Entities/Powerups/Powerup.h"
+#include "../Entities/Bullets/Bludger.h"
 
 
 class PlayState : public GameState {
@@ -23,6 +24,8 @@ public:
 
     RocketShip ship1;
     RocketShip ship2;
+
+    Bludger bludger;
 
     b2World* world;
     std::vector<class Turret *> turrets;

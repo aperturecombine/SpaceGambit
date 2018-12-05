@@ -1,4 +1,3 @@
-
 #include "../../../include/Entities/Turrets/GuidedTurret.h"
 #include <math.h>
 
