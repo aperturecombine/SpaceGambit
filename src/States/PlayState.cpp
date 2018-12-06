@@ -16,6 +16,7 @@
 #include <math.h>
 #include <cstdlib>
 #include <iostream>
+#include <stdio.h>
 PlayState::PlayState(class GameStateManager *g, int numPlayer, int ship1type, int ship2type) {
     gsm = g;
     turretCount = 6;
@@ -129,6 +130,7 @@ void PlayState::update(float deltams) {
 
 
         if (ship1.currentHealth <= 0 && (!twoPlayerMode) ){
+            // std::cout << level << std::endl;
           gsm->stages = level;
           gsm->pushState(FINISHSTATE);
         }

@@ -406,7 +406,7 @@ void Renderer::draw(sf::RenderWindow *window) {
 		text.setCharacterSize(150);
 		if (((FinishState *)state)->winner == 0){
 			std::ostringstream os;
-  			os << "No! You Died!\nYou Survived " << ((FinishState *)state)->stages << " Stages.";
+  			os << "No! You Died!\nYou Survived " << ((FinishState *)state)->stage << " Stage(s).";
 			std::string message = os.str();
  			text.setString(message);
  		}
