@@ -30,13 +30,6 @@ void Bludger::update(float dt, sf::Vector2f ship1, sf::Vector2f ship2, bool twoP
 	    sf::Vector2f ship1_init = (ship1 - pos);
 	    float ship1_dist = pow((ship1_init.x*ship1_init.x + ship1_init.y*ship1_init.y),0.5);
 
-
-	    printf("bludgx: %f\n", pos.x);
-	    printf("bludgy: %f\n\n", pos.y);
-
-	    printf("shipx: %f\n", ship1.x);
-	    printf("shipy: %f\n\n", ship1.y);
-
 	    if(twoPlayerMode){
 
 	    printf("!");
@@ -81,7 +74,7 @@ void Bludger::update(float dt, sf::Vector2f ship1, sf::Vector2f ship2, bool twoP
 
 void Bludger::loadFont(){
 
-    if (!bulletImage.loadFromFile("resources/missle_frame2.png")) {
+    if (!bulletImage.loadFromFile("../resources/missle_frame2.png")) {
 
         printf("Could not load guided\n");
     }
