@@ -6,7 +6,7 @@ Bludger::Bludger(sf::Vector2f p, sf::Vector2f v) {
 // Bludger::Bludger(sf::Vector2f p, sf::Vector2f v) {
     pos = p;
     // bulletObject.setOrigin(p);
-    damage = 20;
+    damage = 10;
     vel = v;
     speed = 200;
     isAlive = true;

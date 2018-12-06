@@ -67,9 +67,6 @@ PlayState::PlayState(class GameStateManager *g, int numPlayer, int ship1type, in
         ship1 = RocketShip(sf::Vector2f(SCREENWIDTH/2 ,SCREENHEIGHT/2), ship1type);
 
     // bludger = Bludger(sf::Vector2f(SCREENWIDTH/2 + 100,SCREENHEIGHT/2 + 30), sf::Vector2f(0.0,0.0));
-    bludger = Bludger(sf::Vector2f(0,0), sf::Vector2f(0.0,0.0));
-    bludger.loadFont();
-
     generateTurrets();
     loadPauseFonts();
     gsm->window.setKeyRepeatEnabled(false);
@@ -105,6 +102,11 @@ void PlayState::update(float deltams) {
             if (nextStageCounter){
 				level++;
 
+				for (int t = 0; t < turrets.size(); t++) {
+					for (int b = 0; b < turrets[t]->bullets.size(); b++)
+						delete turrets[t]->bullets[b];
+					turrets[t]->bullets.clear();
+				}
 				generateTurrets();
 
 				//int pOfPup = (rand() % 10) ;
@@ -580,7 +582,9 @@ void PlayState::checkCollisions() {
 }
 
 void PlayState::generateTurrets() {
-    
+	bludger = Bludger(sf::Vector2f(0, 0), sf::Vector2f(0.0, 0.0));
+	bludger.loadFont();
+
     //     1 = Machine Gun Turret
     //     2 = Guided Missle Turret
     //     3 = Rail Gun Turret
@@ -675,11 +679,11 @@ void PlayState::generateTurrets() {
 
 
 void PlayState::resetTurrets() {
-
     for (int t = 0; t < turrets.size(); t++) {
         for (int b = 0; b < turrets[t]->bullets.size(); b++) {
-            turrets[t]->bullets.erase(turrets[t]->bullets.begin() + b);
+			delete turrets[t]->bullets[b];
         }
+		turrets[t]->bullets.clear();
     }
 
     if(level>3){
