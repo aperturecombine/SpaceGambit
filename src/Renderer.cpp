@@ -3,13 +3,13 @@
 
 Renderer::Renderer(GameStateManager * g) {
 	gsm = g;
-	if (!playMusic.openFromFile("resources/SpaceGambit_SampleLoop1.wav"))
+	if (!playMusic.openFromFile("../resources/SpaceGambit_SampleLoop1.wav"))
     	printf("Failed to get music.\n");
     playMusic.setLoop(true);
-    if (!menuMusic.openFromFile("resources/SpaceGambit_SampleLoop2.wav"))
+    if (!menuMusic.openFromFile("../resources/SpaceGambit_SampleLoop2.wav"))
     	printf("Failed to get music.\n");
     menuMusic.setLoop(true);
-    if (!pauseMusic.openFromFile("resources/SpaceGambit_SampleLoop3.wav"))
+    if (!pauseMusic.openFromFile("../resources/SpaceGambit_SampleLoop3.wav"))
     	printf("Failed to get music.\n");
     pauseMusic.setLoop(true);
 }
@@ -213,7 +213,7 @@ void Renderer::draw(sf::RenderWindow *window) {
 			window->draw(((PlayState *)state)->powerups[p]->pSprite);
 		}
 		sf::Image turretbase;
-		if (!turretbase.loadFromFile("resources/base_allgun.png")) {
+		if (!turretbase.loadFromFile("../resources/base_allgun.png")) {
 				printf("Could not load turret\n");
 		}
 		for (int t = 0; t < ((PlayState *)state)->turrets.size(); t++) {
@@ -250,10 +250,10 @@ void Renderer::draw(sf::RenderWindow *window) {
 		//HUD; later to be refactored into render class
 		// position HUD frame
 		if (!((PlayState *)state)->twoPlayerMode) {
-		loadTexture(&hudTexture, "resources/HUD_1player.png");
+		loadTexture(&hudTexture, "../resources/HUD_1player.png");
 	}
 	else{
-		loadTexture(&hudTexture, "resources/HUD_2player.png");
+		loadTexture(&hudTexture, "../resources/HUD_2player.png");
 	}
 		//hudTexture.loadFromImage(hudImage);
 		sf::Sprite hud;
@@ -273,7 +273,7 @@ void Renderer::draw(sf::RenderWindow *window) {
 		health.setSize(sf::Vector2f(600*(((PlayState *)state)->ship1.currentHealth / ((PlayState *)state)->ship1.maxHealth), 50));
 		health.setPosition(110, 20);
 
-		loadFont(&font, "resources/spaceranger.ttf");
+		loadFont(&font, "../resources/spaceranger.ttf");
 
 		text.setFont(font);
 		text.setFillColor(sf::Color::White);
