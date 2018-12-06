@@ -441,7 +441,6 @@ void Renderer::handleInput(sf::Event event) {
 
 void Renderer::loadFont(sf::Font * font, std::string filename) {
 	if (!font->loadFromFile(filename))
-		// printf("Failed to load %s.\n", filename);
 		printf("Failed to load File.\n");
 }
 
@@ -519,7 +518,6 @@ void Renderer::setState(int newState) {
 
 		loadImage(&image, "../resources/LV1.JPG");
 
-		printf("newState PLAYSTATE: %d %d\n", shipTypes[0], shipTypes[1]);
 		for (int i = 0; i < 2; i++) {
 			switch (shipTypes[i]) {
 				printf("SHIPS %i %i\n", shipTypes[0], shipTypes[1]);

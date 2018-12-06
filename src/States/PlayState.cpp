@@ -46,11 +46,6 @@ PlayState::PlayState(class GameStateManager *g, int numPlayer, int ship1type, in
         printf("playstate space_background load error\n");
     }
 
-    if (!hudTexture.loadFromFile("⁨resources/HPfP1.png")){
-        printf("Not loading hudTexture\n");
-
-    }
-
     background.setTexture(texture);
     background.setPosition(0, 0);
 
@@ -615,7 +610,6 @@ void PlayState::generateTurrets() {
                     turretSelect(turretID, sf::Vector2f(x, y));
                 }
             }
-            std::cout << "Case 1 COMPLETED: "<< level << std::endl;
             break;
         }
             
@@ -634,7 +628,6 @@ void PlayState::generateTurrets() {
                 }
                 
             }
-            std::cout << "Case 2 COMPLETED: "<< level << std::endl;
             break;
         }
             
@@ -653,13 +646,11 @@ void PlayState::generateTurrets() {
                     turretSelect(turretID, sf::Vector2f(x, y));
                 }
             }
-            std::cout << "Case 3 COMPLETED: "<< level << std::endl;
             break;
         }
             
         default:
         {
-            std::cout << "Default Case: "<< level << std::endl;
             resetTurrets();
             for (int a = 1; a < 3; a++)
             {
