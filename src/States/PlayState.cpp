@@ -602,6 +602,7 @@ void PlayState::generateTurrets() {
         default:
         {
             std::cout << "Default Case: "<< level << std::endl;
+            resetTurrets();
             for (int a = 1; a < 3; a++)
             {
                 for (int b = 1; b < 3; b++)
@@ -609,9 +610,9 @@ void PlayState::generateTurrets() {
                     turretID = randomButNotRandomSelector();
                     turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/5) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/5) * (pow(-1,b))))); // case 1
                     turretID = randomButNotRandomSelector();
-                    turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/4) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/6) * (pow(-1,b))))); // case 2
+                    turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/3) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/8) * (pow(-1,b))))); // case 2
                     turretID = randomButNotRandomSelector();
-                    turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/7) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/3) * (pow(-1,b))))); //case 3
+                    turretSelect(turretID, sf::Vector2f(((SCREENWIDTH/2) + (SCREENWIDTH/8) * (pow(-1,a))), ((SCREENHEIGHT/2) + (SCREENHEIGHT/3) * (pow(-1,b))))); //case 3
                 }
             }
             break;
@@ -722,7 +723,7 @@ void PlayState::turretSelect(int turretID, sf::Vector2f p) {
 
 void PlayState::loadPauseFonts(){
     if(!pauseTexture.loadFromFile("resources/pause.png")){
-        printf("PauseTexture  not loading\n");
+        printf("PauseTexture  not loading\n"); 
     }
 
     pauseSprite.setTexture(pauseTexture);
