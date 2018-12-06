@@ -11,7 +11,7 @@ RicochetTurret::RicochetTurret(sf::Vector2f p) {
     attachShape();
     loadbase(p);
 
-    if (!turretImage.loadFromFile("resources/bounce_normal.png")) {
+    if (!turretImage.loadFromFile("../resources/bounce_normal.png")) {
         printf("Could not load turret\n");
     }
 

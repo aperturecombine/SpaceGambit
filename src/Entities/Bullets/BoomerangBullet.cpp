@@ -33,7 +33,7 @@ void BoomerangBullet::update(float dt) {
 
 void BoomerangBullet::loadFont(){
 
-    if (!bulletImage.loadFromFile("resources/bgun_bullet.png")) {
+    if (!bulletImage.loadFromFile("../resources/bgun_bullet.png")) {
         //printf("Could not load\n ");
     }
 

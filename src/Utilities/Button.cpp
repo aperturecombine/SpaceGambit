@@ -8,7 +8,7 @@ Button::Button(sf::Texture* normal,sf::Texture* clicked,std::string words,sf::Ve
     this->normal.setPosition(location);
     this->clicked.setPosition(location);
     sf::Font font;
-    if (!font.loadFromFile("resources/space_3.ttf")) {
+    if (!font.loadFromFile("../resources/space_3.ttf")) {
          printf("Could not load font");
     }
 

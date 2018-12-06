@@ -12,7 +12,7 @@ GuidedTurret::GuidedTurret(sf::Vector2f p) {
     attachShape();
     loadbase(p);
     
-    if (!turretImage.loadFromFile("resources/missile_normal.png")) {
+    if (!turretImage.loadFromFile("../resources/missile_normal.png")) {
         printf("Could not load turret\n");
     }
     turretTexture.loadFromImage(turretImage);

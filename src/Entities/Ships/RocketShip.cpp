@@ -25,7 +25,7 @@ RocketShip::RocketShip(sf::Vector2f p, int type) {
 	attachShape();
 
 	switch (shipType) {
-	case 2:
+	case 0:
 		maxSpeed = 500; //HEavy or fast
 		maxHealth = 100;
 		break;
@@ -33,14 +33,14 @@ RocketShip::RocketShip(sf::Vector2f p, int type) {
 		maxSpeed = 400; //HEavy or fast
 		maxHealth = 125;
 		break;
-	case 0:
+	case 2:
 		maxSpeed = 600; //
 		maxHealth = 75;
 		break;
 	}
 	currentHealth = maxHealth;
 
-	if (!rocketShipTexture.loadFromFile("resources/SHIP_SPEED.png")) {
+	if (!rocketShipTexture.loadFromFile("../resources/SHIP_SPEED.png")) {
 		printf("Could not load spaceship");
 	}
 	//rocketShipTexture.loadFromImage(rocketShipImage);
@@ -91,9 +91,11 @@ void RocketShip::update(float deltams) {
 		if (vel.y >= maxSpeed)	vel.y = maxSpeed;
 	}
 
-	pos += vel * deltams;
+
 
 	rocketShipObject.setPosition(pos);
+    pos += vel * deltams;
+    
 }
 
 

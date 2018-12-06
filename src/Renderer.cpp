@@ -1,15 +1,17 @@
 #include <stdio.h>
 #include "../include/Renderer.h"
+#include <iostream>
+#include <sstream>
 
 Renderer::Renderer(GameStateManager * g) {
 	gsm = g;
-	if (!playMusic.openFromFile("resources/SpaceGambit_SampleLoop1.wav"))
+	if (!playMusic.openFromFile("../resources/SpaceGambit_SampleLoop1.wav"))
     	printf("Failed to get music.\n");
     playMusic.setLoop(true);
-    if (!menuMusic.openFromFile("resources/SpaceGambit_SampleLoop2.wav"))
+    if (!menuMusic.openFromFile("../resources/SpaceGambit_SampleLoop2.wav"))
     	printf("Failed to get music.\n");
     menuMusic.setLoop(true);
-    if (!pauseMusic.openFromFile("resources/SpaceGambit_SampleLoop3.wav"))
+    if (!pauseMusic.openFromFile("../resources/SpaceGambit_SampleLoop3.wav"))
     	printf("Failed to get music.\n");
     pauseMusic.setLoop(true);
 }
@@ -215,7 +217,7 @@ void Renderer::draw(sf::RenderWindow *window) {
 			window->draw(((PlayState *)state)->powerups[p]->pSprite);
 		}
 		sf::Image turretbase;
-		if (!turretbase.loadFromFile("resources/base_allgun.png")) {
+		if (!turretbase.loadFromFile("../resources/base_allgun.png")) {
 				printf("Could not load turret\n");
 		}
 		for (int t = 0; t < ((PlayState *)state)->turrets.size(); t++) {
@@ -261,10 +263,10 @@ void Renderer::draw(sf::RenderWindow *window) {
 		//HUD; later to be refactored into render class
 		// position HUD frame
 		if (!((PlayState *)state)->twoPlayerMode) {
-		loadTexture(&hudTexture, "resources/HUD_1player.png");
+		loadTexture(&hudTexture, "../resources/HUD_1player.png");
 	}
 	else{
-		loadTexture(&hudTexture, "resources/HUD_2player.png");
+		loadTexture(&hudTexture, "../resources/HUD_2player.png");
 	}
 		//hudTexture.loadFromImage(hudImage);
 		sf::Sprite hud;
@@ -284,7 +286,7 @@ void Renderer::draw(sf::RenderWindow *window) {
 		health.setSize(sf::Vector2f(600*(((PlayState *)state)->ship1.currentHealth / ((PlayState *)state)->ship1.maxHealth), 50));
 		health.setPosition(110, 20);
 
-		loadFont(&font, "resources/spaceranger.ttf");
+		loadFont(&font, "../resources/spaceranger.ttf");
 
 		text.setFont(font);
 		text.setFillColor(sf::Color::White);
@@ -403,7 +405,10 @@ void Renderer::draw(sf::RenderWindow *window) {
 		text.setFillColor(sf::Color::White);
 		text.setCharacterSize(150);
 		if (((FinishState *)state)->winner == 0){
- 			text.setString("No!  You Died!");
+			std::ostringstream os;
+  			os << "No! You Died!\nYou Survived " << ((FinishState *)state)->stages << " Stages.";
+			std::string message = os.str();
+ 			text.setString(message);
  		}
 
  		else if (((FinishState *)state)->winner == 1) {
@@ -436,7 +441,6 @@ void Renderer::handleInput(sf::Event event) {
 
 void Renderer::loadFont(sf::Font * font, std::string filename) {
 	if (!font->loadFromFile(filename))
-		// printf("Failed to load %s.\n", filename);
 		printf("Failed to load File.\n");
 }
 
@@ -463,8 +467,8 @@ void Renderer::setState(int newState) {
 		menuMusic.setVolume(volume);
 		menuMusic.play();
 
-		loadFont(&font, "resources/spaceranger.ttf");
-		loadTexture(&texture, "resources/LV2.JPG");
+		loadFont(&font, "../resources/spaceranger.ttf");
+		loadTexture(&texture, "../resources/LV2.JPG");
 		background.setTexture(texture);
 		auto size = background.getTexture()->getSize();
 		background.setScale(float(SCREENWIDTH)/size.x, float(SCREENHEIGHT)/size.y);
@@ -491,13 +495,13 @@ void Renderer::setState(int newState) {
 			defense[i].setSize(sf::Vector2f(100.0f, 100.0f));
 		}
 
-		loadFont(&font, "resources/spaceranger.ttf");
-		loadTexture(&backgroundTexture, "resources/space_real.jpg");
+		loadFont(&font, "../resources/spaceranger.ttf");
+		loadTexture(&backgroundTexture, "../resources/space_real.jpg");
 		background.setTexture(backgroundTexture);
 
-		loadTexture(&imagePower[0], "resources/SHIP_ATTACK.png");
-		loadTexture(&imagePower[1], "resources/SHIP_DEFENSE.png");
-		loadTexture(&imagePower[2], "resources/SHIP_SPEED.png");
+		loadTexture(&imagePower[0], "../resources/SHIP_ATTACK.png");
+		loadTexture(&imagePower[1], "../resources/SHIP_DEFENSE.png");
+		loadTexture(&imagePower[2], "../resources/SHIP_SPEED.png");
 
 		for (int i = 0; i < 2; i++) {
 			strength[i].setFillColor(sf::Color::Red);
@@ -512,20 +516,19 @@ void Renderer::setState(int newState) {
 		playMusic.setVolume(volume);
 		playMusic.play();
 
-		loadImage(&image, "resources/LV1.JPG");
+		loadImage(&image, "../resources/LV1.JPG");
 
-		printf("newState PLAYSTATE: %d %d\n", shipTypes[0], shipTypes[1]);
 		for (int i = 0; i < 2; i++) {
 			switch (shipTypes[i]) {
 				printf("SHIPS %i %i\n", shipTypes[0], shipTypes[1]);
 				case 0:
-					loadTexture(&rocketShipTextures[i], "resources/SHIP_ATTACK.png");
+					loadTexture(&rocketShipTextures[i], "../resources/SHIP_ATTACK.png");
 					break;
 				case 1:
-					loadTexture(&rocketShipTextures[i], "resources/SHIP_DEFENSE.png");
+					loadTexture(&rocketShipTextures[i], "../resources/SHIP_DEFENSE.png");
 					break;
 				case 2:
-					loadTexture(&rocketShipTextures[i], "resources/SHIP_SPEED.png");
+					loadTexture(&rocketShipTextures[i], "../resources/SHIP_SPEED.png");
 					break;
 			}
 		}
@@ -544,7 +547,7 @@ void Renderer::setState(int newState) {
 		}
 
 		// load pause fonts
-		loadTexture(&pauseTexture, "resources/pause.png");
+		loadTexture(&pauseTexture, "../resources/pause.png");
 		pauseSprite.setTexture(pauseTexture);
 
 		pauseSprite.setScale(0.3f, 0.3f);
@@ -557,8 +560,8 @@ void Renderer::setState(int newState) {
 	}
 
 	else if (newState == OPTIONSTATE) {
-		loadFont(&font, "resources/spaceranger.ttf");
-		loadTexture(&texture, "resources/LV2.JPG");
+		loadFont(&font, "../resources/spaceranger.ttf");
+		loadTexture(&texture, "../resources/LV2.JPG");
 		background.setTexture(texture);
 		background.setPosition(0, 0);
 		auto size = background.getTexture()->getSize();
@@ -571,8 +574,8 @@ void Renderer::setState(int newState) {
 		pauseMusic.setVolume(volume);
 		pauseMusic.play();
 
-		loadFont(&font, "resources/spaceranger.ttf");
-		loadTexture(&texture, "resources/LV1.JPG");
+		loadFont(&font, "../resources/spaceranger.ttf");
+		loadTexture(&texture, "../resources/LV1.JPG");
 		//texture.loadFromImage(image);
 		background.setTexture(texture);
 		auto size = background.getTexture()->getSize();
@@ -591,7 +594,7 @@ void Renderer::centerText(sf::Text *text, int y) {
 }
 
 /*void Renderer::loadPauseFonts() {
-	loadTexture(&pauseTexture, "resources/pause.png");
+	loadTexture(&pauseTexture, "../resources/pause.png");
 	pauseSprite.setTexture(pauseTexture);
 	pauseSprite.setScale(0.3f, 0.3f);
 	pauseSprite.setPosition(SCREENHEIGHT / 2 - pauseSprite.getGlobalBounds().width / 2, SCREENWIDTH / 2);

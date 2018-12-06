@@ -23,7 +23,7 @@ void BeamBullet::update(float dt) {
 
 void BeamBullet::loadFont(){
 
-    if (!bulletImage.loadFromFile("resources/rail_bullet.png")) {
+    if (!bulletImage.loadFromFile("../resources/rail_bullet.png")) {
         printf("Could not load \n");
     }
     bulletTexture.loadFromImage(bulletImage);

@@ -9,18 +9,18 @@
 #include <stdlib.h>
 #include "../../include/States/FinishState.h"
 
-FinishState::FinishState(class GameStateManager *g, int winners) {
+FinishState::FinishState(class GameStateManager *g, int winners, int stages) {
     gsm = g;
     currentChoice = 0;
 	stateID = FINISHSTATE;
 
-    if (!font.loadFromFile("resources/spaceranger.ttf"))
+    if (!font.loadFromFile("../resources/spaceranger.ttf"))
     {
         std::cout << "Could not load font." << std::endl;
 
     }
 
-    if(!texture.loadFromFile("resources/good_game.jpg"))
+    if(!texture.loadFromFile("../resources/good_game.jpg"))
     {
     }
     //texture.loadFromImage(image);
@@ -36,6 +36,7 @@ FinishState::FinishState(class GameStateManager *g, int winners) {
 
 
     winner = winners;
+    stages = stages;
 }
 
 void FinishState::update(float deltams) {

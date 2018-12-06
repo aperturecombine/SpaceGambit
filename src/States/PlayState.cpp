@@ -42,13 +42,8 @@ PlayState::PlayState(class GameStateManager *g, int numPlayer, int ship1type, in
     else
         twoPlayerMode = false;
 
-    if(!texture.loadFromFile("resources/bg.png")) {
+    if(!texture.loadFromFile("../resources/bg.png")) {
         printf("playstate space_background load error\n");
-    }
-
-    if (!hudTexture.loadFromFile("⁨resources/HPfP1.png")){
-        printf("Not loading hudTexture\n");
-
     }
 
     background.setTexture(texture);
@@ -134,6 +129,7 @@ void PlayState::update(float deltams) {
 
 
         if (ship1.currentHealth <= 0 && (!twoPlayerMode) ){
+          gsm->stages = level;
           gsm->pushState(FINISHSTATE);
         }
         //else if (ship1.health <= 0 && (twoPlayerMode))
@@ -340,22 +336,33 @@ void PlayState::checkCollisions() {
     }
 
     /*
+
      if (shipCollide){
         b2WorldManifold worldManifold;
          b2Manifold manifold;
 
          worldManifold.Initialize(&manifold, b2Transform(b2Vec2(ship1.pos.x, ship1.pos.y), b2Rot(0.0f)),ship1.getShape()->m_radius ,b2Transform(b2Vec2(ship2.pos.x, ship2.pos.y),b2Rot(0.0f)), ship2.getShape()->m_radius);
 
-         b2Vec2 point = worldManifold.points[0];
+     
+         b2Vec2 point;
+         b2Vec2 temp;
+     
+         for (int i = 0; i < sizeof(worldManifold.points); i++)
+         {
+             temp.x += worldManifold.points[i].x;
+             temp.y += worldManifold.points[i].y;
+         }
+         point.x = (ship1.rocketShipObject.getPosition().x + ship2.rocketShipObject.getPosition().y)/2;
+         point.y = temp.y/sizeof(worldManifold.points);
 
+     
          std::cout << point.x << std::endl;
 
          sf::Vector2f collisionPoint;
          collisionPoint.x = point.x;
          collisionPoint.y = point.y;
 
-         std::cout << collisionPoint.x << std::endl;
-         std::cout << collisionPoint.y << std::endl;
+         std::cout <<"Collision Coordinate (" <<collisionPoint.x<<", "<< collisionPoint.y <<")" << std::endl;
 
          ship1.bounce(collisionPoint, ship2.bounceFactor);
          ship2.bounce(collisionPoint, ship1.bounceFactor);
@@ -363,10 +370,6 @@ void PlayState::checkCollisions() {
 
          }
          */
-
-
-
-
 
 
     //ship bullet collisions
@@ -611,7 +614,6 @@ void PlayState::generateTurrets() {
                     turretSelect(turretID, sf::Vector2f(x, y));
                 }
             }
-            std::cout << "Case 1 COMPLETED: "<< level << std::endl;
             break;
         }
             
@@ -630,7 +632,6 @@ void PlayState::generateTurrets() {
                 }
                 
             }
-            std::cout << "Case 2 COMPLETED: "<< level << std::endl;
             break;
         }
             
@@ -649,13 +650,11 @@ void PlayState::generateTurrets() {
                     turretSelect(turretID, sf::Vector2f(x, y));
                 }
             }
-            std::cout << "Case 3 COMPLETED: "<< level << std::endl;
             break;
         }
             
         default:
         {
-            std::cout << "Default Case: "<< level << std::endl;
             resetTurrets();
             for (int a = 1; a < 3; a++)
             {
@@ -703,13 +702,10 @@ int PlayState::randomButNotRandomSelector() {
 
     if (level > 1)
     {
-        if(twoPlayerMode)
-            max = 6;
-        else
-            max = 5;
+        max = 6;
     }
     else
-        max = 4;
+        max = 5;
 
     turretID = (rand() % max + 1);
 
@@ -750,16 +746,15 @@ void PlayState::turretSelect(int turretID, sf::Vector2f p) {
             break;
         }
 
-        case 5 : // Glue Turret
+        case 6 : // Glue Turret
         {
             GlueGunTurret *t2 = new GlueGunTurret(p);
             t2->setReference(this);
             turrets.push_back(t2);
             break;
         }
-        case 6 :  // Guided  Turret for multipler only
+        case 5 :  // Guided  Turret for multipler only
         {
-
             GuidedTurret *t3 = new GuidedTurret(p);
             t3->setReference(this);
             turrets.push_back(t3);
@@ -776,7 +771,7 @@ void PlayState::turretSelect(int turretID, sf::Vector2f p) {
 
 
 void PlayState::loadPauseFonts(){
-    if(!pauseTexture.loadFromFile("resources/pause.png")){
+    if(!pauseTexture.loadFromFile("../resources/pause.png")){
         printf("PauseTexture  not loading\n"); 
     }
 

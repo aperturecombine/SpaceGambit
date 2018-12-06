@@ -117,20 +117,20 @@ void PickState::moveDownPick(int player) {
 
 void PickState::loadFonts(){
 
-    if (!font.loadFromFile("resources/spaceranger.ttf"))
+    if (!font.loadFromFile("../resources/spaceranger.ttf"))
         std::cout << "Could not load font." << std::endl;
 
-    if(!backgroundTexture.loadFromFile("resources/space_real.jpg"))
+    if(!backgroundTexture.loadFromFile("../resources/space_real.jpg"))
         std::cout << "Could not load font." << std::endl;
     background.setTexture(backgroundTexture);
 
-    if(!imagePower[0].loadFromFile("resources/SHIP_ATTACK.png"))
+    if(!imagePower[0].loadFromFile("../resources/SHIP_ATTACK.png"))
         std::cout << "Could not load font." << std::endl;
 
-    if(!imagePower[1].loadFromFile("resources/SHIP_DEFENSE.png"))
+    if(!imagePower[1].loadFromFile("../resources/SHIP_DEFENSE.png"))
         std::cout << "Could not load font." << std::endl;
 
-    if(!imagePower[2].loadFromFile("resources/SHIP_SPEED.png"))
+    if(!imagePower[2].loadFromFile("../resources/SHIP_SPEED.png"))
         std::cout << "Could not load font." << std::endl;
 
     for (int i = 0; i < 2; i++) {

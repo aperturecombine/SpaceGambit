@@ -7,11 +7,11 @@ MenuState::MenuState(class GameStateManager *g) {
     currentChoice = 0;
 	stateID = MENUSTATE;
 
-    if (!font.loadFromFile("resources/spaceranger.ttf")) {
+    if (!font.loadFromFile("../resources/spaceranger.ttf")) {
         printf("Could not load font");
     }
 
-    if(!texture.loadFromFile("resources/LV2.JPG")) {
+    if(!texture.loadFromFile("../resources/LV2.JPG")) {
         printf("Could not load background");
     }
 
