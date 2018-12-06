@@ -12,6 +12,7 @@
 #include "../../include/Entities/Powerups/Powerup.h"
 #include "../../include/Entities/Powerups/health.h"
 #include "../../include/Entities/Powerups/speed.h"
+#include "../../include/Entities/Powerups/shield.h"
 
 #include <math.h>
 #include <cstdlib>
@@ -107,9 +108,11 @@ void PlayState::update(float deltams) {
 
 				//int pOfPup = (rand() % 10) ;
 				powerups.clear();
-
+                
 				createPowerUps();
-
+                
+                ship1.shield = false;
+                ship2.shield = false;
 				stageTimer = STAGETIME;
 
 				nextStage = 0;
@@ -208,18 +211,19 @@ void PlayState::createPowerUps(){
       pOfupY = (rand() % int(SCREENHEIGHT)) ;
     } while( pOfupY <SCREENHEIGHT/4  && pOfupY> SCREENHEIGHT *3/4 );
 
-    // printf(pOfupX + "\n");
-    // printf(pOfupY + "\n");
-    if (pOfPup <= 10){
+    
+    if (pOfPup <= 3){
         health *Health = new health(sf::Vector2f(pOfupX,pOfupY));
         powerups.push_back(Health);
     }
 
-    else if (pOfPup <= 9){
+    else if (pOfPup <= 6){
         speed *Speed = new speed(sf::Vector2f(pOfupX,pOfupY));
         powerups.push_back(Speed);
     }
     else{
+        shield *Shield = new shield (sf::Vector2f(pOfupX, pOfupY));
+        powerups.push_back(Shield);
 
     }
 
@@ -230,14 +234,20 @@ void PlayState::checkCollisions() {
     for (int p = 0; p < powerups.size(); p ++) {
         if (ship1.rocketShipObject.getGlobalBounds().intersects(powerups[p]->pSprite.getGlobalBounds())){
             switch (powerups[p]->type) {
+                printf("%d", powerups[p]->type);
                 case 1:
                     ship1.currentHealth = ship1.maxHealth;
                    std::cout << ship1.currentHealth  << std::endl;
                     break;
                 case 2:
                     ship1.vel_powerup = 5;
+                    printf("speed boosted\n");
 
                     break;
+                
+                case 3:
+                    ship1.shield = true;
+                    printf("under shield mode \n");
                 default:
                   ship1.currentHealth = ship1.maxHealth;
 
@@ -256,6 +266,10 @@ void PlayState::checkCollisions() {
                         break;
                     case 2:
                         ship2.vel_powerup =  5;
+                    
+                    case 3:
+                        ship2.shield = true;
+                        printf("under shield mode \n");
 
                     default:
                         ship2.currentHealth = ship1.maxHealth;
@@ -393,7 +407,7 @@ void PlayState::checkCollisions() {
 
             if (part1_collision){
                 //printf("Ship1 got shot\n");
-                if (ship1.currentHealth > 0)
+                if (ship1.currentHealth > 0 && !ship1.shield )
 					ship1.currentHealth -= turrets[t]->damage;
                 turrets[t]->bullets.erase(turrets[t]->bullets.begin() + b);
 
@@ -403,7 +417,7 @@ void PlayState::checkCollisions() {
             }
             if (twoPlayerMode) {
                 if (part2_collision){
-                    if ( ship2.currentHealth > 0)
+                    if ( ship2.currentHealth > 0 && !ship2.shield)
 						ship2.currentHealth -= turrets[t]->damage;
                     turrets[t]->bullets.erase(turrets[t]->bullets.begin() + b);
 
@@ -505,9 +519,7 @@ void PlayState::checkCollisions() {
 
 
         if (part1_collision){
-           // printf("ship1 collide with boundary\n");
 
-            //if (ship1.vel.x > 0 | ship1.vel.y > 0)
             ship1.freeze = true;
 
             ship1.freezePosition.x = ship1.pos.x;

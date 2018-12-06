@@ -32,6 +32,7 @@ public:
     b2PolygonShape* getShape();
 
     int shipType;
+    bool shield;
 
     float maxHealth;
     float currentHealth;

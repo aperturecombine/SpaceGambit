@@ -1,13 +1,13 @@
 
-#include "../../../include/Entities/Powerups/speed.h"
+#include "../../../include/Entities/Powerups/shield.h"
 #include "../../../include/Globals.h"
 
-speed::speed(sf::Vector2f p) {
-	type = 2;
+shield::shield(sf::Vector2f p) {
+	type = 3;
     pos = p;
 	radius = 5;
-  if (!pTexture.loadFromFile("../resources/speed.png")){
-    printf("Speed Sprite Not Loaded");
+  if (!pTexture.loadFromFile("../resources/shield.png")){
+    printf("Shield Sprite Not Loaded");
   }
   pSprite.setTexture(pTexture);
   auto size = pSprite.getTexture()->getSize();
@@ -15,3 +15,4 @@ speed::speed(sf::Vector2f p) {
   pSprite.setPosition(p);
 
 }
+ 

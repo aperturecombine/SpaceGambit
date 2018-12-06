@@ -11,7 +11,6 @@ class speed : public Powerups {
 public:
 
     speed(sf::Vector2f p);
-    int type = 2;
-
+    
 
 };
