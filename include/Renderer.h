@@ -20,7 +20,6 @@ public:
 	GameState * state;
 	
 	void setShipTypes(int s1, int s2) {
-		printf("setting ship types: %d %d\n", s1, s2);
 		shipTypes[0] = s1;
 		shipTypes[1] = s2;
 	}
