@@ -14,7 +14,7 @@ public:
     sf::Event event;
 
 	int currentChoice = 0;
-    int hor_CurrentChoice = 1;
+    int hor_CurrentChoice = 0;
     
 	float volumeLevel;
 
