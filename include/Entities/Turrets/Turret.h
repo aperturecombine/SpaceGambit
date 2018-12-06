@@ -69,7 +69,7 @@ protected:
     }*/
 
     void loadbase(sf::Vector2f pos){
-      if (!turretbase.loadFromFile("resources/base_allgun.png")) {
+      if (!turretbase.loadFromFile("../resources/base_allgun.png")) {
           printf("Could not load turret\n");
       }
 
