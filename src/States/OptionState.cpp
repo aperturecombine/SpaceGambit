@@ -125,7 +125,7 @@ void OptionState::select() {
 
     if (currentChoice == 2) //Player 1 Controls
     {
-        PlayerOne_Up = sf::Keyboard::UP;
+        PlayerOne_Up = sf::Keyboard::Up;
         PlayerOne_Down = sf::Keyboard::Down;
         PlayerOne_Left = sf::Keyboard::Left;
         PlayerOne_Right = sf::Keyboard::Right;
