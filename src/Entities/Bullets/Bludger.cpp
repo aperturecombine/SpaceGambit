@@ -41,7 +41,7 @@ void Bludger::update(float dt, sf::Vector2f ship1, sf::Vector2f ship2, bool twoP
 
 	    if(twoPlayerMode){
 
-	    printf("!");
+	    // printf("!");
 	        sf::Vector2f ship2_init = (ship2 - pos);
 	        float ship2_dist = pow((ship2_init.x*ship2_init.x + ship2_init.y*ship2_init.y),0.5);
 

@@ -120,11 +120,120 @@ void PlayState::update(float deltams) {
 			}
         }
 
+
+
+
+
+
+
+
+
+
         ship1.update(deltams);
+
+        // std::cout << ship1.vel.x << std::endl;
+        // std::cout << ship1.vel.y << std::endl;
+
+        if (ship1.vel.x > 0){
+                if(ship1.vel.y > 0){
+                    if(ship1.vel.x > ship1.vel.y){
+                        // printf("good");
+                        ship1.rotation = 0.0f;
+                    }
+                    else if(ship1.vel.x < ship1.vel.y){
+                        // printf("why");
+                        ship1.rotation = 90.0f;
+                    }
+                }
+                else if (ship1.vel.y < 0){
+                    if(ship1.vel.x > ship1.vel.y*-1){
+                        ship1.rotation = 0.0f;
+                    }
+                    else if(ship1.vel.x < ship1.vel.y*-1){
+                        ship1.rotation = 270.0f;
+                    }
+                }
+            }
+            else if (ship1.vel.x < 0){
+                if(ship1.vel.y < 0){
+                    if(ship1.vel.x < ship1.vel.y){
+                        ship1.rotation = 180.0f;
+                    }
+                    else if(ship1.vel.x > ship1.vel.y){
+                        ship1.rotation = 270.0f;
+                    }
+                }
+                else if(ship1.vel.y > 0){
+                    if(-1*ship1.vel.x > ship1.vel.y){
+                        ship1.rotation = 180.0f;
+                    }
+                    else if(-1*ship1.vel.x < ship1.vel.y) {
+                        ship1.rotation = 90.0f;
+                    }
+                }
+            }
+
+
+
+
 
         if (twoPlayerMode) {
             ship2.update(deltams);
+        
+
+
+            if (ship2.vel.x > 0){
+                if(ship2.vel.y > 0){
+                    if(ship2.vel.x > ship2.vel.y){
+                        
+                        ship2.rotation = 0.0f;
+                    }
+                    else if(ship2.vel.x < ship2.vel.y){
+                        ship2.rotation = 90.0f;
+                    }
+                }
+                else if (ship2.vel.y < 0){
+                    if(ship2.vel.x > ship2.vel.y*-1){
+                        ship2.rotation = 0.0f;
+                    }
+                    else if(ship2.vel.x < ship2.vel.y*-1){
+                        ship2.rotation = 270.0f;
+                    }
+                }
+            }
+            else if (ship2.vel.x < 0){
+                if(ship2.vel.y < 0){
+                    if(ship2.vel.x < ship2.vel.y){
+                        ship2.rotation = 180.0f;
+                    }
+                    else if(ship2.vel.x > ship2.vel.y){
+                        ship2.rotation = 270.0f;
+                    }
+                }
+                else if(ship2.vel.y > 0){
+                    if(-1*ship2.vel.x > ship2.vel.y){
+                        ship2.rotation = 180.0f;
+                    }
+                    else if(-1*ship2.vel.x < ship2.vel.y) {
+                        ship2.rotation = 90.0f;
+                    }
+                }
+            }
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         bludger.update(deltams, ship1.pos, ship2.pos, twoPlayerMode);
 
@@ -178,20 +287,20 @@ void PlayState::handleInput(sf::Event event) {
     }
 
     ship1.moveRight = sf::Keyboard::isKeyPressed(PlayerOne_Right);
-    if (ship1.moveRight)
-    {
-    if (ship1.currentdirection == 0)
+    // if (ship1.moveRight)
+    // {
+    // if (ship1.currentdirection == 0)
                     
-        ship1.rotation = 90.0f;
-    else if (ship1.currentdirection == 1)
-        ship1.rotation = 270.0f;
-    else if (ship1.currentdirection == 2)
-        ship1.rotation = 180.0f;
-    else {
-        ship1.rotation = 0.0f;
+    //     ship1.rotation = 90.0f;
+    // else if (ship1.currentdirection == 1)
+    //     ship1.rotation = 270.0f;
+    // else if (ship1.currentdirection == 2)
+    //     ship1.rotation = 180.0f;
+    // else {
+    //     ship1.rotation = 0.0f;
         
-    }
-        ship1.currentdirection = 3;   
+    // }
+    //     ship1.currentdirection = 3;   
     
         
             
@@ -200,154 +309,154 @@ void PlayState::handleInput(sf::Event event) {
         
         
         
-    }
+    // }
     ship1.moveLeft = sf::Keyboard::isKeyPressed(PlayerOne_Left);
-    if (ship1.moveLeft){
+    // if (ship1.moveLeft){
         
         
     
-        if (ship1.currentdirection == 3)
+    //     if (ship1.currentdirection == 3)
                     
-                    ship1.rotation = 180.0f;
-            else   if (ship1.currentdirection == 0)
-                    ship1.rotation = 270.0f;
-            else  if (ship1.currentdirection == 1)
-                    ship1.rotation = 90.0f;
-            else{
-                ship1.rotation = 0.0f;
-            }
-                ship1.currentdirection = 2;
+    //                 ship1.rotation = 180.0f;
+    //         else   if (ship1.currentdirection == 0)
+    //                 ship1.rotation = 270.0f;
+    //         else  if (ship1.currentdirection == 1)
+    //                 ship1.rotation = 90.0f;
+    //         else{
+    //             ship1.rotation = 0.0f;
+    //         }
+    //             ship1.currentdirection = 2;
     
         
-    }
+    // }
     ship1.moveUp = sf::Keyboard::isKeyPressed(PlayerOne_Up);
     
-    if (ship1.moveUp)
-    {
+    // if (ship1.moveUp)
+    // {
         
-           if (ship1.currentdirection == 3){
+    //        if (ship1.currentdirection == 3){
         
-                    ship1.rotation = 270.0f;
-                }
-               else if (ship1.currentdirection == 1)
-                    ship1.rotation = 180.0f;
-               else if (ship1.currentdirection == 2)
-                    ship1.rotation = 90.0f;
-               else{ 
-                   ship1.rotation = 0.0f;
-               }
-                ship1.currentdirection = 0;
+    //                 ship1.rotation = 270.0f;
+    //             }
+    //            else if (ship1.currentdirection == 1)
+    //                 ship1.rotation = 180.0f;
+    //            else if (ship1.currentdirection == 2)
+    //                 ship1.rotation = 90.0f;
+    //            else{ 
+    //                ship1.rotation = 0.0f;
+    //            }
+    //             ship1.currentdirection = 0;
         
   
         
              
                    
         
-    }
+    // }
     ship1.moveDown = sf::Keyboard::isKeyPressed(PlayerOne_Down);
-    if (ship1.moveDown){
+    // if (ship1.moveDown){
    
                 
-           if (ship1.currentdirection == 3)
+    //        if (ship1.currentdirection == 3)
                     
-                    ship1.rotation = 90.0f;
-             else if (ship1.currentdirection == 2)
-                    ship1.rotation = 270.0f;
-             else if (ship1.currentdirection == 0)
-                    ship1.rotation = 180.0f;
-            else{
-                ship1.rotation = 0.0f;
-            }
-                ship1.currentdirection = 1;   
+    //                 ship1.rotation = 90.0f;
+    //          else if (ship1.currentdirection == 2)
+    //                 ship1.rotation = 270.0f;
+    //          else if (ship1.currentdirection == 0)
+    //                 ship1.rotation = 180.0f;
+    //         else{
+    //             ship1.rotation = 0.0f;
+    //         }
+    //             ship1.currentdirection = 1;   
         
         
-    }
+    // }
 
     if (twoPlayerMode) {
         ship2.moveRight = sf::Keyboard::isKeyPressed(PlayerTwo_Right);
         
-        if (ship2.moveRight)
-    {
-    if (ship2.currentdirection == 0)
+    //     if (ship2.moveRight)
+    // {
+    // if (ship2.currentdirection == 0)
                     
-        ship2.rotation = 90.0f;
-    else if (ship2.currentdirection == 1)
-        ship2.rotation = 270.0f;
-    else if (ship1.currentdirection == 2)
-        ship2.rotation = 180.0f;
-    else {
-        ship2.rotation = 0.0f;
+    //     ship2.rotation = 90.0f;
+    // else if (ship2.currentdirection == 1)
+    //     ship2.rotation = 270.0f;
+    // else if (ship1.currentdirection == 2)
+    //     ship2.rotation = 180.0f;
+    // else {
+    //     ship2.rotation = 0.0f;
         
-    }
-        ship2.currentdirection = 3;   
-    }
+    //     }
+    //     ship2.currentdirection = 3;   
+    // }
         
         ship2.moveLeft = sf::Keyboard::isKeyPressed(PlayerTwo_Left);
         
         
- if (ship2.moveLeft){
+ // if (ship2.moveLeft){
         
         
     
-        if (ship2.currentdirection == 3)
+ //        if (ship2.currentdirection == 3)
                     
-                    ship2.rotation = 180.0f;
-            else   if (ship2.currentdirection == 0)
-                    ship2.rotation = 270.0f;
-            else  if (ship2.currentdirection == 1)
-                    ship2.rotation = 90.0f;
-            else{
-                ship2.rotation = 0.0f;
-            }
-                ship2.currentdirection = 2;
+ //                    ship2.rotation = 180.0f;
+ //            else   if (ship2.currentdirection == 0)
+ //                    ship2.rotation = 270.0f;
+ //            else  if (ship2.currentdirection == 1)
+ //                    ship2.rotation = 90.0f;
+ //            else{
+ //                ship2.rotation = 0.0f;
+ //            }
+ //                ship2.currentdirection = 2;
     
         
-    }
+ //    }
         ship2.moveUp = sf::Keyboard::isKeyPressed(PlayerTwo_Up);
         
         
         
-if (ship2.moveUp)
-    {
+// if (ship2.moveUp)
+//     {
         
-           if (ship2.currentdirection == 3){
+//            if (ship2.currentdirection == 3){
         
-                    ship2.rotation = 270.0f;
-                }
-               else if (ship2.currentdirection == 1)
-                    ship2.rotation = 180.0f;
-               else if (ship2.currentdirection == 2)
-                    ship2.rotation = 90.0f;
-               else{ 
-                   ship2.rotation = 0.0f;
-               }
-                ship2.currentdirection = 0;
+//                     ship2.rotation = 270.0f;
+//                 }
+//                else if (ship2.currentdirection == 1)
+//                     ship2.rotation = 180.0f;
+//                else if (ship2.currentdirection == 2)
+//                     ship2.rotation = 90.0f;
+//                else{ 
+//                    ship2.rotation = 0.0f;
+//                }
+//                 ship2.currentdirection = 0;
         
   
         
              
                    
         
-    }
+//     }
         ship2.moveDown = sf::Keyboard::isKeyPressed(PlayerTwo_Down);
         
-            if (ship2.moveDown){
+    //         if (ship2.moveDown){
    
                 
-           if (ship2.currentdirection == 3)
+    //        if (ship2.currentdirection == 3)
                     
-                    ship2.rotation = 90.0f;
-             else if (ship2.currentdirection == 2)
-                    ship2.rotation = 270.0f;
-             else if (ship2.currentdirection == 0)
-                    ship2.rotation = 180.0f;
-            else{
-                ship2.rotation = 0.0f;
-            }
-                ship2.currentdirection = 1;   
+    //                 ship2.rotation = 90.0f;
+    //          else if (ship2.currentdirection == 2)
+    //                 ship2.rotation = 270.0f;
+    //          else if (ship2.currentdirection == 0)
+    //                 ship2.rotation = 180.0f;
+    //         else{
+    //             ship2.rotation = 0.0f;
+    //         }
+    //             ship2.currentdirection = 1;   
         
         
-    }
+    // }
 
     }
 
