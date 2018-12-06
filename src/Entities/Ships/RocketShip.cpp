@@ -132,12 +132,12 @@ void RocketShip::bounce(sf::Vector2f collision_point, float bounce_factor){
 	// std::cout << x_check << std::endl;
 	// std::cout << y_check << std::endl << std::endl;
 
-	vel.x = bounce_factor * x_check;
-	vel.y = bounce_factor * y_check;
+	vel.x = bounce_factor * x_check*5;
+	vel.y = bounce_factor * y_check*5;
 
 }
 
 
-b2PolygonShape* RocketShip::getShape(){
+    b2PolygonShape* RocketShip::getShape(){
     return shipShape;
 }
