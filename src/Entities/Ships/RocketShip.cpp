@@ -9,7 +9,8 @@ RocketShip::RocketShip(sf::Vector2f p, int type) {
 
 	ACCEL = 50;
 	DECEL = .92;
-
+    currentdirection = 3; 
+    rotation = 0.0f;
 	moveUp = false;
 	moveDown = false;
 	moveLeft = false;
@@ -55,7 +56,7 @@ RocketShip::RocketShip(sf::Vector2f p, int type) {
 }
 
 void RocketShip::update(float deltams) {
-
+  
     //shipShape -> m_p.Set(pos.x,pos.y);
     bounceAccumulator += deltams;
 
@@ -66,21 +67,35 @@ void RocketShip::update(float deltams) {
     if(!isBounced){
 
     	bounceAccumulator = 0;
+        
 
+       
 	    if (moveUp || moveDown) {
-			if (moveUp)
+			if (moveUp){
 				vel.y -= vel_powerup*ACCEL;
-			if (moveDown)
+                
+      
+            }
+			if (moveDown){
+                
 				vel.y += vel_powerup*ACCEL;
+                
+            }
 		}
 		else
 			vel.y *= vel_powerup*DECEL;
 
 		if (moveLeft || moveRight) {
-			if (moveLeft)
+			if (moveLeft){
+                
 				vel.x -= vel_powerup*ACCEL;
-			if (moveRight)
+
+            }
+			if (moveRight){
+                
 				vel.x += vel_powerup*ACCEL;
+                
+            }
 		}
 		else
 			vel.x *= vel_powerup*DECEL;

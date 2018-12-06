@@ -44,6 +44,9 @@ public:
     float bounceFactor;
     void bounce(sf::Vector2f collision_point, float bounce_factor);
     sf::Vector2f freezePosition;
+    
+    int currentdirection;
+    float rotation;
 
 private:
 	float ACCEL;

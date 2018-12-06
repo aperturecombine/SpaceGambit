@@ -73,18 +73,19 @@ protected:
           printf("Could not load turret\n");
       }
 
-
+ 
       turretTexturebase.loadFromImage(turretbase);
       turretTexturebase.setSmooth(true);
 
       turretObjectbase.setTexture(turretTexture);
 
 
-      turretObjectbase.setOrigin((turretObjectbase.getTexture()->getSize().x) / 2,
-                             (turretObjectbase.getTexture()->getSize().y) / 2);
+      //turretObjectbase.setOrigin((turretObjectbase.getTexture()->getSize().x) / 2,
+                             //(turretObjectbase.getTexture()->getSize().y) / 2);
 
   
       turretObjectbase.setPosition(pos);
+      turretObjectbase.setScale(.1f,.1f);
 
     }
 

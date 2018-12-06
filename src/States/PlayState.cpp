@@ -178,15 +178,177 @@ void PlayState::handleInput(sf::Event event) {
     }
 
     ship1.moveRight = sf::Keyboard::isKeyPressed(PlayerOne_Right);
+    if (ship1.moveRight)
+    {
+    if (ship1.currentdirection == 0)
+                    
+        ship1.rotation = 90.0f;
+    else if (ship1.currentdirection == 1)
+        ship1.rotation = 270.0f;
+    else if (ship1.currentdirection == 2)
+        ship1.rotation = 180.0f;
+    else {
+        ship1.rotation = 0.0f;
+        
+    }
+        ship1.currentdirection = 3;   
+    
+        
+            
+
+
+        
+        
+        
+    }
     ship1.moveLeft = sf::Keyboard::isKeyPressed(PlayerOne_Left);
+    if (ship1.moveLeft){
+        
+        
+    
+        if (ship1.currentdirection == 3)
+                    
+                    ship1.rotation = 180.0f;
+            else   if (ship1.currentdirection == 0)
+                    ship1.rotation = 270.0f;
+            else  if (ship1.currentdirection == 1)
+                    ship1.rotation = 90.0f;
+            else{
+                ship1.rotation = 0.0f;
+            }
+                ship1.currentdirection = 2;
+    
+        
+    }
     ship1.moveUp = sf::Keyboard::isKeyPressed(PlayerOne_Up);
+    
+    if (ship1.moveUp)
+    {
+        
+           if (ship1.currentdirection = 3){
+        
+                    ship1.rotation = 270.0f;
+                }
+               else if (ship1.currentdirection = 1)
+                    ship1.rotation = 180.0f;
+               else if (ship1.currentdirection = 2)
+                    ship1.rotation = 90.0f;
+               else{ 
+                   ship1.rotation = 0.0f;
+               }
+                ship1.currentdirection = 0;
+        
+  
+        
+             
+                   
+        
+    }
     ship1.moveDown = sf::Keyboard::isKeyPressed(PlayerOne_Down);
+    if (ship1.moveDown){
+   
+                
+           if (ship1.currentdirection = 3)
+                    
+                    ship1.rotation = 90.0f;
+             else if (ship1.currentdirection == 2)
+                    ship1.rotation = 270.0f;
+             else if (ship1.currentdirection == 0)
+                    ship1.rotation = 180.0f;
+            else{
+                ship1.rotation = 0.0f;
+            }
+                ship1.currentdirection = 1;   
+        
+        
+    }
 
     if (twoPlayerMode) {
         ship2.moveRight = sf::Keyboard::isKeyPressed(PlayerTwo_Right);
+        
+        if (ship2.moveRight)
+    {
+    if (ship2.currentdirection == 0)
+                    
+        ship2.rotation = 90.0f;
+    else if (ship2.currentdirection == 1)
+        ship2.rotation = 270.0f;
+    else if (ship1.currentdirection == 2)
+        ship2.rotation = 180.0f;
+    else {
+        ship2.rotation = 0.0f;
+        
+    }
+        ship2.currentdirection = 3;   
+    }
+        
         ship2.moveLeft = sf::Keyboard::isKeyPressed(PlayerTwo_Left);
+        
+        
+ if (ship2.moveLeft){
+        
+        
+    
+        if (ship2.currentdirection == 3)
+                    
+                    ship2.rotation = 180.0f;
+            else   if (ship2.currentdirection == 0)
+                    ship2.rotation = 270.0f;
+            else  if (ship2.currentdirection == 1)
+                    ship2.rotation = 90.0f;
+            else{
+                ship2.rotation = 0.0f;
+            }
+                ship2.currentdirection = 2;
+    
+        
+    }
         ship2.moveUp = sf::Keyboard::isKeyPressed(PlayerTwo_Up);
+        
+        
+        
+if (ship2.moveUp)
+    {
+        
+           if (ship2.currentdirection = 3){
+        
+                    ship2.rotation = 270.0f;
+                }
+               else if (ship2.currentdirection = 1)
+                    ship2.rotation = 180.0f;
+               else if (ship2.currentdirection = 2)
+                    ship2.rotation = 90.0f;
+               else{ 
+                   ship2.rotation = 0.0f;
+               }
+                ship2.currentdirection = 0;
+        
+  
+        
+             
+                   
+        
+    }
         ship2.moveDown = sf::Keyboard::isKeyPressed(PlayerTwo_Down);
+        
+            if (ship2.moveDown){
+   
+                
+           if (ship2.currentdirection = 3)
+                    
+                    ship2.rotation = 90.0f;
+             else if (ship2.currentdirection == 2)
+                    ship2.rotation = 270.0f;
+             else if (ship2.currentdirection == 0)
+                    ship2.rotation = 180.0f;
+            else{
+                ship2.rotation = 0.0f;
+            }
+                ship2.currentdirection = 1;   
+        
+        
+    }
+
     }
 
 }
@@ -204,12 +366,12 @@ void PlayState::createPowerUps(){
 
     do {
       pOfupX = (rand() % int(SCREENWIDTH)) ;
-    } while( pOfupX <SCREENWIDTH /4  && pOfupX> SCREENWIDTH *3/4 );
+    } while( pOfupX <SCREENWIDTH /4  && pOfupX> SCREENWIDTH *2/4 );
 
     int pOfupY  = 0 ;
     do {
       pOfupY = (rand() % int(SCREENHEIGHT)) ;
-    } while( pOfupY <SCREENHEIGHT/4  && pOfupY> SCREENHEIGHT *3/4 );
+    } while( pOfupY <SCREENHEIGHT/4  && pOfupY> SCREENHEIGHT *2/4 );
 
     
     if (pOfPup <= 3){

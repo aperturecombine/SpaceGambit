@@ -184,6 +184,9 @@ void Renderer::draw(sf::RenderWindow *window) {
 		//window->clear(sf::Color::);
 		window->draw(background);
 		//window->draw(shipHealth1);
+        for (int p = 0; p < ((PlayState *)state)->powerups.size(); p++) {
+			window->draw(((PlayState *)state)->powerups[p]->pSprite);
+		}
 		sf::ConvexShape triangle;
 		triangle.setPointCount(3);
 		triangle.setFillColor(sf::Color::Black);
@@ -207,19 +210,15 @@ void Renderer::draw(sf::RenderWindow *window) {
 		triangle.setPoint(2,sf::Vector2f(SCREENWIDTH*2/3, SCREENHEIGHT));
 		window->draw(triangle);
 		rocketShipObjects[0].setPosition(((PlayState *)state)->ship1.pos);
+        rocketShipObjects[0].setRotation((((PlayState *)state)->ship1.rotation));
 		window->draw(rocketShipObjects[0]);
 		if (((PlayState *)state)->twoPlayerMode) {
 			rocketShipObjects[1].setPosition(((PlayState *)state)->ship2.pos);
+            rocketShipObjects[1].setRotation(((PlayState *)state)->ship2.rotation);
 			window->draw(rocketShipObjects[1]);
 		}
 
-		for (int p = 0; p < ((PlayState *)state)->powerups.size(); p++) {
-			window->draw(((PlayState *)state)->powerups[p]->pSprite);
-		}
-		sf::Image turretbase;
-		if (!turretbase.loadFromFile("../resources/base_allgun.png")) {
-				printf("Could not load turret\n");
-		}
+
 		for (int t = 0; t < ((PlayState *)state)->turrets.size(); t++) {
 			((PlayState *)state)->turrets[t]->turretObjectbase.setPosition(((PlayState *)state)->turrets[t]->pos);
 			window->draw(((PlayState *)state)->turrets[t]->turretObjectbase);
@@ -228,8 +227,7 @@ void Renderer::draw(sf::RenderWindow *window) {
 		}
 
 		//draw bullets
-		//sf::CircleShape bulletCircle;
-		//bulletCircle.setFillColor(sf::Color::Red);
+
 
 		float bRadius = ((PlayState *)state)->bludger.radius;
 		// printf("%f\n\n\n",bRadius);
@@ -243,18 +241,14 @@ void Renderer::draw(sf::RenderWindow *window) {
 			for (int b = 0; b < ((PlayState *)state)->turrets[t]->bullets.size(); b++) {
 				//Bullet * bullet = ((PlayState *)state)->turrets[t]->bullets[b];
 
-				// sprite/texture code for bullets
-			 	//turrets[t]->bullets[b]->shape =  sf::CircleShape();
+				
 				float bRadius = ((PlayState *)state)->turrets[t]->bullets[b]->radius;
 				((PlayState *)state)->turrets[t]->bullets[b]->bulletObject.setScale(.01f*bRadius,.01f*bRadius);
 				((PlayState *)state)->turrets[t]->bullets[b]->bulletObject.setPosition(
 					((PlayState *)state)->turrets[t]->bullets[b]->pos - sf::Vector2f(.01f*bRadius, .01f*bRadius));
 				gsm->window.draw(((PlayState *)state)->turrets[t]->bullets[b]->bulletObject);
 
-				//bulletCircle.setRadius(radius);
-				//bulletCircle.setPosition(bullet->pos - sf::Vector2f(radius, radius));
-
-				//gsm->window.draw(bulletCircle);
+			
 			}
 		}
 
@@ -276,10 +270,7 @@ void Renderer::draw(sf::RenderWindow *window) {
 		window->draw(hud);
 
 
-		//Player 1 HUD
-		// bar.setFillColor(sf::Color::White);
-		// bar.setSize(sf::Vector2f(100, 50));
-		// bar.setPosition(10, 20);
+	
 
 		health.setFillColor(sf::Color::Red);
 
@@ -300,10 +291,7 @@ void Renderer::draw(sf::RenderWindow *window) {
 
 		//player 2 HUD
 		if (((PlayState *)state)->twoPlayerMode) {
-			// sf::RectangleShape bar2;
-			// bar2.setFillColor(sf::Color::White);
-			// bar2.setSize(sf::Vector2f(100, 50));
-			// bar2.setPosition(SCREENWIDTH - 500, 20);
+	
 
 			sf::RectangleShape health2;
 			health2.setFillColor(sf::Color::Red);

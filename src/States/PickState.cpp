@@ -90,7 +90,7 @@ void PickState::select(int player) {
 
     if (playerConfirmation[0] == playerConfirmation[1] && playerConfirmation[1] == 1)
     {
-		printf("SELECT!\n");
+		
 		playerConfirmation[0] = 0;
 		playerConfirmation[1] = 0;
         gsm -> numPlayer = 2;
