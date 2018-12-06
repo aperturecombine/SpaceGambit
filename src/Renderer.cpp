@@ -22,19 +22,22 @@ void Renderer::draw(sf::RenderWindow *window) {
 	if (currState == MENUSTATE) {
 		//TODO: This really only needs to be called when actually changed, but whatever
 		gsm->window.draw(background);
-		text.setCharacterSize(175);
-		text.setString("Space Gambit");
-		centerText(&text, SCREENHEIGHT * 0.1);
-		gsm->window.draw(text);
+//        text.setCharacterSize(175);
+//        text.setString("Space Gambit");
+//        centerText(&text, SCREENHEIGHT * 0.1);
+//        gsm->window.draw(text);
 
-		text.setCharacterSize(70);
+        titleImage.setPosition(SCREENWIDTH/2 - (titleImage.getGlobalBounds().width / 2), SCREENHEIGHT * 0.155 - titleImage.getGlobalBounds().height / 2);
+        gsm->window.draw(titleImage);
+        
+		text.setCharacterSize(100);
 
 		for (int i = 0; i < 3; i++) {
 			if (i == ((MenuState *)state)->currentChoice)
 				text.setString("> " + options[i] + " <");
 			else
 				text.setString(options[i]);
-			centerText(&text, SCREENHEIGHT*0.2 + i * 100);
+			centerText(&text, SCREENHEIGHT*0.35 + i * 200);
 			gsm->window.draw(text);
 		}
 	}
@@ -52,77 +55,78 @@ void Renderer::draw(sf::RenderWindow *window) {
 			case 0:
 				sp[i].setTexture(imagePower[0]);
 				sp[i].setOrigin(sp[i].getGlobalBounds().width / 2, sp[i].getGlobalBounds().height / 2);
-				strength[i].setSize(sf::Vector2f(150, 40));
-				speed[i].setSize(sf::Vector2f(150, 40));
-				defense[i].setSize(sf::Vector2f(150, 40));
+				strength[i].setSize(sf::Vector2f(150*2, 50));
+				speed[i].setSize(sf::Vector2f(150*2, 50));
+				defense[i].setSize(sf::Vector2f(150*2, 50));
 				break;
 			case 1:
 				sp[i].setTexture(imagePower[1]);
 				sp[i].setOrigin(sp[i].getGlobalBounds().width / 2, sp[i].getGlobalBounds().height / 2);
-				strength[i].setSize(sf::Vector2f(200, 40));
-				speed[i].setSize(sf::Vector2f(100, 40));
-				defense[i].setSize(sf::Vector2f(150, 40));
+				strength[i].setSize(sf::Vector2f(200*2, 50));
+				speed[i].setSize(sf::Vector2f(100*2, 50));
+				defense[i].setSize(sf::Vector2f(150*2, 50));
 				break;
 			case 2:
 				sp[i].setTexture(imagePower[2]);
 				sp[i].setOrigin(sp[i].getGlobalBounds().width / 2, sp[i].getGlobalBounds().height / 2);
-				strength[i].setSize(sf::Vector2f(100, 40));
-				speed[i].setSize(sf::Vector2f(200, 40));
-				defense[i].setSize(sf::Vector2f(150, 40));
+				strength[i].setSize(sf::Vector2f(100*2, 50));
+				speed[i].setSize(sf::Vector2f(200*2, 50));
+				defense[i].setSize(sf::Vector2f(150*2, 50));
 				break;
 			}
 		}
-		text.setCharacterSize(150);
+		text.setCharacterSize(200);
 		text.setString("Pick your Ship");
-		centerText(&text, 100);
+		centerText(&text, SCREENHEIGHT * 0.1);
 		gsm->window.draw(text);
-		text.setCharacterSize(80);
+		text.setCharacterSize(120);
 
         if (((PickState *)state)->players == 2)
         {
+            text.setCharacterSize(100);
             text.setString("Strength");
-            centerText(&text, 600);
+            centerText(&text, 800);
             gsm->window.draw(text);
 
             text.setString("Speed");
-            centerText(&text, 700);
+            centerText(&text, 900);
             gsm->window.draw(text);
 
             text.setString("Defense");
-            centerText(&text, 800);
+            centerText(&text, 1000);
             gsm->window.draw(text);
         }
         else
         {
             text.setString("Strength");
-            centerText(&text, 600);
-            text.setPosition (SCREENWIDTH/4 + text.getGlobalBounds().width/2, 600);
+            centerText(&text, 800);
+            text.setPosition (SCREENWIDTH/2 - (SCREENWIDTH/12 + text.getGlobalBounds().width/2), (800 + text.getGlobalBounds().height/2));
             gsm->window.draw(text);
 
             text.setString("Speed");
-            centerText(&text, 700);
-            text.setPosition (SCREENWIDTH/4 + text.getGlobalBounds().width/2, 700);
+            centerText(&text, 900);
+            text.setPosition (SCREENWIDTH/2 - (SCREENWIDTH/12 + text.getGlobalBounds().width/2), (900 + text.getGlobalBounds().height/2));
             gsm->window.draw(text);
 
             text.setString("Defense");
-            centerText(&text, 800);
-            text.setPosition (SCREENWIDTH/4 + text.getGlobalBounds().width/2, 800);
+            centerText(&text, 1000);
+            text.setPosition (SCREENWIDTH/2 - (SCREENWIDTH/12 + text.getGlobalBounds().width/2), (1000 + text.getGlobalBounds().height/2));
             gsm->window.draw(text);
         }
 
 		//draw status bars and ship sprite
 
         for (int i = 0; i < ((PickState *)state) ->players; i++) {
-            sp[i].setPosition(  (  (SCREENWIDTH*3/2)/(((PickState *)state)->players + 1)*(i+1)   ) - ( (SCREENWIDTH*3/2)/2 - SCREENWIDTH/2 ), 300);
+            sp[i].setPosition(  (  (SCREENWIDTH*3/2)/(((PickState *)state)->players + 1)*(i+1)   ) - ( (SCREENWIDTH*3/2)/2 - SCREENWIDTH/2 )-100, 400);
             gsm->window.draw(sp[i]);
 
-            strength[i].setPosition( (sp[i].getPosition().x), 600);
+            strength[i].setPosition( (sp[i].getPosition().x) - 75, 800);
             gsm->window.draw(strength[i]);
 
-            speed[i].setPosition(sp[i].getPosition().x, 700);
+            speed[i].setPosition(sp[i].getPosition().x - 75, 900);
             gsm->window.draw(speed[i]);
 
-            defense[i].setPosition(sp[i].getPosition().x, 800);
+            defense[i].setPosition(sp[i].getPosition().x - 75, 1000);
             gsm->window.draw(defense[i]);
         }
 
@@ -131,13 +135,13 @@ void Renderer::draw(sf::RenderWindow *window) {
                 text.setString("Selected");
             else
                 text.setString("Unselected");
-            centerText(&text, 1000);
+            centerText(&text, 1300);
             text.setPosition((sp[i].getPosition().x), text.getPosition().y);
             gsm->window.draw(text);
         }
 
 
-        text.setCharacterSize(60);
+        text.setCharacterSize(80);
         text.setString("Use the Left/Right Keys to Select Rocket");
         centerText(&text, SCREENHEIGHT - (text.getGlobalBounds().height*3) - 10);
         gsm->window.draw(text);
@@ -457,6 +461,11 @@ void Renderer::setState(int newState) {
 
 		loadFont(&font, "../resources/spaceranger.ttf");
 		loadTexture(&texture, "../resources/space_real.jpg");
+        loadTexture(&title, "../resources/Title.png");
+        titleImage.setTexture(title);
+        
+        
+        
 		background.setTexture(texture);
 		auto size = background.getTexture()->getSize();
 		background.setScale(float(SCREENWIDTH)/size.x, float(SCREENHEIGHT)/size.y);
@@ -471,8 +480,8 @@ void Renderer::setState(int newState) {
 
 		text.setFont(font);
 		text.setFillColor(sf::Color::White);
-		sp[0].setScale(0.2f, 0.2f);
-		sp[1].setScale(0.2f, 0.2f);
+		sp[0].setScale(0.3f, 0.3f);
+		sp[1].setScale(0.3f, 0.3f);
 
 		sp[1].setOrigin(sp[1].getGlobalBounds().width / 2,
 						sp[1].getGlobalBounds().height / 2);
