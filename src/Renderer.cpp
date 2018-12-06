@@ -314,6 +314,10 @@ void Renderer::draw(sf::RenderWindow *window) {
 		}
 
 		//stage counter
+
+		sf::Text stage;
+	sf::Text stageCount;
+
 		stage.setFont(font);
 		stage.setFillColor(sf::Color::White);
 		stage.setString("Stage: ");
@@ -329,6 +333,11 @@ void Renderer::draw(sf::RenderWindow *window) {
 		window->draw(stageCount);
 
 		//level Timer
+
+
+		sf::Text levelTimer;
+	sf::Text timerCount;
+	
 		levelTimer.setFont(font);
 		levelTimer.setFillColor(sf::Color::White);
 		levelTimer.setString("Timer: ");

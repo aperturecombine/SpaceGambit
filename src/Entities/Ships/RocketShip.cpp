@@ -83,7 +83,8 @@ void RocketShip::update(float deltams) {
             }
 		}
 		else
-			vel.y *= vel_powerup*DECEL;
+			// vel.y *= vel_powerup*DECEL;
+			vel.y *= DECEL;
 
 		if (moveLeft || moveRight) {
 			if (moveLeft){
@@ -98,7 +99,8 @@ void RocketShip::update(float deltams) {
             }
 		}
 		else
-			vel.x *= vel_powerup*DECEL;
+			// vel.x *= vel_powerup*DECEL;
+			vel.x *= DECEL;
 
 		if (vel.x <= -maxSpeed)	vel.x = -maxSpeed;
 		if (vel.x >= maxSpeed)	vel.x = maxSpeed;
