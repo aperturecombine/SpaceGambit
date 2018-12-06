@@ -36,7 +36,7 @@ FinishState::FinishState(class GameStateManager *g, int winners, int stages) {
 
 
     winner = winners;
-    stages = stages;
+    stage = stages;
 }
 
 void FinishState::update(float deltams) {

@@ -13,7 +13,7 @@ public:
     virtual void handleInput(sf::Event event);
 	int currentChoice;
     int winner;
-    int stages;
+    int stage;
     
 private:
     GameStateManager *gsm;
