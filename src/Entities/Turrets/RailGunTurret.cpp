@@ -19,7 +19,7 @@ RailGunTurret::RailGunTurret(sf::Vector2f p) {
     turretObject.setTexture(turretTexture);
     turretObject.setOrigin((turretObject.getTexture()->getSize().x) / 2,
                            (turretObject.getTexture()->getSize().y) / 2);
-    turretObject.setScale(.3, .3);
+    turretObject.setScale(.2, .2);
     turretObject.setPosition(p);
 }
 

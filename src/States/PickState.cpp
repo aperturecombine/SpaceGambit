@@ -16,14 +16,6 @@ PickState::PickState(class GameStateManager *g) {
     text.setFillColor(sf::Color::White);
     sp[0].setScale(0.2f,0.2f);
     sp[1].setScale(0.2f,0.2f);
-    //
-    //    std::cout << "Could not load font." << std::endl;
-    //    std::cout << "Could not load font." << std::endl;
-    //    std::cout << "Could not load font." << std::endl;
-    //    std::cout << "Could not load font." << std::endl;
-    //
-
-
 
     sp[1].setOrigin(sp[1].getGlobalBounds().width/2,
                     sp[1].getGlobalBounds().height/2);
@@ -33,8 +25,6 @@ PickState::PickState(class GameStateManager *g) {
         speed[i].setSize(sf::Vector2f(100.0f,100.0f));
         defense[i].setSize(sf::Vector2f(100.0f,100.0f));
     }
-
-
 
     gsm->window.setKeyRepeatEnabled(false);
 }
