@@ -114,9 +114,6 @@ void OptionState::select() {
                 gsm->window.setSize(sf::Vector2u(2160,2160));
                 break;
         }
-
-
-
     }
 
     if (currentChoice == 1) //Volume Selection
@@ -125,20 +122,56 @@ void OptionState::select() {
 
     if (currentChoice == 2) //Player 1 Controls
     {
-        PlayerOne_Up = sf::Keyboard::Up;
-        PlayerOne_Down = sf::Keyboard::Down;
-        PlayerOne_Left = sf::Keyboard::Left;
-        PlayerOne_Right = sf::Keyboard::Right;
+        switch (hor_CurrentChoice)
+        {
+            case 0:
+                PlayerOne_Up = sf::Keyboard::Up;
+                PlayerOne_Down = sf::Keyboard::Down;
+                PlayerOne_Left = sf::Keyboard::Left;
+                PlayerOne_Right = sf::Keyboard::Right;
+                break;
+            case 1:
+                PlayerOne_Up = sf::Keyboard::W;
+                PlayerOne_Down = sf::Keyboard::S;
+                PlayerOne_Left = sf::Keyboard::A;
+                PlayerOne_Right = sf::Keyboard::D;
+                break;
+            case 2:
+                PlayerOne_Up = sf::Keyboard::I;
+                PlayerOne_Down = sf::Keyboard::K;
+                PlayerOne_Left = sf::Keyboard::J;
+                PlayerOne_Right = sf::Keyboard::L;
+                break;
+        }
+
         std::cout <<"Player 1 Controls Changed"<< std::endl;
     }
 
     if (currentChoice == 3) //Player 2 Controls
     {
-        PlayerOne_Up = sf::Keyboard::T;
-        PlayerOne_Down = sf::Keyboard::G;
-        PlayerOne_Left = sf::Keyboard::F;
-        PlayerOne_Right = sf::Keyboard::H;
-        std::cout <<"Player 1 Controls Changed"<< std::endl;
+        switch (hor_CurrentChoice)
+        {
+            case 0:
+                PlayerOne_Up = sf::Keyboard::Up;
+                PlayerOne_Down = sf::Keyboard::Down;
+                PlayerOne_Left = sf::Keyboard::Left;
+                PlayerOne_Right = sf::Keyboard::Right;
+                break;
+            case 1:
+                PlayerOne_Up = sf::Keyboard::W;
+                PlayerOne_Down = sf::Keyboard::S;
+                PlayerOne_Left = sf::Keyboard::A;
+                PlayerOne_Right = sf::Keyboard::D;
+                break;
+            case 2:
+                PlayerOne_Up = sf::Keyboard::I;
+                PlayerOne_Down = sf::Keyboard::K;
+                PlayerOne_Left = sf::Keyboard::J;
+                PlayerOne_Right = sf::Keyboard::L;
+                break;
+        }
+        
+        std::cout <<"Player 2 Controls Changed"<< std::endl;
     }
 
     if (currentChoice == 4)

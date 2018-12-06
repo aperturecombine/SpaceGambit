@@ -58,7 +58,7 @@ private:
 								"Return to Menu" };
     
     std::string resolution[3]= {"720px by 720px", "1440px by 1440px", "2160px by 2160px"};
-    std::string keybindings[3]= {"W,A,S,D", "Up Arrow, Down Arrow, Left Arrow, Right Arrow", "2160px by 2160px"};
+    std::string keybindings[3]= {"W,A,S,D", "Up Arrow, Down Arrow, Left Arrow, Right Arrow", "I,K,J,L"};
     
     //Menu
     sf::Texture title;
