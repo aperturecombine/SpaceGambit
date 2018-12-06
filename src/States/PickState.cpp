@@ -9,7 +9,6 @@ PickState::PickState(class GameStateManager *g) {
 
     background.setPosition(0, 0);
     //auto size = background.getTexture()->getSize();
-    background.setScale(1.5f, 1.5f);
 
     loadFonts();
     text.setFont(font);
@@ -29,13 +28,10 @@ PickState::PickState(class GameStateManager *g) {
     gsm->window.setKeyRepeatEnabled(false);
 }
 
-void PickState::update(float deltams) {}
+void PickState::update(float deltams) {
+}
 
 void PickState::draw(sf::RenderWindow *window) {
-    gsm->window.draw(background);
-
-
-
 }
 
 void PickState::handleInput(sf::Event event) {

@@ -468,7 +468,7 @@ void Renderer::setState(int newState) {
 		menuMusic.play();
 
 		loadFont(&font, "../resources/spaceranger.ttf");
-		loadTexture(&texture, "../resources/LV2.JPG");
+		loadTexture(&texture, "../resources/space_real.jpg");
 		background.setTexture(texture);
 		auto size = background.getTexture()->getSize();
 		background.setScale(float(SCREENWIDTH)/size.x, float(SCREENHEIGHT)/size.y);
@@ -479,7 +479,7 @@ void Renderer::setState(int newState) {
 	else if (newState == PICKSTATE) {
 		background.setPosition(0, 0);
 		//auto size = background.getTexture()->getSize();
-		background.setScale(1.5f, 1.5f);
+//        background.setScale(1.5f, 1.5f);
 
 		text.setFont(font);
 		text.setFillColor(sf::Color::White);
@@ -561,7 +561,7 @@ void Renderer::setState(int newState) {
 
 	else if (newState == OPTIONSTATE) {
 		loadFont(&font, "../resources/spaceranger.ttf");
-		loadTexture(&texture, "../resources/LV2.JPG");
+		loadTexture(&texture, "../resources/space_real.jpg");
 		background.setTexture(texture);
 		background.setPosition(0, 0);
 		auto size = background.getTexture()->getSize();
