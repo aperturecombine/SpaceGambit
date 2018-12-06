@@ -97,11 +97,11 @@ void PlayState::update(float deltams) {
             if (nextStageCounter){
 				level++;
 
-				for (int t = 0; t < turrets.size(); t++) {
-					for (int b = 0; b < turrets[t]->bullets.size(); b++)
-						delete turrets[t]->bullets[b];
-					turrets[t]->bullets.clear();
-				}
+//                for (int t = 0; t < turrets.size(); t++) {
+//                    for (int b = 0; b < turrets[t]->bullets.size(); b++)
+//                        delete turrets[t]->bullets[b];
+//                    turrets[t]->bullets.clear();
+//                }
 				generateTurrets();
 
 				//int pOfPup = (rand() % 10) ;
@@ -597,9 +597,10 @@ void PlayState::generateTurrets() {
     int turretID;
     float x = 0;
     float y = 0;
+    resetTurrets();
     switch(level)
     {
-//        resetTurrets();
+        
         case 1 : // inner most
         {
             
@@ -655,7 +656,6 @@ void PlayState::generateTurrets() {
             
         default:
         {
-            resetTurrets();
             for (int a = 1; a < 3; a++)
             {
                 for (int b = 1; b < 3; b++)
@@ -670,17 +670,15 @@ void PlayState::generateTurrets() {
             }
             break;
         }
-            
     }
-    
-    
 }
 
 
 void PlayState::resetTurrets() {
     for (int t = 0; t < turrets.size(); t++) {
+        
         for (int b = 0; b < turrets[t]->bullets.size(); b++) {
-			delete turrets[t]->bullets[b];
+            turrets[t]->bullets.clear();
         }
 		turrets[t]->bullets.clear();
     }

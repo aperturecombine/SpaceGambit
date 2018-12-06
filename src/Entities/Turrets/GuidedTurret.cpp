@@ -2,7 +2,6 @@
 #include <math.h>
 
 GuidedTurret::GuidedTurret(sf::Vector2f p) {
-    std::cout << "In Guided Turret: Start Construction " << std::endl;
     pos = p;
     fireRate = 5;
     counter = fireRate;
