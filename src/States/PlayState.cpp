@@ -66,7 +66,8 @@ PlayState::PlayState(class GameStateManager *g, int numPlayer, int ship1type, in
     else
         ship1 = RocketShip(sf::Vector2f(SCREENWIDTH/2 ,SCREENHEIGHT/2), ship1type);
 
-    bludger = Bludger(sf::Vector2f(SCREENWIDTH/2 + 100,SCREENHEIGHT/2 + 30), sf::Vector2f(0.0,0.0));
+    // bludger = Bludger(sf::Vector2f(SCREENWIDTH/2 + 100,SCREENHEIGHT/2 + 30), sf::Vector2f(0.0,0.0));
+    bludger = Bludger(sf::Vector2f(0,0), sf::Vector2f(0.0,0.0));
     bludger.loadFont();
 
     generateTurrets();
@@ -366,7 +367,7 @@ void PlayState::checkCollisions() {
 
 
 
-    //ship collisions
+    //ship bullet collisions
     for (int t = 0; t < turrets.size(); t++) {
         for (int b = 0; b < turrets[t]->bullets.size(); b++) {
 
@@ -404,6 +405,50 @@ void PlayState::checkCollisions() {
 
         }
     }
+
+
+    if(1){
+        //bludger - ship collision
+        bool p1 = (ship1.rocketShipObject.getGlobalBounds().intersects(bludger.shape.getGlobalBounds()));
+        bool p2 = (ship2.rocketShipObject.getGlobalBounds().intersects(bludger.shape.getGlobalBounds()));
+
+        bool part2_collision;
+        bool part1_collision = p1 | b2TestOverlap(ship1.getShape(),0, bludger.getShape(), 0, b2Transform(b2Vec2(ship1.pos.x, ship1.pos.y), b2Rot(0.0f)),b2Transform(b2Vec2(bludger.pos.x, bludger.pos.y), b2Rot(0.0f)));
+        if (twoPlayerMode) {
+            bool p2 = (ship2.rocketShipObject.getGlobalBounds().intersects(bludger.shape.getGlobalBounds()));
+          part2_collision = p2 | b2TestOverlap(ship2.getShape(),0, bludger.getShape(), 0, b2Transform(b2Vec2(ship2.pos.x, ship2.pos.y), b2Rot(0.0f)),b2Transform(b2Vec2(bludger.pos.x, bludger.pos.y), b2Rot(0.0f)));
+
+        }
+
+        if (part1_collision){
+                    //printf("Ship1 got shot\n");
+                    if (ship1.currentHealth > 0)
+                        ship1.currentHealth -= bludger.damage;
+                    // bludger = Bludger(sf::Vector2f(SCREENWIDTH/2 + 100,SCREENHEIGHT/2 + 30), sf::Vector2f(0.0,0.0));
+                    bludger = Bludger(sf::Vector2f(0,0), sf::Vector2f(0.0,0.0));
+                    bludger.loadFont();
+
+                }
+                else{
+
+                }
+                if (twoPlayerMode) {
+                    if (part2_collision){
+                        if ( ship2.currentHealth > 0)
+                            ship2.currentHealth -= bludger.damage;
+
+                        // bludger = Bludger(sf::Vector2f(SCREENWIDTH/2 + 100,SCREENHEIGHT/2 + 30), sf::Vector2f(0.0,0.0));
+                        bludger = Bludger(sf::Vector2f(0,0), sf::Vector2f(0.0,0.0));
+                        bludger.loadFont();
+
+                    }
+                }
+    }
+
+
+
+
+
 
     // make sure ship does not go off bound if processor is too quick
 

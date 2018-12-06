@@ -23,6 +23,7 @@ public:
 	int radius;
     bool isAlive;
     b2CircleShape* bulletShape;
+    float damage;
 
     // PlayState *ref;
 
@@ -41,6 +42,11 @@ public:
     b2CircleShape* getShape(){
         return bulletShape;
     }
+
+
+
+    float full_time;
+    float trans_time;
 
     // virtual void update(float dt);
     // virtual void loadFont();
