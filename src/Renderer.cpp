@@ -108,9 +108,6 @@ void Renderer::draw(sf::RenderWindow *window) {
             gsm->window.draw(text);
         }
 
-
-
-
 		//draw status bars and ship sprite
 
         for (int i = 0; i < ((PickState *)state) ->players; i++) {
@@ -125,8 +122,6 @@ void Renderer::draw(sf::RenderWindow *window) {
 
             defense[i].setPosition(sp[i].getPosition().x, 800);
             gsm->window.draw(defense[i]);
-
-            //        std::cout << "x Position" << (SCREENWIDTH/(2 + players)*(i+1) << std::endl;
         }
 
         for (int i = 0; i < ((PickState *)state)->players; i++) {
@@ -186,27 +181,27 @@ void Renderer::draw(sf::RenderWindow *window) {
 		window->draw(background);
 		//window->draw(shipHealth1);
 		sf::ConvexShape triangle;
-    triangle.setPointCount(3);
-	triangle.setFillColor(sf::Color::Black);
-    triangle.setPoint(0, sf::Vector2f(0, 0));
-    triangle.setPoint(1, sf::Vector2f(0,SCREENHEIGHT/3));
-    triangle.setPoint(2,sf::Vector2f(SCREENWIDTH/3, 0));
-    window->draw(triangle);
+		triangle.setPointCount(3);
+		triangle.setFillColor(sf::Color::Black);
+		triangle.setPoint(0, sf::Vector2f(0, 0));
+		triangle.setPoint(1, sf::Vector2f(0,SCREENHEIGHT/3));
+		triangle.setPoint(2,sf::Vector2f(SCREENWIDTH/3, 0));
+		window->draw(triangle);
 
-    triangle.setPoint(0,sf::Vector2f(0,2*SCREENHEIGHT/3));
-    triangle.setPoint(1,sf::Vector2f(0,SCREENHEIGHT));
-    triangle.setPoint(2,sf::Vector2f(SCREENWIDTH/3, SCREENHEIGHT));
-    window->draw(triangle);
+		triangle.setPoint(0,sf::Vector2f(0,2*SCREENHEIGHT/3));
+		triangle.setPoint(1,sf::Vector2f(0,SCREENHEIGHT));
+		triangle.setPoint(2,sf::Vector2f(SCREENWIDTH/3, SCREENHEIGHT));
+		window->draw(triangle);
 
-    triangle.setPoint(0,sf::Vector2f(SCREENWIDTH*2/3, 0));
-    triangle.setPoint(1,sf::Vector2f(SCREENWIDTH,0));
-    triangle.setPoint(2,sf::Vector2f(SCREENWIDTH, SCREENHEIGHT/3));
-    window->draw(triangle);
+		triangle.setPoint(0,sf::Vector2f(SCREENWIDTH*2/3, 0));
+		triangle.setPoint(1,sf::Vector2f(SCREENWIDTH,0));
+		triangle.setPoint(2,sf::Vector2f(SCREENWIDTH, SCREENHEIGHT/3));
+		window->draw(triangle);
 
-    triangle.setPoint(0,sf::Vector2f(SCREENWIDTH, SCREENHEIGHT*2/3));
-    triangle.setPoint(1,sf::Vector2f(SCREENWIDTH,SCREENHEIGHT));
-    triangle.setPoint(2,sf::Vector2f(SCREENWIDTH*2/3, SCREENHEIGHT));
-    window->draw(triangle);
+		triangle.setPoint(0,sf::Vector2f(SCREENWIDTH, SCREENHEIGHT*2/3));
+		triangle.setPoint(1,sf::Vector2f(SCREENWIDTH,SCREENHEIGHT));
+		triangle.setPoint(2,sf::Vector2f(SCREENWIDTH*2/3, SCREENHEIGHT));
+		window->draw(triangle);
 		rocketShipObjects[0].setPosition(((PlayState *)state)->ship1.pos);
 		window->draw(rocketShipObjects[0]);
 		if (((PlayState *)state)->twoPlayerMode) {
@@ -222,9 +217,6 @@ void Renderer::draw(sf::RenderWindow *window) {
 				printf("Could not load turret\n");
 		}
 		for (int t = 0; t < ((PlayState *)state)->turrets.size(); t++) {
-
-
-
 			((PlayState *)state)->turrets[t]->turretObjectbase.setPosition(((PlayState *)state)->turrets[t]->pos);
 			window->draw(((PlayState *)state)->turrets[t]->turretObjectbase);
 			((PlayState *)state)->turrets[t]->turretObject.setPosition(((PlayState *)state)->turrets[t]->pos);
@@ -504,7 +496,6 @@ void Renderer::setState(int newState) {
 	}
 
 	else if (newState == PLAYSTATE) {
-
 		menuMusic.stop();
 		pauseMusic.stop();
 		playMusic.setVolume(volume);
@@ -515,14 +506,15 @@ void Renderer::setState(int newState) {
 		printf("newState PLAYSTATE: %d %d\n", shipTypes[0], shipTypes[1]);
 		for (int i = 0; i < 2; i++) {
 			switch (shipTypes[i]) {
+				printf("SHIPS %i %i\n", shipTypes[0], shipTypes[1]);
 				case 0:
-					loadTexture(&rocketShipTextures[i], "resources/SHIP_SPEED.png");
+					loadTexture(&rocketShipTextures[i], "resources/SHIP_ATTACK.png");
 					break;
 				case 1:
 					loadTexture(&rocketShipTextures[i], "resources/SHIP_DEFENSE.png");
 					break;
 				case 2:
-					loadTexture(&rocketShipTextures[i], "resources/SHIP_ATTACK.png");
+					loadTexture(&rocketShipTextures[i], "resources/SHIP_SPEED.png");
 					break;
 			}
 		}
@@ -531,9 +523,6 @@ void Renderer::setState(int newState) {
 		background.setTexture(texture);
 		auto size = background.getTexture()->getSize();
 		background.setScale(float(SCREENWIDTH)/size.x, float(SCREENHEIGHT)/size.y);
-
-		//background.setPosition(0, 0);
-		//background.setScale(0.7f, 0.5f);
 
 		for (int i = 0; i < 2; i++) {
 			rocketShipObjects[i].setTexture(rocketShipTextures[i]);
@@ -554,9 +543,6 @@ void Renderer::setState(int newState) {
 		pauseState.setFillColor(color);
 		pauseState.setPosition(0, 0);
 		pauseState.setSize(sf::Vector2f(SCREENWIDTH, SCREENHEIGHT));
-
-
-
 	}
 
 	else if (newState == OPTIONSTATE) {
