@@ -14,7 +14,7 @@ GlueGunTurret::GlueGunTurret(sf::Vector2f p) {
     linger = 2;
     attachShape();
 
-    if (!turretImage.loadFromFile("resources/ggun_normal.png")) {
+    if (!turretImage.loadFromFile("../resources/ggun_normal.png")) {
         printf("Could not load turret\n");
     }
     loadbase(p);

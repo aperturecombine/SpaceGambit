@@ -14,13 +14,13 @@ FinishState::FinishState(class GameStateManager *g, int winners) {
     currentChoice = 0;
 	stateID = FINISHSTATE;
 
-    if (!font.loadFromFile("resources/spaceranger.ttf"))
+    if (!font.loadFromFile("../resources/spaceranger.ttf"))
     {
         std::cout << "Could not load font." << std::endl;
 
     }
 
-    if(!texture.loadFromFile("resources/good_game.jpg"))
+    if(!texture.loadFromFile("../resources/good_game.jpg"))
     {
     }
     //texture.loadFromImage(image);

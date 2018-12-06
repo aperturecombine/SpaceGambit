@@ -10,7 +10,7 @@ RailGunTurret::RailGunTurret(sf::Vector2f p) {
     withinfiringRange = false;
     attachShape();
     loadbase(p);
-    if (!turretImage.loadFromFile("resources/rail_normal.png")) {
+    if (!turretImage.loadFromFile("../resources/rail_normal.png")) {
         printf("Could not load turret\n");
     }
 

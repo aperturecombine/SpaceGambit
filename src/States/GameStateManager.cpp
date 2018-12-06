@@ -86,7 +86,6 @@ void GameStateManager::popState() {
 
 void GameStateManager::returnToMenu() {
 	while (states.size() > 1) {
-		printf("poppers\n");
 		popState();
 	}
 }

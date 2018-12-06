@@ -10,7 +10,7 @@ BoomerangTurret::BoomerangTurret(sf::Vector2f p) {
     withinfiringRange = false;
     attachShape();
 
-    if (!turretImage.loadFromFile("resources/bgun_normal.png")) {
+    if (!turretImage.loadFromFile("../resources/bgun_normal.png")) {
         printf("Could not load turret");
     }
     loadbase(p);
