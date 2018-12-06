@@ -463,8 +463,8 @@ void Renderer::setState(int newState) {
 		menuMusic.setVolume(volume);
 		menuMusic.play();
 
-		loadFont(&font, "resources/spaceranger.ttf");
-		loadTexture(&texture, "resources/LV2.JPG");
+		loadFont(&font, "../resources/spaceranger.ttf");
+		loadTexture(&texture, "../resources/LV2.JPG");
 		background.setTexture(texture);
 		auto size = background.getTexture()->getSize();
 		background.setScale(float(SCREENWIDTH)/size.x, float(SCREENHEIGHT)/size.y);
@@ -491,13 +491,13 @@ void Renderer::setState(int newState) {
 			defense[i].setSize(sf::Vector2f(100.0f, 100.0f));
 		}
 
-		loadFont(&font, "resources/spaceranger.ttf");
-		loadTexture(&backgroundTexture, "resources/space_real.jpg");
+		loadFont(&font, "../resources/spaceranger.ttf");
+		loadTexture(&backgroundTexture, "../resources/space_real.jpg");
 		background.setTexture(backgroundTexture);
 
-		loadTexture(&imagePower[0], "resources/SHIP_ATTACK.png");
-		loadTexture(&imagePower[1], "resources/SHIP_DEFENSE.png");
-		loadTexture(&imagePower[2], "resources/SHIP_SPEED.png");
+		loadTexture(&imagePower[0], "../resources/SHIP_ATTACK.png");
+		loadTexture(&imagePower[1], "../resources/SHIP_DEFENSE.png");
+		loadTexture(&imagePower[2], "../resources/SHIP_SPEED.png");
 
 		for (int i = 0; i < 2; i++) {
 			strength[i].setFillColor(sf::Color::Red);
@@ -512,20 +512,20 @@ void Renderer::setState(int newState) {
 		playMusic.setVolume(volume);
 		playMusic.play();
 
-		loadImage(&image, "resources/LV1.JPG");
+		loadImage(&image, "../resources/LV1.JPG");
 
 		printf("newState PLAYSTATE: %d %d\n", shipTypes[0], shipTypes[1]);
 		for (int i = 0; i < 2; i++) {
 			switch (shipTypes[i]) {
 				printf("SHIPS %i %i\n", shipTypes[0], shipTypes[1]);
 				case 0:
-					loadTexture(&rocketShipTextures[i], "resources/SHIP_ATTACK.png");
+					loadTexture(&rocketShipTextures[i], "../resources/SHIP_ATTACK.png");
 					break;
 				case 1:
-					loadTexture(&rocketShipTextures[i], "resources/SHIP_DEFENSE.png");
+					loadTexture(&rocketShipTextures[i], "../resources/SHIP_DEFENSE.png");
 					break;
 				case 2:
-					loadTexture(&rocketShipTextures[i], "resources/SHIP_SPEED.png");
+					loadTexture(&rocketShipTextures[i], "../resources/SHIP_SPEED.png");
 					break;
 			}
 		}
@@ -544,7 +544,7 @@ void Renderer::setState(int newState) {
 		}
 
 		// load pause fonts
-		loadTexture(&pauseTexture, "resources/pause.png");
+		loadTexture(&pauseTexture, "../resources/pause.png");
 		pauseSprite.setTexture(pauseTexture);
 
 		pauseSprite.setScale(0.3f, 0.3f);
@@ -557,8 +557,8 @@ void Renderer::setState(int newState) {
 	}
 
 	else if (newState == OPTIONSTATE) {
-		loadFont(&font, "resources/spaceranger.ttf");
-		loadTexture(&texture, "resources/LV2.JPG");
+		loadFont(&font, "../resources/spaceranger.ttf");
+		loadTexture(&texture, "../resources/LV2.JPG");
 		background.setTexture(texture);
 		background.setPosition(0, 0);
 		auto size = background.getTexture()->getSize();
@@ -571,8 +571,8 @@ void Renderer::setState(int newState) {
 		pauseMusic.setVolume(volume);
 		pauseMusic.play();
 
-		loadFont(&font, "resources/spaceranger.ttf");
-		loadTexture(&texture, "resources/LV1.JPG");
+		loadFont(&font, "../resources/spaceranger.ttf");
+		loadTexture(&texture, "../resources/LV1.JPG");
 		//texture.loadFromImage(image);
 		background.setTexture(texture);
 		auto size = background.getTexture()->getSize();
@@ -591,7 +591,7 @@ void Renderer::centerText(sf::Text *text, int y) {
 }
 
 /*void Renderer::loadPauseFonts() {
-	loadTexture(&pauseTexture, "resources/pause.png");
+	loadTexture(&pauseTexture, "../resources/pause.png");
 	pauseSprite.setTexture(pauseTexture);
 	pauseSprite.setScale(0.3f, 0.3f);
 	pauseSprite.setPosition(SCREENHEIGHT / 2 - pauseSprite.getGlobalBounds().width / 2, SCREENWIDTH / 2);

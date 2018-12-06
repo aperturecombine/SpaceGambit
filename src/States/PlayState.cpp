@@ -42,7 +42,7 @@ PlayState::PlayState(class GameStateManager *g, int numPlayer, int ship1type, in
     else
         twoPlayerMode = false;
 
-    if(!texture.loadFromFile("resources/bg.png")) {
+    if(!texture.loadFromFile("../resources/bg.png")) {
         printf("playstate space_background load error\n");
     }
 
@@ -775,7 +775,7 @@ void PlayState::turretSelect(int turretID, sf::Vector2f p) {
 
 
 void PlayState::loadPauseFonts(){
-    if(!pauseTexture.loadFromFile("resources/pause.png")){
+    if(!pauseTexture.loadFromFile("../resources/pause.png")){
         printf("PauseTexture  not loading\n"); 
     }
 
