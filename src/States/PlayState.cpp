@@ -66,7 +66,8 @@ PlayState::PlayState(class GameStateManager *g, int numPlayer, int ship1type, in
     else
         ship1 = RocketShip(sf::Vector2f(SCREENWIDTH/2 ,SCREENHEIGHT/2), ship1type);
 
-    bludger = Bludger(sf::Vector2f(SCREENWIDTH/2 + 100,SCREENHEIGHT/2), sf::Vector2f(0.0,0.0), this);
+    bludger = Bludger(sf::Vector2f(SCREENWIDTH/2 + 100,SCREENHEIGHT/2 + 30), sf::Vector2f(0.0,0.0));
+    bludger.loadFont();
 
     generateTurrets();
     loadPauseFonts();
@@ -123,7 +124,7 @@ void PlayState::update(float deltams) {
             ship2.update(deltams);
         }
 
-        bludger.update(deltams)
+        bludger.update(deltams, ship1.pos, ship2.pos, twoPlayerMode);
 
         for (int t = 0; t < turrets.size(); t++)
             turrets[t]->update(deltams);
