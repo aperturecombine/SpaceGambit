@@ -225,13 +225,13 @@ void PlayState::handleInput(sf::Event event) {
     if (ship1.moveUp)
     {
         
-           if (ship1.currentdirection = 3){
+           if (ship1.currentdirection == 3){
         
                     ship1.rotation = 270.0f;
                 }
-               else if (ship1.currentdirection = 1)
+               else if (ship1.currentdirection == 1)
                     ship1.rotation = 180.0f;
-               else if (ship1.currentdirection = 2)
+               else if (ship1.currentdirection == 2)
                     ship1.rotation = 90.0f;
                else{ 
                    ship1.rotation = 0.0f;
@@ -248,7 +248,7 @@ void PlayState::handleInput(sf::Event event) {
     if (ship1.moveDown){
    
                 
-           if (ship1.currentdirection = 3)
+           if (ship1.currentdirection == 3)
                     
                     ship1.rotation = 90.0f;
              else if (ship1.currentdirection == 2)
@@ -310,13 +310,13 @@ void PlayState::handleInput(sf::Event event) {
 if (ship2.moveUp)
     {
         
-           if (ship2.currentdirection = 3){
+           if (ship2.currentdirection == 3){
         
                     ship2.rotation = 270.0f;
                 }
-               else if (ship2.currentdirection = 1)
+               else if (ship2.currentdirection == 1)
                     ship2.rotation = 180.0f;
-               else if (ship2.currentdirection = 2)
+               else if (ship2.currentdirection == 2)
                     ship2.rotation = 90.0f;
                else{ 
                    ship2.rotation = 0.0f;
@@ -334,7 +334,7 @@ if (ship2.moveUp)
             if (ship2.moveDown){
    
                 
-           if (ship2.currentdirection = 3)
+           if (ship2.currentdirection == 3)
                     
                     ship2.rotation = 90.0f;
              else if (ship2.currentdirection == 2)
@@ -389,6 +389,9 @@ void PlayState::createPowerUps(){
 
     }
 
+    speed *Speed = new speed(sf::Vector2f(pOfupX,pOfupY));
+        powerups.push_back(Speed);
+
 }
 
 void PlayState::checkCollisions() {
@@ -402,7 +405,7 @@ void PlayState::checkCollisions() {
                    std::cout << ship1.currentHealth  << std::endl;
                     break;
                 case 2:
-                    ship1.vel_powerup = 5;
+                    ship1.vel_powerup += 1;
                     printf("speed boosted\n");
 
                     break;
