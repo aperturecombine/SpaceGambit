@@ -87,13 +87,13 @@ private:
 	sf::RectangleShape bar2;
 	sf::RectangleShape health2;
 	sf::Text text2;
-	sf::Text stage;
-	sf::Text stageCount;
+	// sf::Text stage;
+	// sf::Text stageCount;
 	sf::Text timer;
 	sf::Text levelCount;
 	sf::Text levelNumber;
-	sf::Text levelTimer;
-	sf::Text timerCount;
+	// sf::Text levelTimer;
+	// sf::Text timerCount;
 	sf::Texture rocketShipTextures[2];
 	sf::Image rocketShipImages[2];
 	sf::Sprite rocketShipObjects[2];
