@@ -132,6 +132,7 @@ void PlayState::update(float deltams) {
 
 
         if (ship1.currentHealth <= 0 && (!twoPlayerMode) ){
+          gsm->stages = level;
           gsm->pushState(FINISHSTATE);
         }
         //else if (ship1.health <= 0 && (twoPlayerMode))

@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include "../include/Renderer.h"
+#include <iostream>
+#include <sstream>
 
 Renderer::Renderer(GameStateManager * g) {
 	gsm = g;
@@ -403,7 +405,10 @@ void Renderer::draw(sf::RenderWindow *window) {
 		text.setFillColor(sf::Color::White);
 		text.setCharacterSize(150);
 		if (((FinishState *)state)->winner == 0){
- 			text.setString("No!  You Died!");
+			std::ostringstream os;
+  			os << "No! You Died!\nYou Survived " << ((FinishState *)state)->stages << " Stages.";
+			std::string message = os.str();
+ 			text.setString(message);
  		}
 
  		else if (((FinishState *)state)->winner == 1) {

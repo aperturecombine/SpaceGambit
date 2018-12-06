@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include "../../include/States/FinishState.h"
 
-FinishState::FinishState(class GameStateManager *g, int winners) {
+FinishState::FinishState(class GameStateManager *g, int winners, int stages) {
     gsm = g;
     currentChoice = 0;
 	stateID = FINISHSTATE;
@@ -36,6 +36,7 @@ FinishState::FinishState(class GameStateManager *g, int winners) {
 
 
     winner = winners;
+    stages = stages;
 }
 
 void FinishState::update(float deltams) {

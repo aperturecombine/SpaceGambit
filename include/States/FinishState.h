@@ -7,12 +7,13 @@
 
 class FinishState : public GameState {
 public:
-    FinishState(class GameStateManager *gsm, int winners);
+    FinishState(class GameStateManager *gsm, int winners, int stage);
     virtual void update(float deltams);
     virtual void draw(sf::RenderWindow *window);
     virtual void handleInput(sf::Event event);
 	int currentChoice;
     int winner;
+    int stages;
     
 private:
     GameStateManager *gsm;

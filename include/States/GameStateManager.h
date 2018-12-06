@@ -36,6 +36,7 @@ public:
 
 	sf::RenderWindow window;
 	int winners;
+	int stages;
 
 	bool running;
 

@@ -18,6 +18,7 @@ GameStateManager::GameStateManager() {
     pushState(MENUSTATE);
     running = true;
     winners = 0;
+    stages = 0;
 }
 
 void GameStateManager::start() {
@@ -62,7 +63,7 @@ void GameStateManager::pushState(int newState) {
 		}
 		break;
         case FINISHSTATE:
-            states.push(new FinishState(this, winners));
+            states.push(new FinishState(this, winners, stages));
             break;
         case OPTIONSTATE:
             states.push(new OptionState(this));
