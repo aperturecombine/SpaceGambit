@@ -6,7 +6,7 @@ MachineGunTurret::MachineGunTurret(sf::Vector2f p) {
     fireRate = .45;
     counter = fireRate;
     firingRange = (SCREENHEIGHT/4);
-	damage = 5;
+	damage = 3;
     withinfiringRange = false;
     attachShape();
     loadbase(p);

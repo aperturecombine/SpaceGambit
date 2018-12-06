@@ -1,4 +1,3 @@
-
 #include "../../../include/Entities/Turrets/GuidedTurret.h"
 #include <math.h>
 
@@ -7,7 +6,7 @@ GuidedTurret::GuidedTurret(sf::Vector2f p) {
     fireRate = 5;
     counter = fireRate;
     firingRange = (SCREENHEIGHT/4);
-	damage = 5;
+	damage = 8;
     withinfiringRange = false;
     attachShape();
     loadbase(p);
