@@ -498,8 +498,8 @@ void PlayState::createPowerUps(){
 
     }
 
-    speed *Speed = new speed(sf::Vector2f(pOfupX,pOfupY));
-        powerups.push_back(Speed);
+    // speed *Speed = new speed(sf::Vector2f(pOfupX,pOfupY));
+    //     powerups.push_back(Speed);
 
 }
 
