@@ -94,8 +94,6 @@ void RocketShip::update(float deltams) {
 
 
 	rocketShipObject.setPosition(pos);
-    rocketShipObject.setRotation(atan(vel.y/vel.x)*180/M_PI);
-    if (vel.x > 0) {rocketShipObject.rotate(180.f);}
     pos += vel * deltams;
     
 }
@@ -131,7 +129,7 @@ void RocketShip::bounce(sf::Vector2f collision_point, float bounce_factor){
 
 
 	float x_check = pos.x - collision_point.x;
-	float y_check = pos.y - coll../ision_point.y;
+	float y_check = pos.y - collision_point.y;
 
 	// std::cout << x_check << std::endl;
 	// std::cout << y_check << std::endl << std::endl;
