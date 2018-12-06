@@ -18,7 +18,7 @@ RicochetTurret::RicochetTurret(sf::Vector2f p) {
     turretTexture.loadFromImage(turretImage);
     turretTexture.setSmooth(true);
     turretObject.setTexture(turretTexture);
-    turretObject.setScale(.3, .3);
+    turretObject.setScale(.2, .2);
     turretObject.setOrigin(turretTexture.getSize().x/2, turretTexture.getSize().y/2);
     turretObject.setPosition(p);
 }
