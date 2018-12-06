@@ -106,11 +106,13 @@ void RocketShip::attachShape(){
     //shipShape -> m_radius = 50.0f;
 
     // create new triangle Body
-    b2Vec2 vertices1[3];//PolygonA
+    b2Vec2 vertices1[5];//PolygonA
     vertices1[0].Set(0,0);
-    vertices1[1].Set(15,20);
-    vertices1[2].Set(30,0);
-    int count1= 3;
+    vertices1[1].Set(0,8);
+    vertices1[2].Set(15,20);
+    vertices1[3].Set(30,8);
+    vertices1[4].Set(30,0);
+    int count1= 5;
     shipShape= new b2PolygonShape();
     shipShape -> Set(vertices1, count1);
     shipShape -> m_radius = 30.0f;
