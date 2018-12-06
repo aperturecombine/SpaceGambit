@@ -177,6 +177,8 @@ void Renderer::draw(sf::RenderWindow *window) {
 		}
 		else{
 
+		
+
 		//window->clear(sf::Color::);
 		window->draw(background);
 		//window->draw(shipHealth1);
@@ -227,6 +229,13 @@ void Renderer::draw(sf::RenderWindow *window) {
 		//sf::CircleShape bulletCircle;
 		//bulletCircle.setFillColor(sf::Color::Red);
 
+		float bRadius = ((PlayState *)state)->bludger.radius;
+		// printf("%f\n\n\n",bRadius);
+		((PlayState *)state)->bludger.bulletObject.setScale(.01f*bRadius,.01f*bRadius);
+		((PlayState *)state)->bludger.bulletObject.setPosition(
+					((PlayState *)state)->bludger.pos - sf::Vector2f(.01f*bRadius, .01f*bRadius));
+		gsm->window.draw(((PlayState *)state)->bludger.bulletObject);
+
 		for (int t = 0; t < ((PlayState *)state)->turrets.size(); t++) {
 
 			for (int b = 0; b < ((PlayState *)state)->turrets[t]->bullets.size(); b++) {
@@ -246,6 +255,8 @@ void Renderer::draw(sf::RenderWindow *window) {
 				//gsm->window.draw(bulletCircle);
 			}
 		}
+
+		
 
 		//HUD; later to be refactored into render class
 		// position HUD frame

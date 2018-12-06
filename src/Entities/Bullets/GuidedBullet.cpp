@@ -12,8 +12,10 @@ GuidedBullet::GuidedBullet(sf::Vector2f p, sf::Vector2f v, PlayState *refe) {
 }
 
 void GuidedBullet::update(float dt) {
+    printf("Start Guided Update");
     sf::Vector2f ship1_init = (ref->ship1.pos - pos);
     float ship1_dist = pow((ship1_init.x*ship1_init.x + ship1_init.y*ship1_init.y),0.5);
+
 
     if(ref->twoPlayerMode)
     {
@@ -42,9 +44,11 @@ void GuidedBullet::update(float dt) {
             vel = sf::Vector2f(ship1_init.x / ship1_dist, ship1_init.y / ship1_dist);
     }
 
+
     bulletObject.setRotation(360.f + atan(vel.y/vel.x)*180/M_PI);
     if (vel.x > 0) {bulletObject.rotate(180.f);}
     pos += vel * speed * dt;
+    printf("End Guided Update");
 
 }
 
