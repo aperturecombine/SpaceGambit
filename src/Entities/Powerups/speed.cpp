@@ -5,7 +5,7 @@
 speed::speed(sf::Vector2f p) {
 	pos = p;
 	radius = 5;
-  if (!pTexture.loadFromFile("resources/speed.png")){
+  if (!pTexture.loadFromFile("../resources/speed.png")){
     printf("Health Sprite Not Loaded");
   }
   pSprite.setTexture(pTexture);
