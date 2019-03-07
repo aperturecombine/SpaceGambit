@@ -1,3 +1,4 @@
+#include <string.h>
 #include <iostream>
 #include <stdlib.h>
 #include "../../include/States/MenuState.h"
@@ -20,6 +21,7 @@ MenuState::MenuState(class GameStateManager *g) {
     background.setPosition(0, 0);
     auto size = background.getTexture()->getSize();
     background.setScale(float(SCREENWIDTH)/size.x, float(SCREENHEIGHT)/size.y);
+    
 
     text.setFont(font);
     text.setFillColor(sf::Color::White);
